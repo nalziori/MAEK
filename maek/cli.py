@@ -44,8 +44,7 @@ def _strategy(args) -> int:
 
     cfg = params.load_config(args.config)
     params.validate(cfg)
-    cmp_df = strategy.compare(cfg, args.seed, args.runs, args.total_km)
-    sens = strategy.sensitivity(cfg, args.seed, args.runs, args.total_km)
+    cmp_df, sens = strategy.compare_and_sensitivity(cfg, args.seed, args.runs, args.total_km)
     out = Path(args.out) / "strategy"
     out.mkdir(parents=True, exist_ok=True)
     cmp_df.to_csv(out / "compare.csv", index=False, encoding="utf-8")

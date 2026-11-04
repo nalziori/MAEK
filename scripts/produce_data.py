@@ -85,10 +85,9 @@ def main() -> int:
 
     st_dir = out / "strategy"
     st_dir.mkdir(parents=True, exist_ok=True)
-    comp = strategy.compare(cfg, a.seed, a.strategy_runs)
+    comp, sens = strategy.compare_and_sensitivity(cfg, a.seed, a.strategy_runs)
     comp.to_csv(st_dir / "compare.csv", index=False)
-    strategy.sensitivity(cfg, a.seed, max(3, a.strategy_runs // 4)).to_csv(
-        st_dir / "sensitivity.csv", index=False)
+    sens.to_csv(st_dir / "sensitivity.csv", index=False)
 
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], check=False, cwd=ROOT,
                             capture_output=True, text=True).stdout.strip()
