@@ -40,6 +40,6 @@ def test_cli_params_table():
 
 
 def test_cli_stub_exits_2():
-    r = subprocess.run([sys.executable, "-m", "maek", "ut"], cwd=ROOT, check=False,
+    r = subprocess.run([sys.executable, "-m", "maek", "strategy"], cwd=ROOT, check=False,
                        capture_output=True, text=True)
     assert r.returncode == 2

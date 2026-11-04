@@ -8,7 +8,7 @@ from pathlib import Path
 
 from maek import params
 
-STUBS = ["ut", "camera-jobs", "render2d", "strategy"]
+STUBS = ["camera-jobs", "render2d", "strategy"]
 
 
 def _params_table(args) -> int:
@@ -23,6 +23,19 @@ def _params_table(args) -> int:
     return 0
 
 
+def _ut(args) -> int:
+    from maek import ut
+
+    cfg = params.load_config(args.config)
+    params.validate(cfg)
+    straight, angle, labels = ut.make_dataset(cfg, args.n, args.seed, args.condition)
+    ut.save_dataset(args.out, straight, angle, labels)
+    m = ut.baseline(cfg, straight, angle, labels)
+    print(f"ut: n={args.n} condition={args.condition} seed={args.seed} -> {args.out}")
+    print(f"  thickness MAE      {m['thickness_mae_mm']:.3f} mm")
+    print(f"  min-thickness MAE  {m['min_thickness_mae_mm']:.3f} mm")
+    print(f"  crack detection    {m['crack_detection_rate']:.3f}")
+    print(f"  false alarms       {m['false_alarm_rate']:.3f}")
 def _network(args) -> int:
     from maek import network
 
@@ -50,6 +63,10 @@ def build_parser() -> argparse.ArgumentParser:
     pt = sub.add_parser("params-table", parents=[common], help="print parameter table")
     pt.add_argument("--write", action="store_true", help="write docs/params.md")
     pt.set_defaults(func=_params_table)
+    u = sub.add_parser("ut", parents=[common], help="UT A-scan dataset + baseline")
+    u.add_argument("--n", type=int, default=2000)
+    u.add_argument("--condition", choices=["train", "shifted"], default="train")
+    u.set_defaults(func=_ut)
     nw = sub.add_parser("network", parents=[common], help="generate pipe network + defects")
     nw.add_argument("--total-km", type=float, default=None, help="override network.total_km")
     nw.set_defaults(func=_network)
