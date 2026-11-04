@@ -169,7 +169,20 @@
 | `strategy.probe_footprint_m` | 0.3 | m | 가정 |
 | `strategy.walk_km_per_h` | 1.0 | km/h | 가정 |
 | `strategy.drone_km_per_h` | 5.0 | km/h | 가정 |
-| `strategy.ut_hours_per_point` | 0.5 | h | 가정 |
+| `strategy.ut_manual_min_per_point` | 30 | min | 가정 |
+| `strategy.ut_drone_min_per_point` | 45 | min | 가정 |
+| `strategy.drone_setup_h_per_batch` | 0.5 | h | 가정 |
+| `strategy.drone_batch_segments` | 10 |  | 가정 |
+| `strategy.video_review_min_per_km` | 30 | min/km | 가정 |
+| `strategy.ai_verify_min_per_flag` | 5 | min | 가정 |
+| `strategy.cost_ai_processing_per_km_krw` | 20000 | KRW/km | 가정 |
+| `strategy.crews` | 4 |  | 가정 |
+| `strategy.drones` | 2 |  | 가정 |
+| `strategy.reviewers` | 2 |  | 가정 |
+| `strategy.work_hours_per_day` | 8 | h | 가정 |
+| `strategy.pit_scan_budget_frac` | 0.15 |  | 가정 |
+| `strategy.pit_scan_k` | 5 |  | 가정 |
+| `strategy.pit_scan_footprint_m` | 5.0 | m | 가정 |
 | `strategy.scaffold_hours` | 8 | h | 가정 |
 | `strategy.camera_false_flag_prob` | 0.03 |  | 가정 |
 | `strategy.high_consequence_min` | 4 |  | 가정 |
@@ -181,12 +194,22 @@
 | `strategy.human_elevated_factor` | 0.4 |  | 가정 |
 | `strategy.pod.human.b0` | -2.0 |  | 가정 |
 | `strategy.pod.human.b1` | 1.2 |  | 가정 |
+| `strategy.pod.human_video.b0` | -2.5 |  | 가정 |
+| `strategy.pod.human_video.b1` | 1.2 |  | 가정 |
 | `strategy.pod.camera.b0` | -1.0 |  | 가정 |
 | `strategy.pod.camera.b1` | 1.2 |  | 가정 |
 | `strategy.pod.ut_straight.b0` | 0.5 |  | 가정 |
 | `strategy.pod.ut_straight.b1` | 2.5 |  | 가정 |
 | `strategy.pod.ut_angle.b0` | 0.0 |  | 가정 |
 | `strategy.pod.ut_angle.b1` | 2.5 |  | 가정 |
+| `strategy.pod.ut_straight_drone.b0` | 0.2 |  | 가정 |
+| `strategy.pod.ut_straight_drone.b1` | 2.5 |  | 가정 |
+| `strategy.pod.ut_angle_drone.b0` | -0.5 |  | 가정 |
+| `strategy.pod.ut_angle_drone.b1` | 2.5 |  | 가정 |
+| `strategy.pod.ut_pit_manual.b0` | 0.0 |  | 가정 |
+| `strategy.pod.ut_pit_manual.b1` | 2.5 |  | 가정 |
+| `strategy.pod.ut_pit_drone.b0` | -0.5 |  | 가정 |
+| `strategy.pod.ut_pit_drone.b1` | 2.5 |  | 가정 |
 | `onboard.target_fps` | 5 | fps | 가정 |
 | `onboard.memory_limit_gb` | 2 | GB | 가정 |
 | `onboard.bench_image_sizes` | [640, 320] | px | 가정 |
