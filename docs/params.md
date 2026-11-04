@@ -233,10 +233,10 @@
 | `strategy.pod.ut_straight_drone.b1` | 2.5 |  | 가정 |
 | `strategy.pod.ut_angle_drone.b0` | -0.5 |  | 가정 |
 | `strategy.pod.ut_angle_drone.b1` | 2.5 |  | 가정 |
-| `strategy.pod.ut_pit_manual.b0` | 0.0 |  | 가정 |
-| `strategy.pod.ut_pit_manual.b1` | 2.5 |  | 가정 |
-| `strategy.pod.ut_pit_drone.b0` | -0.5 |  | 가정 |
-| `strategy.pod.ut_pit_drone.b1` | 2.5 |  | 가정 |
+| `strategy.pod.ut_pit_manual.b0` | 6.27 |  | 가정 |
+| `strategy.pod.ut_pit_manual.b1` | 0.87 |  | 가정 |
+| `strategy.pod.ut_pit_drone.b0` | 2.07 |  | 가정 |
+| `strategy.pod.ut_pit_drone.b1` | 0.0 |  | 가정 |
 | `onboard.target_fps` | 5 | fps | 가정 |
 | `onboard.memory_limit_gb` | 2 | GB | 가정 |
 | `onboard.bench_image_sizes` | [640, 320] | px | 가정 |

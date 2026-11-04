@@ -267,11 +267,11 @@ strategy:
       b0: {value: -0.5, assumption: true, note: "드론 접촉 사각 UT POD 절편, a=균열 깊이 mm"}
       b1: {value: 2.5, assumption: true}
     ut_pit_manual:
-      b0: {value: 0.0, assumption: true, note: "사람 직진 UT의 내부 피팅 POD 절편, a=피트 깊이 mm (국부적이라 균일 감육보다 어렵다고 가정, UT 평가 후 재보정)"}
-      b1: {value: 2.5, assumption: true}
+      b0: {value: 6.27, assumption: true, note: "사람 직진 UT의 내부 피팅 POD 절편, a=피트 깊이 mm. 시뮬레이터 train 조건에서 ut.detect_pit(16회 평균+MLP+CFAR) hit/miss를 Firth 보정 로지스틱으로 적합한 값"}
+      b1: {value: 0.87, assumption: true}
     ut_pit_drone:
-      b0: {value: -0.5, assumption: true, note: "드론 접촉 직진 UT의 내부 피팅 POD 절편, a=피트 깊이 mm"}
-      b1: {value: 2.5, assumption: true}
+      b0: {value: 2.07, assumption: true, note: "드론 접촉 직진 UT의 내부 피팅 POD 절편. 접촉 불량·잡음이 큰 shifted 조건 적합값(깊이와 무관하게 약 0.89)"}
+      b1: {value: 0.0, assumption: true}
 onboard:
   target_fps: {value: 5, unit: fps, assumption: true}
   memory_limit_gb: {value: 2, unit: GB, assumption: true}
