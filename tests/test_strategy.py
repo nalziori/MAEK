@@ -54,3 +54,15 @@ def test_sensitivity_rows():
     df = strategy.sensitivity(_cfg(), 0, 2, KM)
     assert set(df["cost_key"]) == set(strategy.COST_KEYS)
     assert len(df) == 2 * len(strategy.COST_KEYS)
+
+
+def test_risk_ranked_crack_ut_finds_at_least_as_many_as_random():
+    found = {}
+    for mode in ("random", "risk_ranked"):
+        cfg = _cfg(True)
+        cfg["strategy"]["crack_ut_mode"]["value"] = mode
+        res = strategy._run_all(cfg, 5, 3, 30.0)
+        ai = res["ai_triage"]
+        found[mode] = float(ai["detection_rate_crack"].fillna(0).sum())
+        assert (ai["ut_points"] < res["baseline"]["ut_points"]).all()
+    assert found["risk_ranked"] >= found["random"] and found["risk_ranked"] > 0

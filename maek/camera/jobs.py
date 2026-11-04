@@ -23,8 +23,17 @@ def _visible(defects: pd.DataFrame) -> pd.DataFrame:
 
 
 def make_jobs(cfg: dict, segments: pd.DataFrame, defects: pd.DataFrame, n: int,
-              seed: int) -> list[dict]:
-    """Sample `n` image jobs (about `camera.negative_frac` clean negatives)."""
+              seed: int, condition: str = "train") -> list[dict]:
+    """Sample `n` image jobs (about `camera.negative_frac` clean negatives).
+
+    condition="shifted" draws lighting/dust/steam/blur/noise from the harder
+    `camera.shifted_*` ranges (same RNG stream layout as "train").
+    """
+    if condition not in ("train", "shifted"):
+        raise ValueError("condition must be 'train' or 'shifted'")
+    pre = "shifted_" if condition == "shifted" else ""
+    env_rng = lambda k: g("camera." + pre + k)
+
     g = lambda k: params.get(cfg, k)
     rng = np.random.default_rng(seed)
     vis = _visible(defects)
@@ -89,13 +98,13 @@ def make_jobs(cfg: dict, segments: pd.DataFrame, defects: pd.DataFrame, n: int,
                      "insulated": bool(s["insulated"]), "width_frac": round(pipe_frac, 4),
                      "tilt_deg": round(tilt, 2), "view_center_m": round(center_m, 3),
                      "view_clock_deg": round(view_clock % 360, 1)},
-            "defects": shown,
+            "defects": shown, "condition": condition,
             "env": {
-                "brightness": round(float(rng.uniform(*g("camera.brightness_range"))), 3),
-                "dust": round(float(rng.uniform(*g("camera.dust_opacity_range"))), 3),
-                "steam": round(float(rng.uniform(*g("camera.steam_opacity_range"))), 3),
-                "blur_sigma": round(float(rng.uniform(*g("camera.blur_sigma_range"))), 3),
-                "noise_sigma": round(float(rng.uniform(*g("camera.noise_sigma_range"))), 4),
+                "brightness": round(float(rng.uniform(*env_rng("brightness_range"))), 3),
+                "dust": round(float(rng.uniform(*env_rng("dust_opacity_range"))), 3),
+                "steam": round(float(rng.uniform(*env_rng("steam_opacity_range"))), 3),
+                "blur_sigma": round(float(rng.uniform(*env_rng("blur_sigma_range"))), 3),
+                "noise_sigma": round(float(rng.uniform(*env_rng("noise_sigma_range"))), 4),
             },
         })
     return jobs

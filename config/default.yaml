@@ -173,6 +173,11 @@ camera:
   blur_sigma_range: {value: [0.0, 2.0], unit: px, assumption: true, note: 초점/모션 블러}
   noise_sigma_range: {value: [0.0, 0.04], assumption: true, note: 센서 노이즈(0-1 스케일)}
   view_window_pad: {value: 1.0, assumption: true, note: 시야 안 결함 포함 여지(이미지 폭 배수)}
+  shifted_brightness_range: {value: [0.25, 0.6], assumption: true, note: "분포 이동(shifted): 어두운 조명(역광/야간)"}
+  shifted_dust_opacity_range: {value: [0.3, 0.7], assumption: true, note: shifted 분진}
+  shifted_steam_opacity_range: {value: [0.3, 0.8], assumption: true, note: shifted 증기}
+  shifted_blur_sigma_range: {value: [1.5, 3.5], unit: px, assumption: true, note: shifted 블러(드론 진동)}
+  shifted_noise_sigma_range: {value: [0.03, 0.08], assumption: true, note: shifted 센서 노이즈}
   min_defect_px: {value: 6, unit: px, assumption: true, note: 렌더 결함 최소 크기}
 strategy:
   cost_ut_point_krw: {value: 150000, unit: KRW, assumption: true, note: UT 1점 측정}
@@ -191,6 +196,8 @@ strategy:
   high_consequence_min: {value: 4, assumption: true, note: 고피해 등급 기준(이상)}
   risk_ut_consequence_min: {value: 4, assumption: true, note: AI 전략이 위험 형상 UT를 수행하는 최소 피해등급}
   weld_sample_frac: {value: 0.05, assumption: true, note: AI 전략의 용접부 균열 UT 샘플 비율}
+  crack_ut_mode: {value: risk_ranked, assumption: true, note: "AI 전략 균열 사각 UT 표본: risk_ranked(경년x피해등급x형상 순위 상위) 또는 random(용접부 무작위 + 고피해 엘보)"}
+  crack_ut_budget_frac: {value: 0.30, assumption: true, note: "risk_ranked 모드의 균열 UT 점 수 = 이 비율 x 기준 전략 고정 UT 점 수"}
   support_sample_frac: {value: 0.05, assumption: true, note: AI 전략의 지지대 CUI UT 샘플 비율}
   human_elevated_factor: {value: 0.4, assumption: true, note: 가공 배관에서 육안 검출 확률 배율}
   pod:
@@ -209,3 +216,19 @@ strategy:
 onboard:
   target_fps: {value: 5, unit: fps, assumption: true}
   memory_limit_gb: {value: 2, unit: GB, assumption: true}
+  bench_image_sizes: {value: [640, 320], unit: px, assumption: true, note: 온보드 지연 측정 입력 해상도}
+  bench_threads: {value: [1, 2, 3, 4], assumption: true, note: "소형 보드 근사: 사용 코어/스레드 수(OMP_NUM_THREADS + CPU affinity)"}
+  bench_n_images: {value: 12, assumption: true, note: 해상도별 측정 이미지 수}
+  bench_n_ut: {value: 60, assumption: true, note: 측정 A-scan 수(균열/두께 각각)}
+eval:
+  n_camera: {value: 300, assumption: true, note: 조건(train/shifted)별 평가 이미지 수}
+  n_ut: {value: 3000, assumption: true, note: 조건별 UT 샘플 수}
+  camera_image_size: {value: 640, unit: px, assumption: true, note: 평가 렌더 해상도}
+  seg_hue_range_deg: {value: [5, 40], unit: deg, assumption: true, note: 녹(주황-갈색) 색상 범위}
+  seg_sat_min: {value: 0.35, assumption: true, note: 녹 판정 최소 채도}
+  seg_val_min: {value: 0.12, assumption: true, note: 녹 판정 최소 명도}
+  seg_min_pred_px: {value: 30, unit: px, assumption: true, note: 이미지 단위 검출 판정 최소 예측 픽셀 수}
+  seg_hit_recall: {value: 0.3, assumption: true, note: 결함 단위 hit 판정 최소 재현율(결함 영역 내 예측 비율)}
+  thickness_tol_mm: {value: [0.1, 0.5], unit: mm, assumption: true, note: 두께 오차 허용 구간}
+  pit_margin_mm: {value: 0.3, unit: mm, assumption: true, note: 최소 두께 추정이 공칭 두께보다 이만큼 얇으면 피트 검출}
+  pod_bootstrap: {value: 300, assumption: true, note: a90 부트스트랩 반복 수}
