@@ -8,7 +8,7 @@ from pathlib import Path
 
 from maek import params
 
-STUBS = ["camera-jobs", "render2d", "strategy"]
+STUBS = ["camera-jobs", "render2d"]
 
 
 def _params_table(args) -> int:
@@ -36,6 +36,27 @@ def _ut(args) -> int:
     print(f"  min-thickness MAE  {m['min_thickness_mae_mm']:.3f} mm")
     print(f"  crack detection    {m['crack_detection_rate']:.3f}")
     print(f"  false alarms       {m['false_alarm_rate']:.3f}")
+    return 0
+
+
+def _strategy(args) -> int:
+    from maek import strategy
+
+    cfg = params.load_config(args.config)
+    params.validate(cfg)
+    cmp_df = strategy.compare(cfg, args.seed, args.runs, args.total_km)
+    sens = strategy.sensitivity(cfg, args.seed, args.runs, args.total_km)
+    out = Path(args.out) / "strategy"
+    out.mkdir(parents=True, exist_ok=True)
+    cmp_df.to_csv(out / "compare.csv", index=False, encoding="utf-8")
+    sens.to_csv(out / "sensitivity.csv", index=False, encoding="utf-8")
+    print(strategy.to_markdown(cmp_df))
+    print()
+    print(strategy.to_markdown(sens, "{:.3f}"))
+    print(f"wrote: {out / 'compare.csv'}, {out / 'sensitivity.csv'}")
+    return 0
+
+
 def _network(args) -> int:
     from maek import network
 
@@ -70,6 +91,10 @@ def build_parser() -> argparse.ArgumentParser:
     nw = sub.add_parser("network", parents=[common], help="generate pipe network + defects")
     nw.add_argument("--total-km", type=float, default=None, help="override network.total_km")
     nw.set_defaults(func=_network)
+    st = sub.add_parser("strategy", parents=[common], help="baseline vs AI triage comparison")
+    st.add_argument("--runs", type=int, default=20)
+    st.add_argument("--total-km", type=float, default=None, help="override network.total_km")
+    st.set_defaults(func=_strategy)
     for name in STUBS:
         sub.add_parser(name, parents=[common]).set_defaults(func=_stub)
     return p
