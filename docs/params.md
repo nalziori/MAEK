@@ -148,5 +148,27 @@
 | `strategy.cost_scaffold_krw` | 2000000 | KRW | 가정 |
 | `strategy.cost_drone_per_km_krw` | 500000 | KRW/km | 가정 |
 | `strategy.cost_labor_hour_krw` | 50000 | KRW/h | 가정 |
+| `strategy.cost_drone_contact_ut_extra_krw` | 100000 | KRW | 가정 |
+| `strategy.elevated_ut_mode` | drone |  | 가정 |
+| `strategy.cml_per_segment` | 2 |  | 가정 |
+| `strategy.probe_footprint_m` | 0.3 | m | 가정 |
+| `strategy.walk_km_per_h` | 1.0 | km/h | 가정 |
+| `strategy.drone_km_per_h` | 5.0 | km/h | 가정 |
+| `strategy.ut_hours_per_point` | 0.5 | h | 가정 |
+| `strategy.scaffold_hours` | 8 | h | 가정 |
+| `strategy.camera_false_flag_prob` | 0.03 |  | 가정 |
+| `strategy.high_consequence_min` | 4 |  | 가정 |
+| `strategy.risk_ut_consequence_min` | 4 |  | 가정 |
+| `strategy.weld_sample_frac` | 0.05 |  | 가정 |
+| `strategy.support_sample_frac` | 0.05 |  | 가정 |
+| `strategy.human_elevated_factor` | 0.4 |  | 가정 |
+| `strategy.pod.human.b0` | -2.0 |  | 가정 |
+| `strategy.pod.human.b1` | 1.2 |  | 가정 |
+| `strategy.pod.camera.b0` | -1.0 |  | 가정 |
+| `strategy.pod.camera.b1` | 1.2 |  | 가정 |
+| `strategy.pod.ut_straight.b0` | 0.5 |  | 가정 |
+| `strategy.pod.ut_straight.b1` | 2.5 |  | 가정 |
+| `strategy.pod.ut_angle.b0` | 0.0 |  | 가정 |
+| `strategy.pod.ut_angle.b1` | 2.5 |  | 가정 |
 | `onboard.target_fps` | 5 | fps | 가정 |
 | `onboard.memory_limit_gb` | 2 | GB | 가정 |
