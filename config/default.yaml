@@ -221,7 +221,20 @@ strategy:
   probe_footprint_m: {value: 0.3, unit: m, assumption: true, note: 고정 UT점이 결함을 측정할 수 있는 축방향 반경}
   walk_km_per_h: {value: 1.0, unit: km/h, assumption: true, note: 작업자 육안 순찰 속도}
   drone_km_per_h: {value: 5.0, unit: km/h, assumption: true, note: 드론/로봇 촬영 속도}
-  ut_hours_per_point: {value: 0.5, unit: h, assumption: true, note: UT 1점 작업 시간}
+  ut_manual_min_per_point: {value: 30, unit: min, assumption: true, note: 사람 UT 1점 측정 시간(접근·접촉매질 포함)}
+  ut_drone_min_per_point: {value: 45, unit: min, assumption: true, note: 드론 접촉 UT 1점 측정 시간(접근·안정화 포함, 사람보다 느림)}
+  drone_setup_h_per_batch: {value: 0.5, unit: h, assumption: true, note: 드론 비행 묶음(세그먼트 배치)당 준비·이동 시간}
+  drone_batch_segments: {value: 10, assumption: true, note: 한 번 준비로 비행하는 세그먼트 수}
+  video_review_min_per_km: {value: 30, unit: min/km, assumption: true, note: 사람이 드론 영상을 판독하는 시간(영상 1 km당)}
+  ai_verify_min_per_flag: {value: 5, unit: min, assumption: true, note: AI가 표시한 위치를 사람이 확인하는 시간}
+  cost_ai_processing_per_km_krw: {value: 20000, unit: KRW/km, assumption: true, note: AI 영상 처리 비용(연산·소프트웨어)}
+  crews: {value: 4, assumption: true, note: 사람 현장팀 수(순찰·비계·사람 UT)}
+  drones: {value: 2, assumption: true, note: 드론 운용 팀 수(비행·드론 접촉 UT)}
+  reviewers: {value: 2, assumption: true, note: 영상 판독·AI 확인 인원 수}
+  work_hours_per_day: {value: 8, unit: h, assumption: true, note: 팀당 하루 작업 시간}
+  pit_scan_budget_frac: {value: 0.15, assumption: true, note: "AI 전략 내부 피팅 면적 스캔 점 수 = 이 비율 x 기준 전략 고정 UT 점 수 (총 UT 점 수는 기준 이하로 제한)"}
+  pit_scan_k: {value: 5, assumption: true, note: 면적 스캔 1회당 직진 UT 격자 점 수}
+  pit_scan_footprint_m: {value: 5.0, unit: m, assumption: true, note: 면적 스캔 1회가 덮는 축방향 길이}
   scaffold_hours: {value: 8, unit: h, assumption: true, note: 비계 설치·해체 작업 시간}
   camera_false_flag_prob: {value: 0.03, assumption: true, note: 결함 없는 세그먼트를 카메라가 오검출하여 UT 확인하는 확률}
   high_consequence_min: {value: 4, assumption: true, note: 고피해 등급 기준(이상)}
@@ -235,6 +248,9 @@ strategy:
     human:
       b0: {value: -2.0, assumption: true, note: "육안 POD 로지스틱 절편, a=면적 cm2"}
       b1: {value: 1.2, assumption: true}
+    human_video:
+      b0: {value: -2.5, assumption: true, note: "사람이 드론 영상을 판독할 때의 POD 절편, a=면적 cm2 (현장 육안보다 다소 낮다고 가정)"}
+      b1: {value: 1.2, assumption: true}
     camera:
       b0: {value: -1.0, assumption: true, note: "카메라 POD 절편, a=면적 cm2 (외부 가시 결함/CUI 징후)"}
       b1: {value: 1.2, assumption: true}
@@ -243,6 +259,18 @@ strategy:
       b1: {value: 2.5, assumption: true}
     ut_angle:
       b0: {value: 0.0, assumption: true, note: "사각 UT POD 절편, a=균열 깊이 mm"}
+      b1: {value: 2.5, assumption: true}
+    ut_straight_drone:
+      b0: {value: 0.2, assumption: true, note: "드론 접촉 직진 UT POD 절편, a=감육 깊이 mm (결합 상태가 나쁘다고 가정)"}
+      b1: {value: 2.5, assumption: true}
+    ut_angle_drone:
+      b0: {value: -0.5, assumption: true, note: "드론 접촉 사각 UT POD 절편, a=균열 깊이 mm"}
+      b1: {value: 2.5, assumption: true}
+    ut_pit_manual:
+      b0: {value: 0.0, assumption: true, note: "사람 직진 UT의 내부 피팅 POD 절편, a=피트 깊이 mm (국부적이라 균일 감육보다 어렵다고 가정, UT 평가 후 재보정)"}
+      b1: {value: 2.5, assumption: true}
+    ut_pit_drone:
+      b0: {value: -0.5, assumption: true, note: "드론 접촉 직진 UT의 내부 피팅 POD 절편, a=피트 깊이 mm"}
       b1: {value: 2.5, assumption: true}
 onboard:
   target_fps: {value: 5, unit: fps, assumption: true}

@@ -149,7 +149,7 @@ def build_parser() -> argparse.ArgumentParser:
     cj.set_defaults(func=_camera_jobs)
     sub.add_parser("render2d", parents=[common], help="render jobs.json (2D)"
                    ).set_defaults(func=_render2d)
-    st = sub.add_parser("strategy", parents=[common], help="baseline vs AI triage comparison")
+    st = sub.add_parser("strategy", parents=[common], help="human+scaffold vs drone vs drone+AI comparison")
     st.add_argument("--runs", type=int, default=20)
     st.add_argument("--total-km", type=float, default=None, help="override network.total_km")
     st.set_defaults(func=_strategy)
