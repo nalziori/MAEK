@@ -50,9 +50,8 @@ def pod_summary(sizes, hits, n_boot=300, seed=0) -> dict:
 # ------------------------------------------------------------------ (1) corrosion images
 def _defect_center_radius(job, d):
     """Pixel centre and search radius of a job defect (same geometry as the renderer)."""
-    S, ct, st, hw = composite2d._frame(job)
-    cx = S / 2 + (d["u"] - 0.5) * S * ct - d["v"] * hw * st
-    cy = S / 2 + (d["u"] - 0.5) * S * st + d["v"] * hw * ct
+    S = job["image_size"]
+    cx, cy = composite2d.defect_center(job, d)
     r = 1.2 * max(d["w"], d["h"]) * S / 2 + 3
     return cx, cy, r
 
