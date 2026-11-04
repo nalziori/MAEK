@@ -114,6 +114,32 @@
 | `ut.angle_beam_angles_deg` | [45, 60, 70] | deg | 가정 |
 | `ut.noise_std` | 0.02 |  | 가정 |
 | `ut.grain_noise_std` | 0.01 |  | 가정 |
+| `ut.n_samples` | 4096 |  | 가정 |
+| `ut.interface_delay_us` | 1.0 | us | 가정 |
+| `ut.pulse_sigma_us` | 0.08 | us | 가정 |
+| `ut.interface_amp` | 1.5 |  | 가정 |
+| `ut.backwall_amp` | 1.0 |  | 가정 |
+| `ut.backwall_decay` | 0.6 |  | 가정 |
+| `ut.atten_db_per_mm` | 0.02 | dB/mm | 가정 |
+| `ut.temp_coeff_shear_mps_per_c` | -0.5 | m/s/C | 가정 |
+| `ut.crack_amp_max` | 1.0 |  | 가정 |
+| `ut.crack_h0_mm` | 1.0 | mm | 가정 |
+| `ut.crack_threshold` | 0.15 |  | 가정 |
+| `ut.crack_snr` | 5.0 |  | 가정 |
+| `ut.clutter_amp` | 0.05 |  | 가정 |
+| `ut.gate_halfwidth_us` | 0.5 | us | 가정 |
+| `ut.max_inspection_interval_yr` | 10 | yr | 가정 |
+| `ut.dataset.wall_range_mm` | [3.0, 12.0] | mm | 가정 |
+| `ut.dataset.pit_prob` | 0.3 |  | 가정 |
+| `ut.dataset.pit_depth_frac_range` | [0.1, 0.6] |  | 가정 |
+| `ut.dataset.pit_fraction_range` | [0.1, 0.5] |  | 가정 |
+| `ut.dataset.crack_prob` | 0.3 |  | 가정 |
+| `ut.dataset.crack_height_frac_range` | [0.05, 0.8] |  | 가정 |
+| `ut.dataset.train_temp_range_c` | [10, 60] | C | 가정 |
+| `ut.dataset.train_coupling_range` | [0.8, 1.0] |  | 가정 |
+| `ut.dataset.shifted_temp_range_c` | [100, 175] | C | 가정 |
+| `ut.dataset.shifted_coupling_range` | [0.3, 0.7] |  | 가정 |
+| `ut.dataset.shifted_noise_scale` | 3.0 |  | 가정 |
 | `camera.image_size` | 640 | px | 가정 |
 | `camera.brightness_range` | [0.5, 1.5] |  | 가정 |
 | `camera.dust_opacity_range` | [0.0, 0.4] |  | 가정 |
@@ -129,5 +155,27 @@
 | `strategy.cost_scaffold_krw` | 2000000 | KRW | 가정 |
 | `strategy.cost_drone_per_km_krw` | 500000 | KRW/km | 가정 |
 | `strategy.cost_labor_hour_krw` | 50000 | KRW/h | 가정 |
+| `strategy.cost_drone_contact_ut_extra_krw` | 100000 | KRW | 가정 |
+| `strategy.elevated_ut_mode` | drone |  | 가정 |
+| `strategy.cml_per_segment` | 2 |  | 가정 |
+| `strategy.probe_footprint_m` | 0.3 | m | 가정 |
+| `strategy.walk_km_per_h` | 1.0 | km/h | 가정 |
+| `strategy.drone_km_per_h` | 5.0 | km/h | 가정 |
+| `strategy.ut_hours_per_point` | 0.5 | h | 가정 |
+| `strategy.scaffold_hours` | 8 | h | 가정 |
+| `strategy.camera_false_flag_prob` | 0.03 |  | 가정 |
+| `strategy.high_consequence_min` | 4 |  | 가정 |
+| `strategy.risk_ut_consequence_min` | 4 |  | 가정 |
+| `strategy.weld_sample_frac` | 0.05 |  | 가정 |
+| `strategy.support_sample_frac` | 0.05 |  | 가정 |
+| `strategy.human_elevated_factor` | 0.4 |  | 가정 |
+| `strategy.pod.human.b0` | -2.0 |  | 가정 |
+| `strategy.pod.human.b1` | 1.2 |  | 가정 |
+| `strategy.pod.camera.b0` | -1.0 |  | 가정 |
+| `strategy.pod.camera.b1` | 1.2 |  | 가정 |
+| `strategy.pod.ut_straight.b0` | 0.5 |  | 가정 |
+| `strategy.pod.ut_straight.b1` | 2.5 |  | 가정 |
+| `strategy.pod.ut_angle.b0` | 0.0 |  | 가정 |
+| `strategy.pod.ut_angle.b1` | 2.5 |  | 가정 |
 | `onboard.target_fps` | 5 | fps | 가정 |
 | `onboard.memory_limit_gb` | 2 | GB | 가정 |

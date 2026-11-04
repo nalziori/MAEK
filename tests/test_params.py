@@ -39,7 +39,7 @@ def test_cli_params_table():
     assert r.returncode == 0 and "항목" in r.stdout
 
 
-def test_cli_stub_exits_2():
-    r = subprocess.run([sys.executable, "-m", "maek", "ut"], cwd=ROOT, check=False,
+def test_cli_unknown_command_exits_2():
+    r = subprocess.run([sys.executable, "-m", "maek", "no-such-command"], cwd=ROOT, check=False,
                        capture_output=True, text=True)
     assert r.returncode == 2
