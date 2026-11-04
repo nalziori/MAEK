@@ -151,6 +151,34 @@ ut:
   gate_halfwidth_us: {value: 0.5, unit: us, assumption: true, note: 코너 트랩 게이트 반폭(+경로시간 3%)}
   temp_compensation: {value: measured, assumption: true, note: "음속 온도 보정 입력: measured=측정 온도(진짜+오차), none=20 C 가정(보정 없음)"}
   max_inspection_interval_yr: {value: 10, unit: yr, assumption: true, note: "API 570 Class 2 두께측정 최대 주기 10년을 상한으로 가정"}
+  n_avg: {value: 16, assumption: true, note: "직진 UT 측정점당 코히어런트 평균 A-scan 수 (전자 노이즈만 1/sqrt(N), 결정립 산란·접촉은 공유)"}
+  prf_hz: {value: 100, unit: Hz, assumption: true, note: "평균용 A-scan 반복률(휴대/드론 탑재 장비의 디지타이즈·전송 포함 실효값, 보수적 가정)"}
+  avg_extra_time_s: {value: 0.15, unit: s, assumption: true, note: "평균 때문에 늘어나는 측정점당 시간 = (n_avg-1)/prf_hz. n_avg나 prf_hz를 바꾸면 같이 수정(테스트가 일치 확인)"}
+  pit:
+    method: {value: learned, assumption: true, note: "기본 피트 검출기(maek.pit.METHODS): baseline, mf, cfar, mf_cfar, rel_amp, shadow, learned, learned_shadow"}
+    cfar_pfa: {value: 0.002, assumption: true, note: "CFAR 설계 오경보 확률(A-scan당, 레일리 포락선 가정)"}
+    cfar_k_margin: {value: 0.75, assumption: true, note: "잡음 시그마 추정 오차 여유(임계 배수에 더함)"}
+    dead_zone_us: {value: 0.4, unit: us, assumption: true, note: "계면 에코 뒤 불감대(이보다 얕은 잔여 두께는 못 봄)"}
+    min_depth_mm: {value: 0.3, unit: mm, assumption: true, note: "보고할 최소 피트 깊이(저면 에코 직전 이 깊이까지만 탐색)"}
+    wall_tol_frac: {value: 0.1, assumption: true, note: "에코 간격 두께가 공칭과 이 비율 넘게 다르면 공칭 두께로 저면 시각 대체"}
+    gate_k_margin: {value: 0.0, assumption: true, note: "learned 판정은 피트 창 최대 에코가 CFAR 설계 임계(+이 여유)를 넘을 때만 인정. DR 범위 밖 조건에서 오경보 상한"}
+    rel_amp_min: {value: 0.1, assumption: true, note: "rel_amp 규칙: 피트 에코/첫 저면 에코 최소 비(피트 면적 비율 하한 0.1에 해당)"}
+    shadow_min_drop: {value: 0.05, assumption: true, note: "shadow 규칙: 저면/계면 에코 비가 기대값보다 이 비율 이상 작아야 함"}
+    shadow_z: {value: 3.1, assumption: true, note: "shadow 규칙: 감소량/잡음 최소 배수(정규 근사 단측 0.1 %)"}
+    dr_seed: {value: 2026, assumption: true, note: "DR 학습 데이터 시드(평가 시드와 별개)"}
+    dr_n_train: {value: 4000, assumption: true, note: "DR 학습 A-scan 수"}
+    dr_n_calib: {value: 6000, assumption: true, note: "DR 임계값 보정용 무결함 A-scan 수(별도 시드)"}
+    mlp_hidden: {value: 16, assumption: true, note: "소형 MLP 은닉 유닛 수(0이면 로지스틱 회귀)"}
+    mlp_l2: {value: 0.001, assumption: true, note: "MLP L2 가중치 감쇠"}
+    mlp_iters: {value: 1500, assumption: true, note: "MLP 전체 배치 Adam 반복 수"}
+    target_fa: {value: 0.005, assumption: true, note: "학습 분류기 목표 오경보율(DR 무결함 보정 세트, 대역별)"}
+    calib_strata: {value: 2, assumption: true, note: "임계값 보정: 평균 횟수별로 나눈 뒤 저면 에코 SNR 등분위 대역 수"}
+    dr_pit_prob: {value: 0.5, assumption: true, note: "도메인 랜덤화(DR) 학습 데이터의 피트 비율"}
+    dr_noise_scale_range: {value: [0.5, 4.0], assumption: true, note: "DR 노이즈 배율(로그 균등). 현장 장비·전기 잡음 폭을 넓게 잡은 가정, shifted 3배 포함"}
+    dr_coupling_range: {value: [0.2, 1.0], assumption: true, note: "DR 접촉 계수(건조~양호 접촉)"}
+    dr_temp_range_c: {value: [-10, 220], unit: C, assumption: true, note: "DR 배관 온도 = 망 매질 온도 전체 범위(network.temp_c_by_medium)"}
+    dr_temp_meas_error_max_c: {value: 20.0, unit: C, assumption: true, note: "DR 측정 온도 오차 표준편차 상한(샘플마다 0~상한 균등)"}
+    dr_n_avg_choices: {value: [1, 4, 16], assumption: true, note: "DR 평균 횟수 후보(균등 선택)"}
   dataset:
     wall_range_mm: {value: [3.0, 12.0], unit: mm, assumption: true, note: 일반 배관 두께 범위}
     pit_prob: {value: 0.3, assumption: true}
@@ -233,5 +261,7 @@ eval:
   seg_min_pred_px: {value: 30, unit: px, assumption: true, note: 이미지 단위 검출 판정 최소 예측 픽셀 수}
   seg_hit_recall: {value: 0.3, assumption: true, note: 결함 단위 hit 판정 최소 재현율(결함 영역 내 예측 비율)}
   thickness_tol_mm: {value: [0.1, 0.5], unit: mm, assumption: true, note: 두께 오차 허용 구간}
-  pit_margin_mm: {value: 0.3, unit: mm, assumption: true, note: 최소 두께 추정이 공칭 두께보다 이만큼 얇으면 피트 검출}
+  n_ut_factor: {value: 1000, assumption: true, note: "피트 검출 요인 분리(노이즈/접촉/온도) 조건별 UT 샘플 수"}
+  pit_narrow_dr: {value: {dr_noise_scale_range: [0.5, 2.0], dr_coupling_range: [0.5, 1.0], dr_temp_range_c: [-10, 80], dr_temp_meas_error_max_c: 5.0}, assumption: true, note: "학습 분류기 외삽 점검: shifted를 덮지 않는 좁은 DR 범위(ut.pit.dr_* 대체)"}
+  n_pit_dr_val: {value: 2000, assumption: true, note: "피트 검출 방법 선택용 DR 검증 A-scan 수(평균 횟수별)"}
   pod_bootstrap: {value: 300, assumption: true, note: a90 부트스트랩 반복 수}

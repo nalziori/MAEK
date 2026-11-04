@@ -1,7 +1,8 @@
 """Ultrasonic testing (UT) A-scan simulator and baseline analysis (numpy only).
 
 Function (2): internal crack detection by angle-beam shear wave (corner-trap echo).
-Function (3): wall thickness by straight-beam pulse-echo longitudinal wave.
+Function (3): wall thickness by straight-beam pulse-echo longitudinal wave; internal pits by
+`detect_pit` (matched filter + back-wall subtraction + CFAR features, see `maek.pit`).
 
 Amplitudes are normalised (first back-wall echo of a clean, well coupled probe ~ 1.0).
 Time axis: t = i / fs, with fs = ut.sampling_mhz. The interface (initial) echo sits at
@@ -90,8 +91,17 @@ def _parabolic(y: np.ndarray, i: int) -> float:
 
 # ---------------------------------------------------------------- straight beam
 def simulate_straight(cfg, rng, wall_mm, pit_depth_mm=0.0, pit_fraction=0.0, temp_c=20.0,
-                      coupling=1.0, noise_scale=1.0) -> np.ndarray:
-    """Pulse-echo A-scan (longitudinal wave, normal incidence)."""
+                      coupling=1.0, noise_scale=1.0, n_avg=1, avg_rng=None) -> np.ndarray:
+    """Pulse-echo A-scan (longitudinal wave, normal incidence).
+
+    `n_avg` > 1 returns the coherent average of n_avg shots at the same probe position:
+    coupling and grain backscatter (fixed by the microstructure under the probe) are shared,
+    electronic noise is independent per shot, so it drops by sqrt(n_avg). Extra shots draw
+    from `avg_rng` (default `rng`); n_avg=1 consumes exactly the same random numbers as before.
+    """
+    n_avg = int(n_avg)
+    if n_avg < 1:
+        raise ValueError(f"n_avg must be >= 1, got {n_avg}")
     if not wall_mm > 0:
         raise ValueError(f"wall_mm must be > 0, got {wall_mm}")
     if pit_depth_mm < 0 or pit_depth_mm >= wall_mm:
@@ -117,7 +127,11 @@ def simulate_straight(cfg, rng, wall_mm, pit_depth_mm=0.0, pit_fraction=0.0, tem
             k += 1
     s += _grain_noise(cfg, rng, p["t0"] + 3 * p["sigma"], noise_scale)
     s *= coupling
-    s += get(cfg, "ut.noise_std") * noise_scale * rng.standard_normal(p["n"])
+    noise = rng.standard_normal(p["n"])
+    if n_avg > 1:
+        extra = (avg_rng if avg_rng is not None else rng).standard_normal((n_avg - 1, p["n"]))
+        noise = (noise + extra.sum(axis=0)) / n_avg
+    s += get(cfg, "ut.noise_std") * noise_scale * noise
     return s.astype(np.float32)
 
 
@@ -166,6 +180,21 @@ def _echo_train_lag(cfg, signal, temp_c) -> int:
     return int(lags[best])
 
 
+def wall_echo_lag(cfg, signal, temp_c=20.0) -> float:
+    """Back-wall echo spacing [samples, fractional] (see `estimate_thickness`)."""
+    p = _p(cfg)
+    x = np.asarray(signal, dtype=float)[_gate_start(cfg):]
+    x = x - x.mean()
+    n = len(x)
+    X = np.fft.rfft(x, 2 * n)
+    ac = np.fft.irfft(X * np.conj(X))[:n]
+    i = _echo_train_lag(cfg, signal, temp_c)
+    half = int(p["fs"] / p["f0"] / 2)
+    lo, hi = max(1, i - half), min(n - 2, i + half)
+    j = lo + int(np.argmax(ac[lo:hi + 1]))
+    return _parabolic(ac, j)
+
+
 def estimate_thickness(cfg, signal, temp_c=20.0) -> float:
     """Wall thickness [mm] from the spacing of successive back-wall echoes.
 
@@ -173,19 +202,8 @@ def estimate_thickness(cfg, signal, temp_c=20.0) -> float:
     longest echo train, not the pit depth; see `min_thickness` for the pit), refined on the
     RF autocorrelation of the gated trace with parabolic interpolation.
     """
-    p = _p(cfg)
-    x = np.asarray(signal, dtype=float)[_gate_start(cfg):]
-    x = x - x.mean()
-    n = len(x)
-    X = np.fft.rfft(x, 2 * n)
-    ac = np.fft.irfft(X * np.conj(X))[:n]
-    v = velocity_long(cfg, temp_c)
-    i = _echo_train_lag(cfg, signal, temp_c)
-    half = int(p["fs"] / p["f0"] / 2)
-    lo, hi = max(1, i - half), min(n - 2, i + half)
-    j = lo + int(np.argmax(ac[lo:hi + 1]))
-    lag = _parabolic(ac, j) / p["fs"]
-    return float(lag * v / 2 * 1e3)
+    lag = wall_echo_lag(cfg, signal, temp_c) / _p(cfg)["fs"]
+    return float(lag * velocity_long(cfg, temp_c) / 2 * 1e3)
 
 
 def min_thickness(cfg, signal, temp_c=20.0, rel_threshold=0.15, snr=6.0) -> float:
@@ -204,6 +222,24 @@ def min_thickness(cfg, signal, temp_c=20.0, rel_threshold=0.15, snr=6.0) -> floa
     i = a + int(np.argmax(env[a:a + w]))
     tpk = (g0 + _parabolic(env, i)) / p["fs"]
     return float((tpk - p["t0"]) * velocity_long(cfg, temp_c) / 2 * 1e3)
+
+
+def averaging_time_s(cfg, n_avg=None) -> float:
+    """Extra acquisition time per UT point for coherent averaging: (n_avg - 1) / PRF [s]."""
+    n_avg = get(cfg, "ut.n_avg") if n_avg is None else n_avg
+    return float((int(n_avg) - 1) / get(cfg, "ut.prf_hz"))
+
+
+def detect_pit(cfg, signal, wall_nominal_mm, temp_c=20.0, method=None) -> dict:
+    """Default internal-pit detector -> {found, score, depth_est_mm} (see `maek.pit`).
+
+    `ut.pit.method` (default learned: MLP on matched-filter + back-wall subtraction + CFAR
+    features; mf_cfar is the training-free rule); `temp_c` is the measured temperature used
+    for velocity correction. The signal is assumed to average `ut.n_avg` shots.
+    """
+    from maek import pit
+
+    return pit.detect_pit(cfg, signal, wall_nominal_mm, temp_c, method)
 
 
 # ---------------------------------------------------------------- angle beam
@@ -278,11 +314,18 @@ def remaining_life(years, thickness_mm, t_min_mm, max_interval_yr=10.0) -> dict:
 
 
 # ---------------------------------------------------------------- dataset
-def make_dataset(cfg, n, seed, condition="train"):
-    """Random UT cases. Returns (straight [n, N], angle [n, N], labels DataFrame)."""
+def make_dataset(cfg, n, seed, condition="train", n_avg=None):
+    """Random UT cases. Returns (straight [n, N], angle [n, N], labels DataFrame).
+
+    Straight-beam A-scans are the coherent average of `n_avg` shots (default `ut.n_avg`).
+    The extra shots use their own random stream, so geometry, labels, angle-beam signals and
+    the first shot are identical for every n_avg.
+    """
     if condition not in ("train", "shifted"):
         raise ValueError("condition must be 'train' or 'shifted'")
+    n_avg = int(get(cfg, "ut.n_avg") if n_avg is None else n_avg)
     rng = np.random.default_rng(seed)
+    avg_rng = np.random.default_rng([seed, 13])
     d = "ut.dataset."
     shifted = condition == "shifted"
     temp_rng = get(cfg, d + ("shifted_temp_range_c" if shifted else "train_temp_range_c"))
@@ -311,13 +354,14 @@ def make_dataset(cfg, n, seed, condition="train"):
         coup = rng.uniform(*coup_rng)
         ang = float(angles[rng.integers(len(angles))])
         straight[i] = simulate_straight(cfg, rng, wall, pit_depth, pit_frac, temp, coup,
-                                        noise_scale)
+                                        noise_scale, n_avg, avg_rng)
         angle[i] = simulate_angle(cfg, rng, wall, crack_h, ang, temp, coup, noise_scale)
         rows.append({"wall_mm": wall, "pit_depth_mm": pit_depth, "pit_fraction": pit_frac,
                      "t_min_mm": wall - pit_depth, "crack": crack_h > 0,
                      "crack_height_mm": crack_h, "angle_deg": ang, "temp_c": temp,
                      "temp_meas_c": temp_meas,
-                     "coupling": coup, "noise_scale": noise_scale, "condition": condition})
+                     "coupling": coup, "noise_scale": noise_scale, "n_avg": n_avg,
+                     "condition": condition})
     return straight, angle, pd.DataFrame(rows)
 
 

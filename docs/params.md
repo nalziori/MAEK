@@ -130,6 +130,33 @@
 | `ut.gate_halfwidth_us` | 0.5 | us | 가정 |
 | `ut.temp_compensation` | measured |  | 가정 |
 | `ut.max_inspection_interval_yr` | 10 | yr | 가정 |
+| `ut.n_avg` | 16 |  | 가정 |
+| `ut.prf_hz` | 100 | Hz | 가정 |
+| `ut.avg_extra_time_s` | 0.15 | s | 가정 |
+| `ut.pit.method` | learned |  | 가정 |
+| `ut.pit.cfar_pfa` | 0.002 |  | 가정 |
+| `ut.pit.cfar_k_margin` | 0.75 |  | 가정 |
+| `ut.pit.dead_zone_us` | 0.4 | us | 가정 |
+| `ut.pit.min_depth_mm` | 0.3 | mm | 가정 |
+| `ut.pit.wall_tol_frac` | 0.1 |  | 가정 |
+| `ut.pit.gate_k_margin` | 0.0 |  | 가정 |
+| `ut.pit.rel_amp_min` | 0.1 |  | 가정 |
+| `ut.pit.shadow_min_drop` | 0.05 |  | 가정 |
+| `ut.pit.shadow_z` | 3.1 |  | 가정 |
+| `ut.pit.dr_seed` | 2026 |  | 가정 |
+| `ut.pit.dr_n_train` | 4000 |  | 가정 |
+| `ut.pit.dr_n_calib` | 6000 |  | 가정 |
+| `ut.pit.mlp_hidden` | 16 |  | 가정 |
+| `ut.pit.mlp_l2` | 0.001 |  | 가정 |
+| `ut.pit.mlp_iters` | 1500 |  | 가정 |
+| `ut.pit.target_fa` | 0.005 |  | 가정 |
+| `ut.pit.calib_strata` | 2 |  | 가정 |
+| `ut.pit.dr_pit_prob` | 0.5 |  | 가정 |
+| `ut.pit.dr_noise_scale_range` | [0.5, 4.0] |  | 가정 |
+| `ut.pit.dr_coupling_range` | [0.2, 1.0] |  | 가정 |
+| `ut.pit.dr_temp_range_c` | [-10, 220] | C | 가정 |
+| `ut.pit.dr_temp_meas_error_max_c` | 20.0 | C | 가정 |
+| `ut.pit.dr_n_avg_choices` | [1, 4, 16] |  | 가정 |
 | `ut.dataset.wall_range_mm` | [3.0, 12.0] | mm | 가정 |
 | `ut.dataset.pit_prob` | 0.3 |  | 가정 |
 | `ut.dataset.pit_depth_frac_range` | [0.1, 0.6] |  | 가정 |
@@ -202,5 +229,7 @@
 | `eval.seg_min_pred_px` | 30 | px | 가정 |
 | `eval.seg_hit_recall` | 0.3 |  | 가정 |
 | `eval.thickness_tol_mm` | [0.1, 0.5] | mm | 가정 |
-| `eval.pit_margin_mm` | 0.3 | mm | 가정 |
+| `eval.n_ut_factor` | 1000 |  | 가정 |
+| `eval.pit_narrow_dr` | {'dr_noise_scale_range': [0.5, 2.0], 'dr_coupling_range': [0.5, 1.0], 'dr_temp_range_c': [-10, 80], 'dr_temp_meas_error_max_c': 5.0} |  | 가정 |
+| `eval.n_pit_dr_val` | 2000 |  | 가정 |
 | `eval.pod_bootstrap` | 300 |  | 가정 |
