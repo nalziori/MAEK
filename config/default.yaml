@@ -62,6 +62,33 @@ ut:
   angle_beam_angles_deg: {value: [45, 60, 70], unit: deg, assumption: true}
   noise_std: {value: 0.02, assumption: true, note: 가우시안 노이즈 표준편차(정규화 진폭)}
   grain_noise_std: {value: 0.01, assumption: true, note: 결정립 산란 노이즈}
+  n_samples: {value: 4096, assumption: true, note: A-scan 샘플 수 (100 MHz에서 40.96 us)}
+  interface_delay_us: {value: 1.0, unit: us, assumption: true, note: 탐촉자 지연재/계면 에코 시각}
+  pulse_sigma_us: {value: 0.08, unit: us, assumption: true, note: 가우시안 포락선 표준편차(광대역 탐촉자)}
+  interface_amp: {value: 1.5, assumption: true, note: 계면(초기) 에코 진폭}
+  backwall_amp: {value: 1.0, assumption: true, note: 첫 저면 에코 진폭(정규화)}
+  backwall_decay: {value: 0.6, assumption: true, note: 왕복당 저면 다중 에코 감쇠비}
+  atten_db_per_mm: {value: 0.02, unit: dB/mm, assumption: true, note: 5 MHz 강 감쇠(경로 길이 기준)}
+  temp_coeff_shear_mps_per_c: {value: -0.5, unit: m/s/C, assumption: true, note: 횡파 온도 계수}
+  crack_amp_max: {value: 1.0, assumption: true, note: 코너 트랩 에코 포화 진폭}
+  crack_h0_mm: {value: 1.0, unit: mm, assumption: true, note: "진폭 포화 상수: A = A_max(1-exp(-h/h0))"}
+  crack_threshold: {value: 0.15, assumption: true, note: 게이트 내 포락선 검출 임계값}
+  crack_snr: {value: 5.0, assumption: true, note: 게이트 밖 잡음 RMS 대비 검출 배수}
+  clutter_amp: {value: 0.05, assumption: true, note: 형상 클러터 최대 진폭}
+  gate_halfwidth_us: {value: 0.5, unit: us, assumption: true, note: 코너 트랩 게이트 반폭(+경로시간 3%)}
+  max_inspection_interval_yr: {value: 10, unit: yr, assumption: true, note: "API 570 Class 2 두께측정 최대 주기 10년을 상한으로 가정"}
+  dataset:
+    wall_range_mm: {value: [3.0, 12.0], unit: mm, assumption: true, note: 일반 배관 두께 범위}
+    pit_prob: {value: 0.3, assumption: true}
+    pit_depth_frac_range: {value: [0.1, 0.6], assumption: true, note: 두께 대비 피트 깊이}
+    pit_fraction_range: {value: [0.1, 0.5], assumption: true, note: 빔 내 피트 면적 비율}
+    crack_prob: {value: 0.3, assumption: true}
+    crack_height_frac_range: {value: [0.05, 0.8], assumption: true, note: 두께 대비 균열 높이}
+    train_temp_range_c: {value: [10, 60], unit: C, assumption: true}
+    train_coupling_range: {value: [0.8, 1.0], assumption: true}
+    shifted_temp_range_c: {value: [100, 175], unit: C, assumption: true, note: 고온 배관(보정 미흡 상황 포함)}
+    shifted_coupling_range: {value: [0.3, 0.7], assumption: true, note: 불량 접촉}
+    shifted_noise_scale: {value: 3.0, assumption: true, note: 노이즈 배율}
 camera:
   image_size: {value: 640, unit: px, assumption: true}
   brightness_range: {value: [0.5, 1.5], assumption: true, note: 조명 배율}

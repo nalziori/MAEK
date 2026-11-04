@@ -52,6 +52,32 @@
 | `ut.angle_beam_angles_deg` | [45, 60, 70] | deg | 가정 |
 | `ut.noise_std` | 0.02 |  | 가정 |
 | `ut.grain_noise_std` | 0.01 |  | 가정 |
+| `ut.n_samples` | 4096 |  | 가정 |
+| `ut.interface_delay_us` | 1.0 | us | 가정 |
+| `ut.pulse_sigma_us` | 0.08 | us | 가정 |
+| `ut.interface_amp` | 1.5 |  | 가정 |
+| `ut.backwall_amp` | 1.0 |  | 가정 |
+| `ut.backwall_decay` | 0.6 |  | 가정 |
+| `ut.atten_db_per_mm` | 0.02 | dB/mm | 가정 |
+| `ut.temp_coeff_shear_mps_per_c` | -0.5 | m/s/C | 가정 |
+| `ut.crack_amp_max` | 1.0 |  | 가정 |
+| `ut.crack_h0_mm` | 1.0 | mm | 가정 |
+| `ut.crack_threshold` | 0.15 |  | 가정 |
+| `ut.crack_snr` | 5.0 |  | 가정 |
+| `ut.clutter_amp` | 0.05 |  | 가정 |
+| `ut.gate_halfwidth_us` | 0.5 | us | 가정 |
+| `ut.max_inspection_interval_yr` | 10 | yr | 가정 |
+| `ut.dataset.wall_range_mm` | [3.0, 12.0] | mm | 가정 |
+| `ut.dataset.pit_prob` | 0.3 |  | 가정 |
+| `ut.dataset.pit_depth_frac_range` | [0.1, 0.6] |  | 가정 |
+| `ut.dataset.pit_fraction_range` | [0.1, 0.5] |  | 가정 |
+| `ut.dataset.crack_prob` | 0.3 |  | 가정 |
+| `ut.dataset.crack_height_frac_range` | [0.05, 0.8] |  | 가정 |
+| `ut.dataset.train_temp_range_c` | [10, 60] | C | 가정 |
+| `ut.dataset.train_coupling_range` | [0.8, 1.0] |  | 가정 |
+| `ut.dataset.shifted_temp_range_c` | [100, 175] | C | 가정 |
+| `ut.dataset.shifted_coupling_range` | [0.3, 0.7] |  | 가정 |
+| `ut.dataset.shifted_noise_scale` | 3.0 |  | 가정 |
 | `camera.image_size` | 640 | px | 가정 |
 | `camera.brightness_range` | [0.5, 1.5] |  | 가정 |
 | `camera.dust_opacity_range` | [0.0, 0.4] |  | 가정 |
