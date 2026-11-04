@@ -8,7 +8,7 @@ from pathlib import Path
 
 from maek import params
 
-STUBS = ["ut", "camera-jobs", "render2d", "strategy"]
+STUBS = ["ut", "strategy"]
 
 
 def _params_table(args) -> int:
@@ -35,6 +35,35 @@ def _network(args) -> int:
     return 0
 
 
+def _camera_jobs(args) -> int:
+    from maek import network
+    from maek.camera import jobs
+
+    cfg = params.load_config(args.config)
+    params.validate(cfg)
+    seg, _, dfx = network.generate_network(cfg, args.seed)
+    js = jobs.make_jobs(cfg, seg, dfx, args.n, args.seed)
+    path = jobs.save_jobs(Path(args.out) / "camera" / "jobs.json", js)
+    print(f"wrote {len(js)} jobs ({sum(j['negative'] for j in js)} negative) -> {path}")
+    return 0
+
+
+def _render2d(args) -> int:
+    import time
+
+    from maek.camera import composite2d, jobs
+
+    cfg = params.load_config(args.config)
+    params.validate(cfg)
+    cam = Path(args.out) / "camera"
+    js = jobs.load_jobs(cam / "jobs.json")
+    t0 = time.perf_counter()
+    ds = composite2d.render_all(cfg, js, cam, args.seed)
+    dt = time.perf_counter() - t0
+    print(f"rendered {len(js)} images in {dt:.1f}s ({len(js) / dt:.1f} img/s) -> {ds}")
+    return 0
+
+
 def _stub(args) -> int:
     print(f"{args.cmd}: not implemented yet")
     return 2
@@ -53,6 +82,11 @@ def build_parser() -> argparse.ArgumentParser:
     nw = sub.add_parser("network", parents=[common], help="generate pipe network + defects")
     nw.add_argument("--total-km", type=float, default=None, help="override network.total_km")
     nw.set_defaults(func=_network)
+    cj = sub.add_parser("camera-jobs", parents=[common], help="sample camera render jobs")
+    cj.add_argument("--n", type=int, default=300)
+    cj.set_defaults(func=_camera_jobs)
+    sub.add_parser("render2d", parents=[common], help="render jobs.json (2D)"
+                   ).set_defaults(func=_render2d)
     for name in STUBS:
         sub.add_parser(name, parents=[common]).set_defaults(func=_stub)
     return p
