@@ -134,6 +134,27 @@ def run_baseline(cfg, segments, features, defects, rng):
     return _metrics(cfg, d, seen | ut_hit, counts)
 
 
+def _rank_crack_points(cfg, segments, f, s, metal, cons, kind):
+    """Angle-beam UT at the top-ranked weld/elbow locations within a fixed UT budget.
+
+    score = (age / age_ref)^exponent x consequence x location weight (weld > elbow);
+    the budget is `crack_ut_budget_frac` x the baseline's fixed UT point count.
+    """
+    age = np.maximum(params.get(cfg, "network.reference_year") - s["install_year"].to_numpy(), 0)
+    age_f = (age / params.get(cfg, "defects.age_ref_years")) ** params.get(
+        cfg, "defects.age_exponent")
+    w = {k: params.get(cfg, f"defects.crack.location_weight.{k}") for k in ("weld", "elbow")}
+    kw = np.where(kind == "weld", w["weld"], np.where(kind == "elbow", w["elbow"], 0.0))
+    cand = metal & (kw > 0)
+    score = np.where(cand, age_f * cons * kw, -1.0)
+    n_base = int(_s(cfg, "cml_per_segment")) * int((segments["material"] != "pvc").sum())
+    budget = int(_s(cfg, "crack_ut_budget_frac") * n_base)
+    order = np.argsort(-score, kind="stable")[:budget]
+    out = np.zeros(len(f), bool)
+    out[order] = True
+    return out & cand
+
+
 def _risk_features(cfg, segments, features, rng):
     """Features chosen for risk-based UT: returns (thin_ids, crack_ids, cui_ids)."""
     seg = segments.set_index("segment_id")
@@ -147,8 +168,11 @@ def _risk_features(cfg, segments, features, rng):
     fac_media = set(params.get(cfg, "defects.fac.media"))
     lo, hi = params.get(cfg, "defects.cui.temp_min_c"), params.get(cfg, "defects.cui.temp_max_c")
     thin = np.isin(kind, FAC_FEATURES) & cs & s["medium"].isin(fac_media).to_numpy()
-    crack = (metal & (cons >= _s(cfg, "risk_ut_consequence_min"))
-             & (((kind == "weld") & (u < _s(cfg, "weld_sample_frac"))) | (kind == "elbow")))
+    if _s(cfg, "crack_ut_mode") == "risk_ranked":
+        crack = _rank_crack_points(cfg, segments, f, s, metal, cons, kind)
+    else:
+        crack = (metal & (cons >= _s(cfg, "risk_ut_consequence_min"))
+                 & (((kind == "weld") & (u < _s(cfg, "weld_sample_frac"))) | (kind == "elbow")))
     cui = (cs & s["insulated"].to_numpy() & s["temp_c"].between(lo, hi).to_numpy()
            & (((kind == "support") & (u < _s(cfg, "support_sample_frac")))
               | np.isin(kind, ("nozzle", "dead_leg"))))

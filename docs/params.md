@@ -150,6 +150,11 @@
 | `camera.blur_sigma_range` | [0.0, 2.0] | px | 가정 |
 | `camera.noise_sigma_range` | [0.0, 0.04] |  | 가정 |
 | `camera.view_window_pad` | 1.0 |  | 가정 |
+| `camera.shifted_brightness_range` | [0.25, 0.6] |  | 가정 |
+| `camera.shifted_dust_opacity_range` | [0.3, 0.7] |  | 가정 |
+| `camera.shifted_steam_opacity_range` | [0.3, 0.8] |  | 가정 |
+| `camera.shifted_blur_sigma_range` | [1.5, 3.5] | px | 가정 |
+| `camera.shifted_noise_sigma_range` | [0.03, 0.08] |  | 가정 |
 | `camera.min_defect_px` | 6 | px | 가정 |
 | `strategy.cost_ut_point_krw` | 150000 | KRW | 가정 |
 | `strategy.cost_scaffold_krw` | 2000000 | KRW | 가정 |
@@ -167,6 +172,8 @@
 | `strategy.high_consequence_min` | 4 |  | 가정 |
 | `strategy.risk_ut_consequence_min` | 4 |  | 가정 |
 | `strategy.weld_sample_frac` | 0.05 |  | 가정 |
+| `strategy.crack_ut_mode` | risk_ranked |  | 가정 |
+| `strategy.crack_ut_budget_frac` | 0.3 |  | 가정 |
 | `strategy.support_sample_frac` | 0.05 |  | 가정 |
 | `strategy.human_elevated_factor` | 0.4 |  | 가정 |
 | `strategy.pod.human.b0` | -2.0 |  | 가정 |
@@ -179,3 +186,18 @@
 | `strategy.pod.ut_angle.b1` | 2.5 |  | 가정 |
 | `onboard.target_fps` | 5 | fps | 가정 |
 | `onboard.memory_limit_gb` | 2 | GB | 가정 |
+| `onboard.bench_image_sizes` | [640, 320] | px | 가정 |
+| `onboard.bench_threads` | [1, 2, 3, 4] |  | 가정 |
+| `onboard.bench_n_images` | 12 |  | 가정 |
+| `onboard.bench_n_ut` | 60 |  | 가정 |
+| `eval.n_camera` | 300 |  | 가정 |
+| `eval.n_ut` | 3000 |  | 가정 |
+| `eval.camera_image_size` | 640 | px | 가정 |
+| `eval.seg_hue_range_deg` | [5, 40] | deg | 가정 |
+| `eval.seg_sat_min` | 0.35 |  | 가정 |
+| `eval.seg_val_min` | 0.12 |  | 가정 |
+| `eval.seg_min_pred_px` | 30 | px | 가정 |
+| `eval.seg_hit_recall` | 0.3 |  | 가정 |
+| `eval.thickness_tol_mm` | [0.1, 0.5] | mm | 가정 |
+| `eval.pit_margin_mm` | 0.3 | mm | 가정 |
+| `eval.pod_bootstrap` | 300 |  | 가정 |

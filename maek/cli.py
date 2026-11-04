@@ -98,6 +98,29 @@ def _render2d(args) -> int:
     return 0
 
 
+def _evaluate(args) -> int:
+    from maek import evaluate
+
+    cfg = params.load_config(args.config)
+    params.validate(cfg)
+    res = evaluate.run_all(cfg, args.out, args.seed, args.n_camera, args.n_ut,
+                           args.strategy_runs)
+    print(evaluate.tables_markdown(res))
+    print(f"wrote: {args.out}/camera_metrics.csv, ut_metrics.csv, pod.csv, results_tables.md")
+    return 0
+
+
+def _onboard(args) -> int:
+    from maek import onboard
+
+    cfg = params.load_config(args.config)
+    params.validate(cfg)
+    df = onboard.run_all(cfg, args.out, n_images=args.n_images, n_ut=args.n_ut)
+    print(onboard.to_markdown(df))
+    print(f"wrote: {args.out}/onboard.csv")
+    return 0
+
+
 def _stub(args) -> int:
     print(f"{args.cmd}: not implemented yet")
     return 2
@@ -129,6 +152,15 @@ def build_parser() -> argparse.ArgumentParser:
     st.add_argument("--runs", type=int, default=20)
     st.add_argument("--total-km", type=float, default=None, help="override network.total_km")
     st.set_defaults(func=_strategy)
+    ev = sub.add_parser("evaluate", parents=[common], help="evaluate 3 functions (train/shifted)")
+    ev.add_argument("--n-camera", type=int, default=None, help="images per condition")
+    ev.add_argument("--n-ut", type=int, default=None, help="UT samples per condition")
+    ev.add_argument("--strategy-runs", type=int, default=10)
+    ev.set_defaults(func=_evaluate)
+    ob = sub.add_parser("onboard", parents=[common], help="CPU latency/memory approximation")
+    ob.add_argument("--n-images", type=int, default=None)
+    ob.add_argument("--n-ut", type=int, default=None)
+    ob.set_defaults(func=_onboard)
     for name in STUBS:
         sub.add_parser(name, parents=[common]).set_defaults(func=_stub)
     return p
