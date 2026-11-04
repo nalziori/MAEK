@@ -17,9 +17,11 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import yaml
 
 from maek import params, ut
 from maek.camera import composite2d, jobs, segment
+from maek.evaluate import _with
 
 
 def limit_threads(k: int) -> None:
@@ -62,7 +64,7 @@ def make_inputs(cfg, sizes, n_images, n_ut, seed=0) -> dict:
 
     inputs = {"images": {}}
     for s in sizes:
-        c = _with_size(cfg, s)
+        c = _with(cfg, "camera.image_size", int(s))
         seg, _, dfx = network.generate_network(c, seed, total_km=10)
         js = jobs.make_jobs(c, seg, dfx, n_images, seed)
         inputs["images"][s] = [composite2d.render_job(c, j, np.random.default_rng(i))[0]
@@ -70,14 +72,6 @@ def make_inputs(cfg, sizes, n_images, n_ut, seed=0) -> dict:
     straight, angle, lab = ut.make_dataset(cfg, n_ut, seed)
     inputs["ut"] = list(zip(straight, angle, lab.itertuples()))
     return inputs
-
-
-def _with_size(cfg, size):
-    import copy
-
-    c = copy.deepcopy(cfg)
-    c["camera"]["image_size"]["value"] = int(size)
-    return c
 
 
 def run_benchmark(cfg, sizes=None, n_images=None, n_ut=None, seed=0) -> list[dict]:
@@ -114,25 +108,38 @@ def judge(cfg, df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def run_all(cfg, out_dir, threads=None, **kw) -> pd.DataFrame:
-    """Run the worker once per thread limit (fresh process each) and collect results."""
+def run_all(cfg, out_dir, threads=None, seed=0, sizes=None, config_label="default",
+            **kw) -> pd.DataFrame:
+    """Run the worker once per thread limit (fresh process each) and collect results.
+
+    The workers get the caller's config (dumped next to the CSV as onboard_config.yaml),
+    seed and sizes, so what is benchmarked is what is graded. The CSV records the config.
+    """
     threads = threads or params.get(cfg, "onboard.bench_threads")
     root = Path(__file__).resolve().parents[1]
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    cfg_file = out / "onboard_config.yaml"
+    cfg_file.write_text(yaml.safe_dump(cfg, allow_unicode=True, sort_keys=False),
+                        encoding="utf-8")
     recs = []
     for k in threads:
         env = {**os.environ, "OMP_NUM_THREADS": str(k), "OPENBLAS_NUM_THREADS": str(k),
                "MKL_NUM_THREADS": str(k), "PYTHONPATH": str(root)}
-        cmd = [sys.executable, "-m", "maek.onboard", "--threads", str(k)]
+        cmd = [sys.executable, "-m", "maek.onboard", "--threads", str(k),
+               "--config", str(cfg_file), "--seed", str(seed)]
+        if sizes:
+            cmd += ["--sizes", *[str(int(x)) for x in sizes]]
         if kw.get("n_images"):
             cmd += ["--n-images", str(kw["n_images"])]
         if kw.get("n_ut"):
             cmd += ["--n-ut", str(kw["n_ut"])]
-        out = subprocess.run(cmd, env=env, cwd=root, capture_output=True, text=True, check=True)
-        for r in json.loads(out.stdout.strip().splitlines()[-1]):
+        res = subprocess.run(cmd, env=env, cwd=root, capture_output=True, text=True, check=True)
+        for r in json.loads(res.stdout.strip().splitlines()[-1]):
             recs.append({"threads": k, **r})
     df = judge(cfg, pd.DataFrame(recs))
-    out = Path(out_dir)
-    out.mkdir(parents=True, exist_ok=True)
+    df["config"] = config_label
+    df["seed"] = seed
     df.to_csv(out / "onboard.csv", index=False)
     return df
 
@@ -156,10 +163,14 @@ def _main(argv=None) -> int:
     ap.add_argument("--threads", type=int, default=1)
     ap.add_argument("--n-images", type=int, default=None)
     ap.add_argument("--n-ut", type=int, default=None)
+    ap.add_argument("--config", default=None)
+    ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--sizes", type=int, nargs="+", default=None)
     a = ap.parse_args(argv)
     limit_threads(a.threads)
-    cfg = params.load_config()
-    print(json.dumps(run_benchmark(cfg, n_images=a.n_images, n_ut=a.n_ut)))
+    cfg = params.load_config(a.config)
+    print(json.dumps(run_benchmark(cfg, sizes=a.sizes, n_images=a.n_images, n_ut=a.n_ut,
+                                   seed=a.seed)))
     return 0
 
 

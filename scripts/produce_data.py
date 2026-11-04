@@ -9,6 +9,9 @@ Outputs:
     ut/shifted/ same, harder conditions
     camera/train/, camera/shifted/  images/*.jpg, masks/*.png, labels/*.txt (YOLO-seg),
                                      train.txt, val.txt, dataset.yaml, jobs.json
+                                     (train/val split by segment; dataset.yaml has `path: .`,
+                                     train_yolo_seg.py resolves it to the YAML's folder, so the
+                                     unzipped release trains from anywhere)
     strategy/   compare.csv, sensitivity.csv
     DATA_CARD.md
 """
@@ -20,7 +23,6 @@ import json
 import subprocess
 import sys
 import time
-from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
 import numpy as np
@@ -31,42 +33,12 @@ sys.path.insert(0, str(ROOT))
 from maek import network, params, strategy, ut
 from maek.camera import composite2d, jobs
 
-_CFG = None
 
-
-def _init(cfg_path: str) -> None:
-    global _CFG
-    _CFG = params.load_config(cfg_path)
-
-
-def _render_one(task: tuple[int, int, dict, str]) -> str:
-    from PIL import Image
-
-    seed, i, job, out = task
-    out_dir = Path(out)
-    rgb, mask = composite2d.render_job(_CFG, job, np.random.default_rng([seed, i]))
-    jid = job["job_id"]
-    Image.fromarray(rgb).save(out_dir / "images" / f"{jid}.jpg", quality=92)
-    Image.fromarray(mask).save(out_dir / "masks" / f"{jid}.png", compress_level=6)
-    lines = composite2d.yolo_lines(mask) if mask.any() else []
-    (out_dir / "labels" / f"{jid}.txt").write_text(
-        "\n".join(lines) + ("\n" if lines else ""), encoding="utf-8")
-    return jid
-
-
-def render_set(cfg_path, js, out_dir: Path, seed: int, workers: int) -> None:
-    for sub in ("images", "masks", "labels"):
-        (out_dir / sub).mkdir(parents=True, exist_ok=True)
+def render_set(cfg, js, out_dir: Path, seed: int, workers: int) -> None:
+    out_dir.mkdir(parents=True, exist_ok=True)
     jobs.save_jobs(out_dir / "jobs.json", js)
-    tasks = [(seed, i, j, str(out_dir)) for i, j in enumerate(js)]
-    with ProcessPoolExecutor(workers, initializer=_init, initargs=(cfg_path,)) as ex:
-        names = list(ex.map(_render_one, tasks, chunksize=8))
-    val = {j for k, j in enumerate(names) if k % 5 == 4}
-    (out_dir / "train.txt").write_text("".join(f"./images/{j}.jpg\n" for j in names if j not in val))
-    (out_dir / "val.txt").write_text("".join(f"./images/{j}.jpg\n" for j in names if j in val))
-    cls = "".join(f"  {c - 1}: {composite2d.CLASSES[c]}\n" for c in composite2d.CLASSES if c)
-    (out_dir / "dataset.yaml").write_text(
-        f"path: .\ntrain: train.txt\nval: val.txt\nnames:\n{cls}", encoding="utf-8")
+    composite2d.render_all(cfg, js, out_dir, seed, image_format="jpg", jpg_quality=92,
+                           workers=workers, relative_yaml=True)
 
 
 def save_ut(out_dir: Path, straight, angle, labels) -> None:
@@ -107,16 +79,15 @@ def main() -> int:
 
     for cond, n, s in (("train", a.img_train, a.seed), ("shifted", a.img_shifted, a.seed + 100)):
         js = jobs.make_jobs(cfg, seg, dfx, n, s, condition=cond)
-        render_set(a.config, js, out / "camera" / cond, s, a.workers)
+        render_set(cfg, js, out / "camera" / cond, s, a.workers)
         log[f"camera_{cond}"] = {"n": len(js), "seed": s,
                                  "negatives": int(sum(j["negative"] for j in js))}
 
     st_dir = out / "strategy"
     st_dir.mkdir(parents=True, exist_ok=True)
-    comp = strategy.compare(cfg, a.seed, a.strategy_runs)
+    comp, sens = strategy.compare_and_sensitivity(cfg, a.seed, a.strategy_runs)
     comp.to_csv(st_dir / "compare.csv", index=False)
-    strategy.sensitivity(cfg, a.seed, max(3, a.strategy_runs // 4)).to_csv(
-        st_dir / "sensitivity.csv", index=False)
+    sens.to_csv(st_dir / "sensitivity.csv", index=False)
 
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], check=False, cwd=ROOT,
                             capture_output=True, text=True).stdout.strip()

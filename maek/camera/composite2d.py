@@ -103,11 +103,18 @@ def _pipe_layers(job, rng):
     return rgb.astype(np.float32), inside, u, v
 
 
-def _patch(job, d, rng):
-    """Blob field for one defect: returns (y0, y1, x0, x1, field, color_field)."""
+def defect_center(job, d):
+    """Pixel centre (cx, cy) of a job defect; the single source of the renderer geometry."""
     S, ct, st, hw = _frame(job)
     cx = S / 2 + (d["u"] - 0.5) * S * ct - d["v"] * hw * st
     cy = S / 2 + (d["u"] - 0.5) * S * st + d["v"] * hw * ct
+    return cx, cy
+
+
+def _patch(job, d, rng):
+    """Blob field for one defect: returns (y0, y1, x0, x1, field, color_field)."""
+    S, ct, st, _hw = _frame(job)
+    cx, cy = defect_center(job, d)
     a, b = d["w"] * S / 2, d["h"] * S / 2
     cls = d["class_id"]
     if cls == 3:                       # leak stain: drips mostly across/down the pipe
@@ -262,7 +269,12 @@ def label_components(mask: np.ndarray):
 
 
 def trace_contour(comp: np.ndarray) -> list[tuple[int, int]]:
-    """Moore-neighbour outer contour of one boolean component -> [(x, y), ...]."""
+    """Moore-neighbour outer contour of one boolean component -> [(x, y), ...].
+
+    Stops with Jacob's criterion: when the walk is back on the start pixel and would leave it
+    the same way as the first move (stopping at the first return to the start pixel truncates
+    the polygon when the start pixel is a cut vertex).
+    """
     pad = np.pad(comp, 1)
     ys, xs = np.nonzero(pad)
     i = np.lexsort((xs, ys))[0]
@@ -270,19 +282,24 @@ def trace_contour(comp: np.ndarray) -> list[tuple[int, int]]:
     pts = [(sx - 1, sy - 1)]
     by, bx = sy, sx
     d = 0  # backtrack direction (west of start is background)
-    limit = 4 * int(comp.sum()) + 16
+    first_nd = None
+    limit = 8 * int(comp.sum()) + 16
     for _ in range(limit):
         found = False
         for k in range(1, 9):
             nd = (d + k) % 8
             ny, nx = by + _DIRS[nd][0], bx + _DIRS[nd][1]
             if pad[ny, nx]:
+                if first_nd is None:
+                    first_nd = nd
+                elif (by, bx) == (sy, sx) and nd == first_nd:
+                    return pts
                 py, px = by + _DIRS[(nd - 1) % 8][0], bx + _DIRS[(nd - 1) % 8][1]
                 by, bx = ny, nx
                 d = _DIRS.index((py - by, px - bx))
                 found = True
                 break
-        if not found or (by, bx) == (sy, sx):
+        if not found:
             break
         pts.append((bx - 1, by - 1))
     return pts
@@ -337,28 +354,76 @@ def yolo_lines(mask: np.ndarray) -> list[str]:
     return lines
 
 
-def render_all(cfg: dict, jobs: list[dict], out_dir, seed: int = 0) -> Path:
-    """Write images/, masks/, labels/ (YOLO-seg), train.txt, val.txt and dataset.yaml."""
+def split_val(job_list: list[dict], frac: float = 0.2) -> set[str]:
+    """Job ids of the validation split. Grouped by segment_id with a deterministic hash, so a
+    segment (and hence any physical defect on it) is never in both train and val."""
+    import hashlib
+
+    val = set()
+    for j in job_list:
+        h = hashlib.md5(f"maek-split:{j['segment_id']}".encode()).digest()
+        if int.from_bytes(h[:4], "big") / 2**32 < frac:
+            val.add(j["job_id"])
+    return val
+
+
+_CFG = None
+
+
+def _init_worker(cfg):
+    global _CFG
+    _CFG = cfg
+
+
+def _render_one(task):
     from PIL import Image
 
+    seed, i, job, out, fmt, quality = task
+    out = Path(out)
+    rgb, mask = render_job(_CFG, job, np.random.default_rng([seed, i]))
+    jid = job["job_id"]
+    img = Image.fromarray(rgb)
+    if fmt == "jpg":
+        img.save(out / "images" / f"{jid}.jpg", quality=quality)
+    else:
+        img.save(out / "images" / f"{jid}.png", compress_level=1)
+    Image.fromarray(mask).save(out / "masks" / f"{jid}.png", compress_level=1)
+    lines = yolo_lines(mask) if mask.any() else []
+    (out / "labels" / f"{jid}.txt").write_text(
+        "\n".join(lines) + ("\n" if lines else ""), encoding="utf-8")
+    return jid
+
+
+def render_all(cfg: dict, jobs: list[dict], out_dir, seed: int = 0, *,
+               image_format: str = "png", jpg_quality: int = 92, workers: int = 1,
+               relative_yaml: bool = False, val_frac: float = 0.2) -> Path:
+    """Write images/, masks/, labels/ (YOLO-seg), train.txt, val.txt and dataset.yaml.
+
+    image_format "png"|"jpg"; workers > 1 renders in parallel (output is identical for any
+    worker count: image i uses rng [seed, i]). Train/val are split by segment_id.
+    relative_yaml writes `path: .` (portable; train_yolo_seg.py resolves it at run time)
+    instead of the absolute output folder. The list files always hold ./images/... paths.
+    """
+    if image_format not in ("png", "jpg"):
+        raise ValueError(f"image_format must be 'png' or 'jpg', got {image_format!r}")
     out = Path(out_dir)
     for sub in ("images", "masks", "labels"):
         (out / sub).mkdir(parents=True, exist_ok=True)
-    names = []
-    for i, job in enumerate(jobs):
-        rng = np.random.default_rng([seed, i])
-        rgb, mask = render_job(cfg, job, rng)
-        jid = job["job_id"]
-        Image.fromarray(rgb).save(out / "images" / f"{jid}.png", compress_level=1)
-        Image.fromarray(mask).save(out / "masks" / f"{jid}.png", compress_level=1)
-        (out / "labels" / f"{jid}.txt").write_text("\n".join(yolo_lines(mask)) + "\n"
-                                                    if mask.any() else "", encoding="utf-8")
-        names.append(jid)
-    val = {j for k, j in enumerate(names) if k % 5 == 4}
-    (out / "train.txt").write_text("".join(f"./images/{j}.png\n" for j in names if j not in val))
-    (out / "val.txt").write_text("".join(f"./images/{j}.png\n" for j in names if j in val))
+    tasks = [(seed, i, job, str(out), image_format, jpg_quality) for i, job in enumerate(jobs)]
+    if workers > 1:
+        from concurrent.futures import ProcessPoolExecutor
+
+        with ProcessPoolExecutor(workers, initializer=_init_worker, initargs=(cfg,)) as ex:
+            names = list(ex.map(_render_one, tasks, chunksize=8))
+    else:
+        _init_worker(cfg)
+        names = [_render_one(t) for t in tasks]
+    val = split_val(jobs, val_frac)
+    ext = image_format
+    (out / "train.txt").write_text("".join(f"./images/{j}.{ext}\n" for j in names if j not in val))
+    (out / "val.txt").write_text("".join(f"./images/{j}.{ext}\n" for j in names if j in val))
     cls_lines = "".join(f"  {c - 1}: {CLASSES[c]}\n" for c in CLASSES if c)
+    root = "." if relative_yaml else str(out.resolve())
     (out / "dataset.yaml").write_text(
-        f"path: {out.resolve()}\ntrain: train.txt\nval: val.txt\nnames:\n{cls_lines}",
-        encoding="utf-8")
+        f"path: {root}\ntrain: train.txt\nval: val.txt\nnames:\n{cls_lines}", encoding="utf-8")
     return out / "dataset.yaml"

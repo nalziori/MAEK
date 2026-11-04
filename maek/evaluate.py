@@ -50,9 +50,8 @@ def pod_summary(sizes, hits, n_boot=300, seed=0) -> dict:
 # ------------------------------------------------------------------ (1) corrosion images
 def _defect_center_radius(job, d):
     """Pixel centre and search radius of a job defect (same geometry as the renderer)."""
-    S, ct, st, hw = composite2d._frame(job)
-    cx = S / 2 + (d["u"] - 0.5) * S * ct - d["v"] * hw * st
-    cy = S / 2 + (d["u"] - 0.5) * S * st + d["v"] * hw * ct
+    S = job["image_size"]
+    cx, cy = composite2d.defect_center(job, d)
     r = 1.2 * max(d["w"], d["h"]) * S / 2 + 3
     return cx, cy, r
 
@@ -124,10 +123,11 @@ def _with(cfg, dotted, value):
 def eval_ut(cfg, condition, n, seed=0) -> dict:
     straight, angle, lab = ut.make_dataset(cfg, n, seed, condition)
     rows = list(lab.itertuples())
-    th = np.array([ut.estimate_thickness(cfg, s, r.temp_c) for s, r in zip(straight, rows)])
-    tm = np.array([ut.min_thickness(cfg, s, r.temp_c) for s, r in zip(straight, rows)])
-    det = np.array([ut.detect_crack(cfg, s, r.wall_mm, r.angle_deg, r.temp_c)["found"]
-                    for s, r in zip(angle, rows)])
+    temps = ut.analysis_temps(cfg, lab)  # measured (not true) temperature, or 20 C
+    th = np.array([ut.estimate_thickness(cfg, s, t) for s, t in zip(straight, temps)])
+    tm = np.array([ut.min_thickness(cfg, s, t) for s, t in zip(straight, temps)])
+    det = np.array([ut.detect_crack(cfg, s, r.wall_mm, r.angle_deg, t)["found"]
+                    for s, r, t in zip(angle, rows, temps)])
     crack = lab["crack"].to_numpy(bool)
     err = np.abs(th - lab["wall_mm"].to_numpy())
     err = np.where(np.isnan(err), np.inf, err)  # a failed estimate counts as a miss
@@ -157,12 +157,16 @@ def crack_strategy(cfg, seed=0, runs=10, total_km=None) -> dict:
     from maek import strategy
 
     out = {}
+    # baseline does not depend on crack_ut_mode: run it once, with the first mode only
     for name, mode in (("ai_random", "random"), ("ai_risk_ranked", "risk_ranked")):
-        res = strategy._run_all(_with(cfg, "strategy.crack_ut_mode", mode), seed, runs, total_km)
+        which = ("baseline", "ai_triage") if "baseline" not in out else ("ai_triage",)
+        res = strategy.run_all(_with(cfg, "strategy.crack_ut_mode", mode), seed, runs,
+                               total_km, which)
         out[name] = float(res["ai_triage"]["detection_rate_crack"].mean())
         out[name + "_ut_points"] = float(res["ai_triage"]["ut_points"].mean())
-        out["baseline"] = float(res["baseline"]["detection_rate_crack"].mean())
-        out["baseline_ut_points"] = float(res["baseline"]["ut_points"].mean())
+        if "baseline" in res:
+            out["baseline"] = float(res["baseline"]["detection_rate_crack"].mean())
+            out["baseline_ut_points"] = float(res["baseline"]["ut_points"].mean())
     return out
 
 

@@ -11,6 +11,8 @@ a GPU is strongly recommended). Typical use on Colab or a GPU box:
 
 To measure the train -> shifted drop, render a second dataset with shifted jobs
 (`maek.camera.jobs.make_jobs(..., condition="shifted")`) and pass its dataset.yaml to `val`.
+dataset.yaml may hold `path: .` (released data): the train/val/benchmark commands rewrite it at
+run time with `path:` set to the YAML's absolute folder, so the data trains after unzipping anywhere.
 Classes (dataset.yaml): 0 corrosion, 1 cui_sign, 2 leak_stain.
 """
 
@@ -19,8 +21,35 @@ from __future__ import annotations
 import argparse
 import json
 import statistics
+import tempfile
 import time
 from pathlib import Path
+
+import yaml
+
+IMAGE_EXTS = (".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff", ".webp")
+
+
+def resolve_data(data: str) -> str:
+    """Return a dataset yaml Ultralytics can use from anywhere.
+
+    Ultralytics resolves a relative `path:` against its DATASETS_DIR, not the YAML's folder, so
+    the released `path: .` fails. Write a temp yaml whose `path:` is the YAML's absolute folder
+    (train/val lists stay relative to it) and return that temp file's path.
+    """
+    src = Path(data).resolve()
+    cfg = yaml.safe_load(src.read_text(encoding="utf-8"))
+    cfg["path"] = str(src.parent)
+    tmp = Path(tempfile.mkdtemp(prefix="maek_ds_")) / "dataset.yaml"
+    tmp.write_text(yaml.safe_dump(cfg, allow_unicode=True, sort_keys=False), encoding="utf-8")
+    return str(tmp)
+
+
+def find_images(data: str, n: int | None = None) -> list[Path]:
+    """Images under `images/` next to dataset.yaml, any common extension, sorted."""
+    root = Path(data).parent / "images"
+    imgs = sorted(p for p in root.glob("*") if p.suffix.lower() in IMAGE_EXTS)
+    return imgs[:n] if n else imgs
 
 
 def _yolo(weights: str):
@@ -31,13 +60,13 @@ def _yolo(weights: str):
 
 def cmd_train(a) -> int:
     model = _yolo(a.weights)
-    model.train(data=a.data, epochs=a.epochs, imgsz=a.imgsz, batch=a.batch, device=a.device,
+    model.train(data=resolve_data(a.data), epochs=a.epochs, imgsz=a.imgsz, batch=a.batch, device=a.device,
                 project=a.project, name=a.name, seed=a.seed, exist_ok=True)
     return 0
 
 
 def cmd_val(a) -> int:
-    m = _yolo(a.weights).val(data=a.data, imgsz=a.imgsz, device=a.device, split="val")
+    m = _yolo(a.weights).val(data=resolve_data(a.data), imgsz=a.imgsz, device=a.device, split="val")
     out = {"box_map50": float(m.box.map50), "mask_map50": float(m.seg.map50),
            "mask_map50_95": float(m.seg.map), "per_class_mask_map50": [float(x) for x in m.seg.ap50]}
     print(json.dumps(out, indent=1))
@@ -54,7 +83,7 @@ def cmd_export(a) -> int:
 def cmd_benchmark(a) -> int:
     """Latency (median / p95 ms), params and weight size; run this ON the target board."""
     model = _yolo(a.weights)
-    imgs = sorted(Path(a.data).parent.glob("images/*.png"))[:a.n]
+    imgs = find_images(a.data, a.n)
     if not imgs:
         raise SystemExit("no images found next to dataset.yaml")
     kw = {"imgsz": a.imgsz, "device": a.device, "verbose": False}

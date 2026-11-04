@@ -1,3 +1,4 @@
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -43,3 +44,20 @@ def test_cli_unknown_command_exits_2():
     r = subprocess.run([sys.executable, "-m", "maek", "no-such-command"], cwd=ROOT, check=False,
                        capture_output=True, text=True)
     assert r.returncode == 2
+
+
+def test_cli_works_from_any_cwd(tmp_path):
+
+    env = {**os.environ, "PYTHONPATH": str(ROOT), "OMP_NUM_THREADS": "1"}
+    for args in (["params-table"], ["network", "--total-km", "1", "--out", str(tmp_path / "n")]):
+        r = subprocess.run([sys.executable, "-m", "maek", *args], check=False, cwd=tmp_path, env=env,
+                           capture_output=True, text=True)
+        assert r.returncode == 0, r.stderr
+
+
+def test_default_paths_are_package_relative():
+    assert params.DEFAULT_PATH.is_absolute() and params.DEFAULT_PATH.exists()
+    from maek import cli
+
+    ns = cli.build_parser().parse_args(["params-table"])
+    assert ns.config is None
