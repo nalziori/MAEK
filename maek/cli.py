@@ -8,7 +8,7 @@ from pathlib import Path
 
 from maek import params
 
-STUBS = ["network", "camera-jobs", "render2d", "strategy"]
+STUBS = ["camera-jobs", "render2d", "strategy"]
 
 
 def _params_table(args) -> int:
@@ -36,6 +36,15 @@ def _ut(args) -> int:
     print(f"  min-thickness MAE  {m['min_thickness_mae_mm']:.3f} mm")
     print(f"  crack detection    {m['crack_detection_rate']:.3f}")
     print(f"  false alarms       {m['false_alarm_rate']:.3f}")
+def _network(args) -> int:
+    from maek import network
+
+    cfg = params.load_config(args.config)
+    params.validate(cfg)
+    seg, feat, dfx = network.generate_network(cfg, args.seed, total_km=args.total_km)
+    paths = network.save_network(args.out, seg, feat, dfx)
+    print(network.summary(seg, feat, dfx))
+    print("wrote: " + ", ".join(str(p) for p in paths))
     return 0
 
 
@@ -58,6 +67,9 @@ def build_parser() -> argparse.ArgumentParser:
     u.add_argument("--n", type=int, default=2000)
     u.add_argument("--condition", choices=["train", "shifted"], default="train")
     u.set_defaults(func=_ut)
+    nw = sub.add_parser("network", parents=[common], help="generate pipe network + defects")
+    nw.add_argument("--total-km", type=float, default=None, help="override network.total_km")
+    nw.set_defaults(func=_network)
     for name in STUBS:
         sub.add_parser(name, parents=[common]).set_defaults(func=_stub)
     return p

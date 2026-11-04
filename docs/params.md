@@ -17,6 +17,40 @@
 | `network.install_year_max` | 2020 | year | 가정 |
 | `network.insulated_fraction` | 0.45 |  | 가정 |
 | `network.elevated_fraction` | 0.6 |  | 가정 |
+| `network.reference_year` | 2026 | year | 가정 |
+| `network.insulated_prob_steam` | 0.95 |  | 가정 |
+| `network.t_min_frac` | 0.5 |  | 가정 |
+| `network.traffic_levels` | [0, 1, 2] |  | 가정 |
+| `network.nps_weights.nps_2` | 0.3 |  | 가정 |
+| `network.nps_weights.nps_4` | 0.3 |  | 가정 |
+| `network.nps_weights.nps_8` | 0.25 |  | 가정 |
+| `network.nps_weights.nps_12` | 0.15 |  | 가정 |
+| `network.material.acid_pvc` | 0.6 |  | 가정 |
+| `network.material.oxygen_stainless` | 0.3 |  | 가정 |
+| `network.material.other_stainless` | 0.05 |  | 가정 |
+| `network.area_by_medium.cooling_water` | ['제선', '제강', '압연', '발전'] |  | 가정 |
+| `network.area_by_medium.steam` | ['발전', '압연', '제강'] |  | 가정 |
+| `network.area_by_medium.byproduct_gas_co` | ['제선', '제강', '발전'] |  | 가정 |
+| `network.area_by_medium.oxygen` | ['산소공장', '제강', '제선'] |  | 가정 |
+| `network.area_by_medium.nitrogen` | ['산소공장', '제강', '압연'] |  | 가정 |
+| `network.area_by_medium.pickling_acid_hf` | ['산세'] |  | 가정 |
+| `network.area_by_medium.compressed_air` | ['제선', '제강', '압연', '산세'] |  | 가정 |
+| `network.temp_c_by_medium.cooling_water` | [25, 60] | C | 가정 |
+| `network.temp_c_by_medium.steam` | [100, 220] | C | 가정 |
+| `network.temp_c_by_medium.byproduct_gas_co` | [30, 90] | C | 가정 |
+| `network.temp_c_by_medium.oxygen` | [-10, 40] | C | 가정 |
+| `network.temp_c_by_medium.nitrogen` | [-10, 40] | C | 가정 |
+| `network.temp_c_by_medium.pickling_acid_hf` | [40, 85] | C | 가정 |
+| `network.temp_c_by_medium.compressed_air` | [20, 60] | C | 가정 |
+| `network.features_per_km.weld` | 85 | 1/km | 가정 |
+| `network.features_per_km.support` | 125 | 1/km | 가정 |
+| `network.features_per_km.elbow` | 15 | 1/km | 가정 |
+| `network.features_per_km.tee` | 6 | 1/km | 가정 |
+| `network.features_per_km.flange` | 10 | 1/km | 가정 |
+| `network.features_per_km.valve_downstream` | 4 | 1/km | 가정 |
+| `network.features_per_km.orifice_downstream` | 1 | 1/km | 가정 |
+| `network.features_per_km.nozzle` | 3 | 1/km | 가정 |
+| `network.features_per_km.dead_leg` | 0.5 | 1/km | 가정 |
 | `network.pipe_sizes.nps_2.od_mm` | 60.3 | mm | [링크](https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html) |
 | `network.pipe_sizes.nps_2.wall_mm` | 3.91 | mm | [링크](https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html) |
 | `network.pipe_sizes.nps_4.od_mm` | 114.3 | mm | [링크](https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html) |
@@ -25,6 +59,14 @@
 | `network.pipe_sizes.nps_8.wall_mm` | 8.18 | mm | [링크](https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html) |
 | `network.pipe_sizes.nps_12.od_mm` | 323.9 | mm | [링크](https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html) |
 | `network.pipe_sizes.nps_12.wall_mm` | 10.31 | mm | [링크](https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html) |
+| `defects.age_ref_years` | 30 | year | 가정 |
+| `defects.age_exponent` | 1.0 |  | 가정 |
+| `defects.exposure_frac_range` | [0.1, 0.6] |  | 가정 |
+| `defects.consequence_gain` | 0.5 |  | 가정 |
+| `defects.external_corrosion.rate_per_km` | 6 | 1/km | 가정 |
+| `defects.internal_pitting.rate_per_km` | 2 | 1/km | 가정 |
+| `defects.internal_pitting.media` | ['cooling_water', 'steam', 'byproduct_gas_co', 'pickling_acid_hf'] |  | 가정 |
+| `defects.flange_leak.p_per_flange` | 0.03 |  | 가정 |
 | `defects.cui.temp_min_c` | -12 | C | [링크](https://www.fabrico.io/blog/corrosion-under-insulation/) |
 | `defects.cui.temp_max_c` | 175 | C | [링크](https://www.fabrico.io/blog/corrosion-under-insulation/) |
 | `defects.cui.peak_min_c` | 60 | C | [링크](https://www.fabrico.io/blog/corrosion-under-insulation/) |
@@ -33,10 +75,17 @@
 | `defects.cui.location_weight.nozzle` | 0.25 |  | [링크](https://inspectioneering.com/blog/2014-12-08/4286/what-is-corrosion-under-insulation-cui) |
 | `defects.cui.location_weight.dead_leg` | 0.25 |  | [링크](https://inspectioneering.com/blog/2014-12-08/4286/what-is-corrosion-under-insulation-cui) |
 | `defects.cui.location_weight.straight` | 0.15 |  | 가정 |
+| `defects.cui.rate_per_km` | 4 | 1/km | 가정 |
+| `defects.cui.peak_factor` | 2.0 |  | 가정 |
+| `defects.cui.external_sign_prob` | 0.4 |  | 가정 |
 | `defects.fac.location_weight.elbow` | 0.4 |  | [링크](https://www.intechopen.com/chapters/39784) |
 | `defects.fac.location_weight.tee` | 0.25 |  | [링크](https://www.intechopen.com/chapters/39784) |
 | `defects.fac.location_weight.orifice` | 0.2 |  | [링크](https://www.intechopen.com/chapters/39784) |
 | `defects.fac.location_weight.valve` | 0.15 |  | [링크](https://www.intechopen.com/chapters/39784) |
+| `defects.fac.location_weight.straight` | 0.05 |  | 가정 |
+| `defects.fac.rate_per_km` | 3 | 1/km | 가정 |
+| `defects.fac.media` | ['cooling_water', 'steam'] |  | 가정 |
+| `defects.fac.rate_factor` | 2.0 |  | 가정 |
 | `defects.corrosion_rate.mean_mm_per_year` | 0.15 | mm/yr | 가정 |
 | `defects.corrosion_rate.sigma_log` | 0.6 |  | 가정 |
 | `defects.corrosion_rate.max_mm_per_year` | 1.5 | mm/yr | 가정 |
@@ -44,6 +93,19 @@
 | `defects.crack.length_sigma_log` | 0.5 |  | 가정 |
 | `defects.crack.depth_frac_mean` | 0.25 |  | 가정 |
 | `defects.crack.depth_frac_max` | 0.8 |  | 가정 |
+| `defects.crack.rate_per_km` | 1 | 1/km | 가정 |
+| `defects.crack.critical_height_frac` | 0.4 |  | 가정 |
+| `defects.crack.growth_mm_per_year` | 0.05 | mm/yr | 가정 |
+| `defects.crack.location_weight.weld` | 0.6 |  | 가정 |
+| `defects.crack.location_weight.elbow` | 0.3 |  | 가정 |
+| `defects.crack.location_weight.straight` | 0.1 |  | 가정 |
+| `risk.consequence.oxygen` | 5 |  | 가정 |
+| `risk.consequence.pickling_acid_hf` | 5 |  | 가정 |
+| `risk.consequence.byproduct_gas_co` | 5 |  | 가정 |
+| `risk.consequence.steam` | 3 |  | 가정 |
+| `risk.consequence.nitrogen` | 2 |  | 가정 |
+| `risk.consequence.compressed_air` | 1 |  | 가정 |
+| `risk.consequence.cooling_water` | 1 |  | 가정 |
 | `ut.v_long` | 5920 | m/s | [링크](https://materialwelding.com/ultrasonic-velocity-chart/) |
 | `ut.v_shear` | 3240 | m/s | [링크](https://materialwelding.com/ultrasonic-velocity-chart/) |
 | `ut.temp_coeff_mps_per_c` | -0.7 | m/s/C | [링크](https://tractian.com/en/glossary/speed-of-sound) |
