@@ -167,6 +167,13 @@ camera:
   brightness_range: {value: [0.5, 1.5], assumption: true, note: 조명 배율}
   dust_opacity_range: {value: [0.0, 0.4], assumption: true, note: 분진}
   steam_opacity_range: {value: [0.0, 0.5], assumption: true, note: 증기}
+  negative_frac: {value: 0.4, assumption: true, note: 결함 없는 음성 이미지 비율}
+  pipe_width_frac_range: {value: [0.35, 0.7], assumption: true, note: 이미지 높이 대비 배관 외경 폭}
+  tilt_deg_range: {value: [-15, 15], unit: deg, assumption: true, note: 배관 기울기(시점)}
+  blur_sigma_range: {value: [0.0, 2.0], unit: px, assumption: true, note: 초점/모션 블러}
+  noise_sigma_range: {value: [0.0, 0.04], assumption: true, note: 센서 노이즈(0-1 스케일)}
+  view_window_pad: {value: 1.0, assumption: true, note: 시야 안 결함 포함 여지(이미지 폭 배수)}
+  min_defect_px: {value: 6, unit: px, assumption: true, note: 렌더 결함 최소 크기}
 strategy:
   cost_ut_point_krw: {value: 150000, unit: KRW, assumption: true, note: UT 1점 측정}
   cost_scaffold_krw: {value: 2000000, unit: KRW, assumption: true, note: 비계 설치}

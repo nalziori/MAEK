@@ -144,6 +144,13 @@
 | `camera.brightness_range` | [0.5, 1.5] |  | 가정 |
 | `camera.dust_opacity_range` | [0.0, 0.4] |  | 가정 |
 | `camera.steam_opacity_range` | [0.0, 0.5] |  | 가정 |
+| `camera.negative_frac` | 0.4 |  | 가정 |
+| `camera.pipe_width_frac_range` | [0.35, 0.7] |  | 가정 |
+| `camera.tilt_deg_range` | [-15, 15] | deg | 가정 |
+| `camera.blur_sigma_range` | [0.0, 2.0] | px | 가정 |
+| `camera.noise_sigma_range` | [0.0, 0.04] |  | 가정 |
+| `camera.view_window_pad` | 1.0 |  | 가정 |
+| `camera.min_defect_px` | 6 | px | 가정 |
 | `strategy.cost_ut_point_krw` | 150000 | KRW | 가정 |
 | `strategy.cost_scaffold_krw` | 2000000 | KRW | 가정 |
 | `strategy.cost_drone_per_km_krw` | 500000 | KRW/km | 가정 |
