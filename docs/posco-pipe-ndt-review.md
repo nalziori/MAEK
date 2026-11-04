@@ -6,7 +6,8 @@ POSCO AI Hackathon 2026 안전 주제 검토 노트 · 조사일 2026-11-04 · �
 ## 구현 현황 (MAEK)
 
 - ② 내부 균열 탐지와 ③ 두께 측정: 시뮬레이터에 기준 구현이 있습니다 (`maek/ut.py`, `python -m maek ut`).
-- ① 부식 탐지: 카메라 기준 구현은 아직 main에 병합되지 않았습니다.
+- ① 부식 탐지: 카메라 렌더러와 기준 분할기가 있습니다 (`maek/camera/`, `python -m maek render2d`, `python -m maek evaluate`).
+- 평가 결과는 [results.md](results.md)를 보세요.
 - 사용법과 기준 수치는 [README.md](../README.md)를 보세요.
 
 ## 결론: 조건부 추천

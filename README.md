@@ -78,7 +78,16 @@ OMP_NUM_THREADS=1 python scripts/produce_data.py
 
 ## 데이터 받기
 
-데이터 위치는 데이터 생산 후 추가됩니다.
+합성 데이터 v1(약 450MB)은 이 저장소의 `data` 브랜치에 있습니다. 받는 방법과 조각 합치는 방법은 [data 브랜치 README](https://github.com/nalziori/MAEK/tree/data)에 있습니다.
+
+| 묶음 | 규모 |
+|---|---|
+| 배관망 정답 | 100km, 구간 2,000개, 특징 25,018개, 결함 885개(위험 200개) |
+| ②③ 초음파 A-scan | 학습 10,000개, 어려운 조건 3,000개 |
+| ① 카메라 이미지 | 학습 2,000장, 어려운 조건 400장 (마스크, YOLO-seg 라벨 포함) |
+| 점검 전략 비교 | 20회 반복, 단가 민감도 |
+
+데이터 카드와 결과 표는 [구글 드라이브 MAEK 폴더](https://drive.google.com/drive/folders/1CSW6ENnyRrK0J1tF6CnAKn7gXxHfBkVz)에도 있습니다.
 
 ## 문서
 
