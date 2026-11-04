@@ -43,7 +43,17 @@
 `x = S/2 + (u-0.5)*S*cos t - v*hw*sin t`, `y = S/2 + (u-0.5)*S*sin t + v*hw*cos t`
 (`S`=image_size, `hw`=width_frac*S/2, `t`=tilt).
 
-## 출력 (`python -m maek render2d`)
+## 출력 (`python -m maek render2d`, `scripts/produce_data.py`)
 
-`data/camera/images/*.png`, `masks/*.png`(값=클래스 ID), `labels/*.txt`(YOLO-seg: `class x1 y1 x2 y2 ...`,
+`images/*.png` 또는 `images/*.jpg`, `masks/*.png`(값=클래스 ID), `labels/*.txt`(YOLO-seg: `class x1 y1 x2 y2 ...`,
 정규화 좌표, 클래스는 0부터이므로 mask 값-1), `train.txt`, `val.txt`, `dataset.yaml`.
+
+- `render2d` CLI 기본값은 PNG이고 `dataset.yaml`의 `path:`가 출력 폴더 절대 경로다. 릴리스(`produce_data.py`)는
+  JPEG(품질 92)이고 `path: .`다. 둘 다 `composite2d.render_all(image_format="png"|"jpg", workers=N,
+  relative_yaml=...)`로 만든다. 이미지별 시드가 `[seed, i]`라 workers 수와 무관하게 결과가 같다.
+- `train.txt`/`val.txt`는 항상 `./images/<id>.<ext>` 상대 경로다. 학습/검증은 `segment_id` 기준 해시로 나뉘어
+  (약 80/20) 같은 구간(같은 실제 결함)이 train과 val에 동시에 들어가지 않는다. 음성 이미지도 구간 단위로 묶인다.
+- Ultralytics는 상대 `path:`를 YAML 폴더가 아니라 자신의 DATASETS_DIR 기준으로 해석한다. 그래서 릴리스를 어디에
+  풀어도 `python scripts/train_yolo_seg.py train|val --data <압축 푼 곳>/dataset.yaml`을 쓰면 실행 시점에
+  `path:`를 YAML의 절대 폴더로 바꾼 임시 YAML을 만들어 넘긴다. `ultralytics`를 직접 호출할 때는 `path:`를 직접
+  절대 경로로 고쳐야 한다.
