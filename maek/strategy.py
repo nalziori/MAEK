@@ -1,4 +1,4 @@
-"""Inspection strategy comparison: periodic human walkdown + fixed UT vs AI triage.
+"""Inspection strategy comparison: human+scaffold vs drone only vs drone+AI triage.
 
 Detection uses a logistic POD curve POD(a) = 1/(1+exp(-(b0 + b1 ln a))) per sensor
 (`strategy.pod.*`); all parameters are assumptions until fitted values replace them.
@@ -16,7 +16,12 @@ from maek import pod as _pod
 WALL_LOSS = ("external_corrosion", "cui", "fac_thinning", "internal_pitting")
 FAC_FEATURES = ("elbow", "tee", "orifice_downstream", "valve_downstream")
 COST_KEYS = ["cost_ut_point_krw", "cost_scaffold_krw", "cost_drone_per_km_krw",
-             "cost_labor_hour_krw", "cost_drone_contact_ut_extra_krw"]
+             "cost_labor_hour_krw", "cost_drone_contact_ut_extra_krw",
+             "cost_ai_processing_per_km_krw"]
+STRATEGIES = ("baseline", "drone", "ai_triage")
+LABELS = {"baseline": "사람+비계", "drone": "드론", "ai_triage": "드론+AI"}
+COUNT_COLS = ["ut_points", "drone_ut_points", "scaffolds", "drone_km", "ai_km",
+              "labor_hours"]
 
 
 def pod_prob(a, b0, b1):
@@ -43,18 +48,49 @@ def _mode(defects):
     return defects["ut_mode"].fillna("").astype(str).str.strip().to_numpy()
 
 
-def _ut_pod(cfg, defects, modes=("straight", "angle")):
+def _ut_pod(cfg, defects, modes=("straight", "angle"), drone=None):
     """POD of a UT measurement that covers each defect (mode-specific, size = depth).
 
     Only defects whose ut_mode is in `modes` can be detected (others get POD 0).
+    `drone` (bool per defect) selects drone-contact UT curves (worse coupling) over manual
+    ones; internal pitting at straight-beam points uses the pit-depth curves
+    (`ut_pit_manual` / `ut_pit_drone`) instead of the thinning curves.
     """
     mode = _mode(defects)
+    kind = defects["kind"].to_numpy()
     depth = defects["depth_mm"].to_numpy(float)
+    drone = np.zeros(len(defects), bool) if drone is None else np.asarray(drone, bool)
+    pit = kind == "internal_pitting"
     p = np.zeros(len(defects))
-    for name, sensor in (("straight", "ut_straight"), ("angle", "ut_angle")):
-        m = (mode == name) & (name in modes)
-        p[m] = pod_prob(depth[m], *_pod_params(cfg, sensor))
+    for name, m, manual, drn in (
+            ("straight", (mode == "straight") & ~pit, "ut_straight", "ut_straight_drone"),
+            ("straight", (mode == "straight") & pit, "ut_pit_manual", "ut_pit_drone"),
+            ("angle", mode == "angle", "ut_angle", "ut_angle_drone")):
+        if name not in modes:
+            continue
+        for sel, sensor in ((m & ~drone, manual), (m & drone, drn)):
+            p[sel] = pod_prob(depth[sel], *_pod_params(cfg, sensor))
     return p
+
+
+def _by_seg(d):
+    """segment_id -> (defect positions, defect feature ids) for wasted-measurement checks."""
+    out = {}
+    for sid, g in d.groupby("segment_id", sort=False):
+        out[sid] = (g["pos_m"].to_numpy(float), g["feature_id"].fillna("").to_numpy())
+    return out
+
+
+def _empty_count(by_seg, seg_ids, pos, half, fids=None):
+    """Number of UT points with no defect within +-half m (or tied to the point's feature)."""
+    n = 0
+    for i, (sid, x) in enumerate(zip(seg_ids, pos)):
+        hit = by_seg.get(sid)
+        ok = hit is not None and bool((np.abs(hit[0] - x) <= half).any())
+        if not ok and fids is not None and hit is not None and fids[i]:
+            ok = bool((hit[1] == fids[i]).any())
+        n += not ok
+    return n
 
 
 def _metrics(cfg, defects, found, counts):
@@ -75,6 +111,8 @@ def _metrics(cfg, defects, found, counts):
     hc = (defects["consequence"] >= _s(cfg, "high_consequence_min")).to_numpy()
     out["missed_high_consequence_critical"] = float((crit & hc & ~found).sum())
     out.update({k: float(v) for k, v in counts.items()})
+    out["empty_ut_rate"] = (float(counts["empty_ut_points"] / counts["ut_points"])
+                            if counts["ut_points"] else np.nan)
     out.update(cost_breakdown(cfg, counts))
     return out
 
@@ -89,8 +127,9 @@ def cost_breakdown(cfg, counts, unit=None):
     ut += counts["drone_ut_points"] * unit["cost_drone_contact_ut_extra_krw"]
     sc = counts["scaffolds"] * unit["cost_scaffold_krw"]
     dr = counts["drone_km"] * unit["cost_drone_per_km_krw"]
+    ai = counts.get("ai_km", 0.0) * unit["cost_ai_processing_per_km_krw"]
     lab = counts["labor_hours"] * unit["cost_labor_hour_krw"]
-    return {"cost_krw": float(ut + sc + dr + lab)}
+    return {"cost_krw": float(ut + sc + dr + ai + lab)}
 
 
 def _prepare(cfg, segments, defects):
@@ -103,10 +142,60 @@ def _prepare(cfg, segments, defects):
     return d.reset_index(drop=True)
 
 
-def _labor(cfg, km_walk, km_drone, ut_points, scaffolds):
-    return (km_walk / _s(cfg, "walk_km_per_h") + km_drone / _s(cfg, "drone_km_per_h")
-            + ut_points * _s(cfg, "ut_hours_per_point")
-            + scaffolds * _s(cfg, "scaffold_hours"))
+def _effort(cfg, *, km_walk=0.0, km_flight=0.0, n_segments=0, manual_pts=0, drone_pts=0,
+            scaffolds=0, review_km=0.0, flags=0):
+    """Labour hours (by activity) and elapsed calendar days (phases run one after another).
+
+    Human crews: walkdown, scaffolds, manual UT. Drone teams: flights (+ setup per batch of
+    segments) and drone contact UT. Reviewers: video review and AI-flag verification.
+    """
+    walk = km_walk / _s(cfg, "walk_km_per_h")
+    batches = int(np.ceil(n_segments / _s(cfg, "drone_batch_segments"))) if km_flight else 0
+    flight = km_flight / _s(cfg, "drone_km_per_h") + batches * _s(cfg, "drone_setup_h_per_batch")
+    scaf = scaffolds * _s(cfg, "scaffold_hours")
+    ut_man = manual_pts * _s(cfg, "ut_manual_min_per_point") / 60.0
+    ut_drn = drone_pts * _s(cfg, "ut_drone_min_per_point") / 60.0
+    review = (review_km * _s(cfg, "video_review_min_per_km")
+              + flags * _s(cfg, "ai_verify_min_per_flag")) / 60.0
+    day = _s(cfg, "work_hours_per_day")
+    days = ((walk + scaf + ut_man) / (_s(cfg, "crews") * day)
+            + (flight + ut_drn) / (_s(cfg, "drones") * day)
+            + review / (_s(cfg, "reviewers") * day))
+    return {"hours_walk": walk, "hours_flight": flight, "hours_scaffold": scaf,
+            "hours_ut": ut_man + ut_drn, "hours_review": review,
+            "labor_hours": walk + flight + scaf + ut_man + ut_drn + review,
+            "elapsed_days": days}
+
+
+def _fixed_ut(cfg, segments, d, rng, drone_elevated):
+    """Fixed CMLs (straight-beam) at every metal segment: (hit, counts, empty_points).
+
+    Elevated segments need scaffolds (manual UT) or, if `drone_elevated`, drone contact UT.
+    CMLs cannot detect cracks (angle-beam).
+    """
+    n = len(d)
+    seg = segments.set_index("segment_id")
+    metal = (segments["material"] != "pvc").to_numpy()
+    k = int(_s(cfg, "cml_per_segment"))
+    foot = _s(cfg, "probe_footprint_m")
+    cml_seg = segments.loc[metal]
+    cml = {sid: (np.arange(k) + 0.5) / k * L
+           for sid, L in zip(cml_seg["segment_id"], cml_seg["length_m"])}
+    near = np.zeros(n, bool)
+    for i, (sid, pos) in enumerate(zip(d["segment_id"], d["pos_m"])):
+        pts = cml.get(sid)
+        near[i] = pts is not None and bool((np.abs(pts - pos) <= foot).any())
+    drone = d["elevated"].to_numpy(bool) if drone_elevated else None
+    hit = near & _draw(rng, _ut_pod(cfg, d, ("straight",), drone)) if n else near
+    elev = seg.loc[cml_seg["segment_id"], "elevated"].astype(bool)
+    n_elev = int(elev.sum())
+    by_seg = _by_seg(d)
+    ids = [sid for sid in cml for _ in range(k)]
+    pos = [x for sid in cml for x in cml[sid]]
+    return hit, {"ut_points": int(len(cml_seg) * k),
+                 "drone_ut_points": n_elev * k if drone_elevated else 0,
+                 "scaffolds": 0 if drone_elevated else n_elev,
+                 "empty_ut_points": _empty_count(by_seg, ids, pos, foot)}
 
 
 def run_baseline(cfg, segments, features, defects, rng):
@@ -119,31 +208,38 @@ def run_baseline(cfg, segments, features, defects, rng):
     hb0, hb1 = _pod_params(cfg, "human")
     p = pod_prob(d["area_cm2"], hb0, hb1)
     p = np.where(d["elevated"], p * _s(cfg, "human_elevated_factor"), p)
-    sees = d["visible_external"].to_numpy(bool) | (
-        (d["kind"] == "cui") & d["external_sign"].fillna(False).astype(bool)).to_numpy()
-    p = np.where(sees, p, 0.0)
+    sees = _visible(d)
+    seen = _draw(rng, np.where(sees, p, 0.0)) if n else np.zeros(0, bool)
+
+    ut_hit, fx = _fixed_ut(cfg, segments, d, rng, drone_elevated=False)
+    counts = {**fx, "drone_km": 0.0, "ai_km": 0.0, "walk_km": km, "flags": 0,
+              **_effort(cfg, km_walk=km, manual_pts=fx["ut_points"],
+                        scaffolds=fx["scaffolds"])}
+    return _metrics(cfg, d, seen | ut_hit, counts)
+
+
+def _visible(d):
+    """Defects with an external sign: visible rust / leak stain, or CUI with a cladding sign."""
+    return (d["visible_external"].to_numpy(bool)
+            | ((d["kind"] == "cui") & d["external_sign"].fillna(False).astype(bool)).to_numpy())
+
+
+def run_drone(cfg, segments, features, defects, rng):
+    """Drone video of every segment reviewed by a human; same fixed CMLs, drone contact UT.
+
+    Isolates the value of the drone (no scaffolds, no walkdown) from the value of AI.
+    """
+    d = _prepare(cfg, segments, defects)
+    n = len(d)
+    km = segments["length_m"].sum() / 1000.0
+    p = np.where(_visible(d), pod_prob(d["area_cm2"], *_pod_params(cfg, "human_video")), 0.0)
     seen = _draw(rng, p) if n else np.zeros(0, bool)
 
-    # fixed UT points (not on PVC); defect measured only if inside the footprint
-    seg = segments.set_index("segment_id")
-    metal = (segments["material"] != "pvc").to_numpy()
-    k = int(_s(cfg, "cml_per_segment"))
-    foot = _s(cfg, "probe_footprint_m")
-    cml_seg = segments.loc[metal]
-    ut_points = int(len(cml_seg) * k)
-    cml = {sid: (np.arange(k) + 0.5) / k * L
-           for sid, L in zip(cml_seg["segment_id"], cml_seg["length_m"])}
-    near = np.zeros(n, bool)
-    for i, (sid, pos) in enumerate(zip(d["segment_id"], d["pos_m"])):
-        pts = cml.get(sid)
-        near[i] = pts is not None and bool((np.abs(pts - pos) <= foot).any())
-    # CMLs are straight-beam thickness points: they cannot detect cracks (angle-beam)
-    ut_hit = near & _draw(rng, _ut_pod(cfg, d, ("straight",))) if n else near
-    scaffolds = int(seg.loc[cml_seg["segment_id"], "elevated"].sum())
-
-    counts = {"ut_points": ut_points, "drone_ut_points": 0, "scaffolds": scaffolds,
-              "drone_km": 0.0, "walk_km": km,
-              "labor_hours": _labor(cfg, km, 0.0, ut_points, scaffolds)}
+    ut_hit, fx = _fixed_ut(cfg, segments, d, rng, drone_elevated=True)
+    counts = {**fx, "drone_km": km, "ai_km": 0.0, "walk_km": 0.0, "flags": 0,
+              **_effort(cfg, km_flight=km, n_segments=len(segments),
+                        manual_pts=fx["ut_points"] - fx["drone_ut_points"],
+                        drone_pts=fx["drone_ut_points"], review_km=km)}
     return _metrics(cfg, d, seen | ut_hit, counts)
 
 
@@ -194,22 +290,57 @@ def _risk_features(cfg, segments, features, rng):
         thin=thin, crack=crack, cui=cui)
 
 
+def _rank_pit_segments(cfg, segments):
+    """Segments ordered by internal-pitting risk (most pitting-prone first).
+
+    network.py places internal pitting on metal segments of `defects.internal_pitting.media`
+    with an expected count ~ rate x km x f, f = (age/age_ref)^exp x (1 + gain (c-1)/4)
+    (uniform along the pipe, not tied to features). Score = f x consequence, so an
+    age/consequence-weighted ranking over exactly the candidate segments.
+    """
+    media = set(params.get(cfg, "defects.internal_pitting.media"))
+    age = np.maximum(params.get(cfg, "network.reference_year")
+                     - segments["install_year"].to_numpy(), 0)
+    cons = segments["medium"].map(lambda m: network.consequence(m, cfg)).to_numpy()
+    f = (age / params.get(cfg, "defects.age_ref_years")) ** params.get(
+        cfg, "defects.age_exponent") * (1 + params.get(cfg, "defects.consequence_gain")
+                                       * (cons - 1) / 4)
+    cand = (segments["material"] != "pvc").to_numpy() & segments["medium"].isin(media).to_numpy()
+    score = np.where(cand, f * cons, -1.0)
+    order = np.argsort(-score, kind="stable")
+    return order[score[order] > 0]
+
+
+def _pit_scans(cfg, segments, budget_pts, rng):
+    """Risk-ranked straight-beam area scans: list of (segment_id, centre_m, length_m)."""
+    k = max(int(_s(cfg, "pit_scan_k")), 1)
+    n_scans = max(int(budget_pts) // k, 0)
+    fp = _s(cfg, "pit_scan_footprint_m")
+    order = _rank_pit_segments(cfg, segments)[:n_scans]
+    out = []
+    for i in order:
+        L = float(segments["length_m"].iat[i])
+        w = min(fp, L)
+        out.append((segments["segment_id"].iat[i], float(rng.uniform(w / 2, L - w / 2)), w))
+    return out
+
+
 def run_ai_triage(cfg, segments, features, defects, rng):
-    """Camera sweep of every segment, then UT at flagged spots + risk features."""
+    """Camera sweep of every segment, then UT at flagged spots + risk features + pit scans."""
     d = _prepare(cfg, segments, defects)
     n = len(d)
     km = segments["length_m"].sum() / 1000.0
+    drone_el = _s(cfg, "elevated_ut_mode") != "scaffold"
+    drone_def = d["elevated"].to_numpy(bool) if drone_el else None
 
     cb0, cb1 = _pod_params(cfg, "camera")
-    sees = d["visible_external"].to_numpy(bool) | (
-        (d["kind"] == "cui") & d["external_sign"].to_numpy(bool)).to_numpy()
-    cam = _draw(rng, np.where(sees, pod_prob(d["area_cm2"], cb0, cb1), 0.0)) \
+    cam = _draw(rng, np.where(_visible(d), pod_prob(d["area_cm2"], cb0, cb1), 0.0)) \
         if n else np.zeros(0, bool)
 
     # UT confirmation at each camera-flagged defect (flange leaks need no UT)
     has_ut = (d["ut_mode"] != "").to_numpy()  # normalised in _prepare
     confirm = cam & has_ut
-    conf_hit = confirm & _draw(rng, _ut_pod(cfg, d)) if n else confirm
+    conf_hit = confirm & _draw(rng, _ut_pod(cfg, d, drone=drone_def)) if n else confirm
     cam_found = cam & ~has_ut | conf_hit
 
     # false flags: extra UT points on defect-free segments
@@ -225,38 +356,77 @@ def run_ai_triage(cfg, segments, features, defects, rng):
     cover = (np.isin(fid, list(thin_ids)) & np.isin(kind, ("fac_thinning", "internal_pitting"))) \
         | (np.isin(fid, list(cui_ids)) & (kind == "cui")) \
         | (np.isin(fid, list(crack_ids)) & (kind == "crack"))
-    feat_hit = cover & _draw(rng, _ut_pod(cfg, d)) if n else cover
+    feat_hit = cover & _draw(rng, _ut_pod(cfg, d, drone=drone_def)) if n else cover
 
     thin_cui = ff["thin"] | ff["cui"]
-    pts = pd.concat([
+    fpts = pd.concat([ff[thin_cui], ff[ff["crack"]]])  # one UT point per role
+    base_pts = pd.concat([
         pd.DataFrame({"segment_id": ff.loc[thin_cui, "segment_id"]}),
         pd.DataFrame({"segment_id": ff.loc[ff["crack"], "segment_id"]}),
         pd.DataFrame({"segment_id": d["segment_id"][confirm]}),
         pd.DataFrame({"segment_id": false_seg}, dtype=object)], ignore_index=True)
+
+    # risk-ranked straight-beam area scans for internal pitting (no external sign):
+    # budget in UT points, capped so the total stays within the baseline's fixed UT points
+    k = max(int(_s(cfg, "pit_scan_k")), 1)
+    n_base = int(_s(cfg, "cml_per_segment")) * int((segments["material"] != "pvc").sum())
+    budget = min(int(_s(cfg, "pit_scan_budget_frac") * n_base), max(n_base - len(base_pts), 0))
+    scans = _pit_scans(cfg, segments, budget, rng)
+    scan_hit = np.zeros(n, bool)
+    if scans and n:
+        pos = d["pos_m"].to_numpy(float)
+        sid = d["segment_id"].to_numpy()
+        inside = np.zeros(n, bool)
+        for s_id, c, w in scans:
+            inside |= (sid == s_id) & (np.abs(pos - c) <= w / 2)
+        inside &= (d["ut_mode"] == "straight").to_numpy()
+        scan_hit = inside & _draw(rng, _ut_pod(cfg, d, ("straight",), drone_def))
+    scan_pts = pd.DataFrame({"segment_id": [s_id for s_id, _, _ in scans for _ in range(k)]},
+                            dtype=object)
+    pts = pd.concat([base_pts, scan_pts], ignore_index=True)
+
+    # wasted measurements: points with no defect within the footprint
+    by_seg = _by_seg(d)
+    foot = _s(cfg, "probe_footprint_m")
+    empty = _empty_count(by_seg, fpts["segment_id"], fpts["pos_m"], foot,
+                         fpts["feature_id"].to_numpy())
+    empty += len(false_seg)
+    for s_id, c, w in scans:
+        cells = c - w / 2 + (np.arange(k) + 0.5) * w / k
+        empty += _empty_count(by_seg, [s_id] * k, cells, w / (2 * k))
+
     seg_elev = segments.set_index("segment_id")["elevated"]
     elev = pts["segment_id"].map(seg_elev).fillna(False).astype(bool)
     n_pts = len(pts)
-    if _s(cfg, "elevated_ut_mode") == "scaffold":
+    if not drone_el:
         scaffolds, drone_pts = int(pts.loc[elev, "segment_id"].nunique()), 0
     else:
         scaffolds, drone_pts = 0, int(elev.sum())
+    flags = int(cam.sum()) + n_false
     counts = {"ut_points": n_pts, "drone_ut_points": drone_pts, "scaffolds": scaffolds,
-              "drone_km": km, "walk_km": 0.0,
-              "labor_hours": _labor(cfg, 0.0, km, n_pts, scaffolds)}
-    return _metrics(cfg, d, cam_found | feat_hit, counts)
+              "drone_km": km, "ai_km": km, "walk_km": 0.0, "flags": flags,
+              "empty_ut_points": empty, "pit_scan_points": len(scan_pts),
+              **_effort(cfg, km_flight=km, n_segments=len(segments),
+                        manual_pts=n_pts - drone_pts, drone_pts=drone_pts,
+                        scaffolds=scaffolds, flags=flags)}
+    return _metrics(cfg, d, cam_found | feat_hit | scan_hit, counts)
 
 
-def run_all(cfg, seed, runs, total_km=None, strategies=("baseline", "ai_triage")):
+_RUNNERS = {"baseline": (run_baseline, 0), "drone": (run_drone, 2),
+            "ai_triage": (run_ai_triage, 1)}
+
+
+def run_all(cfg, seed, runs, total_km=None, strategies=STRATEGIES):
     """Monte Carlo runs: {strategy: runs_df} (one row per run)."""
+    unknown = set(strategies) - set(_RUNNERS)
+    if unknown:
+        raise ValueError(f"unknown strategies: {sorted(unknown)}")
     res = {k: [] for k in strategies}
     for i in range(runs):
         seg, feat, dfx = network.generate_network(cfg, seed + i, total_km=total_km)
-        if "baseline" in res:
-            res["baseline"].append(run_baseline(cfg, seg, feat, dfx,
-                                                np.random.default_rng([seed, i, 0])))
-        if "ai_triage" in res:
-            res["ai_triage"].append(run_ai_triage(cfg, seg, feat, dfx,
-                                                  np.random.default_rng([seed, i, 1])))
+        for name in strategies:
+            fn, stream = _RUNNERS[name]
+            res[name].append(fn(cfg, seg, feat, dfx, np.random.default_rng([seed, i, stream])))
     return {k: pd.DataFrame(v) for k, v in res.items()}
 
 
@@ -264,24 +434,28 @@ _run_all = run_all  # backward-compatible name
 
 
 def compare(cfg, seed=0, runs=20, total_km=None, runs_df=None) -> pd.DataFrame:
-    """Monte Carlo comparison: mean and 5-95% range per metric, plus AI/baseline ratio."""
+    """Per metric: mean and 5-95% range per strategy, and ratios vs baseline."""
     if runs_df is None:
         runs_df = run_all(cfg, seed, runs, total_km)
-    rows = {}
-    for name, df in runs_df.items():
-        for col in df.columns:
-            v = df[col].to_numpy(float)
-            ok = v[~np.isnan(v)]
-            rows.setdefault(col, {})[name] = (
-                (float(ok.mean()), float(np.percentile(ok, 5)), float(np.percentile(ok, 95)))
-                if len(ok) else (np.nan,) * 3)
+    names = list(runs_df)
+    cols = list(dict.fromkeys(c for df in runs_df.values() for c in df.columns))
     out = []
-    for col, r in rows.items():
-        b, a = r["baseline"], r["ai_triage"]
-        ratio = a[0] / b[0] if b[0] and not np.isnan(b[0]) else np.nan
-        out.append({"metric": col, "baseline_mean": b[0], "baseline_p5": b[1],
-                    "baseline_p95": b[2], "ai_mean": a[0], "ai_p5": a[1], "ai_p95": a[2],
-                    "ratio_ai_over_baseline": ratio})
+    for col in cols:
+        row = {"metric": col}
+        for name in names:
+            df = runs_df[name]
+            v = df[col].to_numpy(float) if col in df else np.full(len(df), np.nan)
+            ok = v[~np.isnan(v)]
+            m, lo, hi = ((float(ok.mean()), float(np.percentile(ok, 5)),
+                          float(np.percentile(ok, 95))) if len(ok) else (np.nan,) * 3)
+            row.update({f"{name}_mean": m, f"{name}_p5": lo, f"{name}_p95": hi})
+        b = row.get("baseline_mean", np.nan)
+        for name in names:
+            if name != "baseline":
+                a = row[f"{name}_mean"]
+                row[f"ratio_{name}_over_baseline"] = (
+                    a / b if b and not np.isnan(b) and not np.isnan(a) else np.nan)
+        out.append(row)
     return pd.DataFrame(out)
 
 
@@ -294,31 +468,94 @@ def compare_and_sensitivity(cfg, seed=0, runs=20, total_km=None, factors=(0.5, 1
 
 def sensitivity(cfg, seed=0, runs=20, total_km=None, factors=(0.5, 1.5),
                 runs_df=None) -> pd.DataFrame:
-    """Scale each unit cost by factors; report mean cost of each strategy and AI/baseline."""
+    """Scale each unit cost by factors; mean cost per strategy, cost and time ratios vs baseline.
+
+    Elapsed days do not depend on unit costs, so the time ratios repeat on every row.
+    """
     if runs_df is None:
         runs_df = run_all(cfg, seed, runs, total_km)
     base = {k: _s(cfg, k) for k in COST_KEYS}
-    cols = ["ut_points", "drone_ut_points", "scaffolds", "drone_km", "labor_hours"]
+    names = list(runs_df)
 
     def mean_cost(df, unit):
         return float(np.mean([cost_breakdown(cfg, r, unit)["cost_krw"]
-                              for r in df[cols].to_dict("records")]))
+                              for r in df[COUNT_COLS].to_dict("records")]))
 
+    days = {n: float(runs_df[n]["elapsed_days"].mean()) for n in names}
     rows = []
     for key in COST_KEYS:
         for f in factors:
             unit = dict(base)
             unit[key] = base[key] * f
-            b, a = mean_cost(runs_df["baseline"], unit), mean_cost(runs_df["ai_triage"], unit)
-            rows.append({"cost_key": key, "factor": f, "baseline_cost_krw": b,
-                         "ai_cost_krw": a, "cost_ratio_ai_over_baseline": a / b if b else np.nan})
+            cost = {n: mean_cost(runs_df[n], unit) for n in names}
+            row = {"cost_key": key, "factor": f}
+            row.update({f"{n}_cost_krw": cost[n] for n in names})
+            for n in names:
+                if n != "baseline":
+                    row[f"cost_ratio_{n}"] = cost[n] / cost["baseline"] if cost["baseline"] \
+                        else np.nan
+                    row[f"time_ratio_{n}"] = days[n] / days["baseline"] if days["baseline"] \
+                        else np.nan
+            rows.append(row)
     return pd.DataFrame(rows)
 
 
+# (metric, Korean label, format) rows of the readable 3-column table
+_TABLE = [
+    ("detection_rate", "위험 결함 발견율", "{:.3f}"),
+    ("detection_rate_external_corrosion", "  외부 부식", "{:.3f}"),
+    ("detection_rate_cui", "  CUI", "{:.3f}"),
+    ("detection_rate_fac_thinning", "  유동가속부식 감육", "{:.3f}"),
+    ("detection_rate_crack", "  균열", "{:.3f}"),
+    ("detection_rate_internal_pitting", "  내부 피팅", "{:.3f}"),
+    ("missed_high_consequence_critical", "놓친 고피해 위험 결함 (개)", "{:.1f}"),
+    ("ut_points", "UT 측정 지점", "{:,.0f}"),
+    ("empty_ut_rate", "헛측정 비율", "{:.3f}"),
+    ("scaffolds", "비계 설치", "{:,.0f}"),
+    ("labor_hours", "작업 시간 (인시)", "{:,.0f}"),
+    ("elapsed_days", "소요 일수 (일)", "{:.1f}"),
+    ("cost_krw", "비용 (백만 원)", "{:,.1f}"),
+]
+
+
+def _cell(r, name, fmt, scale=1.0, ratio=True):
+    m = r.get(f"{name}_mean", np.nan)
+    if np.isnan(m):
+        return "-"
+    lo, hi = r[f"{name}_p5"], r[f"{name}_p95"]
+    txt = f"{fmt.format(m * scale)} ({fmt.format(lo * scale)}~{fmt.format(hi * scale)})"
+    q = r.get(f"ratio_{name}_over_baseline", np.nan)
+    if ratio and name != "baseline" and not np.isnan(q):
+        txt += f" x{q:.2f}"
+    return txt
+
+
+def _table(df):
+    names = [n for n in STRATEGIES if f"{n}_mean" in df.columns]
+    rows = df.set_index("metric").to_dict("index")
+    lines = ["| 지표 | " + " | ".join(LABELS[n] for n in names) + " |",
+             "|---|" + "---|" * len(names)]
+    for key, label, fmt in _TABLE:
+        if key not in rows:
+            continue
+        scale = 1e-6 if key == "cost_krw" else 1.0
+        r = dict(rows[key])
+        for n in names:  # ratio columns are keyed by strategy; map per cell
+            r[f"ratio_{n}_over_baseline"] = rows[key].get(f"ratio_{n}_over_baseline", np.nan)
+        lines.append(f"| {label} | " + " | ".join(
+            _cell(r, n, fmt, scale, ratio=key in ("ut_points", "labor_hours", "elapsed_days",
+                                                  "cost_krw")) for n in names) + " |")
+    return "\n".join(lines) + "\n\n평균 (5~95% 범위); x는 사람+비계 대비 비율"
+
+
 def to_markdown(df: pd.DataFrame, floatfmt="{:.3f}") -> str:
+    """Compare table -> readable 3-strategy table; any other frame -> generic table."""
+    if "metric" in df.columns and "baseline_mean" in df.columns:
+        return _table(df)
     cols = list(df.columns)
     lines = ["| " + " | ".join(cols) + " |", "|" + "---|" * len(cols)]
     for r in df.itertuples(index=False):
         lines.append("| " + " | ".join(
-            floatfmt.format(v) if isinstance(v, float) else str(v) for v in r) + " |")
+            (f"{v:,.0f}" if abs(v) >= 1e6 else floatfmt.format(v)) if isinstance(v, float)
+            else str(v) for v in r) + " |")
     return "\n".join(lines)
