@@ -92,6 +92,11 @@ def _parabolic(y: np.ndarray, i: int) -> float:
 def simulate_straight(cfg, rng, wall_mm, pit_depth_mm=0.0, pit_fraction=0.0, temp_c=20.0,
                       coupling=1.0, noise_scale=1.0) -> np.ndarray:
     """Pulse-echo A-scan (longitudinal wave, normal incidence)."""
+    if not wall_mm > 0:
+        raise ValueError(f"wall_mm must be > 0, got {wall_mm}")
+    if pit_depth_mm < 0 or pit_depth_mm >= wall_mm:
+        raise ValueError(f"pit_depth_mm must be in [0, wall_mm); got {pit_depth_mm} "
+                         f"for wall {wall_mm}")
     p = _p(cfg)
     t = _time(cfg)
     v = velocity_long(cfg, temp_c)
@@ -104,6 +109,8 @@ def simulate_straight(cfg, rng, wall_mm, pit_depth_mm=0.0, pit_fraction=0.0, tem
         trains.append((wall_mm - pit_depth_mm, a1 * pit_fraction))
     for thick, amp in trains:
         T = 2 * thick * 1e-3 / v
+        if T <= 0:
+            continue
         k = 1
         while p["t0"] + k * T < t[-1] and amp > 0:
             s += amp * decay ** (k - 1) * _atten(cfg, 2 * k * thick) * _pulse(cfg, t, p["t0"] + k * T)
@@ -114,17 +121,57 @@ def simulate_straight(cfg, rng, wall_mm, pit_depth_mm=0.0, pit_fraction=0.0, tem
     return s.astype(np.float32)
 
 
+_MAX_PIT_FRAC = 0.95  # dataset pits never consume the whole wall
+_COMB_K = 4  # echoes summed by the echo-comb score
+_COMB_REL = 0.4  # peak must reach this fraction of the best comb score
+_COMB_MID = 0.3  # penalty weight for echo energy midway between comb teeth
+_COMB_SNR = 8.0  # ... and this many robust sigmas of the comb score
+
+
 def _gate_start(cfg) -> int:
     p = _p(cfg)
     return int((p["t0"] + 5 * p["sigma"]) * p["fs"])
 
 
+def _echo_train_lag(cfg, signal, temp_c) -> int:
+    """Coarse back-wall echo spacing [samples] from an echo-comb score on the envelope.
+
+    score(L) = sum_k env(t0 + k L) - w sum_k env(t0 + (k - 1/2) L) over the first echoes.
+    Pits add a second, shorter echo train (and wall-pit cross terms at the pit depth) that
+    can beat the wall train on plain autocorrelation. A comb scores only true echo trains
+    (the midpoint term suppresses harmonics), so the wall spacing is the longest comb peak
+    that stands clear of the noise floor.
+    """
+    p = _p(cfg)
+    v = velocity_long(cfg, temp_c)
+    env = envelope(np.asarray(signal, dtype=float))
+    n = len(env)
+    w = 3
+    pad = np.pad(env, (w, w), mode="edge")
+    env_max = np.lib.stride_tricks.sliding_window_view(pad, 2 * w + 1).max(axis=1)
+    ref = round(p["t0"] * p["fs"])
+    lag_min = int(2 * 1.5e-3 / v * p["fs"])  # 1.5 mm
+    lag_max = min((n - 1 - ref) // _COMB_K, int(2 * 25e-3 / v * p["fs"]))  # 25 mm
+    lags = np.arange(lag_min, lag_max)
+    hits = sum(env_max[ref + k * lags] for k in range(1, _COMB_K + 1))
+    # echoes midway between comb teeth mean L is a harmonic (or sub-harmonic) of the train
+    mid = sum(env_max[ref + ((2 * k - 1) * lags) // 2] for k in range(1, _COMB_K + 1))
+    score = hits - _COMB_MID * mid
+    score = score - np.median(score)
+    top = score.max()
+    mad = 1.4826 * np.median(np.abs(score))
+    peaks = np.nonzero((score[1:-1] >= score[:-2]) & (score[1:-1] > score[2:]))[0] + 1
+    peaks = peaks[score[peaks] >= max(_COMB_REL * top, _COMB_SNR * mad)]
+    best = int(peaks[np.argmax(lags[peaks])]) if len(peaks) else int(np.argmax(score))
+    return int(lags[best])
+
+
 def estimate_thickness(cfg, signal, temp_c=20.0) -> float:
     """Wall thickness [mm] from the spacing of successive back-wall echoes.
 
-    The interface echo is gated out; the autocorrelation of the remaining RF trace peaks
-    at the echo spacing. Coarse lag from the autocorrelation envelope, refined on the RF
-    autocorrelation with parabolic interpolation.
+    Coarse spacing from an echo-comb score (robust to pits: returns the nominal wall, the
+    longest echo train, not the pit depth; see `min_thickness` for the pit), refined on the
+    RF autocorrelation of the gated trace with parabolic interpolation.
     """
     p = _p(cfg)
     x = np.asarray(signal, dtype=float)[_gate_start(cfg):]
@@ -133,10 +180,7 @@ def estimate_thickness(cfg, signal, temp_c=20.0) -> float:
     X = np.fft.rfft(x, 2 * n)
     ac = np.fft.irfft(X * np.conj(X))[:n]
     v = velocity_long(cfg, temp_c)
-    lag_min = int(2 * 1.5e-3 / v * p["fs"])  # 1.5 mm
-    lag_max = min(n - 1, int(2 * 25e-3 / v * p["fs"]))  # 25 mm
-    env = envelope(ac)
-    i = lag_min + int(np.argmax(env[lag_min:lag_max]))
+    i = _echo_train_lag(cfg, signal, temp_c)
     half = int(p["fs"] / p["f0"] / 2)
     lo, hi = max(1, i - half), min(n - 2, i + half)
     j = lo + int(np.argmax(ac[lo:hi + 1]))
@@ -245,6 +289,8 @@ def make_dataset(cfg, n, seed, condition="train"):
     coup_rng = get(cfg, d + ("shifted_coupling_range" if shifted else "train_coupling_range"))
     noise_scale = get(cfg, d + "shifted_noise_scale") if shifted else 1.0
     angles = get(cfg, "ut.angle_beam_angles_deg")
+    meas_err = get(cfg, d + ("shifted_temp_meas_error_c" if shifted else "train_temp_meas_error_c"))
+    err_rng = np.random.default_rng([seed, 11])  # own stream: other draws stay unchanged
     wr = get(cfg, d + "wall_range_mm")
     n_s = int(get(cfg, "ut.n_samples"))
     straight = np.zeros((n, n_s), np.float32)
@@ -254,12 +300,14 @@ def make_dataset(cfg, n, seed, condition="train"):
         wall = rng.uniform(*wr)
         pit_depth = pit_frac = 0.0
         if rng.random() < get(cfg, d + "pit_prob"):
-            pit_depth = wall * rng.uniform(*get(cfg, d + "pit_depth_frac_range"))
+            lo_f, hi_f = get(cfg, d + "pit_depth_frac_range")
+            pit_depth = wall * min(rng.uniform(lo_f, hi_f), _MAX_PIT_FRAC)
             pit_frac = rng.uniform(*get(cfg, d + "pit_fraction_range"))
         crack_h = 0.0
         if rng.random() < get(cfg, d + "crack_prob"):
             crack_h = wall * rng.uniform(*get(cfg, d + "crack_height_frac_range"))
         temp = rng.uniform(*temp_rng)
+        temp_meas = temp + meas_err * err_rng.standard_normal()
         coup = rng.uniform(*coup_rng)
         ang = float(angles[rng.integers(len(angles))])
         straight[i] = simulate_straight(cfg, rng, wall, pit_depth, pit_frac, temp, coup,
@@ -268,6 +316,7 @@ def make_dataset(cfg, n, seed, condition="train"):
         rows.append({"wall_mm": wall, "pit_depth_mm": pit_depth, "pit_fraction": pit_frac,
                      "t_min_mm": wall - pit_depth, "crack": crack_h > 0,
                      "crack_height_mm": crack_h, "angle_deg": ang, "temp_c": temp,
+                     "temp_meas_c": temp_meas,
                      "coupling": coup, "noise_scale": noise_scale, "condition": condition})
     return straight, angle, pd.DataFrame(rows)
 
@@ -280,12 +329,33 @@ def save_dataset(out_dir, straight, angle, labels) -> None:
     labels.to_csv(out / "ut_labels.csv", index=False)
 
 
+def analysis_temps(cfg, labels) -> np.ndarray:
+    """Temperature [C] the analysis software uses for velocity correction.
+
+    `ut.temp_compensation` = "measured": the (noisy) measured temperature `temp_meas_c`
+    (true temperature when the label table has no such column); "none": assume 20 C, i.e.
+    no correction (shows the cost of ignoring a hot pipe).
+    """
+    mode = get(cfg, "ut.temp_compensation")
+    if mode == "none":
+        return np.full(len(labels), 20.0)
+    if mode != "measured":
+        raise ValueError("ut.temp_compensation must be 'measured' or 'none'")
+    col = "temp_meas_c" if "temp_meas_c" in labels.columns else "temp_c"
+    return labels[col].to_numpy(float)
+
+
 def baseline(cfg, straight, angle, labels) -> dict:
-    """Rule-based baseline: thickness MAE, min-thickness MAE, crack POD / false alarms."""
-    th = np.array([estimate_thickness(cfg, s, r.temp_c) for s, r in zip(straight, labels.itertuples())])
-    tm = np.array([min_thickness(cfg, s, r.temp_c) for s, r in zip(straight, labels.itertuples())])
-    det = np.array([detect_crack(cfg, s, r.wall_mm, r.angle_deg, r.temp_c)["found"]
-                    for s, r in zip(angle, labels.itertuples())])
+    """Rule-based baseline: thickness MAE, min-thickness MAE, crack POD / false alarms.
+
+    Velocity correction uses the measured temperature (see `analysis_temps`), not the truth.
+    """
+    temps = analysis_temps(cfg, labels)
+    rows = list(labels.itertuples())
+    th = np.array([estimate_thickness(cfg, s, t) for s, t in zip(straight, temps)])
+    tm = np.array([min_thickness(cfg, s, t) for s, t in zip(straight, temps)])
+    det = np.array([detect_crack(cfg, s, r.wall_mm, r.angle_deg, t)["found"]
+                    for s, r, t in zip(angle, rows, temps)])
     crack = labels["crack"].to_numpy(bool)
     return {
         "thickness_mae_mm": float(np.nanmean(np.abs(th - labels["wall_mm"]))),

@@ -115,7 +115,8 @@ def _onboard(args) -> int:
 
     cfg = params.load_config(args.config)
     params.validate(cfg)
-    df = onboard.run_all(cfg, args.out, n_images=args.n_images, n_ut=args.n_ut)
+    df = onboard.run_all(cfg, args.out, seed=args.seed, n_images=args.n_images, n_ut=args.n_ut,
+                         config_label=args.config or str(params.DEFAULT_PATH))
     print(onboard.to_markdown(df))
     print(f"wrote: {args.out}/onboard.csv")
     return 0
@@ -128,7 +129,8 @@ def _stub(args) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     common = argparse.ArgumentParser(add_help=False)
-    common.add_argument("--config", default="config/default.yaml")
+    common.add_argument("--config", default=None,
+                        help="config YAML (default: the packaged config/default.yaml)")
     common.add_argument("--seed", type=int, default=0)
     common.add_argument("--out", default="data/")
     p = argparse.ArgumentParser(prog="maek")

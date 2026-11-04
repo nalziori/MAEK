@@ -69,3 +69,22 @@ def test_onboard_measure_positive(cfg):
                                  n_images=4, n_ut=6)
     assert {r["function"] for r in rows} == {"corrosion_segment", "crack_detect", "thickness"}
     assert all(r["median_ms"] > 0 and r["tracemalloc_peak_mb"] >= 0 for r in rows)
+
+
+def test_onboard_run_all_uses_callers_config_seed_and_sizes(cfg, tmp_path):
+    c = evaluate._with(cfg, "ut.n_samples", 2048)
+    c = evaluate._with(c, "onboard.bench_image_sizes", [80])
+    df = onboard.run_all(c, tmp_path, threads=[1], seed=3, n_images=3, n_ut=4,
+                         config_label="custom.yaml")
+    seg = df[df["function"] == "corrosion_segment"]
+    assert list(seg["input"]) == ["80x80px"]
+    assert set(df["config"]) == {"custom.yaml"} and set(df["seed"]) == {3}
+    assert (tmp_path / "onboard_config.yaml").exists()
+    assert "custom.yaml" in (tmp_path / "onboard.csv").read_text()
+    df2 = onboard.run_all(c, tmp_path, threads=[1], sizes=[64], n_images=3, n_ut=4)
+    assert list(df2[df2["function"] == "corrosion_segment"]["input"]) == ["64x64px"]
+
+
+def test_with_helper_is_single_source():
+    assert not hasattr(onboard, "_with_size")
+    assert onboard._with is evaluate._with

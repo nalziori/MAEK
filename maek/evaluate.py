@@ -124,10 +124,11 @@ def _with(cfg, dotted, value):
 def eval_ut(cfg, condition, n, seed=0) -> dict:
     straight, angle, lab = ut.make_dataset(cfg, n, seed, condition)
     rows = list(lab.itertuples())
-    th = np.array([ut.estimate_thickness(cfg, s, r.temp_c) for s, r in zip(straight, rows)])
-    tm = np.array([ut.min_thickness(cfg, s, r.temp_c) for s, r in zip(straight, rows)])
-    det = np.array([ut.detect_crack(cfg, s, r.wall_mm, r.angle_deg, r.temp_c)["found"]
-                    for s, r in zip(angle, rows)])
+    temps = ut.analysis_temps(cfg, lab)  # measured (not true) temperature, or 20 C
+    th = np.array([ut.estimate_thickness(cfg, s, t) for s, t in zip(straight, temps)])
+    tm = np.array([ut.min_thickness(cfg, s, t) for s, t in zip(straight, temps)])
+    det = np.array([ut.detect_crack(cfg, s, r.wall_mm, r.angle_deg, t)["found"]
+                    for s, r, t in zip(angle, rows, temps)])
     crack = lab["crack"].to_numpy(bool)
     err = np.abs(th - lab["wall_mm"].to_numpy())
     err = np.where(np.isnan(err), np.inf, err)  # a failed estimate counts as a miss

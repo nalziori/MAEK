@@ -128,6 +128,7 @@
 | `ut.crack_snr` | 5.0 |  | 가정 |
 | `ut.clutter_amp` | 0.05 |  | 가정 |
 | `ut.gate_halfwidth_us` | 0.5 | us | 가정 |
+| `ut.temp_compensation` | measured |  | 가정 |
 | `ut.max_inspection_interval_yr` | 10 | yr | 가정 |
 | `ut.dataset.wall_range_mm` | [3.0, 12.0] | mm | 가정 |
 | `ut.dataset.pit_prob` | 0.3 |  | 가정 |
@@ -140,6 +141,8 @@
 | `ut.dataset.shifted_temp_range_c` | [100, 175] | C | 가정 |
 | `ut.dataset.shifted_coupling_range` | [0.3, 0.7] |  | 가정 |
 | `ut.dataset.shifted_noise_scale` | 3.0 |  | 가정 |
+| `ut.dataset.train_temp_meas_error_c` | 2.0 | C | 가정 |
+| `ut.dataset.shifted_temp_meas_error_c` | 15.0 | C | 가정 |
 | `camera.image_size` | 640 | px | 가정 |
 | `camera.brightness_range` | [0.5, 1.5] |  | 가정 |
 | `camera.dust_opacity_range` | [0.0, 0.4] |  | 가정 |
