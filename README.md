@@ -33,25 +33,25 @@ pip install -r requirements.txt
 | `params-table` | 파라미터 표를 출력합니다. `--write`를 붙이면 `docs/params.md`를 갱신합니다. | `python -m maek params-table --write` |
 | `network` | 가상 배관망, 구간, 결함을 만듭니다. | `python -m maek network --seed 0 --out data/network` |
 | `ut` | 초음파 A-scan 데이터를 만들고 기준 성능을 출력합니다. | `OMP_NUM_THREADS=1 python -m maek ut --n 2000 --condition shifted --out data/ut` |
-| `camera-jobs` | 카메라 촬영 작업을 만듭니다. (아직 구현 전) | - |
-| `render2d` | 2D 영상을 렌더링합니다. (아직 구현 전) | - |
-| `strategy` | 점검 전략을 비교합니다. (아직 구현 전) | - |
-| `evaluate` | 3대 기능을 한 번에 평가합니다. (main에는 없음, `feat/eval` 브랜치) | `python -m maek evaluate --out data/eval` |
-| `onboard` | 탑재 장비의 연산 시간과 메모리를 측정합니다. (main에는 없음, `feat/eval` 브랜치) | `python -m maek onboard --out data/eval` |
+| `camera-jobs` | 카메라 촬영 작업(JSON)을 만듭니다. | `python -m maek camera-jobs --n 300 --seed 1 --out data/` |
+| `render2d` | 촬영 작업을 이미지·마스크·YOLO-seg 라벨로 렌더링합니다. | `OMP_NUM_THREADS=1 python -m maek render2d --seed 1 --out data/` |
+| `strategy` | 기존 방식과 AI 선별 방식을 비교합니다. | `python -m maek strategy --runs 20 --seed 0` |
+| `evaluate` | 세 기능을 한 번에 평가합니다. | `python -m maek evaluate --out data/eval` |
+| `onboard` | 탑재 장비의 연산 시간과 메모리를 측정합니다. | `python -m maek onboard --out data/eval` |
 
-전체 데이터는 `scripts/produce_data.py`로 만듭니다. 이 스크립트는 아직 main에 없습니다.
+전체 데이터는 `scripts/produce_data.py`로 한 번에 만듭니다.
 
 ```bash
 OMP_NUM_THREADS=1 python scripts/produce_data.py
 ```
 
-`--out`의 기본값은 `data/`입니다. `--seed`의 기본값은 0입니다.
+`--out`의 기본값은 `data/release`, `--seed`의 기본값은 1입니다. 규모는 `--ut-train`, `--img-train` 등으로 바꿀 수 있습니다.
 
 ## 결과 요약
 
 아래 수치는 합성 데이터로 만든 기준선(규칙 기반 베이스라인)입니다. 실제 현장 성능이 아닙니다.
 `train`은 학습 조건, `shifted`는 조명, 온도, 노이즈 등을 바꾼 학습에 없던 조건입니다.
-출처는 `feat/eval` 브랜치의 결과 문서입니다. 아직 main에 병합되지 않았습니다.
+자세한 내용은 [결과 문서](docs/results.md)에 있습니다.
 
 | 기능 | 지표 | train | shifted |
 |---|---|---|---|
@@ -85,7 +85,9 @@ OMP_NUM_THREADS=1 python scripts/produce_data.py
 - [배관 AI 비파괴검사 주제 검토](docs/posco-pipe-ndt-review.md): 포스코 현행 점검, 사고별 효과, 시뮬레이션 전략, 준비 일정, 예상 질문
 - [포스코 제철소 안전사고 아카이브](docs/posco-safety-accidents.md): 2018~2026년 사고 22건과 출처
 - [파라미터 표](docs/params.md): 가상 배관망과 센서 파라미터, 근거 구분 (가정 여부)
-- 결과 문서 `docs/results.md`, 탑재 측정 문서 `docs/onboard-resources.md`, 렌더링 작업 문서 `docs/render-jobs.md`는 아직 main에 없습니다. `feat/eval` 브랜치 등에 있습니다.
+- [결과](docs/results.md): 세 기능의 기준 성능, POD a90, 점검 전략 비교, YOLO-seg 학습 방법
+- [탑재 리소스](docs/onboard-resources.md): 드론·로봇 탑재 시 지연·메모리 측정
+- [렌더 작업 형식](docs/render-jobs.md): Unity·Blender 렌더러와 주고받는 JSON 형식
 
 ## 한계
 
