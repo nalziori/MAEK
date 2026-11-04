@@ -157,12 +157,16 @@ def crack_strategy(cfg, seed=0, runs=10, total_km=None) -> dict:
     from maek import strategy
 
     out = {}
+    # baseline does not depend on crack_ut_mode: run it once, with the first mode only
     for name, mode in (("ai_random", "random"), ("ai_risk_ranked", "risk_ranked")):
-        res = strategy._run_all(_with(cfg, "strategy.crack_ut_mode", mode), seed, runs, total_km)
+        which = ("baseline", "ai_triage") if "baseline" not in out else ("ai_triage",)
+        res = strategy.run_all(_with(cfg, "strategy.crack_ut_mode", mode), seed, runs,
+                               total_km, which)
         out[name] = float(res["ai_triage"]["detection_rate_crack"].mean())
         out[name + "_ut_points"] = float(res["ai_triage"]["ut_points"].mean())
-        out["baseline"] = float(res["baseline"]["detection_rate_crack"].mean())
-        out["baseline_ut_points"] = float(res["baseline"]["ut_points"].mean())
+        if "baseline" in res:
+            out["baseline"] = float(res["baseline"]["detection_rate_crack"].mean())
+            out["baseline_ut_points"] = float(res["baseline"]["ut_points"].mean())
     return out
 
 

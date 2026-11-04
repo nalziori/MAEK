@@ -66,3 +66,59 @@ def test_risk_ranked_crack_ut_finds_at_least_as_many_as_random():
         found[mode] = float(ai["detection_rate_crack"].fillna(0).sum())
         assert (ai["ut_points"] < res["baseline"]["ut_points"]).all()
     assert found["risk_ranked"] >= found["random"] and found["risk_ranked"] > 0
+
+
+def _net(seed=0, km=30.0):
+    return network.generate_network(_cfg(), seed, total_km=km)
+
+
+def test_baseline_cannot_detect_cracks():
+    cfg = _cfg(True)
+    res = strategy.run_all(cfg, 0, 3, 30.0)
+    assert res["baseline"]["detection_rate_crack"].fillna(0).sum() == 0
+    assert res["ai_triage"]["detection_rate_crack"].fillna(0).sum() > 0
+
+
+def test_baseline_walkdown_sees_cui_external_sign():
+    cfg = _cfg(True)
+    seg, feat, dfx = _net(0)
+    sign = (dfx["kind"] == "cui") & dfx["external_sign"].astype(bool)
+    seg_el = seg.set_index("segment_id")["elevated"].astype(bool)
+    target = sign & ~dfx["segment_id"].map(seg_el).astype(bool)
+    assert target.sum() > 0
+    # no UT: isolate the walkdown by dropping all CMLs
+    cfg["strategy"]["cml_per_segment"]["value"] = 0
+    d = dfx[target].copy()
+    d["critical"] = True
+    m = strategy.run_baseline(cfg, seg, feat, d, np.random.default_rng(0))
+    assert m["detection_rate"] == 1.0
+
+
+def test_nan_ut_mode_after_csv_roundtrip(tmp_path):
+    import pandas as pd
+    cfg = _cfg()
+    seg, feat, dfx = _net(2)
+    assert (dfx["ut_mode"] == "").any()
+    f = tmp_path / "d.csv"
+    dfx.to_csv(f, index=False)
+    rt = pd.read_csv(f)
+    assert rt["ut_mode"].isna().any()
+    for fn in (strategy.run_baseline, strategy.run_ai_triage):
+        a = fn(cfg, seg, feat, dfx, np.random.default_rng(1))
+        b = fn(cfg, seg, feat, rt, np.random.default_rng(1))
+        assert a == b
+
+
+def test_compare_and_sensitivity_share_runs():
+    cfg = _cfg()
+    c, s = strategy.compare_and_sensitivity(cfg, 1, 2, KM)
+    assert c.equals(strategy.compare(cfg, 1, 2, KM))
+    assert s.equals(strategy.sensitivity(cfg, 1, 2, KM))
+    runs = strategy.run_all(cfg, 1, 2, KM)
+    assert s.equals(strategy.sensitivity(cfg, runs_df=runs))
+
+
+def test_crack_strategy_baseline_computed_once():
+    from maek import evaluate
+    out = evaluate.crack_strategy(_cfg(), 0, 2, KM)
+    assert out["baseline"] == 0.0 or np.isnan(out["baseline"])
