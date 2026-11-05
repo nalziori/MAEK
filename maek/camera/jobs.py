@@ -19,6 +19,7 @@ def _visible(defects: pd.DataFrame) -> pd.DataFrame:
     """Defects a camera can see: external rust, flange leak stains, CUI with a cladding sign."""
     m = (defects["visible_external"].astype(bool)
          | ((defects["kind"] == "cui") & defects["external_sign"].astype(bool)))
+    m &= defects["kind"].isin(CLASS_OF)
     return defects[m]
 
 

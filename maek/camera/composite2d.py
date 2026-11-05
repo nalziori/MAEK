@@ -327,9 +327,12 @@ def _rdp(pts: np.ndarray, eps: float) -> np.ndarray:
     return pts[keep]
 
 
-def mask_polygons(mask: np.ndarray, min_area: int = 12, eps: float = 1.0):
-    """Yield (class_id, polygon Nx2 float pixel coords) for every component of every class."""
-    for cls in CLASSES:
+def mask_polygons(mask: np.ndarray, min_area: int = 12, eps: float = 1.0, classes=None):
+    """Yield (class_id, polygon Nx2 float pixel coords) for every component of every class.
+
+    `classes` maps class id -> name (default: the camera CLASSES); id 0 is background.
+    """
+    for cls in (CLASSES if classes is None else classes):
         if cls == 0:
             continue
         labels, n = label_components(mask == cls)
@@ -344,10 +347,10 @@ def mask_polygons(mask: np.ndarray, min_area: int = 12, eps: float = 1.0):
                 yield cls, pts
 
 
-def yolo_lines(mask: np.ndarray) -> list[str]:
+def yolo_lines(mask: np.ndarray, classes=None) -> list[str]:
     H, W = mask.shape
     lines = []
-    for cls, pts in mask_polygons(mask):
+    for cls, pts in mask_polygons(mask, classes=classes):
         xy = np.clip((pts + 0.5) / np.array([W, H]), 0, 1)
         coords = " ".join(f"{c:.5f}" for c in xy.ravel())
         lines.append(f"{cls - 1} {coords}")

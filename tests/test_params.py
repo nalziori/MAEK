@@ -61,3 +61,52 @@ def test_default_paths_are_package_relative():
 
     ns = cli.build_parser().parse_args(["params-table"])
     assert ns.config is None
+
+
+def test_overlay_merge_and_scenario(tmp_path):
+    base = params.load_config()
+    cfg = params.load_config(overlays=[{"network": {"total_km": {"value": 3, "assumption": True},
+                                                    "media_mix": {"steam": {"value": 1.0,
+                                                                            "assumption": True}}}}])
+    assert params.get(cfg, "network.total_km") == 3
+    assert params.get(cfg, "network.media_mix.steam") == 1.0
+    # untouched siblings survive, and the base is not mutated
+    assert params.get(cfg, "network.media_mix.oxygen") == 0.08
+    assert params.get(base, "network.total_km") == 100
+    y = tmp_path / "o.yaml"
+    y.write_text("network:\n  segment_m: {value: 25, assumption: true}\n", encoding="utf-8")
+    cfg = params.load_config(overlays=[y])
+    assert params.get(cfg, "network.segment_m") == 25
+    steam = params.load_config(overlays=[params.scenario_path("steam")])
+    params.validate(steam)
+    assert params.get(steam, "network.total_km") == 20
+    assert params.get(steam, "network.media_mix.cooling_water") == 0.0
+
+
+def test_scenario_path_unknown():
+    with pytest.raises(ValueError, match="steam"):
+        params.scenario_path("nope")
+
+
+def test_with_values():
+    cfg = params.load_config()
+    new = params.with_values(cfg, {"network.total_km": 7, "energy.ambient_c": 5})
+    assert params.get(new, "network.total_km") == 7 and params.get(cfg, "network.total_km") == 100
+    assert new["energy"]["ambient_c"]["unit"] == "C" and new["energy"]["ambient_c"]["note"]
+    with pytest.raises(KeyError):
+        params.with_values(cfg, {"network.nope": 1})
+    with pytest.raises(KeyError):
+        params.with_values(cfg, {"network": 1})
+
+
+def test_cli_scenario_option(tmp_path):
+    from maek import cli
+
+    ns = cli.build_parser().parse_args(["network", "--scenario", "steam"])
+    assert ns.scenario == ["steam"]
+    assert cli.main(["network", "--scenario", "steam", "--total-km", "1", "--seed", "1",
+                     "--out", str(tmp_path)]) == 0
+    import pandas as pd
+
+    seg = pd.read_csv(tmp_path / "segments.csv")
+    assert set(seg["medium"]) <= {"steam", "condensate", "traced_process"}

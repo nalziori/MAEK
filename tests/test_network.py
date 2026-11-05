@@ -65,6 +65,7 @@ def test_cui_only_on_insulated_carbon_steel(cfg, net):
 
 def test_visible_external_and_ut_mode(net):
     dfx = net[2]
+    dfx = dfx[~dfx["kind"].isin(network.DEFECT_KINDS[6:])]
     ext_kinds = {"external_corrosion", "flange_leak"}
     assert (dfx["visible_external"] == dfx["kind"].isin(ext_kinds)).all()
     assert not dfx.loc[dfx["kind"] != "cui", "external_sign"].any()
@@ -117,3 +118,58 @@ def test_save_and_cli(tmp_path, cfg, net):
     from maek import cli
     assert cli.main(["network", "--seed", "1", "--total-km", "1", "--out", str(tmp_path / "c")]) == 0
     assert (tmp_path / "c" / "segments.csv").exists()
+
+
+# --- regression: base network (default config) must not change when new features are added ---
+BASE_REF = {  # kind -> (count, depth_mm sum), seed 3, total_km 5, recorded before the steam work
+    "cui": (15, 31.009), "external_corrosion": (12, 17.956), "fac_thinning": (10, 22.249),
+    "internal_pitting": (9, 10.018), "crack": (1, 1.131), "flange_leak": (1, 0.0),
+}
+
+
+def test_base_network_regression(cfg):
+    _, _, dfx = network.generate_network(cfg, seed=3)
+    for kind, (n, depth) in BASE_REF.items():
+        sub = dfx[dfx["kind"] == kind]
+        assert len(sub) == n, kind
+        assert sub["depth_mm"].sum() == pytest.approx(depth, abs=2e-3), kind
+
+
+@pytest.fixture(scope="module")
+def steam_net():
+    c = params.load_config(overlays=[params.scenario_path("steam")])
+    return c, network.generate_network(c, seed=0)
+
+
+def test_steam_scenario_content(steam_net):
+    _c, (seg, feat, dfx) = steam_net
+    assert set(seg["medium"]) == {"steam", "condensate", "traced_process"}
+    assert (seg["traced"] == (seg["medium"] == "traced_process")).all()
+    assert (seg.loc[seg["traced"], "insulated"]).all()
+    assert (seg.loc[~seg["insulated"], "insulation_mm"] == 0).all()
+    assert (seg.loc[seg["insulated"], "jacket"] != "").all()
+    st = seg[seg["medium"] == "steam"]
+    assert (st["pressure_barg"] > 0).all()
+    assert {"steam_trap", "low_point"} <= set(feat["kind"])
+    assert feat["feature_id"].is_unique and dfx["defect_id"].is_unique
+    for k in network.DEFECT_KINDS[6:]:
+        assert (dfx.loc[dfx["kind"] == k, "ut_mode"] == "").all()
+        sub = dfx[dfx["kind"] == k]
+        assert len(sub) > 0 or k == "steam_leak"
+        assert (sub["depth_mm"] == 0).all() and not sub["critical"].any()
+    assert dfx["feature_id"].dropna().isin(feat["feature_id"]).all()
+    zk = dfx.set_index("defect_id")["kind"]
+    zone = dfx.dropna(subset=["zone_id"])
+    assert set(zone.loc[zone["kind"] == "cui", "zone_id"].map(zk)) == {"wet_insulation"}
+    assert set(zone.loc[zone["kind"] == "wet_insulation", "zone_id"].map(zk)) == {"tracer_leak"}
+    cui_z = dfx[(dfx["kind"] == "cui") & dfx["zone_id"].notna()]
+    assert len(cui_z) > 0
+    assert (dfx["segment_id"].isin(seg["segment_id"])).all()
+    assert dfx["pos_m"].between(0, 50).all()
+
+
+def test_camera_ignores_new_kinds(steam_net):
+    from maek.camera import jobs
+
+    _, (_, _, dfx) = steam_net
+    assert set(jobs._visible(dfx)["kind"]) <= set(jobs.CLASS_OF)

@@ -11,9 +11,32 @@ from maek import params
 STUBS: list[str] = []
 
 
-def _params_table(args) -> int:
-    cfg = params.load_config(args.config)
+def parse_sets(items) -> dict:
+    """['a.b=1', 'c.d=text'] -> {'a.b': 1, 'c.d': 'text'} (values parsed with yaml.safe_load)."""
+    import yaml
+
+    out = {}
+    for it in items or []:
+        key, sep, val = it.partition("=")
+        if not sep or not key.strip():
+            raise ValueError(f"--set expects KEY=VALUE, got {it!r}")
+        out[key.strip()] = yaml.safe_load(val)
+    return out
+
+
+def _cfg(args) -> dict:
+    """Load --config, apply --scenario overlays in order, then --set overrides, validate."""
+    overlays = [params.scenario_path(n) for n in (getattr(args, "scenario", None) or [])]
+    cfg = params.load_config(args.config, overlays)
+    sets = parse_sets(getattr(args, "set", None))
+    if sets:
+        cfg = params.with_values(cfg, sets)
     params.validate(cfg)
+    return cfg
+
+
+def _params_table(args) -> int:
+    cfg = _cfg(args)
     table = params.params_table(cfg)
     print(table)
     if args.write:
@@ -26,8 +49,7 @@ def _params_table(args) -> int:
 def _ut(args) -> int:
     from maek import ut
 
-    cfg = params.load_config(args.config)
-    params.validate(cfg)
+    cfg = _cfg(args)
     straight, angle, labels = ut.make_dataset(cfg, args.n, args.seed, args.condition)
     ut.save_dataset(args.out, straight, angle, labels)
     m = ut.baseline(cfg, straight, angle, labels)
@@ -42,8 +64,7 @@ def _ut(args) -> int:
 def _strategy(args) -> int:
     from maek import strategy
 
-    cfg = params.load_config(args.config)
-    params.validate(cfg)
+    cfg = _cfg(args)
     cmp_df, sens = strategy.compare_and_sensitivity(cfg, args.seed, args.runs, args.total_km)
     out = Path(args.out) / "strategy"
     out.mkdir(parents=True, exist_ok=True)
@@ -56,11 +77,37 @@ def _strategy(args) -> int:
     return 0
 
 
+def _pit_prior(args) -> int:
+    from maek import strategy
+
+    cfg = _cfg(args)
+    df = strategy.pit_prior_sensitivity(cfg, args.seed, args.runs, args.total_km)
+    out = Path(args.out) / "strategy"
+    out.mkdir(parents=True, exist_ok=True)
+    df.to_csv(out / "pit_prior.csv", index=False, encoding="utf-8")
+    print(strategy.to_markdown(df))
+    print(f"wrote: {out / 'pit_prior.csv'}")
+    return 0
+
+
+def _sweep(args) -> int:
+    from maek import strategy
+
+    cfg = _cfg(args)
+    df = strategy.sweep(cfg, args.seed, args.runs, args.total_km)
+    out = Path(args.out) / "strategy"
+    out.mkdir(parents=True, exist_ok=True)
+    df.to_csv(out / "sweep.csv", index=False, encoding="utf-8")
+    print(strategy.to_markdown(df))
+    print(f"ai_better in {int(df['ai_better'].sum())} of {len(df)} variations")
+    print(f"wrote: {out / 'sweep.csv'}")
+    return 0
+
+
 def _network(args) -> int:
     from maek import network
 
-    cfg = params.load_config(args.config)
-    params.validate(cfg)
+    cfg = _cfg(args)
     seg, feat, dfx = network.generate_network(cfg, args.seed, total_km=args.total_km)
     paths = network.save_network(args.out, seg, feat, dfx)
     print(network.summary(seg, feat, dfx))
@@ -68,12 +115,26 @@ def _network(args) -> int:
     return 0
 
 
+def _eva(args) -> int:
+    from maek import eva
+
+    cfg = _cfg(args)
+    df = eva.run(cfg, args.seed, args.runs, args.total_km)
+    summ = eva.summary(df)
+    out = Path(args.out) / "eva"
+    out.mkdir(parents=True, exist_ok=True)
+    df.to_csv(out / "eva_runs.csv", index=False, encoding="utf-8")
+    summ.to_csv(out / "eva_summary.csv", index=False, encoding="utf-8")
+    print(eva.to_markdown(summ))
+    print(f"wrote: {out / 'eva_runs.csv'}, {out / 'eva_summary.csv'}")
+    return 0
+
+
 def _camera_jobs(args) -> int:
     from maek import network
     from maek.camera import jobs
 
-    cfg = params.load_config(args.config)
-    params.validate(cfg)
+    cfg = _cfg(args)
     seg, _, dfx = network.generate_network(cfg, args.seed)
     js = jobs.make_jobs(cfg, seg, dfx, args.n, args.seed)
     path = jobs.save_jobs(Path(args.out) / "camera" / "jobs.json", js)
@@ -86,8 +147,7 @@ def _render2d(args) -> int:
 
     from maek.camera import composite2d, jobs
 
-    cfg = params.load_config(args.config)
-    params.validate(cfg)
+    cfg = _cfg(args)
     cam = Path(args.out) / "camera"
     js = jobs.load_jobs(cam / "jobs.json")
     t0 = time.perf_counter()
@@ -100,8 +160,7 @@ def _render2d(args) -> int:
 def _evaluate(args) -> int:
     from maek import evaluate
 
-    cfg = params.load_config(args.config)
-    params.validate(cfg)
+    cfg = _cfg(args)
     res = evaluate.run_all(cfg, args.out, args.seed, args.n_camera, args.n_ut,
                            args.strategy_runs)
     print(evaluate.tables_markdown(res))
@@ -112,12 +171,47 @@ def _evaluate(args) -> int:
 def _onboard(args) -> int:
     from maek import onboard
 
-    cfg = params.load_config(args.config)
-    params.validate(cfg)
+    cfg = _cfg(args)
     df = onboard.run_all(cfg, args.out, seed=args.seed, n_images=args.n_images, n_ut=args.n_ut,
                          config_label=args.config or str(params.DEFAULT_PATH))
     print(onboard.to_markdown(df))
     print(f"wrote: {args.out}/onboard.csv")
+    return 0
+
+
+def _thermal(args) -> int:
+    import time
+
+    from maek import thermal_render as tr
+
+    cfg = _cfg(args)
+    out = Path(args.out) / "thermal"
+    jobs = tr.make_ir_jobs(cfg, args.n, args.seed, args.condition)
+    t0 = time.perf_counter()
+    ds = tr.render_all_ir(cfg, jobs, out, args.seed)
+    dt = time.perf_counter() - t0
+    print(f"rendered {len(jobs)} IR images in {dt:.1f}s ({len(jobs) / dt:.1f} img/s incl. PNG) -> {ds}")
+    met, df = tr.evaluate_ir(cfg, args.n, args.seed, args.condition, jobs=jobs)
+    print(tr.metrics_markdown({args.condition: met}))
+    print(f"detector {met['detect_img_per_s']:.1f} img/s, render {met['render_img_per_s']:.1f} img/s")
+    df.to_csv(out / "hitmiss.csv", index=False, encoding="utf-8")
+    return 0
+
+
+def _thermal_pod(args) -> int:
+    from maek import thermal
+    from maek import thermal_render as tr
+
+    cfg = _cfg(args)
+    for cond in ("train", "shifted"):
+        met, df = tr.evaluate_ir(cfg, args.n, args.seed, cond)
+        fit = tr.fit_ir_pod(cfg, df=df)
+        trap = thermal.trap_pods(cfg, cond, 4000, args.seed)
+        print(f"## {cond} (n={args.n}, FP/img {met['fp_per_image']:.2f})")
+        print("| class | b0 | b1 | n | hit rate |\n|---|---|---|---|---|")
+        for k, f in fit.items():
+            print(f"| {k} | {f['b0']:.2f} | {f['b1']:.2f} | {f['n']} | {f['hit_rate']:.2f} |")
+        print("trap: " + ", ".join(f"{k}={v:.3f}" for k, v in trap.items()) + "\n")
     return 0
 
 
@@ -130,6 +224,11 @@ def build_parser() -> argparse.ArgumentParser:
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("--config", default=None,
                         help="config YAML (default: the packaged config/default.yaml)")
+    common.add_argument("--scenario", action="append", default=None, metavar="NAME",
+                        help="overlay config/scenarios/NAME.yaml (repeatable)")
+    common.add_argument("--set", action="append", default=None, metavar="KEY=VALUE",
+                        help="override a config value, e.g. strategy.ir_condition=shifted "
+                             "(repeatable; applied after --scenario)")
     common.add_argument("--seed", type=int, default=0)
     common.add_argument("--out", default="data/")
     p = argparse.ArgumentParser(prog="maek")
@@ -144,15 +243,36 @@ def build_parser() -> argparse.ArgumentParser:
     nw = sub.add_parser("network", parents=[common], help="generate pipe network + defects")
     nw.add_argument("--total-km", type=float, default=None, help="override network.total_km")
     nw.set_defaults(func=_network)
+    ea = sub.add_parser("eva", parents=[common], help="extreme-value (Gumbel) pitting circuit analysis")
+    ea.add_argument("--runs", type=int, default=10)
+    ea.add_argument("--total-km", type=float, default=None, help="override network.total_km")
+    ea.set_defaults(func=_eva)
     cj = sub.add_parser("camera-jobs", parents=[common], help="sample camera render jobs")
     cj.add_argument("--n", type=int, default=300)
     cj.set_defaults(func=_camera_jobs)
+    th = sub.add_parser("thermal", parents=[common], help="IR images + detector metrics")
+    th.add_argument("--n", type=int, default=300)
+    th.add_argument("--condition", choices=["train", "shifted"], default="train")
+    th.set_defaults(func=_thermal)
+    tp = sub.add_parser("thermal-pod", parents=[common], help="fit IR POD params from simulator")
+    tp.add_argument("--n", type=int, default=600)
+    tp.set_defaults(func=_thermal_pod)
     sub.add_parser("render2d", parents=[common], help="render jobs.json (2D)"
                    ).set_defaults(func=_render2d)
     st = sub.add_parser("strategy", parents=[common], help="human+scaffold vs drone vs drone+AI comparison")
     st.add_argument("--runs", type=int, default=20)
     st.add_argument("--total-km", type=float, default=None, help="override network.total_km")
     st.set_defaults(func=_strategy)
+    pp = sub.add_parser("pit-prior", parents=[common],
+                        help="pit area-scan targeting when the wet-spot prior is wrong")
+    pp.add_argument("--runs", type=int, default=10)
+    pp.add_argument("--total-km", type=float, default=None, help="override network.total_km")
+    pp.set_defaults(func=_pit_prior)
+    sw = sub.add_parser("sweep", parents=[common],
+                        help="robustness sweep of the 3 strategies over network/cost assumptions")
+    sw.add_argument("--runs", type=int, default=5)
+    sw.add_argument("--total-km", type=float, default=None, help="override network.total_km")
+    sw.set_defaults(func=_sweep)
     ev = sub.add_parser("evaluate", parents=[common], help="evaluate 3 functions (train/shifted)")
     ev.add_argument("--n-camera", type=int, default=None, help="images per condition")
     ev.add_argument("--n-ut", type=int, default=None, help="UT samples per condition")

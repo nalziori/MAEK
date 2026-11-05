@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 from pathlib import Path
 
 import yaml
@@ -9,13 +10,58 @@ import yaml
 DEFAULT_PATH = Path(__file__).resolve().parents[1] / "config" / "default.yaml"
 
 
-def load_config(path=None) -> dict:
-    with open(path or DEFAULT_PATH, encoding="utf-8") as f:
-        return yaml.safe_load(f)
+SCENARIO_DIR = Path(__file__).resolve().parents[1] / "config" / "scenarios"
 
 
 def _is_leaf(node) -> bool:
     return isinstance(node, dict) and "value" in node
+
+
+def _merge(base: dict, over: dict) -> dict:
+    """Deep-merge `over` onto `base` in place; a leaf in `over` replaces the base leaf."""
+    for k, v in over.items():
+        if isinstance(v, dict) and not _is_leaf(v) and isinstance(base.get(k), dict) \
+                and not _is_leaf(base[k]):
+            _merge(base[k], v)
+        else:
+            base[k] = copy.deepcopy(v)
+    return base
+
+
+def scenario_path(name: str) -> Path:
+    """Path of config/scenarios/<name>.yaml (ValueError listing the names if missing)."""
+    p = SCENARIO_DIR / f"{name}.yaml"
+    if not p.is_file():
+        avail = sorted(q.stem for q in SCENARIO_DIR.glob("*.yaml"))
+        raise ValueError(f"unknown scenario {name!r}; available: {', '.join(avail)}")
+    return p
+
+
+def load_config(path=None, overlays=()) -> dict:
+    """Load the base config and deep-merge overlays (YAML paths or dicts) onto it."""
+    with open(path or DEFAULT_PATH, encoding="utf-8") as f:
+        cfg = yaml.safe_load(f)
+    for ov in overlays:
+        if not isinstance(ov, dict):
+            with open(ov, encoding="utf-8") as f:
+                ov = yaml.safe_load(f) or {}
+        _merge(cfg, ov)
+    return cfg
+
+
+def with_values(cfg: dict, values: dict) -> dict:
+    """Deep copy of `cfg` with the `value` of each dotted key replaced (KeyError if unknown)."""
+    out = copy.deepcopy(cfg)
+    for key, v in values.items():
+        node = out
+        for part in key.split("."):
+            if not isinstance(node, dict) or part not in node:
+                raise KeyError(key)
+            node = node[part]
+        if not _is_leaf(node):
+            raise KeyError(f"{key} is not a leaf parameter")
+        node["value"] = v
+    return out
 
 
 def iter_leaves(cfg: dict, prefix: str = ""):

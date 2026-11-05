@@ -13,12 +13,25 @@
 | `network.media_mix.nitrogen` | 0.1 |  | 가정 |
 | `network.media_mix.pickling_acid_hf` | 0.07 |  | 가정 |
 | `network.media_mix.compressed_air` | 0.15 |  | 가정 |
+| `network.media_mix.condensate` | 0.0 |  | 가정 |
+| `network.media_mix.traced_process` | 0.0 |  | 가정 |
 | `network.install_year_min` | 1975 | year | 가정 |
 | `network.install_year_max` | 2020 | year | 가정 |
 | `network.insulated_fraction` | 0.45 |  | 가정 |
 | `network.elevated_fraction` | 0.6 |  | 가정 |
 | `network.reference_year` | 2026 | year | 가정 |
-| `network.insulated_prob_steam` | 0.95 |  | 가정 |
+| `network.insulated_prob_by_medium.steam` | 0.95 |  | 가정 |
+| `network.insulated_prob_by_medium.condensate` | 0.8 |  | 가정 |
+| `network.insulated_prob_by_medium.traced_process` | 1.0 |  | 가정 |
+| `network.insulation_mm_by_nps.nps_2` | 40 | mm | 가정 |
+| `network.insulation_mm_by_nps.nps_4` | 50 | mm | 가정 |
+| `network.insulation_mm_by_nps.nps_8` | 65 | mm | 가정 |
+| `network.insulation_mm_by_nps.nps_12` | 75 | mm | 가정 |
+| `network.jacket_mix.aluminium` | 0.7 |  | 가정 |
+| `network.jacket_mix.galvanized` | 0.2 |  | 가정 |
+| `network.jacket_mix.stainless` | 0.1 |  | 가정 |
+| `network.tracer_pressure_barg` | [3, 10] | barg | 가정 |
+| `network.condensate_pressure_barg` | [0.5, 3.0] | barg | 가정 |
 | `network.t_min_frac` | 0.5 |  | 가정 |
 | `network.traffic_levels` | [0, 1, 2] |  | 가정 |
 | `network.nps_weights.nps_2` | 0.3 |  | 가정 |
@@ -35,6 +48,8 @@
 | `network.area_by_medium.nitrogen` | ['산소공장', '제강', '압연'] |  | 가정 |
 | `network.area_by_medium.pickling_acid_hf` | ['산세'] |  | 가정 |
 | `network.area_by_medium.compressed_air` | ['제선', '제강', '압연', '산세'] |  | 가정 |
+| `network.area_by_medium.condensate` | ['발전', '압연', '제강'] |  | 가정 |
+| `network.area_by_medium.traced_process` | ['화성', '제선', '압연'] |  | 가정 |
 | `network.temp_c_by_medium.cooling_water` | [25, 60] | C | 가정 |
 | `network.temp_c_by_medium.steam` | [100, 220] | C | 가정 |
 | `network.temp_c_by_medium.byproduct_gas_co` | [30, 90] | C | 가정 |
@@ -42,6 +57,8 @@
 | `network.temp_c_by_medium.nitrogen` | [-10, 40] | C | 가정 |
 | `network.temp_c_by_medium.pickling_acid_hf` | [40, 85] | C | 가정 |
 | `network.temp_c_by_medium.compressed_air` | [20, 60] | C | 가정 |
+| `network.temp_c_by_medium.condensate` | [60, 100] | C | 가정 |
+| `network.temp_c_by_medium.traced_process` | [40, 90] | C | 가정 |
 | `network.features_per_km.weld` | 85 | 1/km | 가정 |
 | `network.features_per_km.support` | 125 | 1/km | 가정 |
 | `network.features_per_km.elbow` | 15 | 1/km | 가정 |
@@ -51,6 +68,13 @@
 | `network.features_per_km.orifice_downstream` | 1 | 1/km | 가정 |
 | `network.features_per_km.nozzle` | 3 | 1/km | 가정 |
 | `network.features_per_km.dead_leg` | 0.5 | 1/km | 가정 |
+| `network.medium_features_per_km.steam.steam_trap` | 20 | 1/km | 가정 |
+| `network.medium_features_per_km.steam.low_point` | 2 | 1/km | 가정 |
+| `network.medium_features_per_km.traced_process.steam_trap` | 25 | 1/km | 가정 |
+| `network.medium_features_per_km.traced_process.low_point` | 2 | 1/km | 가정 |
+| `network.medium_features_per_km.condensate.low_point` | 4 | 1/km | 가정 |
+| `network.medium_features_per_km.cooling_water.low_point` | 2 | 1/km | 가정 |
+| `network.medium_features_per_km.byproduct_gas_co.low_point` | 2 | 1/km | 가정 |
 | `network.pipe_sizes.nps_2.od_mm` | 60.3 | mm | [링크](https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html) |
 | `network.pipe_sizes.nps_2.wall_mm` | 3.91 | mm | [링크](https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html) |
 | `network.pipe_sizes.nps_4.od_mm` | 114.3 | mm | [링크](https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html) |
@@ -65,7 +89,10 @@
 | `defects.consequence_gain` | 0.5 |  | 가정 |
 | `defects.external_corrosion.rate_per_km` | 6 | 1/km | 가정 |
 | `defects.internal_pitting.rate_per_km` | 2 | 1/km | 가정 |
-| `defects.internal_pitting.media` | ['cooling_water', 'steam', 'byproduct_gas_co', 'pickling_acid_hf'] |  | 가정 |
+| `defects.internal_pitting.media` | ['cooling_water', 'steam', 'byproduct_gas_co', 'pickling_acid_hf', 'condensate'] |  | 가정 |
+| `defects.internal_pitting.rate_factor_by_medium.condensate` | 3.0 |  | 가정 |
+| `defects.internal_pitting.wet_spot_share` | 0.6 |  | 가정 |
+| `defects.internal_pitting.wet_spot_window_m` | 2.0 | m | 가정 |
 | `defects.flange_leak.p_per_flange` | 0.03 |  | 가정 |
 | `defects.cui.temp_min_c` | -12 | C | [링크](https://www.fabrico.io/blog/corrosion-under-insulation/) |
 | `defects.cui.temp_max_c` | 175 | C | [링크](https://www.fabrico.io/blog/corrosion-under-insulation/) |
@@ -78,13 +105,14 @@
 | `defects.cui.rate_per_km` | 4 | 1/km | 가정 |
 | `defects.cui.peak_factor` | 2.0 |  | 가정 |
 | `defects.cui.external_sign_prob` | 0.4 |  | 가정 |
+| `defects.cui.in_wet_zone_prob` | 0.6 |  | [링크](https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm) |
 | `defects.fac.location_weight.elbow` | 0.4 |  | [링크](https://www.intechopen.com/chapters/39784) |
 | `defects.fac.location_weight.tee` | 0.25 |  | [링크](https://www.intechopen.com/chapters/39784) |
 | `defects.fac.location_weight.orifice` | 0.2 |  | [링크](https://www.intechopen.com/chapters/39784) |
 | `defects.fac.location_weight.valve` | 0.15 |  | [링크](https://www.intechopen.com/chapters/39784) |
 | `defects.fac.location_weight.straight` | 0.05 |  | 가정 |
 | `defects.fac.rate_per_km` | 3 | 1/km | 가정 |
-| `defects.fac.media` | ['cooling_water', 'steam'] |  | 가정 |
+| `defects.fac.media` | ['cooling_water', 'steam', 'condensate'] |  | 가정 |
 | `defects.fac.rate_factor` | 2.0 |  | 가정 |
 | `defects.corrosion_rate.mean_mm_per_year` | 0.15 | mm/yr | 가정 |
 | `defects.corrosion_rate.sigma_log` | 0.6 |  | 가정 |
@@ -99,6 +127,44 @@
 | `defects.crack.location_weight.weld` | 0.6 |  | 가정 |
 | `defects.crack.location_weight.elbow` | 0.3 |  | 가정 |
 | `defects.crack.location_weight.straight` | 0.1 |  | 가정 |
+| `defects.insulation_damage.rate_per_km` | 3 | 1/km | 가정 |
+| `defects.insulation_damage.hot_min_c` | 50 | C | 가정 |
+| `defects.insulation_damage.length_median_m` | 0.5 | m | 가정 |
+| `defects.insulation_damage.length_sigma_log` | 0.8 |  | 가정 |
+| `defects.insulation_damage.length_max_m` | 5.0 | m | 가정 |
+| `defects.insulation_damage.circ_frac_range` | [0.25, 1.0] |  | 가정 |
+| `defects.insulation_damage.visible_prob` | 0.7 |  | 가정 |
+| `defects.wet_insulation.rate_per_km` | 2 | 1/km | 가정 |
+| `defects.wet_insulation.traced_factor` | 2.0 |  | 가정 |
+| `defects.wet_insulation.location_weight.support` | 0.3 |  | [링크](https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm) |
+| `defects.wet_insulation.location_weight.nozzle` | 0.15 |  | [링크](https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm) |
+| `defects.wet_insulation.location_weight.dead_leg` | 0.1 |  | [링크](https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm) |
+| `defects.wet_insulation.location_weight.steam_trap` | 0.15 |  | [링크](https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm) |
+| `defects.wet_insulation.location_weight.straight` | 0.3 |  | 가정 |
+| `defects.wet_insulation.length_median_m` | 1.5 | m | 가정 |
+| `defects.wet_insulation.length_sigma_log` | 0.6 |  | 가정 |
+| `defects.wet_insulation.length_max_m` | 10 | m | 가정 |
+| `defects.wet_insulation.moisture_range` | [0.2, 1.0] |  | 가정 |
+| `defects.wet_insulation.external_sign_prob` | 0.2 |  | 가정 |
+| `defects.steam_leak.rate_per_km` | 1.0 | 1/km | 가정 |
+| `defects.steam_leak.location_weight.flange` | 0.4 |  | 가정 |
+| `defects.steam_leak.location_weight.valve` | 0.2 |  | 가정 |
+| `defects.steam_leak.location_weight.weld` | 0.1 |  | 가정 |
+| `defects.steam_leak.location_weight.straight` | 0.3 |  | 가정 |
+| `defects.steam_leak.orifice_median_mm` | 1.2 | mm | 가정 |
+| `defects.steam_leak.orifice_sigma_log` | 0.6 |  | 가정 |
+| `defects.steam_leak.orifice_max_mm` | 6.0 | mm | 가정 |
+| `defects.steam_leak.visible_plume_mm` | 2.0 | mm | 가정 |
+| `defects.tracer_leak.rate_per_km` | 1.5 | 1/km | 가정 |
+| `defects.tracer_leak.orifice_median_mm` | 0.8 | mm | 가정 |
+| `defects.tracer_leak.orifice_sigma_log` | 0.5 |  | 가정 |
+| `defects.tracer_leak.orifice_max_mm` | 3.0 | mm | 가정 |
+| `defects.tracer_leak.wet_zone_prob` | 0.8 |  | 가정 |
+| `defects.tracer_leak.moisture_range` | [0.5, 1.0] |  | 가정 |
+| `defects.tracer_leak.length_median_m` | 2.0 | m | 가정 |
+| `defects.steam_trap.fail_prob` | 0.15 |  | [링크](https://www.nrel.gov/docs/fy06osti/39305.pdf) |
+| `defects.steam_trap.fail_open_share` | 0.6 |  | 가정 |
+| `defects.steam_trap.open_orifice_mm_range` | [1.5, 4.0] | mm | 가정 |
 | `risk.consequence.oxygen` | 5 |  | 가정 |
 | `risk.consequence.pickling_acid_hf` | 5 |  | 가정 |
 | `risk.consequence.byproduct_gas_co` | 5 |  | 가정 |
@@ -106,6 +172,34 @@
 | `risk.consequence.nitrogen` | 2 |  | 가정 |
 | `risk.consequence.compressed_air` | 1 |  | 가정 |
 | `risk.consequence.cooling_water` | 1 |  | 가정 |
+| `risk.consequence.condensate` | 2 |  | 가정 |
+| `risk.consequence.traced_process` | 4 |  | 가정 |
+| `energy.hours_per_year` | 8000 | h/yr | 가정 |
+| `energy.ambient_c` | 15 | C | 가정 |
+| `energy.k_insulation_w_mk` | 0.045 | W/m/K | [링크](https://www.engineeringtoolbox.com/thermal-conductivity-d_429.html) |
+| `energy.wet_k_multiplier` | 8 |  | 가정 |
+| `energy.h_jacket_w_m2k` | 10 | W/m2/K | 가정 |
+| `energy.h_bare_w_m2k` | 20 | W/m2/K | 가정 |
+| `energy.napier_const` | 24.24 |  | [링크](https://cecas.clemson.edu/iac/wp-content/uploads/2020/07/Repair-and-Eliminate-Steam-Leaks.pdf) |
+| `energy.steam_enthalpy_kj_kg` | 2650 | kJ/kg | 가정 |
+| `energy.boiler_eff` | 0.85 |  | 가정 |
+| `energy.steam_cost_krw_per_t` | 35000 | KRW/t | 가정 |
+| `energy.fuel_mix.bfg` | 0.5 |  | 가정 |
+| `energy.fuel_mix.cog` | 0.3 |  | 가정 |
+| `energy.fuel_mix.natural_gas` | 0.2 |  | 가정 |
+| `energy.ef_t_per_tj.bfg` | 260 | tCO2/TJ | [링크](https://www.legislation.gov.uk/eur/2018/2066/annex/VI/data.pdf) |
+| `energy.ef_t_per_tj.cog` | 44.4 | tCO2/TJ | [링크](https://www.legislation.gov.uk/eur/2018/2066/annex/VI/data.pdf) |
+| `energy.ef_t_per_tj.natural_gas` | 56.1 | tCO2/TJ | [링크](https://www.legislation.gov.uk/eur/2018/2066/annex/VI/data.pdf) |
+| `pec.footprint_base_mm` | 20 | mm | 가정 |
+| `pec.footprint_per_liftoff` | 1.0 |  | [링크](https://origin.tuv.com/content-media-files/master-content/global-landingpages/pdfs/e3/energie-efficiency/tuv-rheinland-pulsed_eddy_current_pec_tuv-e3.pdf) |
+| `pec.noise_rel` | 0.025 |  | [링크](https://mfe-is.com/wp-content/uploads/2026/04/MFE_PulsePro_Footprint.pdf) |
+| `pec.galvanized_noise_factor` | 2.0 |  | 가정 |
+| `pec.threshold_rel` | 0.1 |  | [링크](https://www.qualitymag.com/articles/97354-how-pulsed-eddy-current-technology-helps-uncover-corrosion) |
+| `pec.grid_spacing_mm` | 50 | mm | 가정 |
+| `pec.scan_m_per_min` | 1.0 | m/min | 가정 |
+| `pec.lines` | 4 |  | 가정 |
+| `pec.band_deg` | 90 | deg | 가정 |
+| `pec.setup_min` | 5 | min | 가정 |
 | `ut.v_long` | 5920 | m/s | [링크](https://materialwelding.com/ultrasonic-velocity-chart/) |
 | `ut.v_shear` | 3240 | m/s | [링크](https://materialwelding.com/ultrasonic-velocity-chart/) |
 | `ut.temp_coeff_mps_per_c` | -0.7 | m/s/C | [링크](https://tractian.com/en/glossary/speed-of-sound) |
@@ -186,11 +280,86 @@
 | `camera.shifted_blur_sigma_range` | [1.5, 3.5] | px | 가정 |
 | `camera.shifted_noise_sigma_range` | [0.03, 0.08] |  | 가정 |
 | `camera.min_defect_px` | 6 | px | 가정 |
-| `strategy.cost_ut_point_krw` | 150000 | KRW | 가정 |
+| `thermal.image_w` | 320 | px | 가정 |
+| `thermal.image_h` | 256 | px | 가정 |
+| `thermal.netd_k` | 0.05 | K | 가정 |
+| `thermal.fpn_k` | 0.15 | K | 가정 |
+| `thermal.blur_sigma_range` | [0.5, 1.5] | px | 가정 |
+| `thermal.emissivity_by_jacket.aluminium` | [0.05, 0.3] |  | [링크](https://www.engineeringtoolbox.com/emissivity-coefficients-d_447.html) |
+| `thermal.emissivity_by_jacket.galvanized` | [0.2, 0.35] |  | [링크](https://www.engineeringtoolbox.com/emissivity-coefficients-d_447.html) |
+| `thermal.emissivity_by_jacket.stainless` | [0.1, 0.3] |  | [링크](https://www.engineeringtoolbox.com/emissivity-coefficients-d_447.html) |
+| `thermal.bare_metal_emissivity` | [0.6, 0.9] |  | 가정 |
+| `thermal.emissivity_variation` | 0.03 |  | 가정 |
+| `thermal.eps_set_error.train` | 0.02 |  | 가정 |
+| `thermal.eps_set_error.shifted` | 0.08 |  | 가정 |
+| `thermal.ambient_c` | [-5, 30] | C | 가정 |
+| `thermal.h_wind_a` | 5.7 | W/m2/K | 가정 |
+| `thermal.h_wind_b` | 3.8 | W/m2/K/(m/s) | 가정 |
+| `thermal.conditions.train.sky_offset_k` | [-8, -2] | K | 가정 |
+| `thermal.conditions.train.wind_mps` | [0, 3] | m/s | 가정 |
+| `thermal.conditions.train.sun_k` | [0, 0] | K | 가정 |
+| `thermal.conditions.shifted.sky_offset_k` | [-40, -20] | K | 가정 |
+| `thermal.conditions.shifted.wind_mps` | [3, 8] | m/s | 가정 |
+| `thermal.conditions.shifted.sun_k` | [2, 10] | K | 가정 |
+| `thermal.scene.steam_temp_c` | [120, 220] | C | 가정 |
+| `thermal.scene.condensate_temp_c` | [60, 100] | C | 가정 |
+| `thermal.scene.traced_temp_c` | [40, 90] | C | 가정 |
+| `thermal.scene.insulation_mm` | [40, 75] | mm | 가정 |
+| `thermal.scene.od_mm` | [60.3, 114.3, 219.1, 323.9] | mm | 가정 |
+| `thermal.scene.negative_frac` | 0.35 |  | 가정 |
+| `thermal.scene.pipe_halfwidth_px` | [24, 46] | px | 가정 |
+| `thermal.scene.tilt_deg_range` | [-10, 10] | deg | 가정 |
+| `thermal.scene.defect_length_px` | [8, 34] | px | 가정 |
+| `thermal.scene.orifice_mm` | [1.0, 25.0] | mm | 가정 |
+| `thermal.detector.z_thr` | 3.5 |  | 가정 |
+| `thermal.detector.min_dt_k` | 0.5 | K | 가정 |
+| `thermal.detector.min_area_px` | 12 | px | 가정 |
+| `thermal.detector.peak_z` | 5.5 |  | 가정 |
+| `thermal.detector.min_extent_px` | 7 | px | 가정 |
+| `thermal.detector.bg_window_px` | 61 | px | 가정 |
+| `thermal.detector.damage_edge_px` | 5.0 | px | 가정 |
+| `thermal.detector.damage_dt_k` | 12.0 | K | 가정 |
+| `thermal.human_review_factor` | 0.6 |  | 가정 |
+| `thermal.pod.wet_insulation.b0` | -1.83 |  | 가정 |
+| `thermal.pod.wet_insulation.b1` | 1.29 |  | 가정 |
+| `thermal.pod.insulation_damage.b0` | -0.29 |  | 가정 |
+| `thermal.pod.insulation_damage.b1` | 0.5 |  | 가정 |
+| `thermal.pod.steam_leak.b0` | -5.89 |  | 가정 |
+| `thermal.pod.steam_leak.b1` | 4.08 |  | 가정 |
+| `thermal.pod_shifted.wet_insulation.b0` | -1.55 |  | 가정 |
+| `thermal.pod_shifted.wet_insulation.b1` | 0.63 |  | 가정 |
+| `thermal.pod_shifted.insulation_damage.b0` | 1.94 |  | 가정 |
+| `thermal.pod_shifted.insulation_damage.b1` | 0.0 |  | 가정 |
+| `thermal.pod_shifted.steam_leak.b0` | -4.18 |  | 가정 |
+| `thermal.pod_shifted.steam_leak.b1` | 2.52 |  | 가정 |
+| `thermal.trap.train.pod_open` | 0.68 |  | 가정 |
+| `thermal.trap.train.pod_closed` | 0.88 |  | 가정 |
+| `thermal.trap.train.false_alarm` | 0.001 |  | 가정 |
+| `thermal.trap.shifted.pod_open` | 0.61 |  | 가정 |
+| `thermal.trap.shifted.pod_closed` | 0.85 |  | 가정 |
+| `thermal.trap.shifted.false_alarm` | 0.02 |  | 가정 |
+| `strategy.cost_ut_point_krw` | 50000 | KRW | 가정 |
 | `strategy.cost_scaffold_krw` | 2000000 | KRW | 가정 |
 | `strategy.cost_drone_per_km_krw` | 500000 | KRW/km | 가정 |
 | `strategy.cost_labor_hour_krw` | 50000 | KRW/h | 가정 |
 | `strategy.cost_drone_contact_ut_extra_krw` | 100000 | KRW | 가정 |
+| `strategy.cost_insulation_opening_krw` | 200000 | KRW | 가정 |
+| `strategy.insulation_opening_min` | 30 | min | 가정 |
+| `strategy.human_elevated_access` | scaffold |  | 가정 |
+| `strategy.lift_min_per_point` | 20 | min | 가정 |
+| `strategy.cost_lift_day_krw` | 500000 | KRW/day | 가정 |
+| `strategy.trap_test_min` | 5 | min | 가정 |
+| `strategy.trap_test_pod` | 0.9 |  | 가정 |
+| `strategy.ai_trap_mode` | full |  | 가정 |
+| `strategy.trap_sample_frac` | 0.2 |  | 가정 |
+| `strategy.ir_review_min_per_km` | 30 | min/km | 가정 |
+| `strategy.ir_condition` | train |  | 가정 |
+| `strategy.pec_wall_roles` | ['cui'] |  | 가정 |
+| `strategy.pec_feature_zone_m` | 1.0 | m | 가정 |
+| `strategy.pec_false_call_prob` | 0.05 |  | 가정 |
+| `strategy.pec_false_call_galvanized_factor` | 3.0 |  | 가정 |
+| `strategy.cost_pec_hour_krw` | 30000 | KRW/h | 가정 |
+| `strategy.pit_scan_target` | wet_spot |  | 가정 |
 | `strategy.elevated_ut_mode` | drone |  | 가정 |
 | `strategy.cml_per_segment` | 2 |  | 가정 |
 | `strategy.probe_footprint_m` | 0.3 | m | 가정 |
@@ -256,3 +425,17 @@
 | `eval.pit_narrow_dr` | {'dr_noise_scale_range': [0.5, 2.0], 'dr_coupling_range': [0.5, 1.0], 'dr_temp_range_c': [-10, 80], 'dr_temp_meas_error_max_c': 5.0} |  | 가정 |
 | `eval.n_pit_dr_val` | 2000 |  | 가정 |
 | `eval.pod_bootstrap` | 300 |  | 가정 |
+| `eva.wetted_band_frac` | 0.25 |  | 가정 |
+| `eva.pit_density_median_per_m2` | 2.0 | 1/m2 | 가정 |
+| `eva.pit_density_sigma_log` | 1.0 |  | 가정 |
+| `eva.depth_scale_factor` | 0.35 |  | 가정 |
+| `eva.scan_length_m` | 5.0 | m | 가정 |
+| `eva.detect_min_mm` | 0.3 | mm | 가정 |
+| `eva.sizing_sd_mm` | 0.2 | mm | 가정 |
+| `eva.bootstrap` | 200 |  | 가정 |
+| `eva.upper_q` | 0.95 |  | 가정 |
+| `eva.k_values` | [4, 8, 16] |  | 가정 |
+| `eva.min_maxima` | 3 |  | 가정 |
+| `eva.circuit_keys` | ['medium', 'area', 'material', 'decade'] |  | 가정 |
+| `eva.fallback_margin_sd` | 2.0 |  | 가정 |
+| `eva.gumbel_method` | 극값(Gumbel) 분포로 영역별 최대 피트 깊이를 외삽 |  | [링크](https://arxiv.org/pdf/2507.16416) |
