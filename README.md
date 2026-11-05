@@ -144,6 +144,7 @@ OMP_NUM_THREADS=1 python scripts/produce_data.py
 
 ## 문서
 
+- [프로젝트 설명서](docs/project-overview.md): 문제, 해결 방법, 시뮬레이터, 결과, 가치와 한계, 현장 도입안을 한 문서로 정리
 - [배관 AI 비파괴검사 주제 검토](docs/posco-pipe-ndt-review.md): 포스코 현행 점검, 사고별 효과, 시뮬레이션 전략, 준비 일정, 예상 질문
 - [포스코 제철소 안전사고 아카이브](docs/posco-safety-accidents.md): 2018~2026년 사고 22건과 출처
 - [파라미터 표](docs/params.md): 가상 배관망과 센서 파라미터, 근거 구분 (가정 여부)
