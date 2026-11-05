@@ -284,7 +284,7 @@ def generate_network(cfg: dict | None = None, seed: int = 0, total_km: float | N
     df = pd.DataFrame(rows, columns=DEFECT_COLS[1:])
     df["feature_id"] = df["feature_id"].astype(object).where(df["feature_id"].notna(), None)
     df["zone_id"] = df["zone_id"].astype(object)
-    _relocate(cfg, rng2, seg, feat, df)
+    df = _relocate(cfg, rng2, seg, feat, df)
     df.insert(0, "defect_id", [f"D{i:06d}" for i in range(len(df))])
     zid = df["zone_id"]
     df["zone_id"] = [None if pd.isna(z) else f"D{int(z):06d}" for z in zid]
@@ -367,7 +367,11 @@ def _new_kinds(cfg, rng2, seg, by_seg, empty, rows, add, place) -> None:
 
 
 def _relocate(cfg, rng2, seg, feat, df: pd.DataFrame) -> None:
-    """Move CUI into wet-insulation zones and pitting to wet-spot features (in place)."""
+    """Tie CUI to wet insulation and move pitting to wet-spot features.
+
+    With prob `defects.cui.in_wet_zone_prob` a CUI site is currently wet: it moves into an
+    existing wet zone of its segment, or a new wet-insulation zone is added around it.
+    Returns the defect frame (new zones appended at the end)."""
     g = partial(params.get, cfg)
     p_wet, share, win = (g("defects.cui.in_wet_zone_prob"),
                          g("defects.internal_pitting.wet_spot_share"),
@@ -376,11 +380,14 @@ def _relocate(cfg, rng2, seg, feat, df: pd.DataFrame) -> None:
     zones = df[df["kind"] == "wet_insulation"].groupby("segment_id").groups
     wet_feat = feat[feat["kind"].isin(("low_point", "steam_trap", "dead_leg"))]
     spots = {sid: grp for sid, grp in wet_feat.groupby("segment_id")}
+    wet = _sub(cfg, "defects.wet_insulation")
+    s_idx = seg.set_index("segment_id")
+    new_rows = []
     for i in df.index[df["kind"] == "cui"]:
         sid = df.at[i, "segment_id"]
-        if sid not in zones:
+        if rng2.random() >= p_wet:
             continue
-        if rng2.random() < p_wet:
+        if sid in zones:  # an existing wet zone on this segment holds the CUI
             z = zones[sid][rng2.integers(len(zones[sid]))]
             half = df.at[z, "length_mm"] / 2000.0
             c = df.at[z, "pos_m"]
@@ -388,6 +395,23 @@ def _relocate(cfg, rng2, seg, feat, df: pd.DataFrame) -> None:
                                                     length[sid])), 3)
             df.at[i, "zone_id"] = int(z)
             df.at[i, "feature_id"] = df.at[z, "feature_id"]
+            continue
+        # otherwise the CUI site is still wet: add a wet-insulation zone around it
+        s = s_idx.loc[sid]
+        mu = np.log(wet["length_median_m"])
+        ln = float(np.clip(rng2.lognormal(mu, wet["length_sigma_log"]), 0.3,
+                           wet["length_max_m"]))
+        moist = float(rng2.uniform(*wet["moisture_range"]))
+        sign = bool(rng2.random() < wet["external_sign_prob"])
+        new_rows.append({
+            "segment_id": sid, "feature_id": df.at[i, "feature_id"], "kind": "wet_insulation",
+            "pos_m": df.at[i, "pos_m"], "clock_deg": 180.0, "depth_mm": 0.0,
+            "area_cm2": round(float(np.pi * s.od_mm / 10 * 0.5 * ln * 100), 2),
+            "length_mm": round(ln * 1000, 1), "growth_mm_per_yr": 0.0,
+            "visible_external": False, "external_sign": sign, "ut_mode": "",
+            "remaining_wall_mm": float(s.wall_mm), "critical": False,
+            "moisture": round(moist, 3), "circ_frac": 0.0, "orifice_mm": 0.0, "zone_id": None})
+        df.at[i, "zone_id"] = int(len(df) + len(new_rows) - 1)
     for i in df.index[df["kind"] == "internal_pitting"]:
         sid = df.at[i, "segment_id"]
         if sid not in spots or rng2.random() >= share:
@@ -401,6 +425,12 @@ def _relocate(cfg, rng2, seg, feat, df: pd.DataFrame) -> None:
             pos += rng2.uniform(-win / 2, win / 2)
         df.at[i, "pos_m"] = round(float(np.clip(pos, 0, length[sid])), 3)
         df.at[i, "feature_id"] = grp["feature_id"].iat[j]
+    if new_rows:
+        add = pd.DataFrame(new_rows, columns=df.columns)
+        add["feature_id"] = add["feature_id"].astype(object)
+        add["zone_id"] = add["zone_id"].astype(object)
+        df = pd.concat([df, add], ignore_index=True)
+    return df
 
 
 def save_network(out_dir, segments, features, defects) -> list[Path]:
