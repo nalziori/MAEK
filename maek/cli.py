@@ -68,6 +68,22 @@ def _network(args) -> int:
     return 0
 
 
+def _eva(args) -> int:
+    from maek import eva
+
+    cfg = params.load_config(args.config)
+    params.validate(cfg)
+    df = eva.run(cfg, args.seed, args.runs, args.total_km)
+    summ = eva.summary(df)
+    out = Path(args.out) / "eva"
+    out.mkdir(parents=True, exist_ok=True)
+    df.to_csv(out / "eva_runs.csv", index=False, encoding="utf-8")
+    summ.to_csv(out / "eva_summary.csv", index=False, encoding="utf-8")
+    print(eva.to_markdown(summ))
+    print(f"wrote: {out / 'eva_runs.csv'}, {out / 'eva_summary.csv'}")
+    return 0
+
+
 def _camera_jobs(args) -> int:
     from maek import network
     from maek.camera import jobs
@@ -144,6 +160,10 @@ def build_parser() -> argparse.ArgumentParser:
     nw = sub.add_parser("network", parents=[common], help="generate pipe network + defects")
     nw.add_argument("--total-km", type=float, default=None, help="override network.total_km")
     nw.set_defaults(func=_network)
+    ea = sub.add_parser("eva", parents=[common], help="extreme-value (Gumbel) pitting circuit analysis")
+    ea.add_argument("--runs", type=int, default=10)
+    ea.add_argument("--total-km", type=float, default=None, help="override network.total_km")
+    ea.set_defaults(func=_eva)
     cj = sub.add_parser("camera-jobs", parents=[common], help="sample camera render jobs")
     cj.add_argument("--n", type=int, default=300)
     cj.set_defaults(func=_camera_jobs)
