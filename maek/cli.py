@@ -136,6 +136,44 @@ def _onboard(args) -> int:
     return 0
 
 
+def _thermal(args) -> int:
+    import time
+
+    from maek import thermal_render as tr
+
+    cfg = params.load_config(args.config)
+    params.validate(cfg)
+    out = Path(args.out) / "thermal"
+    jobs = tr.make_ir_jobs(cfg, args.n, args.seed, args.condition)
+    t0 = time.perf_counter()
+    ds = tr.render_all_ir(cfg, jobs, out, args.seed)
+    dt = time.perf_counter() - t0
+    print(f"rendered {len(jobs)} IR images in {dt:.1f}s ({len(jobs) / dt:.1f} img/s incl. PNG) -> {ds}")
+    met, df = tr.evaluate_ir(cfg, args.n, args.seed, args.condition, jobs=jobs)
+    print(tr.metrics_markdown({args.condition: met}))
+    print(f"detector {met['detect_img_per_s']:.1f} img/s, render {met['render_img_per_s']:.1f} img/s")
+    df.to_csv(out / "hitmiss.csv", index=False, encoding="utf-8")
+    return 0
+
+
+def _thermal_pod(args) -> int:
+    from maek import thermal
+    from maek import thermal_render as tr
+
+    cfg = params.load_config(args.config)
+    params.validate(cfg)
+    for cond in ("train", "shifted"):
+        met, df = tr.evaluate_ir(cfg, args.n, args.seed, cond)
+        fit = tr.fit_ir_pod(cfg, df=df)
+        trap = thermal.trap_pods(cfg, cond, 4000, args.seed)
+        print(f"## {cond} (n={args.n}, FP/img {met['fp_per_image']:.2f})")
+        print("| class | b0 | b1 | n | hit rate |\n|---|---|---|---|---|")
+        for k, f in fit.items():
+            print(f"| {k} | {f['b0']:.2f} | {f['b1']:.2f} | {f['n']} | {f['hit_rate']:.2f} |")
+        print("trap: " + ", ".join(f"{k}={v:.3f}" for k, v in trap.items()) + "\n")
+    return 0
+
+
 def _stub(args) -> int:
     print(f"{args.cmd}: not implemented yet")
     return 2
@@ -168,6 +206,13 @@ def build_parser() -> argparse.ArgumentParser:
     cj = sub.add_parser("camera-jobs", parents=[common], help="sample camera render jobs")
     cj.add_argument("--n", type=int, default=300)
     cj.set_defaults(func=_camera_jobs)
+    th = sub.add_parser("thermal", parents=[common], help="IR images + detector metrics")
+    th.add_argument("--n", type=int, default=300)
+    th.add_argument("--condition", choices=["train", "shifted"], default="train")
+    th.set_defaults(func=_thermal)
+    tp = sub.add_parser("thermal-pod", parents=[common], help="fit IR POD params from simulator")
+    tp.add_argument("--n", type=int, default=600)
+    tp.set_defaults(func=_thermal_pod)
     sub.add_parser("render2d", parents=[common], help="render jobs.json (2D)"
                    ).set_defaults(func=_render2d)
     st = sub.add_parser("strategy", parents=[common], help="human+scaffold vs drone vs drone+AI comparison")
