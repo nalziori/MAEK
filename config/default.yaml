@@ -126,6 +126,13 @@ risk:
     nitrogen: {value: 2, assumption: true, note: 질식}
     compressed_air: {value: 1, assumption: true}
     cooling_water: {value: 1, assumption: true}
+energy:
+  hours_per_year: {value: 8000, unit: h/yr, assumption: true, note: 연속 조업 가정(연 8,760시간 중 정지 제외)}
+  ambient_c: {value: 15, unit: C, assumption: true, note: 포항·광양 연평균 기온 수준}
+  k_insulation_w_mk: {value: 0.045, unit: W/m/K, source: "https://www.engineeringtoolbox.com/thermal-conductivity-d_429.html", note: 미네랄울 보온재(평균 온도 약 100 C 기준 값으로 가정)}
+  wet_k_multiplier: {value: 8, assumption: true, note: "완전히 젖은 보온재의 열전도율 배수(물 약 0.6 W/m/K). k_wet = k x (1 + (배수-1) x 함수율)"}
+  h_jacket_w_m2k: {value: 10, unit: W/m2/K, assumption: true, note: 보온 외장 표면 열전달계수(대류 위주, 약한 바람)}
+  h_bare_w_m2k: {value: 20, unit: W/m2/K, assumption: true, note: 맨 강관 표면 열전달계수(대류 + 복사, 도장면 방사율 약 0.9)}
 ut:
   v_long: {value: 5920, unit: m/s, source: "https://materialwelding.com/ultrasonic-velocity-chart/", note: 강 종파 속도}
   v_shear: {value: 3240, unit: m/s, source: "https://materialwelding.com/ultrasonic-velocity-chart/", note: 강 횡파 속도}
