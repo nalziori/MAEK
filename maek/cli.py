@@ -75,8 +75,7 @@ def _network(args) -> int:
 def _eva(args) -> int:
     from maek import eva
 
-    cfg = params.load_config(args.config)
-    params.validate(cfg)
+    cfg = _cfg(args)
     df = eva.run(cfg, args.seed, args.runs, args.total_km)
     summ = eva.summary(df)
     out = Path(args.out) / "eva"
