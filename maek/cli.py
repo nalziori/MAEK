@@ -141,8 +141,7 @@ def _thermal(args) -> int:
 
     from maek import thermal_render as tr
 
-    cfg = params.load_config(args.config)
-    params.validate(cfg)
+    cfg = _cfg(args)
     out = Path(args.out) / "thermal"
     jobs = tr.make_ir_jobs(cfg, args.n, args.seed, args.condition)
     t0 = time.perf_counter()
@@ -160,8 +159,7 @@ def _thermal_pod(args) -> int:
     from maek import thermal
     from maek import thermal_render as tr
 
-    cfg = params.load_config(args.config)
-    params.validate(cfg)
+    cfg = _cfg(args)
     for cond in ("train", "shifted"):
         met, df = tr.evaluate_ir(cfg, args.n, args.seed, cond)
         fit = tr.fit_ir_pod(cfg, df=df)
