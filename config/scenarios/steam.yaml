@@ -1,0 +1,14 @@
+# 증기·응축수·트레이싱 대표 시나리오 (default.yaml 위에 덮어씀)
+network:
+  total_km: {value: 20, unit: km, assumption: true, note: 기본망(100 km) 증기 비율 20%에 해당하는 길이}
+  media_mix:
+    cooling_water: {value: 0.0, assumption: true, note: 시나리오에서 제외}
+    steam: {value: 0.5, assumption: true, note: 증기}
+    byproduct_gas_co: {value: 0.0, assumption: true, note: 시나리오에서 제외}
+    oxygen: {value: 0.0, assumption: true, note: 시나리오에서 제외}
+    nitrogen: {value: 0.0, assumption: true, note: 시나리오에서 제외}
+    pickling_acid_hf: {value: 0.0, assumption: true, note: 시나리오에서 제외}
+    compressed_air: {value: 0.0, assumption: true, note: 시나리오에서 제외}
+    condensate: {value: 0.2, assumption: true, note: 응축수 회수관}
+    traced_process: {value: 0.3, assumption: true, note: 스팀 트레이싱 공정 배관}
+  elevated_fraction: {value: 0.7, assumption: true, note: 증기 배관은 파이프랙 비율이 더 높다고 가정}

@@ -10,12 +10,28 @@ network:
     nitrogen: {value: 0.10, assumption: true, note: 질소}
     pickling_acid_hf: {value: 0.07, assumption: true, note: 산세액(불산)}
     compressed_air: {value: 0.15, assumption: true, note: 압축공기}
+    condensate: {value: 0.0, assumption: true, note: 응축수 회수관(기본망에는 없음, 증기 시나리오에서 사용)}
+    traced_process: {value: 0.0, assumption: true, note: 스팀 트레이싱 공정 배관(타르·연료유·동결 방지; 기본망에는 없음)}
   install_year_min: {value: 1975, unit: year, assumption: true}
   install_year_max: {value: 2020, unit: year, assumption: true}
   insulated_fraction: {value: 0.45, assumption: true, note: 보온 배관 비율}
   elevated_fraction: {value: 0.60, assumption: true, note: 가공(파이프랙) 배관 비율}
   reference_year: {value: 2026, unit: year, assumption: true, note: 경년 계산 기준 연도}
-  insulated_prob_steam: {value: 0.95, assumption: true, note: 증기 배관 보온 확률(그 외 매질은 insulated_fraction, PVC는 보온 없음)}
+  insulated_prob_by_medium:
+    steam: {value: 0.95, assumption: true, note: 증기 배관 보온 확률(목록에 없는 매질은 insulated_fraction, PVC는 보온 없음)}
+    condensate: {value: 0.8, assumption: true, note: 응축수관 보온 확률}
+    traced_process: {value: 1.0, assumption: true, note: 트레이싱 배관은 보온 필수}
+  insulation_mm_by_nps:
+    nps_2: {value: 40, unit: mm, assumption: true, note: 보온 두께}
+    nps_4: {value: 50, unit: mm, assumption: true}
+    nps_8: {value: 65, unit: mm, assumption: true}
+    nps_12: {value: 75, unit: mm, assumption: true}
+  jacket_mix:
+    aluminium: {value: 0.7, assumption: true, note: 보온 외장 재질 비율}
+    galvanized: {value: 0.2, assumption: true}
+    stainless: {value: 0.1, assumption: true}
+  tracer_pressure_barg: {value: [3, 10], unit: barg, assumption: true, note: 트레이서용 증기 압력 범위}
+  condensate_pressure_barg: {value: [0.5, 3.0], unit: barg, assumption: true, note: 응축수관 압력 범위}
   t_min_frac: {value: 0.5, assumption: true, note: "최소 허용 두께 = 공칭 두께 × 비율 (B31.3 계산 대신 단순화)"}
   traffic_levels: {value: [0, 1, 2], assumption: true, note: "주변 통행량 등급 0~2 (균등 선택)"}
   nps_weights:
@@ -35,6 +51,8 @@ network:
     nitrogen: {value: [산소공장, 제강, 압연], assumption: true}
     pickling_acid_hf: {value: [산세], assumption: true}
     compressed_air: {value: [제선, 제강, 압연, 산세], assumption: true}
+    condensate: {value: [발전, 압연, 제강], assumption: true}
+    traced_process: {value: [화성, 제선, 압연], assumption: true}
   temp_c_by_medium:
     cooling_water: {value: [25, 60], unit: C, assumption: true}
     steam: {value: [100, 220], unit: C, assumption: true}
@@ -43,6 +61,8 @@ network:
     nitrogen: {value: [-10, 40], unit: C, assumption: true}
     pickling_acid_hf: {value: [40, 85], unit: C, assumption: true}
     compressed_air: {value: [20, 60], unit: C, assumption: true}
+    condensate: {value: [60, 100], unit: C, assumption: true}
+    traced_process: {value: [40, 90], unit: C, assumption: true, note: 공정 유체 유지 온도}
   features_per_km:
     weld: {value: 85, unit: 1/km, assumption: true, note: 약 12m 스풀마다 원주 용접}
     support: {value: 125, unit: 1/km, assumption: true, note: 약 8m 간격 지지대}
@@ -53,6 +73,19 @@ network:
     orifice_downstream: {value: 1, unit: 1/km, assumption: true}
     nozzle: {value: 3, unit: 1/km, assumption: true}
     dead_leg: {value: 0.5, unit: 1/km, assumption: true}
+  medium_features_per_km:
+    steam:
+      steam_trap: {value: 20, unit: 1/km, assumption: true, note: 증기 트랩}
+      low_point: {value: 2, unit: 1/km, assumption: true, note: 저점(드레인 포인트)}
+    traced_process:
+      steam_trap: {value: 25, unit: 1/km, assumption: true, note: 트레이서 응축수 트랩}
+      low_point: {value: 2, unit: 1/km, assumption: true}
+    condensate:
+      low_point: {value: 4, unit: 1/km, assumption: true}
+    cooling_water:
+      low_point: {value: 2, unit: 1/km, assumption: true}
+    byproduct_gas_co:
+      low_point: {value: 2, unit: 1/km, assumption: true, note: 드레인 포트}
   pipe_sizes:
     nps_2:
       od_mm: {value: 60.3, unit: mm, source: "https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html", note: "ASME B36.10, NPS 2 외경"}
@@ -75,7 +108,11 @@ defects:
     rate_per_km: {value: 6, unit: 1/km, assumption: true, note: 비보온 탄소강, 기준 경년에서 기대 개수}
   internal_pitting:
     rate_per_km: {value: 2, unit: 1/km, assumption: true, note: 습식 매질 금속 배관}
-    media: {value: [cooling_water, steam, byproduct_gas_co, pickling_acid_hf], assumption: true}
+    media: {value: [cooling_water, steam, byproduct_gas_co, pickling_acid_hf, condensate], assumption: true}
+    rate_factor_by_medium:
+      condensate: {value: 3.0, assumption: true, note: 탄산 부식으로 응축수관 피팅 가속(목록에 없는 매질은 1.0)}
+    wet_spot_share: {value: 0.6, assumption: true, note: 저점·트랩 상류·데드레그에 생기는 피트 비율}
+    wet_spot_window_m: {value: 2.0, unit: m, assumption: true, note: 습윤 지점 주변 피트 분포 폭}
   flange_leak:
     p_per_flange: {value: 0.03, assumption: true, note: 기준 경년에서 플랜지당 누설 확률}
   cui:
@@ -91,6 +128,7 @@ defects:
     rate_per_km: {value: 4, unit: 1/km, assumption: true, note: 보온 탄소강, CUI 온도대, 기준 경년}
     peak_factor: {value: 2.0, assumption: true, note: 60~120C 피크 구간 발생 배율}
     external_sign_prob: {value: 0.4, assumption: true, note: 보온 외장에 얼룩/변형 징후가 보일 확률}
+    in_wet_zone_prob: {value: 0.6, source: "https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm", note: "API RP 583 - CUI는 물이 있어야 발생; 물 유입 경로에 스팀 트레이싱 누설 포함. 젖은 보온 구간이 있는 세그먼트에서 CUI가 그 구간 안에 있을 확률(수치는 가정)"}
   fac:
     location_weight:
       elbow: {value: 0.40, source: "https://www.intechopen.com/chapters/39784", note: 엘보 하류}
@@ -99,7 +137,7 @@ defects:
       valve: {value: 0.15, source: "https://www.intechopen.com/chapters/39784", note: 밸브 하류}
       straight: {value: 0.05, assumption: true, note: 직관부(정규화 전)}
     rate_per_km: {value: 3, unit: 1/km, assumption: true, note: 수/증기 탄소강, 기준 경년}
-    media: {value: [cooling_water, steam], assumption: true}
+    media: {value: [cooling_water, steam, condensate], assumption: true}
     rate_factor: {value: 2.0, assumption: true, note: 감육 속도 배율(부식속도 분포 대비)}
   corrosion_rate:
     mean_mm_per_year: {value: 0.15, unit: mm/yr, assumption: true, note: 로그정규 평균}
@@ -117,6 +155,51 @@ defects:
       weld: {value: 0.6, assumption: true}
       elbow: {value: 0.3, assumption: true}
       straight: {value: 0.1, assumption: true}
+  insulation_damage:
+    rate_per_km: {value: 3, unit: 1/km, assumption: true, note: 보온 손상(외장 탈락·찢김), 고온 보온 배관, 기준 경년}
+    hot_min_c: {value: 50, unit: C, assumption: true, note: 이 온도 이상 보온 배관만 해당}
+    length_median_m: {value: 0.5, unit: m, assumption: true}
+    length_sigma_log: {value: 0.8, assumption: true}
+    length_max_m: {value: 5.0, unit: m, assumption: true}
+    circ_frac_range: {value: [0.25, 1.0], assumption: true, note: 손상이 원주를 차지하는 비율}
+    visible_prob: {value: 0.7, assumption: true, note: 카메라로 보이는 손상 비율}
+  wet_insulation:
+    rate_per_km: {value: 2, unit: 1/km, assumption: true, note: 젖은 보온 구간, 보온 배관, 기준 경년}
+    traced_factor: {value: 2.0, assumption: true, note: 트레이싱 배관 발생 배율(트레이서 관통부·누설)}
+    location_weight:
+      support: {value: 0.3, source: "https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm", note: "API RP 583 - 지지대 관통부; 가중치는 정규화 가정"}
+      nozzle: {value: 0.15, source: "https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm", note: 노즐 관통부}
+      dead_leg: {value: 0.1, source: "https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm", note: 데드레그}
+      steam_trap: {value: 0.15, source: "https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm", note: 트레이서·트랩 관통부}
+      straight: {value: 0.3, assumption: true, note: 직관부}
+    length_median_m: {value: 1.5, unit: m, assumption: true}
+    length_sigma_log: {value: 0.6, assumption: true}
+    length_max_m: {value: 10, unit: m, assumption: true}
+    moisture_range: {value: [0.2, 1.0], assumption: true, note: 보온재 함수율(0 건조 ~ 1 포화)}
+    external_sign_prob: {value: 0.2, assumption: true, note: 외장에 젖음 징후가 보일 확률}
+  steam_leak:
+    rate_per_km: {value: 1.0, unit: 1/km, assumption: true, note: 증기 배관 누설, 기준 경년}
+    location_weight:
+      flange: {value: 0.4, assumption: true}
+      valve: {value: 0.2, assumption: true}
+      weld: {value: 0.1, assumption: true}
+      straight: {value: 0.3, assumption: true}
+    orifice_median_mm: {value: 1.2, unit: mm, assumption: true, note: 등가 누설 오리피스 직경}
+    orifice_sigma_log: {value: 0.6, assumption: true}
+    orifice_max_mm: {value: 6.0, unit: mm, assumption: true}
+    visible_plume_mm: {value: 2.0, unit: mm, assumption: true, note: 이 직경 이상이면 증기 기둥이 눈에 보임}
+  tracer_leak:
+    rate_per_km: {value: 1.5, unit: 1/km, assumption: true, note: 트레이싱 배관 트레이서 누설, 기준 경년}
+    orifice_median_mm: {value: 0.8, unit: mm, assumption: true}
+    orifice_sigma_log: {value: 0.5, assumption: true}
+    orifice_max_mm: {value: 3.0, unit: mm, assumption: true}
+    wet_zone_prob: {value: 0.8, assumption: true, note: 누설이 보온재를 적시는 확률}
+    moisture_range: {value: [0.5, 1.0], assumption: true}
+    length_median_m: {value: 2.0, unit: m, assumption: true, note: 누설로 젖은 구간 길이 중앙값}
+  steam_trap:
+    fail_prob: {value: 0.15, source: "https://www.nrel.gov/docs/fy06osti/39305.pdf", note: "DOE Steam Tip Sheet #1 - 3~5년 정비하지 않은 계통 15~30% 고장, 정비 계통 5% 미만"}
+    fail_open_share: {value: 0.6, assumption: true, note: 고장 중 열림(증기 누출) 비율, 나머지는 닫힘(응축수 정체)}
+    open_orifice_mm_range: {value: [1.5, 4.0], unit: mm, assumption: true}
 risk:
   consequence:
     oxygen: {value: 5, assumption: true, note: 피해등급 1~5, 화재·폭발}
@@ -126,6 +209,8 @@ risk:
     nitrogen: {value: 2, assumption: true, note: 질식}
     compressed_air: {value: 1, assumption: true}
     cooling_water: {value: 1, assumption: true}
+    condensate: {value: 2, assumption: true, note: 고온수 화상}
+    traced_process: {value: 4, assumption: true, note: 타르·벤젠류 가연·독성}
 energy:
   hours_per_year: {value: 8000, unit: h/yr, assumption: true, note: 연속 조업 가정(연 8,760시간 중 정지 제외)}
   ambient_c: {value: 15, unit: C, assumption: true, note: 포항·광양 연평균 기온 수준}
@@ -133,6 +218,29 @@ energy:
   wet_k_multiplier: {value: 8, assumption: true, note: "완전히 젖은 보온재의 열전도율 배수(물 약 0.6 W/m/K). k_wet = k x (1 + (배수-1) x 함수율)"}
   h_jacket_w_m2k: {value: 10, unit: W/m2/K, assumption: true, note: 보온 외장 표면 열전달계수(대류 위주, 약한 바람)}
   h_bare_w_m2k: {value: 20, unit: W/m2/K, assumption: true, note: 맨 강관 표면 열전달계수(대류 + 복사, 도장면 방사율 약 0.9)}
+  napier_const: {value: 24.24, source: "https://cecas.clemson.edu/iac/wp-content/uploads/2020/07/Repair-and-Eliminate-Steam-Leaks.pdf", note: "lb/h = 24.24 x P(psia) x D(in)^2, 유출계수 약 0.6 포함"}
+  steam_enthalpy_kj_kg: {value: 2650, unit: kJ/kg, assumption: true, note: 포화증기 약 2,770 - 보충수 약 105 kJ/kg}
+  boiler_eff: {value: 0.85, assumption: true, note: 보일러 효율}
+  steam_cost_krw_per_t: {value: 35000, unit: KRW/t, assumption: true, note: LNG 기준 약 7~8만 원/t, 부생가스 연료는 더 낮다고 보고 중간값 가정; 포스코 내부 단가는 모름}
+  fuel_mix:
+    bfg: {value: 0.5, assumption: true, note: 고로가스 비율}
+    cog: {value: 0.3, assumption: true, note: 코크스로가스 비율}
+    natural_gas: {value: 0.2, assumption: true}
+  ef_t_per_tj:
+    bfg: {value: 260, unit: tCO2/TJ, source: "https://www.legislation.gov.uk/eur/2018/2066/annex/VI/data.pdf", note: IPCC 2006 기본값}
+    cog: {value: 44.4, unit: tCO2/TJ, source: "https://www.legislation.gov.uk/eur/2018/2066/annex/VI/data.pdf", note: IPCC 2006 기본값}
+    natural_gas: {value: 56.1, unit: tCO2/TJ, source: "https://www.legislation.gov.uk/eur/2018/2066/annex/VI/data.pdf", note: IPCC 2006 기본값}
+pec:
+  footprint_base_mm: {value: 20, unit: mm, assumption: true, note: 탐촉자 크기}
+  footprint_per_liftoff: {value: 1.0, source: "https://origin.tuv.com/content-media-files/master-content/global-landingpages/pdfs/e3/energie-efficiency/tuv-rheinland-pulsed_eddy_current_pec_tuv-e3.pdf", note: "풋프린트 = 기본 + 계수 x 보온 두께; TUV: 최소 검출 결함 약 보온 두께의 50%"}
+  noise_rel: {value: 0.025, source: "https://mfe-is.com/wp-content/uploads/2026/04/MFE_PulsePro_Footprint.pdf", note: 반복성 약 +-2%}
+  galvanized_noise_factor: {value: 2.0, assumption: true, note: 아연도 외장은 와전류 신호 잡음 증가}
+  threshold_rel: {value: 0.10, source: "https://www.qualitymag.com/articles/97354-how-pulsed-eddy-current-technology-helps-uncover-corrosion", note: 정확도 약 +-10%}
+  grid_spacing_mm: {value: 50, unit: mm, assumption: true, note: 측정점 격자 간격}
+  scan_m_per_min: {value: 1.0, unit: m/min, assumption: true}
+  lines: {value: 4, assumption: true, note: 6시 방향 띠를 스캔하는 줄 수}
+  band_deg: {value: 90, unit: deg, assumption: true, note: 6시 방향 +-각도 범위}
+  setup_min: {value: 5, unit: min, assumption: true, note: 배관당 준비 시간}
 ut:
   v_long: {value: 5920, unit: m/s, source: "https://materialwelding.com/ultrasonic-velocity-chart/", note: 강 종파 속도}
   v_shear: {value: 3240, unit: m/s, source: "https://materialwelding.com/ultrasonic-velocity-chart/", note: 강 횡파 속도}
