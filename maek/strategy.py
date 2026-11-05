@@ -570,11 +570,13 @@ def run_ai_triage(cfg, segments, features, defects, rng, en=None):
     n_false = int((rng.random(len(clean)) < _s(cfg, "camera_false_flag_prob")).sum())
     false_seg = list(rng.choice(clean, n_false, replace=False)) if n_false else []
 
-    # risk-based features: insulated carbon steel gets PEC (wall loss) instead of UT
+    # risk-based features: on insulated carbon steel the `pec_wall_roles` get PEC instead of UT
     ff = _risk_features(cfg, segments, features, rng)[3]
     wall = ff["thin"] | ff["cui"]
-    ut_wall = ff[wall & ~ff["ins_cs"]]
-    pec_feat = ff[(wall & ff["ins_cs"]) | ff["low_point"]]
+    roles = set(_s(cfg, "pec_wall_roles"))
+    to_pec = (ff["thin"] & ("thin" in roles)) | (ff["cui"] & ("cui" in roles))
+    ut_wall = ff[wall & ~(to_pec & ff["ins_cs"])]  # incl. FAC on insulated pipe (opening)
+    pec_feat = ff[(to_pec & ff["ins_cs"]) | ff["low_point"]]
     crack_f = ff[ff["crack"]]
     fid = d["feature_id"].fillna("").to_numpy()
     kind = d["kind"].to_numpy()
