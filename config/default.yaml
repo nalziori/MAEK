@@ -408,3 +408,18 @@ eval:
   pit_narrow_dr: {value: {dr_noise_scale_range: [0.5, 2.0], dr_coupling_range: [0.5, 1.0], dr_temp_range_c: [-10, 80], dr_temp_meas_error_max_c: 5.0}, assumption: true, note: "학습 분류기 외삽 점검: shifted를 덮지 않는 좁은 DR 범위(ut.pit.dr_* 대체)"}
   n_pit_dr_val: {value: 2000, assumption: true, note: "피트 검출 방법 선택용 DR 검증 A-scan 수(평균 횟수별)"}
   pod_bootstrap: {value: 300, assumption: true, note: a90 부트스트랩 반복 수}
+eva:
+  wetted_band_frac: {value: 0.25, assumption: true, note: "바닥 1/4 원주가 응축수·물에 젖어 피팅이 집중된다고 가정(젖음 면적 = π·내경·길이·비율)"}
+  pit_density_median_per_m2: {value: 2.0, unit: 1/m2, assumption: true, note: 젖음 면적당 피트 개수 밀도의 중앙값(회로별 로그정규)}
+  pit_density_sigma_log: {value: 1.0, assumption: true, note: 회로 간 피트 밀도 로그정규 시그마}
+  depth_scale_factor: {value: 0.35, assumption: true, note: "피트 깊이 지수분포 척도 = 계수 × 부식속도 × 경년 × 노출비율"}
+  scan_length_m: {value: 5.0, unit: m, assumption: true, note: 직진빔 UT 면적 스캔 1회가 덮는 배관 길이}
+  detect_min_mm: {value: 0.3, unit: mm, assumption: true, note: 스캔 창 안에서 이 깊이 이상 피트만 측정됨}
+  sizing_sd_mm: {value: 0.2, unit: mm, assumption: true, note: 피트 깊이 측정 오차 표준편차}
+  bootstrap: {value: 200, assumption: true, note: 상한 예측용 모수적 부트스트랩 반복 수}
+  upper_q: {value: 0.95, assumption: true, note: 부트스트랩 분위수(예측 상한)}
+  k_values: {value: [4, 8, 16], assumption: true, note: 회로당 스캔 창 개수 후보}
+  min_maxima: {value: 3, assumption: true, note: Gumbel 적합에 필요한 최소 최댓값 개수(미만이면 관측 최댓값으로 대체)}
+  circuit_keys: {value: [medium, area, material, nps, decade], assumption: true, note: 부식 회로 묶음 기준(decade = 설치연도 10년 단위)}
+  fallback_margin_sd: {value: 2.0, assumption: true, note: 최댓값 부족(대체 판정) 시 관측 최댓값에 더하는 측정오차 표준편차 배수}
+  gumbel_method: {value: "극값(Gumbel) 분포로 영역별 최대 피트 깊이를 외삽", source: "https://arxiv.org/pdf/2507.16416", note: "ASTM G46/Kowaka 극값법; GEV 일반화와 피트 군집(비독립) 한계도 논의"}
