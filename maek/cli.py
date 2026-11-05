@@ -11,10 +11,26 @@ from maek import params
 STUBS: list[str] = []
 
 
+def parse_sets(items) -> dict:
+    """['a.b=1', 'c.d=text'] -> {'a.b': 1, 'c.d': 'text'} (values parsed with yaml.safe_load)."""
+    import yaml
+
+    out = {}
+    for it in items or []:
+        key, sep, val = it.partition("=")
+        if not sep or not key.strip():
+            raise ValueError(f"--set expects KEY=VALUE, got {it!r}")
+        out[key.strip()] = yaml.safe_load(val)
+    return out
+
+
 def _cfg(args) -> dict:
-    """Load --config, apply --scenario overlays in order, validate."""
+    """Load --config, apply --scenario overlays in order, then --set overrides, validate."""
     overlays = [params.scenario_path(n) for n in (getattr(args, "scenario", None) or [])]
     cfg = params.load_config(args.config, overlays)
+    sets = parse_sets(getattr(args, "set", None))
+    if sets:
+        cfg = params.with_values(cfg, sets)
     params.validate(cfg)
     return cfg
 
@@ -58,6 +74,33 @@ def _strategy(args) -> int:
     print()
     print(strategy.to_markdown(sens, "{:.3f}"))
     print(f"wrote: {out / 'compare.csv'}, {out / 'sensitivity.csv'}")
+    return 0
+
+
+def _pit_prior(args) -> int:
+    from maek import strategy
+
+    cfg = _cfg(args)
+    df = strategy.pit_prior_sensitivity(cfg, args.seed, args.runs, args.total_km)
+    out = Path(args.out) / "strategy"
+    out.mkdir(parents=True, exist_ok=True)
+    df.to_csv(out / "pit_prior.csv", index=False, encoding="utf-8")
+    print(strategy.to_markdown(df))
+    print(f"wrote: {out / 'pit_prior.csv'}")
+    return 0
+
+
+def _sweep(args) -> int:
+    from maek import strategy
+
+    cfg = _cfg(args)
+    df = strategy.sweep(cfg, args.seed, args.runs, args.total_km)
+    out = Path(args.out) / "strategy"
+    out.mkdir(parents=True, exist_ok=True)
+    df.to_csv(out / "sweep.csv", index=False, encoding="utf-8")
+    print(strategy.to_markdown(df))
+    print(f"ai_better in {int(df['ai_better'].sum())} of {len(df)} variations")
+    print(f"wrote: {out / 'sweep.csv'}")
     return 0
 
 
@@ -183,6 +226,9 @@ def build_parser() -> argparse.ArgumentParser:
                         help="config YAML (default: the packaged config/default.yaml)")
     common.add_argument("--scenario", action="append", default=None, metavar="NAME",
                         help="overlay config/scenarios/NAME.yaml (repeatable)")
+    common.add_argument("--set", action="append", default=None, metavar="KEY=VALUE",
+                        help="override a config value, e.g. strategy.ir_condition=shifted "
+                             "(repeatable; applied after --scenario)")
     common.add_argument("--seed", type=int, default=0)
     common.add_argument("--out", default="data/")
     p = argparse.ArgumentParser(prog="maek")
@@ -217,6 +263,16 @@ def build_parser() -> argparse.ArgumentParser:
     st.add_argument("--runs", type=int, default=20)
     st.add_argument("--total-km", type=float, default=None, help="override network.total_km")
     st.set_defaults(func=_strategy)
+    pp = sub.add_parser("pit-prior", parents=[common],
+                        help="pit area-scan targeting when the wet-spot prior is wrong")
+    pp.add_argument("--runs", type=int, default=10)
+    pp.add_argument("--total-km", type=float, default=None, help="override network.total_km")
+    pp.set_defaults(func=_pit_prior)
+    sw = sub.add_parser("sweep", parents=[common],
+                        help="robustness sweep of the 3 strategies over network/cost assumptions")
+    sw.add_argument("--runs", type=int, default=5)
+    sw.add_argument("--total-km", type=float, default=None, help="override network.total_km")
+    sw.set_defaults(func=_sweep)
     ev = sub.add_parser("evaluate", parents=[common], help="evaluate 3 functions (train/shifted)")
     ev.add_argument("--n-camera", type=int, default=None, help="images per condition")
     ev.add_argument("--n-ut", type=int, default=None, help="UT samples per condition")

@@ -403,18 +403,34 @@ thermal:
       pod_closed: {value: 0.85, assumption: true}
       false_alarm: {value: 0.02, assumption: true}
 strategy:
-  cost_ut_point_krw: {value: 150000, unit: KRW, assumption: true, note: UT 1점 측정}
-  cost_scaffold_krw: {value: 2000000, unit: KRW, assumption: true, note: 비계 설치}
+  cost_ut_point_krw: {value: 50000, unit: KRW, assumption: true, note: 장비·자료 처리 등 인건비를 뺀 1점 비용. 인건비는 측정 시간 × 시간당 인건비로 따로 계산(이전 15만 원은 인건비와 중복)}
+  cost_scaffold_krw: {value: 2000000, unit: KRW, assumption: true, note: "비계 설치. 비계공 281,939원/일(2026.1) 기준 설치·해체 인력 + 자재 임차를 넉넉히 잡은 가정, 과대일 수 있음"}
   cost_drone_per_km_krw: {value: 500000, unit: KRW/km, assumption: true, note: 드론 촬영}
-  cost_labor_hour_krw: {value: 50000, unit: KRW/h, assumption: true}
+  cost_labor_hour_krw: {value: 50000, unit: KRW/h, assumption: true, note: "2026.1 건설업 시중노임단가 비파괴시험공 214,553원/일(약 2.7만 원/시간)에 간접비·이윤을 더한 수준으로 가정"}
   cost_drone_contact_ut_extra_krw: {value: 100000, unit: KRW, assumption: true, note: 가공 배관 드론 접촉 UT 1점 추가 비용(비계 대체)}
+  cost_insulation_opening_krw: {value: 200000, unit: KRW, assumption: true, note: "보온재 부분 해체·복구 1개소(자재·외장 보수 포함, 인건비는 시간으로 따로 계산)"}
+  insulation_opening_min: {value: 30, unit: min, assumption: true, note: 보온재 부분 해체·복구 1개소 작업 시간(사람)}
+  human_elevated_access: {value: scaffold, assumption: true, note: "가공 배관 사람 접근 방식: scaffold(작업이 있는 가공 구간마다 비계 1회) 또는 lift(고소작업차, 비계 없음). 트랩 점검은 접근 가능으로 가정"}
+  lift_min_per_point: {value: 20, unit: min, assumption: true, note: lift 모드에서 가공 배관 사람 작업 지점당 추가 시간(이동·위치 잡기)}
+  cost_lift_day_krw: {value: 500000, unit: KRW/day, assumption: true, note: 고소작업차 1일 임차(운전원 포함) 가정. 일수 = 올림(총 고소 작업 시간 / 하루 작업 시간)}
+  trap_test_min: {value: 5, unit: min, assumption: true, note: 사람의 트랩 점검(초음파·온도) 1개 소요 시간}
+  trap_test_pod: {value: 0.9, assumption: true, note: 사람이 점검한 고장 트랩을 찾아낼 확률}
+  ai_trap_mode: {value: ir_flagged, assumption: true, note: "AI 전략 트랩 점검: ir_flagged(열화상이 표시한 트랩 + 표본) 또는 full(전수 점검)"}
+  trap_sample_frac: {value: 0.2, assumption: true, note: 열화상이 표시하지 않은 트랩 중 무작위로 사람이 확인하는 비율}
+  ir_review_min_per_km: {value: 30, unit: min/km, assumption: true, note: 사람이 열화상 영상을 판독하는 시간(영상 1 km당)}
+  ir_condition: {value: train, assumption: true, note: "열화상 촬영 조건: train(흐린 날·야간 촬영 일정) 또는 shifted(맑은 낮, 민감도 확인용)"}
+  pec_feature_zone_m: {value: 1.0, unit: m, assumption: true, note: 보온 탄소강 위험 지점(FAC·CUI·저점)에서 PEC로 스캔하는 구간 길이(지점 중심)}
+  pec_false_call_prob: {value: 0.05, assumption: true, note: PEC 구간에서 결함이 없는데 UT 확인을 부르는 확률(구간당)}
+  pec_false_call_galvanized_factor: {value: 3.0, assumption: true, note: 아연도 외장에서 PEC 오호출 확률 배율(신호 잡음 증가)}
+  cost_pec_hour_krw: {value: 30000, unit: KRW/h, assumption: true, note: "PEC 장비 사용 비용(시간당, 인건비 제외)"}
+  pit_scan_target: {value: wet_spot, assumption: true, note: "내부 피팅 면적 스캔 위치: wet_spot(저점·데드레그·트랩 상류 중심) 또는 random(구간 내 무작위)"}
   elevated_ut_mode: {value: drone, assumption: true, note: "AI 전략의 가공 배관 UT 방식: drone(드론 접촉 UT, 비계 없음) 또는 scaffold"}
-  cml_per_segment: {value: 2, assumption: true, note: 기준 전략 세그먼트당 고정 두께측정점(CML) 수, 세그먼트 길이 균등 분할 중앙}
+  cml_per_segment: {value: 2, assumption: true, note: "기준 전략 세그먼트당 고정 두께측정점(CML) 수, 세그먼트 길이 균등 분할 중앙"}
   probe_footprint_m: {value: 0.3, unit: m, assumption: true, note: 고정 UT점이 결함을 측정할 수 있는 축방향 반경}
   walk_km_per_h: {value: 1.0, unit: km/h, assumption: true, note: 작업자 육안 순찰 속도}
   drone_km_per_h: {value: 5.0, unit: km/h, assumption: true, note: 드론/로봇 촬영 속도}
   ut_manual_min_per_point: {value: 30, unit: min, assumption: true, note: 사람 UT 1점 측정 시간(접근·접촉매질 포함)}
-  ut_drone_min_per_point: {value: 45, unit: min, assumption: true, note: 드론 접촉 UT 1점 측정 시간(접근·안정화 포함, 사람보다 느림)}
+  ut_drone_min_per_point: {value: 45, unit: min, assumption: true, note: "드론 접촉 UT 1점 측정 시간(접근·안정화 포함, 사람보다 느림)"}
   drone_setup_h_per_batch: {value: 0.5, unit: h, assumption: true, note: 드론 비행 묶음(세그먼트 배치)당 준비·이동 시간}
   drone_batch_segments: {value: 10, assumption: true, note: 한 번 준비로 비행하는 세그먼트 수}
   video_review_min_per_km: {value: 30, unit: min/km, assumption: true, note: 사람이 드론 영상을 판독하는 시간(영상 1 km당)}
