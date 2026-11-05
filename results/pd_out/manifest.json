@@ -1,0 +1,48 @@
+{
+  "network": {
+    "segments": 40,
+    "features": 515,
+    "defects": 18,
+    "critical": 0
+  },
+  "ut_train": {
+    "n": 20,
+    "seed": 1,
+    "baseline": {
+      "thickness_mae_mm": 0.001878179819738124,
+      "min_thickness_mae_mm": 0.04790922878574118,
+      "crack_detection_rate": 1.0,
+      "false_alarm_rate": 0.0
+    }
+  },
+  "ut_shifted": {
+    "n": 10,
+    "seed": 101,
+    "baseline": {
+      "thickness_mae_mm": 0.005452868984131864,
+      "min_thickness_mae_mm": 0.07987302191510434,
+      "crack_detection_rate": 0.5,
+      "false_alarm_rate": 0.0
+    }
+  },
+  "camera_train": {
+    "n": 6,
+    "seed": 1,
+    "negatives": 2
+  },
+  "camera_shifted": {
+    "n": 4,
+    "seed": 101,
+    "negatives": 2
+  },
+  "sweep_ai_better": "4/15",
+  "thermal_train": {
+    "n": 4,
+    "seed": 1
+  },
+  "thermal_shifted": {
+    "n": 3,
+    "seed": 101
+  },
+  "elapsed_s": 7.5
+}

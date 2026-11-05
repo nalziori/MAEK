@@ -1,0 +1,3 @@
+./images/J000002.jpg
+./images/J000005.jpg
+./images/J000007.jpg

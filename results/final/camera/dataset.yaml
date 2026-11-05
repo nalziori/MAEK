@@ -1,0 +1,7 @@
+path: /tmp/claude-0/-home-user/72a7cc9d-958e-56f6-8685-798eb6ea44d6/scratchpad/final/camera
+train: train.txt
+val: val.txt
+names:
+  0: corrosion
+  1: cui_sign
+  2: leak_stain

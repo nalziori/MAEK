@@ -1,0 +1,123 @@
+{
+ "schema_version": 1,
+ "jobs": [
+  {
+   "job_id": "J000000",
+   "segment_id": "S00012",
+   "image_size": 640,
+   "negative": true,
+   "pipe": {
+    "od_mm": 60.3,
+    "material": "carbon_steel",
+    "insulated": true,
+    "width_frac": 0.6247,
+    "tilt_deg": 2.74,
+    "view_center_m": 14.716,
+    "view_clock_deg": 332.2
+   },
+   "defects": [],
+   "condition": "shifted",
+   "env": {
+    "brightness": 0.554,
+    "dust": 0.446,
+    "steam": 0.787,
+    "blur_sigma": 1.949,
+    "noise_sigma": 0.0703
+   }
+  },
+  {
+   "job_id": "J000001",
+   "segment_id": "S00011",
+   "image_size": 640,
+   "negative": true,
+   "pipe": {
+    "od_mm": 219.1,
+    "material": "carbon_steel",
+    "insulated": false,
+    "width_frac": 0.5149,
+    "tilt_deg": -14.08,
+    "view_center_m": 44.74,
+    "view_clock_deg": 206.5
+   },
+   "defects": [],
+   "condition": "shifted",
+   "env": {
+    "brightness": 0.387,
+    "dust": 0.442,
+    "steam": 0.626,
+    "blur_sigma": 2.194,
+    "noise_sigma": 0.0554
+   }
+  },
+  {
+   "job_id": "J000002",
+   "segment_id": "S00026",
+   "image_size": 640,
+   "negative": false,
+   "pipe": {
+    "od_mm": 60.3,
+    "material": "carbon_steel",
+    "insulated": false,
+    "width_frac": 0.3693,
+    "tilt_deg": -7.49,
+    "view_center_m": 34.767,
+    "view_clock_deg": 82.8
+   },
+   "defects": [
+    {
+     "defect_id": "D000009",
+     "kind": "external_corrosion",
+     "class_id": 1,
+     "area_cm2": 16.89,
+     "u": 0.3295,
+     "v": -0.327,
+     "w": 0.2517,
+     "h": 0.2379
+    }
+   ],
+   "condition": "shifted",
+   "env": {
+    "brightness": 0.484,
+    "dust": 0.488,
+    "steam": 0.785,
+    "blur_sigma": 3.181,
+    "noise_sigma": 0.0423
+   }
+  },
+  {
+   "job_id": "J000003",
+   "segment_id": "S00022",
+   "image_size": 640,
+   "negative": false,
+   "pipe": {
+    "od_mm": 219.1,
+    "material": "carbon_steel",
+    "insulated": true,
+    "width_frac": 0.5486,
+    "tilt_deg": 13.68,
+    "view_center_m": 27.597,
+    "view_clock_deg": 199.1
+   },
+   "defects": [
+    {
+     "defect_id": "D000007",
+     "kind": "cui",
+     "class_id": 2,
+     "area_cm2": 27.55,
+     "u": 0.3572,
+     "v": 0.1364,
+     "w": 0.1314,
+     "h": 0.1302
+    }
+   ],
+   "condition": "shifted",
+   "env": {
+    "brightness": 0.414,
+    "dust": 0.507,
+    "steam": 0.751,
+    "blur_sigma": 2.929,
+    "noise_sigma": 0.0499
+   }
+  }
+ ]
+}

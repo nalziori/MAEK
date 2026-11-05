@@ -1,0 +1,162 @@
+[
+ {
+  "job_id": "ir00000",
+  "segment_id": "IRS00000",
+  "condition": "shifted",
+  "image_w": 320,
+  "image_h": 256,
+  "negative": false,
+  "seg": {
+   "medium": "steam",
+   "material": "carbon_steel",
+   "temp_c": 197.42791607534872,
+   "od_mm": 219.1,
+   "insulated": true,
+   "insulation_mm": 69.37351229298717,
+   "jacket": "galvanized",
+   "pressure_barg": 13.680833325142551,
+   "traced": false
+  },
+  "scene": {
+   "ambient_c": 8.140346275923253,
+   "sky_offset_k": -22.945566738265658,
+   "wind_mps": 5.863576295242211,
+   "sun_k": 5.169272146466689,
+   "eps_jacket": 0.27775117031684754,
+   "eps_set": 0.29753691272700444,
+   "hw_px": 40.70208772353379,
+   "tilt_deg": -1.4685979883246354,
+   "cy_px": 118.46152382340547,
+   "blur_sigma": 0.5507122929372753,
+   "bare_eps": 0.760461221709353
+  },
+  "hard": [],
+  "distractors": [],
+  "defects": [
+   {
+    "kind": "steam_leak",
+    "class_id": 3,
+    "u": 12.527343926433332,
+    "a_px": 9.973870801927704,
+    "orifice_mm": 5.076046531298563,
+    "r_px": 5.538023265649281,
+    "side": -1.0,
+    "drift": 0.4061048348432006,
+    "moisture": 0.0,
+    "true_dt_k": 0.0
+   }
+  ]
+ },
+ {
+  "job_id": "ir00001",
+  "segment_id": "IRS00001",
+  "condition": "shifted",
+  "image_w": 320,
+  "image_h": 256,
+  "negative": false,
+  "seg": {
+   "medium": "traced",
+   "material": "carbon_steel",
+   "temp_c": 85.81074898569902,
+   "od_mm": 60.3,
+   "insulated": true,
+   "insulation_mm": 52.75997433963319,
+   "jacket": "stainless",
+   "pressure_barg": 0.0,
+   "traced": true
+  },
+  "scene": {
+   "ambient_c": 17.099521585320364,
+   "sky_offset_k": -22.220864098831488,
+   "wind_mps": 4.821161866547829,
+   "sun_k": 8.401164844518325,
+   "eps_jacket": 0.1446387932327285,
+   "eps_set": 0.19807291363713214,
+   "hw_px": 35.54015832281276,
+   "tilt_deg": -4.5618581127778395,
+   "cy_px": 138.28848825248875,
+   "blur_sigma": 1.4531565675234925,
+   "bare_eps": 0.6594848499137324
+  },
+  "hard": [],
+  "distractors": [],
+  "defects": [
+   {
+    "kind": "wet_insulation",
+    "class_id": 1,
+    "u": 56.39761780525628,
+    "a_px": 5.456470967552665,
+    "v": 12.896010622781393,
+    "b_px": 21.644147700031365,
+    "moisture": 0.8235520025993103,
+    "soft": 0.35,
+    "length_mm": 0.0,
+    "circ_frac": 0.0,
+    "orifice_mm": 0.0,
+    "clock_deg": 180.0,
+    "true_dt_k": 7.518574867423215
+   }
+  ]
+ },
+ {
+  "job_id": "ir00002",
+  "segment_id": "IRS00002",
+  "condition": "shifted",
+  "image_w": 320,
+  "image_h": 256,
+  "negative": false,
+  "seg": {
+   "medium": "condensate",
+   "material": "carbon_steel",
+   "temp_c": 76.86304209648085,
+   "od_mm": 60.3,
+   "insulated": true,
+   "insulation_mm": 47.25110806936261,
+   "jacket": "aluminium",
+   "pressure_barg": 1.9499035584540176,
+   "traced": false
+  },
+  "scene": {
+   "ambient_c": 25.10837635682831,
+   "sky_offset_k": -31.34927439778285,
+   "wind_mps": 3.2571527407348912,
+   "sun_k": 6.880956095669979,
+   "eps_jacket": 0.08168071282489277,
+   "eps_set": 0.16393678152318497,
+   "hw_px": 43.723787973862,
+   "tilt_deg": -7.429820068938772,
+   "cy_px": 113.6392650945967,
+   "blur_sigma": 1.4777096917347707,
+   "bare_eps": 0.6759288734153143
+  },
+  "hard": [
+   "clamp"
+  ],
+  "distractors": [
+   {
+    "type": "clamp",
+    "u": -105.14070997007082,
+    "width": 3.281955185129446,
+    "eps": 0.7452106663006699,
+    "cold_frac": 0.458503118944886
+   }
+  ],
+  "defects": [
+   {
+    "kind": "wet_insulation",
+    "class_id": 1,
+    "u": -85.94143628533206,
+    "a_px": 7.126990705480437,
+    "v": 21.201204923294437,
+    "b_px": 20.27092949277755,
+    "moisture": 0.9242810310408133,
+    "soft": 0.35,
+    "length_mm": 0.0,
+    "circ_frac": 0.0,
+    "orifice_mm": 0.0,
+    "clock_deg": 180.0,
+    "true_dt_k": 8.802613723364754
+   }
+  ]
+ }
+]

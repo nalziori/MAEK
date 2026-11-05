@@ -1,0 +1,786 @@
+<title>포스코 제철소 안전사고 아카이브</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: 사고 대장(ledger) — 왼쪽 날짜 열 + 오른쪽 기록 열, 맨 위에 경고 표지 띠 */
+:root{
+  --bg:#F1F3F5;
+  --surface:#FFFFFF;
+  --ink:#15202B;
+  --muted:#56636F;
+  --line:#D2D9E0;
+  --link:#0E4C92;
+  --hazard:#F4B400;
+  --on-hazard:#15202B;
+  --stripe-ink:#15202B;
+  --fatal-bg:#15202B;
+  --fatal-fg:#FFFFFF;
+  --injury-bg:#FCE7A8;
+  --injury-fg:#5C4300;
+  --none-fg:#56636F;
+  --c-caught:#D9480F;
+  --c-fall:#1971C2;
+  --c-gas:#7048E8;
+  --c-fire:#C92A2A;
+  --c-vehicle:#0B7285;
+  --c-disaster:#6C757D;
+  --font-display:"Black Han Sans","IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --font-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E151C; --surface:#151F29; --ink:#E5EAEF; --muted:#9AA6B2; --line:#2A3743; --link:#86BDF5;
+    --hazard:#F7C21B; --on-hazard:#111820; --stripe-ink:#0A0F14;
+    --fatal-bg:#E5EAEF; --fatal-fg:#0E151C; --injury-bg:#4A3A08; --injury-fg:#FFE08A; --none-fg:#9AA6B2;
+    --c-caught:#FF8B5A; --c-fall:#64A8EE; --c-gas:#A592FF; --c-fire:#FF7070; --c-vehicle:#3BC9DB; --c-disaster:#ADB5BD;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E151C; --surface:#151F29; --ink:#E5EAEF; --muted:#9AA6B2; --line:#2A3743; --link:#86BDF5;
+  --hazard:#F7C21B; --on-hazard:#111820; --stripe-ink:#0A0F14;
+  --fatal-bg:#E5EAEF; --fatal-fg:#0E151C; --injury-bg:#4A3A08; --injury-fg:#FFE08A; --none-fg:#9AA6B2;
+  --c-caught:#FF8B5A; --c-fall:#64A8EE; --c-gas:#A592FF; --c-fire:#FF7070; --c-vehicle:#3BC9DB; --c-disaster:#ADB5BD;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1080px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--link);text-underline-offset:2px;text-decoration-thickness:1px;overflow-wrap:anywhere}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--link);outline-offset:2px;border-radius:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.stripe{height:12px;background:repeating-linear-gradient(-45deg,var(--hazard) 0 12px,var(--stripe-ink) 12px 24px)}
+.masthead .wrap{padding-block:28px 22px;display:grid;gap:14px}
+.eyebrow{margin:0;font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(30px,5.4vw,50px);line-height:1.12;letter-spacing:-.005em;text-wrap:balance}
+.lede{margin:0;max-width:62ch;font-size:16px}
+.facts{display:flex;flex-wrap:wrap;gap:12px 32px;margin:4px 0 0;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts div{display:grid;gap:2px;min-width:0}
+.facts dt{font-size:12.5px;color:var(--muted)}
+.facts dd{margin:0;font-family:var(--font-mono);font-size:21px;font-weight:500;font-variant-numeric:tabular-nums;line-height:1.3}
+.basis{margin:0;font-size:13px;color:var(--muted);max-width:72ch}
+.toc{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;font-weight:500}
+
+.filterbar{background:var(--bg);border-bottom:1px solid var(--line);z-index:5}
+@media (min-width:760px){.filterbar{position:sticky;top:env(safe-area-inset-top,0px)}}
+.fb{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding-block:12px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
+.seg button,.plain{appearance:none;border:0;background:none;font:inherit;color:inherit;cursor:pointer}
+.seg button{padding:5px 14px;font-size:14px;font-weight:500}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{appearance:none;font:inherit;font-size:13px;display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.chip .dot{width:8px;height:8px;border-radius:2px;background:var(--c)}
+.chip .n{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.chip[aria-pressed="true"]{border-color:var(--c);background:color-mix(in srgb,var(--c) 16%,var(--surface));box-shadow:inset 0 0 0 1px var(--c)}
+.check{display:inline-flex;align-items:center;gap:6px;font-size:14px;cursor:pointer}
+.check input{accent-color:var(--ink);width:16px;height:16px;margin:0}
+.search input{font:inherit;font-size:14px;padding:5px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);width:min(240px,100%)}
+.sortbtn{font-size:13px;padding:4px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.count{margin:0 0 0 auto;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+main.wrap{padding-block:6px 56px}
+main section{padding-top:40px}
+h2{font-family:var(--font-display);font-weight:400;font-size:27px;line-height:1.2;margin:0 0 6px;text-wrap:balance}
+.sec-note{margin:0 0 18px;color:var(--muted);font-size:14px;max-width:72ch}
+.year{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;margin:26px 0 0;padding-bottom:8px;border-bottom:2px solid var(--ink);font-family:var(--font-mono);font-size:22px;font-weight:500;font-variant-numeric:tabular-nums}
+.year small{font-family:var(--font-body);font-size:13px;color:var(--muted);font-weight:400}
+.inc{display:grid;grid-template-columns:124px minmax(0,1fr);gap:8px 24px;padding:20px 0;border-bottom:1px solid var(--line)}
+.when{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.when time{font-family:var(--font-mono);font-size:14px;font-weight:500;font-variant-numeric:tabular-nums;line-height:1.4}
+.site{font-size:12px;font-weight:600;padding:1px 8px;border-radius:4px;border:1px solid var(--line);background:var(--surface)}
+.inc h4{margin:0;font-size:18px;font-weight:700;line-height:1.4;text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin-top:8px}
+.sev{font-size:12.5px;font-weight:700;padding:1px 9px;border-radius:999px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sev.fatal{background:var(--fatal-bg);color:var(--fatal-fg)}
+.sev.injury{background:var(--injury-bg);color:var(--injury-fg)}
+.sev.none{border:1px solid var(--line);color:var(--none-fg)}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:12.5px}
+.tag::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c)}
+.who{font-size:13px;color:var(--muted)}
+.flag{font-size:12px;font-weight:600;background:var(--hazard);color:var(--on-hazard);padding:1px 7px;border-radius:4px}
+.place{margin:10px 0 0;font-size:13.5px;color:var(--muted)}
+.summary{margin:4px 0 0;max-width:70ch}
+.detail{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;margin:12px 0 0;font-size:14px;max-width:74ch}
+.detail dt{font-weight:600;color:var(--muted);white-space:nowrap}
+.detail dd{margin:0}
+.src{margin:14px 0 0;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;max-width:80ch}
+.src h5{margin:0 0 6px;font-size:12px;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.src ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.src li{font-size:14px;line-height:1.45}
+.src .o{display:block;font-size:12px;color:var(--muted)}
+.src .o time{font-family:var(--font-mono)}
+.empty{padding:28px 0;color:var(--muted)}
+
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.04em;background:var(--bg)}
+td.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td .tag{font-size:14px;font-weight:600;white-space:nowrap}
+.tnote{margin:8px 0 0;font-size:13px;color:var(--muted)}
+.insights{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:22px}
+@media (min-width:560px){.insights{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:900px){.insights{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.insight{padding:14px 16px;border:1px solid var(--line);border-radius:8px;background:var(--surface);min-width:0}
+.insight h3{margin:0 0 4px;font-size:15.5px;line-height:1.4}
+.insight p{margin:0;font-size:14px}
+
+.cols{display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
+@media (min-width:880px){.cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cols h3{margin:0 0 10px;font-size:16px}
+.reflist{list-style:none;margin:0;padding:0;display:grid;gap:12px;max-width:80ch}
+.reflist li{display:grid;gap:3px;padding-bottom:12px;border-bottom:1px solid var(--line);min-width:0}
+.reflist li:last-child{border-bottom:0}
+.reflist .d{font-family:var(--font-mono);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.reflist .what{font-size:14.5px}
+.reflist .links{display:flex;flex-wrap:wrap;gap:3px 14px;font-size:13.5px}
+.callout{margin:0 0 14px;padding:10px 14px;border-left:4px solid var(--hazard);background:var(--surface);font-size:14px;max-width:80ch}
+footer .wrap{padding-block:22px 40px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:grid;gap:4px}
+
+@media (max-width:640px){
+  .inc{grid-template-columns:minmax(0,1fr)}
+  .when{flex-direction:row;align-items:center;gap:10px}
+  .count{margin-left:0;width:100%}
+}
+@media (max-width:520px){
+  .detail{grid-template-columns:minmax(0,1fr);gap:2px}
+  .detail dd{margin-bottom:6px}
+}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+
+<div class="stripe" aria-hidden="true"></div>
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow">POSCO AI Hackathon 2026 · 안전 주제 리서치</p>
+    <h1>포스코 제철소 안전사고 아카이브</h1>
+    <p class="lede">포항·광양제철소에서 2018년부터 2026년까지 보도된 안전사고를 기사, 보도자료, 공식 자료 링크와 함께 정리했습니다. 문제 정의와 발표 근거 자료로 쓰세요.</p>
+    <dl class="facts">
+      <div><dt>정리한 사고</dt><dd>22건</dd></div>
+      <div><dt>사망자</dt><dd>20명</dd></div>
+      <div><dt>사망자 중 협력·하청·용역</dt><dd>16명</dd></div>
+      <div><dt>사업장별 사고</dt><dd>포항 17 · 광양 5</dd></div>
+    </dl>
+    <p class="basis">이 페이지에 모은 언론 보도 기준 집계입니다. 공식 통계가 아니며 보도되지 않은 사고는 빠져 있을 수 있습니다. 조사일 2026.11.04.</p>
+    <nav class="toc" aria-label="페이지 목차">
+      <a href="#timeline">사고 타임라인</a>
+      <a href="#patterns">유형별 패턴</a>
+      <a href="#official">공식·통계 자료</a>
+      <a href="#response">포스코 대응·AI 안전기술</a>
+      <a href="#english">영문 자료</a>
+      <a href="#notes">확인 필요·주의</a>
+    </nav>
+  </div>
+</header>
+
+<div class="filterbar">
+  <div class="wrap fb">
+    <div class="seg" role="group" aria-label="사업장">
+      <button type="button" id="site-all" data-site="all" aria-pressed="true">전체</button>
+      <button type="button" id="site-pohang" data-site="포항" aria-pressed="false">포항</button>
+      <button type="button" id="site-gwangyang" data-site="광양" aria-pressed="false">광양</button>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="사고 유형"></div>
+    <label class="check"><input type="checkbox" id="fatal-only"> 사망사고만</label>
+    <label class="search"><span class="sr">검색</span><input type="search" id="q" placeholder="공장·설비·키워드 검색" autocomplete="off"></label>
+    <button type="button" class="plain sortbtn" id="sort" aria-label="정렬 순서 바꾸기">최신순</button>
+    <p class="count" id="count" aria-live="polite"></p>
+  </div>
+</div>
+
+<main class="wrap">
+  <section id="timeline" aria-labelledby="h-timeline">
+    <h2 id="h-timeline">사고 타임라인</h2>
+    <p class="sec-note">각 사고 아래에 원문 링크를 붙였습니다. 유형 칩을 여러 개 누르면 그중 하나라도 해당하는 사고를 보여 줍니다.</p>
+    <div id="list"></div>
+    <p class="empty" id="empty" hidden>조건에 맞는 사고가 없습니다. 필터를 줄이거나 검색어를 지워 보세요.</p>
+  </section>
+
+  <section id="patterns" aria-labelledby="h-patterns">
+    <h2 id="h-patterns">유형별 패턴</h2>
+    <p class="sec-note">사고마다 주된 유형 하나로 셌습니다. 필터 칩의 숫자는 복수 유형을 포함해 조금 다를 수 있습니다. 오른쪽 열은 비전 AI 안전관제로 연결할 때 출발점이 될 신호를 적은 것입니다.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">유형</th><th scope="col">사고</th><th scope="col">사망</th><th scope="col">대표 사례</th><th scope="col">비전 AI가 볼 수 있는 신호</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag" style="--c:var(--c-gas)">질식·가스</span></td><td class="num">3건</td><td class="num">6명</td><td>2018 산소공장 질소 질식, 2025.11 소둔산세 누출, 2025.11 STS 4제강 가스중독</td><td>밀폐·가스 구역 출입 인원 집계, 공기호흡기 착용 여부, 쓰러진 사람 감지와 보호구 없는 구조 진입 경고</td></tr>
+          <tr><td><span class="tag" style="--c:var(--c-caught)">끼임·협착</span></td><td class="num">6건</td><td class="num">5명</td><td>2019 하역기, 2021 언로더·푸셔, 2025 냉연 정비, 2026 이송 대차</td><td>정비·청소 구역 안에 사람이 있는데 설비가 움직이기 시작하는 순간, 회전체·이송장치 위험 반경 침범</td></tr>
+          <tr><td><span class="tag" style="--c:var(--c-fire)">폭발·화재</span></td><td class="num">6건</td><td class="num">4명</td><td>2019 포스넵·페로망간, 2020 광양 산소배관, 2023 케이블 화재, 2024 3파이넥스 2회</td><td>연기·불꽃·열 이상의 초기 징후, 고위험 밸브·배관 작업 때 주변 인원과 출입 통제</td></tr>
+          <tr><td><span class="tag" style="--c:var(--c-fall)">추락</span></td><td class="num">4건</td><td class="num">3명</td><td>2019 코크스 보관시설, 2020 3소결 배관, 2022 광양 설비 청소, 2025 광양 철거 붕괴</td><td>고소 작업자 안전대 체결, 개구부·부식 구조물 위 이동, 철거 중 구조물 기울어짐</td></tr>
+          <tr><td><span class="tag" style="--c:var(--c-vehicle)">차량·운반장비</span></td><td class="num">2건</td><td class="num">2명</td><td>2020 구내 도로 덤프트럭, 2022 3코크스 장입차량</td><td>사람과 차량·궤도장비가 가까워지거나 동선이 겹치는 순간</td></tr>
+          <tr><td><span class="tag" style="--c:var(--c-disaster)">재난·정전</span></td><td class="num">1건</td><td class="num">0명</td><td>2022 태풍 힌남노 침수·정전</td><td>침수 수위, 배수 상태, 정전 뒤 2차 화재 감시</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tnote">합계 22건 · 사망 20명. 2023년과 2024년에는 사망사고 보도를 찾지 못했고 화재 3건이 있었습니다.</p>
+
+    <div class="insights">
+      <div class="insight"><h3>사망자 대부분이 협력·하청·용역 소속</h3><p>사망자 20명 중 16명이 협력·하청·용역 소속이고, 포스코 직원 3명, 자회사 직원 1명입니다. 2021년 국회 청문회에서도 2018년 이후 사망자 19명 중 14명이 하청이라는 지적이 나왔습니다.</p></div>
+      <div class="insight"><h3>정비·청소 중에 설비가 움직였다</h3><p>2019년 하역기는 교육 중이던 인턴이 기계를 작동했고, 2021년 언로더는 멈춰 있어야 할 설비가 움직였습니다. 푸셔 수리(2021), 냉연 정비(2025)도 같은 유형입니다.</p></div>
+      <div class="insight"><h3>혼자 있다가 늦게 발견됐다</h3><p>2019년 3코크스공장 사망은 새벽 1인 점검 중이었고 목격자와 CCTV가 없었습니다. 2020년 3소결공장 추락자는 2시간 뒤에야 발견됐습니다.</p></div>
+      <div class="insight"><h3>구조하러 들어간 사람도 쓰러졌다</h3><p>2025년 11월 STS 4제강 가스 사고에서는 구조에 나선 방재팀원 3명도 가스에 노출됐습니다. 2018년 산소공장 질식은 밀폐공간 안에서 4명이 함께 숨졌습니다.</p></div>
+      <div class="insight"><h3>낡거나 쓰지 않는 설비에서 터지고 무너졌다</h3><p>2020년 광양 폭발은 노후 산소배관, 같은 해 3소결 추락은 부식 배관이었습니다. 2025년 광양 붕괴는 수십 년 방치된 불용 설비를 철거하다 일어났습니다.</p></div>
+      <div class="insight"><h3>사람과 장비가 같은 길을 쓴다</h3><p>구내 도로 덤프트럭(2020), 코크스 장입차량(2022), 열연공장 이송 대차(2026)처럼 사람의 동선과 장비의 동선이 겹치는 곳에서 사고가 났습니다.</p></div>
+    </div>
+  </section>
+
+  <section id="official" aria-labelledby="h-official">
+    <h2 id="h-official">공식·통계 자료</h2>
+    <p class="sec-note">정부 보도자료, 국회 청문회, 사망자 집계와 재해율 논란을 다룬 자료입니다. 집계마다 대상(직영·협력사·계열사)과 기간이 달라 숫자가 서로 다릅니다.</p>
+    <div class="cols">
+      <div>
+        <h3>정부·국회</h3>
+        <ul class="reflist">
+          <li><span class="d">2018.01</span><span class="what">고용노동부 차관, 포항제철소 질식재해 관련 참고자료</span><span class="links"><a href="https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=8436" target="_blank" rel="noopener">고용노동부</a></span></li>
+          <li><span class="d">2018</span><span class="what">포항제철소 특별감독 결과 설명(사법처리 대상 위반 414건)</span><span class="links"><a href="https://www.moel.go.kr/local/pohang/news/reportexplan/view.do?bbs_seq=20180600783" target="_blank" rel="noopener">고용노동부 포항지청</a></span></li>
+          <li><span class="d">2021.02.22</span><span class="what">국회 환경노동위원회 산업재해 청문회. 최정우 회장 출석, “2018년 이후 산재 사망 19명 중 14명 하청” 지적</span><span class="links"><a href="https://www.etoday.co.kr/news/view/1997181" target="_blank" rel="noopener">이투데이</a><a href="https://www.dailian.co.kr/news/view/966469/" target="_blank" rel="noopener">데일리안</a><a href="https://kbmaeil.com/article/202102220300080" target="_blank" rel="noopener">경북매일</a><a href="https://www.kyeonggi.com/article/202102221157792" target="_blank" rel="noopener">경기일보</a><a href="https://mobile.newsis.com/view/NISX20210222_0001347826" target="_blank" rel="noopener">뉴시스</a><a href="https://news.bizwatch.co.kr/article/industry/2021/02/22/0014" target="_blank" rel="noopener">비즈워치</a></span></li>
+          <li><span class="d">2022.01</span><span class="what">고용노동부, 포스코 산재사망사고 관련 전담 수사팀 구성</span><span class="links"><a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156492562" target="_blank" rel="noopener">정책브리핑</a></span></li>
+          <li><span class="d">2025.03.25</span><span class="what">고용노동부 포항지청, 4대 철강업체 긴급 대책회의</span><span class="links"><a href="https://kbmaeil.com/article/202503250913445" target="_blank" rel="noopener">경북매일</a></span></li>
+          <li><span class="d">2025.06.27</span><span class="what">고용노동부·철강업계 최고안전책임자 간담회. 2024년 철강업 중대재해 15건</span><span class="links"><a href="https://kbmaeil.com/article/20250627500150" target="_blank" rel="noopener">경북매일</a></span></li>
+          <li><span class="d">2025.08.12</span><span class="what">고용노동부, 포스코그룹 관련 본부·지방관서 긴급 합동 수사전략회의</span><span class="links"><a href="https://biz.sbs.co.kr/amp/article/20000252750" target="_blank" rel="noopener">SBS Biz</a></span></li>
+          <li><span class="d">2026.06.11</span><span class="what">고용노동부 “중대재해처벌법 시행 이후 포스코그룹 사망 18명(포스코이앤씨 10명, 포스코 4명)”</span><span class="links"><a href="https://www.fnnews.com/news/202606111406170754" target="_blank" rel="noopener">파이낸셜뉴스</a><a href="https://www.ajunews.com/view/20260611113407321" target="_blank" rel="noopener">아주경제</a><a href="https://www.inews24.com/view/1975798" target="_blank" rel="noopener">아이뉴스24</a><a href="https://www.labortoday.co.kr/news/articleView.html?idxno=235065" target="_blank" rel="noopener">매일노동뉴스</a></span></li>
+          <li><span class="d">그룹사 참고</span><span class="what">포스코이앤씨 전 현장 불시감독(2025.07), 2025년 감독 결과 위반 403건(2026.01)</span><span class="links"><a href="https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18115" target="_blank" rel="noopener">고용노동부 2025.07</a><a href="https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18869" target="_blank" rel="noopener">고용노동부 2026.01</a><a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156740461" target="_blank" rel="noopener">정책브리핑</a></span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>집계·구조 문제</h3>
+        <ul class="reflist">
+          <li><span class="d">2019.07</span><span class="what">“‘죽음의 사업장’ 포스코… 작년 15명 이어 올해도 4명 목숨 잃어”</span><span class="links"><a href="https://twig24.com/news/world/event/2019/07/12/20190712002004" target="_blank" rel="noopener">twig24</a></span></li>
+          <li><span class="d">2019.07.19</span><span class="what">주간경향 “‘기업시민’ 포스코, 잇단 사건·사고”</span><span class="links"><a href="https://weekly.khan.co.kr/article/201907191526301" target="_blank" rel="noopener">주간경향</a></span></li>
+          <li><span class="d">2021</span><span class="what">“석달새 6명 사망사고 포스코… ‘군대식문화’도 원인”</span><span class="links"><a href="https://newstomato.com/ReadNews.aspx?no=1024362" target="_blank" rel="noopener">뉴스토마토</a></span></li>
+          <li><span class="d">2021</span><span class="what">기업시민보고서 재해율 2016년 0.06%, 2017년 0.02%, 2018년 0.04%(철강 평균 1.10%). 노동계는 산재 은폐·신고 어려움을 의심</span><span class="links"><a href="https://newstomato.com/ReadNews.aspx?no=1028697" target="_blank" rel="noopener">뉴스토마토 “산재 신청하면 징계”</a></span></li>
+          <li><span class="d">2022.09.15</span><span class="what">경향신문 기획 [산재 도사리는 낡은 산업단지]. 광양 산소배관 폭발 원인 분석 포함</span><span class="links"><a href="https://www.khan.co.kr/article/202209150600001" target="_blank" rel="noopener">경향신문</a><a href="https://v.daum.net/v/20220915060006290" target="_blank" rel="noopener">다음뉴스</a></span></li>
+          <li><span class="d">2023.06</span><span class="what">포항에 ‘사망사고 위험 경보’, 1년 새 업무상 사망 4배 증가(포항 지역)</span><span class="links"><a href="https://www.asiae.co.kr/en/article/2023060811174343983" target="_blank" rel="noopener">아시아경제(영문)</a></span></li>
+          <li><span class="d">2025~2026</span><span class="what">지속가능경영보고서 기준 그룹 업무 관련 사망자·근로손실재해율(LTIFR) 증가 보도</span><span class="links"><a href="https://dealsite.co.kr/articles/164706" target="_blank" rel="noopener">딜사이트</a><a href="https://dealsite.co.kr/articles/148394" target="_blank" rel="noopener">딜사이트</a><a href="https://magazine.hankyung.com/business/article/202606111105b" target="_blank" rel="noopener">한경비즈니스</a></span></li>
+          <li><span class="d">직업성 질병</span><span class="what">포항제철소 노동자 특발성 폐섬유화증 업무상 질병 승인, 집단 역학조사</span><span class="links"><a href="https://www.nocutnews.co.kr/news/5541531" target="_blank" rel="noopener">노컷뉴스</a></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="response" aria-labelledby="h-response">
+    <h2 id="h-response">포스코 대응·AI 안전기술</h2>
+    <p class="callout">포스코가 이미 현장에 쓰고 있는 AI·스마트 안전기술을 오른쪽에 모았습니다. 해커톤 아이디어가 이미 있는 기술과 겹치는지, 어디를 넘어서는지 확인할 때 쓰세요.</p>
+    <div class="cols">
+      <div>
+        <h3>사고 뒤 대책 연표</h3>
+        <ul class="reflist">
+          <li><span class="d">2019.07</span><span class="what">노사·협력사가 참여하는 안전혁신 비상TF 발족, 제철소별 안전활동 매주 점검</span><span class="links"><a href="https://newsroom.posco.com/kr/%ed%8f%ac%ec%8a%a4%ec%bd%94-%eb%85%b8%ec%82%ac-%c2%b7%ed%98%91%eb%a0%a5%ec%82%ac-%ec%b0%b8%ec%97%ac-%ec%95%88%ec%a0%84%ed%98%81%ec%8b%a0-%eb%b9%84%ec%83%81tf-%eb%b0%9c%ec%a1%b1/" target="_blank" rel="noopener">포스코 뉴스룸</a><a href="https://kbmaeil.com/article/201907240256584" target="_blank" rel="noopener">경북매일</a></span></li>
+          <li><span class="d">날짜 원문 확인</span><span class="what">최정우 회장 “안전이 경영활동의 최우선”, 설비 가동 중 정비·수리 작업 금지 원칙 재확인</span><span class="links"><a href="https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94-%EC%B5%9C%EC%A0%95%EC%9A%B0-%ED%9A%8C%EC%9E%A5-%EC%95%88%EC%A0%84%EC%9D%B4-%EA%B2%BD%EC%98%81%ED%99%9C%EB%8F%99%EC%9D%98-%EC%B5%9C%EC%9A%B0%EC%84%A0/" target="_blank" rel="noopener">포스코 뉴스룸</a></span></li>
+          <li><span class="d">2020.12.02</span><span class="what">안전 특별대책: 3년간 1조원 추가 투자, 안전관리요원 2배 증원, 안전기술대학 설립</span><span class="links"><a href="https://kbmaeil.com/article/202012020293812" target="_blank" rel="noopener">경북매일</a><a href="https://www.asiae.co.kr/en/article/2020120209363233579" target="_blank" rel="noopener">아시아경제(영문)</a></span></li>
+          <li><span class="d">2024.11</span><span class="what">3파이넥스 연속 화재 뒤 포항제철소장 사과, 장인화 회장 설비강건화 TFT 발족</span><span class="links"><a href="https://kbmaeil.com/article/202411250411912" target="_blank" rel="noopener">경북매일</a></span></li>
+          <li><span class="d">2025.07.31</span><span class="what">그룹 안전관리 혁신계획: 회장 직속 그룹안전특별진단TF, 하도급 전수조사와 위반 시 거래 중단, 안전 예산 한도 없이 확대</span><span class="links"><a href="https://v.daum.net/v/20250731184947941" target="_blank" rel="noopener">다음뉴스</a><a href="https://news.bizwatch.co.kr/article/industry/2025/08/01/0010" target="_blank" rel="noopener">비즈워치</a><a href="https://www.asiae.co.kr/en/article/2025072918354628216" target="_blank" rel="noopener">아시아경제(영문)</a></span></li>
+          <li><span class="d">2025 하반기</span><span class="what">안전 전문 자회사 포스코세이프티솔루션 출범</span><span class="links"><a href="https://www.heraldk.com/article/2025120500524251719" target="_blank" rel="noopener">헤럴드경제</a></span></li>
+          <li><span class="d">2025.11.21</span><span class="what">가스 사고 연속 발생 뒤 포항제철소장 보직 해임, 그룹안전특별진단TF 팀장에 포스코세이프티솔루션 대표 선임</span><span class="links"><a href="https://www.segye.com/newsView/20251121511962" target="_blank" rel="noopener">세계일보</a><a href="https://www.ddaily.co.kr/page/view/2025112116020264787" target="_blank" rel="noopener">디지털데일리</a></span></li>
+          <li><span class="d">2026.04.08</span><span class="what">포항·광양 조업지원 협력사 직원 약 7,000명 직접 고용 로드맵, ‘위험의 외주화’ 근절 명분</span><span class="links"><a href="https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94-%EC%A1%B0%EC%97%85%EC%A7%80%EC%9B%90-%ED%98%91%EB%A0%A5%EC%82%AC-%EC%A7%81%EC%9B%90-%EC%A7%81%EC%A0%91-%EA%B3%A0%EC%9A%A9%EC%9B%90%C2%B7%ED%95%98/" target="_blank" rel="noopener">포스코 뉴스룸</a><a href="https://www.heraldk.com/article/2026040715321445370" target="_blank" rel="noopener">헤럴드경제</a><a href="https://www.segye.com/newsView/20260408518516" target="_blank" rel="noopener">세계일보</a><a href="https://www.heraldk.com/article/2026040718322745649" target="_blank" rel="noopener">헤럴드경제 이슈앤뷰</a></span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>이미 쓰고 있는 AI·스마트 안전기술</h3>
+        <ul class="reflist">
+          <li><span class="d">포항 4연주</span><span class="what">슬라브 사행 감지 스마트 CCTV. AI가 슬라브 각도를 실시간으로 보고 이상 시 알림과 라인 자동 정지, 2년 반 동안 사행 80여 건 예방</span></li>
+          <li><span class="d">쇳물 운반 철도</span><span class="what">건널목 AI 감지. 차단기를 넘는 보행자·차량을 감지해 무전 알람, 포스텍과 만든 안개·먼지 제거 영상 보정</span></li>
+          <li><span class="d">제품 출하</span><span class="what">CCTV 12대의 회전·줌을 AI가 제어해 라벨을 찾고 문자를 읽는 검수. 검수자가 차량 위로 올라갈 필요를 없앰</span></li>
+          <li><span class="d">웨어러블</span><span class="what">넘어짐·심박 이상·추락을 감지하는 스마트 워치, 밀폐공간 가스를 재는 스마트 세이프티 볼, 스마트 안전조끼</span></li>
+          <li><span class="d">광양</span><span class="what">출강 과정 고온 위험 AI 영상인식, 4족 보행 로봇 ‘스폿’의 송풍구 44개 점검, 라이다 차단기와 AI CCTV로 이동기기를 자동 제어하는 Smart Fool Proof</span></li>
+          <li><span class="d">포항 2025</span><span class="what">객체 인식 알고리즘과 CCTV로 코일카 적재 이상을 탐지하고 자동 경고</span></li>
+          <li><span class="d">관련 기사</span><span class="links"><a href="https://news.bizwatch.co.kr/article/mobile/2024/08/23/0046" target="_blank" rel="noopener">비즈워치 2024.08.23</a><a href="https://newsroom.posco.com/kr/%ec%9d%b4%ec%a0%9c%eb%8a%94-%ec%95%88%ec%a0%84%eb%8f%84-smart%ed%95%98%ea%b2%8c/" target="_blank" rel="noopener">포스코 뉴스룸 “이제는 안전도 SMART하게”</a><a href="https://newstomato.com/ReadNews.aspx?no=1054855" target="_blank" rel="noopener">뉴스토마토 “포스코 ‘스마트 안전기술’로 산재 잡는다”</a><a href="https://kbmaeil.com/article/202408250403500" target="_blank" rel="noopener">경북매일 2024.08.25</a><a href="https://www.nocutnews.co.kr/news/5856230" target="_blank" rel="noopener">노컷뉴스</a><a href="https://www.dt.co.kr/article/11360908" target="_blank" rel="noopener">디지털타임스</a><a href="https://sgsg.hankyung.com/article/2025053056321" target="_blank" rel="noopener">한국경제 생글생글 2025.05.30</a><a href="https://newstomato.com/ReadNews.aspx?no=1129063" target="_blank" rel="noopener">뉴스토마토 “철강업계, 제품·AI로 안전경영 확대”</a></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="english" aria-labelledby="h-english">
+    <h2 id="h-english">영문 자료</h2>
+    <p class="sec-note">영어 발표 자료나 해외 심사위원용 근거가 필요할 때 쓰세요.</p>
+    <ul class="reflist">
+      <li><span class="d">2025.11.05 · The Korea Times</span><a class="what" href="https://www.koreatimes.co.kr/amp/business/companies/20251105/1-killed-3-injured-as-toxic-gas-leaked-at-posco-plant" target="_blank" rel="noopener">1 killed, 3 injured as toxic gas leaked at POSCO plant</a></li>
+      <li><span class="d">2025.11 · Korea JoongAng Daily</span><a class="what" href="https://www.koreajoongangdaily.com/korea/gas-leak-at-posco-plant-sends-6-to-hospital-2-in-critical-condition/12089606" target="_blank" rel="noopener">Gas leak at Posco plant sends 6 to hospital, 2 in critical condition</a></li>
+      <li><span class="d">2025.12 · Korea JoongAng Daily</span><a class="what" href="https://www.koreajoongangdaily.com/korea/worker-injured-in-gas-accident-at-posco-steel-plant-in-november-dies-raising-death-toll-to-two/12454975" target="_blank" rel="noopener">Worker injured in gas accident at Posco steel plant in November dies, raising death toll to two</a></li>
+      <li><span class="d">2025.11.22 · The Star</span><a class="what" href="https://www.thestar.com.my/aseanplus/aseanplus-news/2025/11/22/pohang-steelworks-chief-dismissed-over-series-of-fatal-accidents-in-south-korea" target="_blank" rel="noopener">Pohang Steelworks chief dismissed over series of fatal accidents in South Korea</a></li>
+      <li><span class="d">2025.11 · Business &amp; Human Rights Resource Centre</span><a class="what" href="https://www.business-humanrights.org/en/latest-news/s-korea-posco-reports-seventh-worker-death-this-year-three-workers-suffer-cardiac-arrest-at-pohang-steelworks-plant-chief-dismissed/" target="_blank" rel="noopener">S. Korea: POSCO reports seventh worker death this year; three workers suffer cardiac arrest at Pohang steelworks</a></li>
+      <li><span class="d">2025.11 · JOIFF</span><a class="what" href="https://www.joiff.com/south-korea-toxic-gas-exposure-at-pohang-steel-plant-leaves-three-workers-in-cardiac-arrest/" target="_blank" rel="noopener">South Korea – Toxic Gas Exposure at Pohang Steel Plant Leaves Three Workers in Cardiac Arrest</a></li>
+      <li><span class="d">2024.11 · JOIFF</span><a class="what" href="https://joiff.com/?p=20290" target="_blank" rel="noopener">Worker Injured in Fire at South Korean Steel Plant</a></li>
+      <li><span class="d">2025.07.29 · Asia Economy</span><a class="what" href="https://www.asiae.co.kr/en/article/2025072918354628216" target="_blank" rel="noopener">“Company-wide Safety Inspections Implemented... Determined to Overhaul Safety with a Life-or-Death Resolve”</a></li>
+      <li><span class="d">2025.03.21 · Asia Economy</span><a class="what" href="https://www.asiae.co.kr/en/article/2025032115333758953" target="_blank" rel="noopener">POSCO PR Tech Employee Found Unconscious During Rolling Process Maintenance</a></li>
+      <li><span class="d">2022.01.20 · Asia Economy</span><a class="what" href="https://www.asiae.co.kr/en/article/2022012017035743631" target="_blank" rel="noopener">POSCO Apologizes and Pledges “Efforts to Prevent Recurrence” After Death of Steel Mill Contractor Employee</a></li>
+      <li><span class="d">2020.11.24 · Asia Economy</span><a class="what" href="https://www.asiae.co.kr/en/article/2020112419045692641" target="_blank" rel="noopener">3 Dead in Explosion Accident at POSCO Gwangyang Steelworks</a></li>
+      <li><span class="d">IndustriALL</span><a class="what" href="https://www.industriall-union.org/global-steel-company-posco-guilty-of-corporate-manslaughter-says-union" target="_blank" rel="noopener">Global steel company POSCO guilty of corporate manslaughter, says union</a></li>
+      <li><span class="d">People’s World</span><a class="what" href="https://peoplesworld.org/?p=105025" target="_blank" rel="noopener">Korean workers say POSCO steel company guilty of manslaughter</a></li>
+      <li><span class="d">그룹사 참고 · Korea JoongAng Daily</span><a class="what" href="https://www.koreajoongangdaily.com/business/posco-ec-ceo-to-step-down-in-wake-of-fatal-serious-accidents/12323045" target="_blank" rel="noopener">Posco E&amp;C CEO to step down in wake of fatal, serious accidents</a></li>
+    </ul>
+  </section>
+
+  <section id="notes" aria-labelledby="h-notes">
+    <h2 id="h-notes">확인 필요·주의</h2>
+    <ul class="reflist">
+      <li><span class="d">미확인 단서</span><span class="what">광양제철소 감전 사고로 50대 사망. 기사 제목만 확인했고 발생일과 경위는 확인하지 못했습니다.</span><span class="links"><a href="https://www.psnews.co.kr/news/articleView.html?idxno=2030933" target="_blank" rel="noopener">퍼블릭뉴스</a></span></li>
+      <li><span class="d">미확인 단서</span><span class="what">2023.07.18 포항제철소 3선재공장 작업 대기실에서 직원(55) 숨진 채 발견. 외상 흔적이 없어 부검을 의뢰했고, 산재 여부는 확인하지 못해 타임라인에서 뺐습니다.</span><span class="links"><a href="https://www.newsis.com/view/NISX20230719_0002382526" target="_blank" rel="noopener">뉴시스</a></span></li>
+      <li><span class="d">범위</span><span class="what">포스코이앤씨 등 그룹 건설현장 사고는 제철소 사고가 아니라서 타임라인에서 뺐습니다. 그룹 전체 수치가 필요하면 ‘공식·통계 자료’의 고용노동부 자료를 보세요.</span></li>
+      <li><span class="d">숫자 차이</span><span class="what">같은 사고라도 추락 높이, 부상자 수, 발생 시각, 설비 이름이 매체마다 다르게 보도된 경우가 많습니다. 발표 자료에 인용하기 전에 원문을 열어 확인하세요.</span></li>
+      <li><span class="d">조사 방법</span><span class="what">2026.11.04 웹 검색으로 모았습니다. 나무위키, 경향신문, 뉴스토마토, 비즈한국 등 일부 사이트는 이 조사 환경에서 본문을 열 수 없어 검색 결과 요약으로 내용을 확인했습니다.</span><span class="links"><a href="https://namu.wiki/w/%ED%8F%AC%EC%8A%A4%EC%BD%94/%EB%B9%84%ED%8C%90%20%EB%B0%8F%20%EB%85%BC%EB%9E%80" target="_blank" rel="noopener">나무위키 “포스코/비판 및 논란”</a><a href="https://namu.wiki/w/2024%EB%85%84%20%ED%8F%AC%ED%95%AD%EC%A0%9C%EC%B2%A0%EC%86%8C%20%ED%99%94%EC%9E%AC%EC%82%AC%EA%B3%A0" target="_blank" rel="noopener">나무위키 “2024년 포항제철소 화재사고”</a></span></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>해커톤 준비용 리서치 노트입니다. 포스코가 만든 자료가 아닙니다.</span>
+    <span>사고 피해자는 기사에 나온 나이와 소속만 적었습니다.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var TYPES = {
+    caught:{label:"끼임·협착", c:"var(--c-caught)"},
+    gas:{label:"질식·가스", c:"var(--c-gas)"},
+    fire:{label:"폭발·화재", c:"var(--c-fire)"},
+    fall:{label:"추락", c:"var(--c-fall)"},
+    vehicle:{label:"차량·운반장비", c:"var(--c-vehicle)"},
+    disaster:{label:"재난·정전", c:"var(--c-disaster)"}
+  };
+
+  var DATA = [
+    {d:"2018-01-25", date:"2018.01.25", site:"포항", types:["gas"], deaths:4, injured:0,
+     title:"산소공장 냉각탑 질소가스 질식",
+     place:"산소공장 냉각탑 충전재 교체 작업",
+     who:"외주업체 직원 4명",
+     summary:"냉각탑 안에서 충전재를 교체하던 외주업체 직원 4명이 흘러든 질소가스에 질식해 모두 숨졌다.",
+     issue:"질소 주 밸브는 잠겨 있었지만 다른 밸브가 열려 있어 그 경로로 질소가 들어간 것으로 추정됐다. 노동계는 ‘위험의 외주화가 부른 참사’라고 비판했다.",
+     follow:"경찰은 현장 관계자 4명을 업무상과실치사 혐의로 입건했다. 대구지방고용노동청은 특별감독에서 문제 1,320건(사법처리 414건, 과태료 146건 등)을 적발하고 밀폐공간 작업 2천여 곳에 작업중지를 명령했다.",
+     src:[
+      ["서울신문","2018.01.29","포스코 근로자 4명 사망 사고 원인, 가스 밸브 열려","https://m.go.seoul.co.kr/news/2018/01/29/20180129500118"],
+      ["경북매일","2018.01.31","질식사고 관련 보도","https://kbmaeil.com/article/201801310213250"],
+      ["경북매일","2018.02.09","질식사고 후속 보도","https://kbmaeil.com/article/201802090214083"],
+      ["경북매일","2018.02.28","특별감독 결과 1,320건 적발","https://kbmaeil.com/article/201802280215422"],
+      ["고용노동부","2018.01","(참고) 차관, 포스코 포항제철소 질식재해 사고 관련","https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=8436"],
+      ["고용노동부 포항지청","2018","포항제철소 특별감독 결과 설명자료","https://www.moel.go.kr/local/pohang/news/reportexplan/view.do?bbs_seq=20180600783"],
+      ["sateconomy.co.kr","","포스코 하청 근로자 사망사고…노동계 ‘분노’","https://www.sateconomy.co.kr/news/view/179587549637428"],
+      ["프레시안","","질식사고 관련 보도","https://pressian.com/pages/articles/184370"]
+     ]},
+    {d:"2019-02-02", date:"2019.02.02", site:"포항", types:["caught"], deaths:1, injured:0,
+     title:"제품부두 하역기 끼임",
+     place:"제품부두(신항만 5부두) 하역기 상부",
+     who:"포스코 직원(56)",
+     summary:"설 연휴 첫날 하역기 상부에서 쓰러진 채 발견돼 숨졌다. 경찰은 교육차 현장에 있던 인턴 직원이 기계를 작동해 끼인 것으로 판단했다.",
+     issue:"회사가 처음에 ‘산재 흔적이 없다’고 알렸다가 부검에서 장기 파열이 확인되면서 은폐 의혹이 일었다. 포스코는 입장문을 내고 의혹을 부인했다.",
+     follow:"경찰은 인턴 직원(28)을 업무상과실치사 혐의로 불구속 입건했다(2019.02.19). 고용노동부는 부분 작업중지를 명령했다.",
+     src:[
+      ["포스코 뉴스룸","2019.02.08","포항제철소 직원 사망 사건에 대한 입장문","https://newsroom.posco.com/kr/%ED%8F%AC%ED%95%AD%EC%A0%9C%EC%B2%A0%EC%86%8C-%EC%A7%81%EC%9B%90-%EC%82%AC%EB%A7%9D-%EC%82%AC%EA%B1%B4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9E%85%EC%9E%A5%EB%AC%B8/"],
+      ["경북매일","2019.02.19","경찰, 인턴 직원 업무상과실치사 입건","https://kbmaeil.com/article/201902190243879"],
+      ["경향신문","2019.02.10","하역기 사망사고 관련 보도","https://www.khan.co.kr/article/201902101849001"],
+      ["주간경향","2019.07.19","‘기업시민’ 포스코, 잇단 사건·사고","https://weekly.khan.co.kr/article/201907191526301"]
+     ]},
+    {d:"2019-06-01", date:"2019.06.01", site:"광양", types:["fire","fall"], deaths:1, injured:1,
+     title:"포스넵 공장 저장탱크 잔류가스 폭발",
+     place:"니켈 추출설비(포스넵) 공장, 45t 환원철 저장탱크 용접 작업",
+     who:"정비 협력업체 직원 사망, 포스코 직원 1명 부상",
+     summary:"저장탱크를 용접하던 중 남아 있던 가스가 폭발했다. 협력업체 직원이 추락해 숨지고 포스코 직원 1명이 다쳤다.",
+     issue:"보도가 적어 세부 경위는 원문으로 확인해야 한다.",
+     src:[
+      ["뉴시스","2019.12.24","잊을만하면 안전사고…포스코, 안전혁신TF 출범에도 비판 자초(종합)","https://www.newsis.com/view/NISX20191224_0000870560"],
+      ["뉴스토마토","2020","(차기태의 경제편편) 포스코는 ‘기업시민’ 자격 있나","https://newstomato.com/ReadNews.aspx?no=1009911"],
+      ["주간경향","2019.07.19","‘기업시민’ 포스코, 잇단 사건·사고","https://weekly.khan.co.kr/article/201907191526301"]
+     ]},
+    {d:"2019-07-11", date:"2019.07.11", site:"포항", types:["caught","fall"], deaths:1, injured:0,
+     title:"3코크스공장 1인 점검 중 사망",
+     place:"화성부 3코크스공장 코크스 벙커 앞",
+     who:"포스코 직원(60)",
+     summary:"새벽 2시 30분께 혼자 설비를 점검하던 직원이 숨진 채 발견됐다. 부검에서 다발성 골절과 출혈이 확인됐고, 노조는 컨베이어벨트에 감긴 뒤 추락했을 가능성을 제기했다.",
+     issue:"목격자와 CCTV가 없어 원인 규명이 늦어졌다. 노조는 인력 감축으로 혼자 점검하게 된 구조를 원인으로 지목했다.",
+     follow:"고용노동부 포항지청은 사고사로 보고 산업안전보건법 위반 여부를 수사했다.",
+     src:[
+      ["twig24","2019.07.15","“포스코 작업 중 숨진 직원, 기계에 끼였다가 추락사”","https://www.twig24.com/news/world/event/2019/07/15/20190715011001"],
+      ["twig24","2019.07.12","‘죽음의 사업장’ 포스코… 작년 15명 이어 올해도 4명 목숨 잃어","https://twig24.com/news/world/event/2019/07/12/20190712002004"],
+      ["twig24","2019.07.12","노동자 스러지는 포스코","https://www.twig24.com/news/world/event/2019/07/12/20190712001047"]
+     ]},
+    {d:"2019-07-15", date:"2019.07.15 · 07.17", site:"포항", types:["fall"], deaths:0, injured:2,
+     title:"코크스 보관시설·난간 설치 중 잇단 추락",
+     place:"코크스 보관시설(10m), 안전난간대 설치 현장(5m)",
+     who:"협력업체 직원 2명",
+     summary:"7월 15일 협력업체 직원이 코크스 보관시설에서 10m 아래로 떨어져 골절상을 입었고, 17일에는 안전난간대를 설치하던 협력업체 근로자가 5m 아래로 떨어졌다.",
+     follow:"같은 달 포스코는 노사와 협력사가 참여하는 안전혁신 비상TF를 꾸렸다.",
+     src:[
+      ["twig24","2019.07.18","또 노동자 추락한 포스코","https://www.twig24.com/news/world/event/2019/07/18/20190718017008"],
+      ["포스코 뉴스룸","2019.07","포스코, 노사·협력사 참여 안전혁신 비상TF 발족","https://newsroom.posco.com/kr/%ed%8f%ac%ec%8a%a4%ec%bd%94-%eb%85%b8%ec%82%ac-%c2%b7%ed%98%91%eb%a0%a5%ec%82%ac-%ec%b0%b8%ec%97%ac-%ec%95%88%ec%a0%84%ed%98%81%ec%8b%a0-%eb%b9%84%ec%83%81tf-%eb%b0%9c%ec%a1%b1/"],
+      ["경북매일","2019.07.24","안전혁신 비상TF 관련 보도","https://kbmaeil.com/article/201907240256584"]
+     ]},
+    {d:"2019-12-24", date:"2019.12.24", site:"광양", types:["fire"], deaths:0, injured:5,
+     title:"페로망간 야드 시험설비 폭발",
+     place:"제강공장 옆 페로망간(FeMn) 야드, 배열발전 축열설비 연구과제 시험설비",
+     who:"포항산업과학연구원(RIST) 직원 등 5명",
+     summary:"두 차례 폭발로 5명이 다쳤다. 파편이 인근 이순신대교까지 날아가 차량 통행이 한때 통제됐다.",
+     issue:"보도마다 설비 이름(포스하이메탈 공장, 페로망간공장)이 다르다. 시험 중이던 발전 설비가 원인으로 지목됐다.",
+     follow:"포스코가 사과문을 냈다. 안전혁신TF를 꾸린 뒤에도 사고가 반복된다는 비판 보도가 나왔다.",
+     src:[
+      ["뉴시스","2019.12.24","포스코 광양제철소 페로망간공장 폭발, 5명 부상(종합2보)","https://www.newsis.com/view/NISX20191224_0000870498"],
+      ["뉴시스","2019.12.24","“펑!펑!…파편 하늘 높이 튀어” 전쟁터 방불케한 광양제철소 폭발사고 순간","https://www.newsis.com/view/NISX20191224_0000870229"],
+      ["아주경제","2019.12.24","포스코 광양제철소서 폭발사고로 5명 부상…이순신대교 통제 재개","https://www.ajunews.com/view/20191224182009241"],
+      ["서울신문","2019.12.24","포스코 광양제철소 폭발사고…5명 중경상, 도로에 파편 폭탄","https://m.seoul.co.kr/news/2019/12/24/20191224500116"],
+      ["뉴시스","2019.12.24","잊을만하면 안전사고…포스코, 안전혁신TF 출범에도 비판 자초(종합)","https://www.newsis.com/view/NISX20191224_0000870560"]
+     ]},
+    {d:"2020-11-24", date:"2020.11.24", site:"광양", types:["fire"], deaths:3, injured:0,
+     title:"1고로 산소배관 폭발",
+     place:"1고로 부대설비 산소배관, 밸브 조작·점검 중",
+     who:"포스코 직원 1명, 협력업체 직원 2명",
+     summary:"오후 4시께 1고로로 이어지는 고압 산소배관의 개폐 밸브를 조작하던 중 폭발이 일어나 3명이 숨졌다.",
+     issue:"포스코는 배관 균열로 산소가 새면서 불이 난 것으로 설명했다. 경향신문 기획은 낡은 배관 안쪽에서 떨어진 금속입자가 빠른 산소 흐름을 타고 벽을 긁으며 불티를 냈고, 이것이 고농도 산소와 만나 폭발했다고 분석했다.",
+     follow:"최정우 회장이 사과했다. 포스코는 12월 2일 3년간 1조원 추가 투자, 안전관리요원 2배 증원, 안전기술대학 설립을 담은 안전 특별대책을 발표했다. 광양시의회는 산재 대책 성명을 채택했다.",
+     src:[
+      ["아시아경제(영문)","2020.11.24","3 Dead in Explosion Accident at POSCO Gwangyang Steelworks","https://www.asiae.co.kr/en/article/2020112419045692641"],
+      ["아시아경제(영문)","2020.11.25","Police Launch Full Investigation into Explosion Accident at POSCO Gwangyang Steelworks","https://www.asiae.co.kr/en/article/2020112517084857086"],
+      ["데일리안","2020.11","광양제철소 폭발 사고 보도","https://m.dailian.co.kr/news/view/940041"],
+      ["딜사이트","","광양제철소 사고와 회장 사과 보도","https://dealsite.co.kr/articles/67730"],
+      ["경향신문","2022.09.15","[산재 도사리는 낡은 산업단지] 시한폭탄 같은 일터로 출근합니다","https://www.khan.co.kr/article/202209150600001"],
+      ["경북매일","2020.12.02","포스코 안전 특별대책 발표","https://kbmaeil.com/article/202012020293812"],
+      ["아시아경제(영문)","2020.12.02","POSCO, Rapid Implementation of Special Safety Management Measures","https://www.asiae.co.kr/en/article/2020120209363233579"],
+      ["아시아경제(영문)","2020.12.21","Gwangyang City Council Adopts Statement on POSCO Industrial Accident Countermeasures","https://www.asiae.co.kr/en/article/2020122117353620648"]
+     ]},
+    {d:"2020-12-09", date:"2020.12.09", site:"포항", types:["fall"], deaths:1, injured:0,
+     title:"3소결공장 부식 배관 파손·추락",
+     place:"3소결공장 집진기 배관 보강 공사",
+     who:"2차 하청업체 직원(60대)",
+     summary:"4m 높이 수평 배관 위에서 일하던 중 부식된 배관이 부서지며 배관 속으로 떨어졌다. 오후 1시 30분께 추락했고 2시간 뒤 숨진 채 발견됐다.",
+     issue:"광양 산소배관 폭발 16일 만에 일어났다. 발견까지 2시간이 걸렸다.",
+     src:[
+      ["파이낸셜뉴스","2020.12.10","3소결공장 추락 사망 보도","https://www.fnnews.com/news/202012101132176292"],
+      ["디지털타임스","","노동부 포항제철소 감독 결과(위반 331건) 보도","https://www.dt.co.kr/article/11360783"]
+     ]},
+    {d:"2020-12-23", date:"2020.12.23", site:"포항", types:["vehicle"], deaths:1, injured:0, flag:"날짜 추정",
+     title:"구내 도로 출근길 덤프트럭 충돌",
+     place:"제철소 안 도로",
+     who:"하청업체 직원",
+     summary:"야간 근무를 하러 오토바이로 출근하던 하청업체 직원이 제철소 안 도로에서 25t 덤프트럭과 부딪혀 숨졌다.",
+     issue:"기사에 ‘지난달 23일’로만 나와 2020년 12월로 추정했다.",
+     follow:"고용노동부 포항지청은 근로감독관과 안전보건공단 전문가 33명을 투입해 포항제철소를 감독하고 산업안전보건법 위반 331건을 적발했다. 이 중 220건과 관련해 포항제철소와 협력사 5곳의 책임자·법인을 형사입건하기로 했다.",
+     src:[
+      ["디지털타임스","","노동부 포항제철소 감독 결과(위반 331건) 보도","https://www.dt.co.kr/article/11360783"]
+     ]},
+    {d:"2021-02-08", date:"2021.02.08", site:"포항", types:["caught"], deaths:1, injured:0,
+     title:"원료부두 언로더 정비 중 끼임",
+     place:"원료부두 언로더(하역 크레인)",
+     who:"협력업체 직원(35)",
+     summary:"오전 9시 40분께 언로더를 정비하던 협력업체 직원이 설비에 몸이 끼여 숨졌다. 멈춰 있어야 할 설비가 움직인 것으로 전해졌다.",
+     follow:"최정우 회장이 2월 16일 사고 현장을 찾아 사과했다. 2월 22일 국회 환경노동위원회 산업재해 청문회에 증인으로 나왔다.",
+     src:[
+      ["더팩트","2021.02.17","최정우 회장, 원료부두 사고 현장 방문·사과","https://news.tf.co.kr/read/ogmeta/1843629.htm"],
+      ["경향신문","2021.02.09","원료부두 사망사고 관련 보도","https://www.khan.co.kr/article/202102091826001"],
+      ["이투데이","2021.02.22","청문회서 고개 숙인 CEO들…최정우 “무재해 사업장 만들겠다”","https://www.etoday.co.kr/news/view/1997181"]
+     ]},
+    {d:"2021-03-16", date:"2021.03.16", site:"포항", types:["caught"], deaths:1, injured:0,
+     title:"포스코케미칼 라임공장 푸셔 끼임",
+     place:"포항제철소 안 포스코케미칼(현 포스코퓨처엠) 라임공장, 생석회 소성설비 ‘푸셔’",
+     who:"하청업체 직원(56)",
+     summary:"오전 9시 48분께 석회석을 소성로로 밀어 넣는 ‘푸셔’ 설비를 수리하던 하청업체 직원이 머리가 끼여 숨졌다.",
+     issue:"원료부두 사고 한 달여 만에 같은 끼임 사고가 반복됐다. 계열사 사업장이지만 포항제철소 구내다.",
+     follow:"포스코케미칼 대표가 감봉 6개월, 라임화성본부장과 실장이 직책에서 해임됐다.",
+     src:[
+      ["twig24","2021.03.17","끼임… 또 안전사고… 이번에도 ‘하청업체’","https://twig24.com/news/world/event/2021/03/17/20210317009014"],
+      ["경북매일","2021.03.22","포스코케미칼 사망사고 징계 보도","https://kbmaeil.com/article/202103220302422"]
+     ]},
+    {d:"2022-01-20", date:"2022.01.20", site:"포항", types:["vehicle","caught"], deaths:1, injured:0,
+     title:"3코크스공장 장입차량 충돌·끼임",
+     place:"화성부 3코크스공장, 스팀배관 보온작업 안전감시",
+     who:"용역업체 직원(39)",
+     summary:"스팀배관 보온작업자의 안전을 감시하던 용역업체 직원이 석탄을 코크스 오븐에 넣는 장입차량과 설비 사이에 끼여 숨졌다. 현장에는 안전지킴이를 포함해 7명이 일하고 있었다.",
+     issue:"중대재해처벌법 시행(1월 27일) 일주일 전에 일어났다. 장입차량 작업 구역에 근로자를 들여보낸 경위가 수사 대상이 됐다.",
+     follow:"최정우 회장이 사과문을 냈다. 고용노동부는 포항지청장을 팀장으로 전담 수사팀을 꾸렸고, 원·하청 책임자를 산업안전보건법 위반 혐의로 입건했다.",
+     src:[
+      ["뉴스핌","2022.01.20","장입차량 사망사고 보도","https://newspim.com/news/view/20220120001311"],
+      ["정책브리핑(고용노동부)","2022.01","고용노동부, 포스코 산재사망사고 관련 전담 수사팀 구성, 엄중조치 예정","https://www.korea.kr/briefing/pressReleaseView.do?newsId=156492562"],
+      ["아시아경제(영문)","2022.01.20","POSCO Apologizes and Pledges “Efforts to Prevent Recurrence” After Death of Steel Mill Contractor Employee","https://www.asiae.co.kr/en/article/2022012017035743631"],
+      ["아시아경제(영문)","2022.01.26","Ministry of Employment: “POSCO Worker Death Accident Supervisors of Primary and Subcontractors Booked”","https://www.asiae.co.kr/en/article/2022012613465981329"],
+      ["메디게이트뉴스","2022.01.26","원·하청 책임자 입건 보도","https://medigatenews.com/stand/43254"],
+      ["데일리안","2022.01","회장 사과 보도","https://m.dailian.co.kr/news/view/1075632"]
+     ]},
+    {d:"2022-09-06", date:"2022.09.06", site:"포항", types:["disaster","fire"], deaths:0, injured:0,
+     title:"태풍 힌남노 침수·정전·화재",
+     place:"냉천 범람으로 제철소 침수, STS 2제강·2열연공장 화재",
+     who:"직원 인명피해 없음(초기 보도)",
+     summary:"인근 냉천이 넘쳐 제철소가 물에 잠기고 정전이 났다. 오전 7시 30분께 여러 공장에서 불이 났다. 포스코는 2차 폭발·화재를 막으려고 가동 이래 처음으로 전 공장 가동을 멈췄다.",
+     follow:"135일 만인 2023년 1월 20일 전 공장이 정상 가동에 들어갔다.",
+     src:[
+      ["서울신문","2022.09.18","포스코 “포항제철소, 힌남노 내습전 사상 첫 가동 중단…치명적 사고 예방”","https://m.seoul.co.kr/news/2022/09/18/20220918500082"],
+      ["데일리안","2022.09","포스코 “태풍 힌남노 상륙 전 가동 멈춰 더 큰 피해 막았다”","https://www.dailian.co.kr/news/view/1154120/"],
+      ["포스코 뉴스룸","2023.01","포스코, 포항제철소 완전 복구… 20일부터 전 공장 가동 돌입","https://newsroom.posco.com/kr/%ED%8F%AC%EC%8A%A4%EC%BD%94-%ED%8F%AC%ED%95%AD%EC%A0%9C%EC%B2%A0%EC%86%8C-%EC%99%84%EC%A0%84-%EB%B3%B5%EA%B5%AC-20%EC%9D%BC%EB%B6%80%ED%84%B0-%EC%A0%84-%EA%B3%B5%EC%9E%A5-%EA%B0%80%EB%8F%99/"],
+      ["포스코 뉴스룸","","민관군 총력 복구 지원, ‘침수 피해’ 포항제철소 살렸다","https://newsroom.posco.com/kr/%EB%AF%BC%EA%B4%80%EA%B5%B0-%EC%B4%9D%EB%A0%A5-%EB%B3%B5%EA%B5%AC-%EC%A7%80%EC%9B%90-%EC%B9%A8%EC%88%98-%ED%94%BC%ED%95%B4-%ED%8F%AC%ED%95%AD%EC%A0%9C%EC%B2%A0%EC%86%8C-%EC%82%B4/"]
+     ]},
+    {d:"2022-09-14", date:"2022.09.14", site:"광양", types:["fall"], deaths:1, injured:0, flag:"세부 확인 필요",
+     title:"폐기물 처리설비 청소 중 추락",
+     place:"슬러지·시멘트 혼합 설비 내부 청소",
+     who:"폐기물 처리 하청업체 직원(50대)",
+     summary:"혼합 설비 내부를 청소하던 하청업체 직원이 아래로 떨어져 숨졌다.",
+     issue:"추락 높이가 2m, 4.5m 등 자료마다 다르다. 2025년 7월 광양 사고 보도에서 ‘2022년 9월 이후 3년 만의 제철소 내 중대재해’로 언급됐다.",
+     src:[
+      ["디지털타임스","2022.09","포스코, 설상가상으로 중대재해 사망사고까지","https://www.dt.co.kr/article/11465399"]
+     ]},
+    {d:"2023-12-23", date:"2023.12.23", site:"포항", types:["fire","disaster"], deaths:0, injured:0,
+     title:"선강지역 케이블 화재·정전",
+     place:"선강지역 공동 사용 케이블",
+     who:"인명피해 없음",
+     summary:"성탄 연휴 첫날 오전 케이블에서 불이 나 정전이 이어졌고, 2·3·4고로 등 상당수 공장이 한때 멈췄다. 소방차 33대와 소방관 100여 명이 투입돼 2시간 안팎에 불을 껐다.",
+     follow:"다음 날 2고로부터 차례로 다시 가동했다.",
+     src:[
+      ["서울신문","2023.12.23","포항제철소 불, 1시간40분만에 진화…공장 일부 가동중단","https://m.seoul.co.kr/news/2023/12/23/20231223500020"],
+      ["서울신문","2023.12.25","어수선한 포스코에 화재까지… 또 고로 중단으로 손실 불가피","https://m.seoul.co.kr/news/2023/12/25/20231225013009"],
+      ["경북매일","2023.12.23","포항제철소 화재 보도","https://kbmaeil.com/article/202312230380123"],
+      ["경북매일","2023.12.24","고로 재가동 보도","https://kbmaeil.com/article/202312240380130"],
+      ["아주경제","2023.12.23","포항제철소 화재 보도","https://www.ajunews.com/view/20231223083920190"]
+     ]},
+    {d:"2024-11-10", date:"2024.11.10", site:"포항", types:["fire"], deaths:0, injured:1,
+     title:"3파이넥스 용융로 폭발·화재",
+     place:"3파이넥스공장 용융로(높이 약 50m 타워)",
+     who:"근무자 1명 손등 2도 화상, 7명 대피",
+     summary:"새벽 4시 20분께 폭발과 함께 불이 나 5시간 만에 꺼졌다. 소방차 43대와 인력 120여 명이 투입됐다.",
+     issue:"산소를 불어 넣는 풍구가 제대로 작동하지 않아 가스가 팽창한 것으로 추정됐다. 3파이넥스는 포항제철소 쇳물의 약 10%를 만든다.",
+     follow:"경찰·국과수·소방이 합동 감식을 했다. 공장은 2025년 12월 다시 가동했다.",
+     src:[
+      ["세계일보","2024.11.10","포스코 포항제철소 불 5시간 만에 꺼져… 1명 손등에 2도 화상","https://www.segye.com/newsView/20241110504708"],
+      ["뉴스핌","2024.11.10","포항제철소 화재 진화...포스코 “부상 1명, 생산 차질 없어”","https://www.newspim.com/news/view/20241110000019"],
+      ["경북매일","2024.11.10","3파이넥스 화재 보도","https://kbmaeil.com/article/202411100410376"],
+      ["SBS Biz","2024.11","경찰, 국과수·소방당국과 ‘포스코 포항제철소’ 화재 합동 감식","https://biz.sbs.co.kr/amp/article/20000201175"],
+      ["디지털타임스","","포항제철소 생산 쇳물 10% 담당","https://www.dt.co.kr/article/12034902"],
+      ["다음뉴스","2025.12.15","움츠렸던 포항제철소 부활 ‘날갯짓’… 제3파이넥스 재가동에 하이렉스 실증설비 착공","https://v.daum.net/v/20251215105538357"],
+      ["JOIFF(영문)","2024.11","Worker Injured in Fire at South Korean Steel Plant","https://joiff.com/?p=20290"]
+     ]},
+    {d:"2024-11-24", date:"2024.11.24", site:"포항", types:["fire"], deaths:0, injured:0,
+     title:"3파이넥스 재가동 닷새 만에 재화재",
+     place:"3파이넥스공장",
+     who:"인명피해 없음",
+     summary:"11월 19일 다시 가동한 지 닷새 만인 24일 밤 11시 18분께 같은 공장에서 또 불이 나 2시간 만에 꺼졌다.",
+     issue:"용융로 외부 철피 손상이 원인으로 추정됐다. 세계일보는 최근 2년간 포항제철소에서 화재가 9건 났다고 보도했다.",
+     follow:"포항제철소장이 사과하고 사고대책반을 꾸렸다. 장인화 회장은 설비강건화 TFT를 발족했다.",
+     src:[
+      ["세계일보","2024.11.25","2시간 만에 진화, 인명피해는 없어","https://www.segye.com/newsView/20241125514071"],
+      ["SBS Biz","2024.11","포항제철소 2주만에 또 불…이번에도 3파이넥스공장","https://biz.sbs.co.kr/amp/article/20000203253"],
+      ["CEO스코어데일리","2024.11.27","포항제철소 3파이넥스공장, 지난 10일에 이어 24일도 화재","https://ceoscoredaily.com/page/view/2024112714505712766"],
+      ["메트로신문","2024.11.25","3파이넥스 재화재 보도","https://www.metroseoul.co.kr/article/20241125500002"],
+      ["경북매일","2024.11.25","포항제철소장 사과·설비강건화 TFT 보도","https://kbmaeil.com/article/202411250411912"],
+      ["더팩트","2024.11","‘장인화 체제’ 불안한 포스코…셧다운·파업 위기·잇단 불까지","https://news.tf.co.kr/read/economy/2154386.htm"]
+     ]},
+    {d:"2025-03-21", date:"2025.03.21", site:"포항", types:["caught"], deaths:1, injured:0,
+     title:"냉연공장 정비 중 설비 끼임",
+     place:"냉연공장 압연설비 정비 작업",
+     who:"자회사 포스코PR테크 직원(40대)",
+     summary:"수리 작업 중 설비에 끼여 의식을 잃은 채 발견됐고, 병원으로 옮겨졌지만 숨졌다.",
+     issue:"포스코PR테크는 2023년 세운 정비 전문 자회사다. 영문 보도는 사고 위치를 스테인리스 공장으로 적어 국내 보도와 다르다.",
+     src:[
+      ["아시아경제(영문)","2025.03.21","POSCO PR Tech Employee Found Unconscious During Rolling Process Maintenance","https://www.asiae.co.kr/en/article/2025032115333758953"],
+      ["서울경제","2025.03","포항제철소에서 자회사 40대 설비 끼여 숨져","https://www.sedaily.com/article/14042622"],
+      ["한국증권","2025.03","포스코 포항제철소서 ‘중대재해’...자회사 직원 설비 수리 중 사망","https://www.ksdaily.co.kr/news/articleView.html?idxno=104379"],
+      ["대구MBC","2025.03","포항제철소 정비 중 사망사고···철강사, 잊을 만하면 중대재해","https://dgmbc.com/NewsArticle/627756"],
+      ["경향신문","2025.11.20","11월 가스 사고 기사에서 3월 사고 언급","https://www.khan.co.kr/article/202511201510001/"]
+     ]},
+    {d:"2025-07-14", date:"2025.07.14", site:"광양", types:["fall"], deaths:1, injured:2,
+     title:"소결공장 노후 집진설비 철거 중 붕괴·추락",
+     place:"소결공장 집진기 배관·덕트 철거, 1991년 설치 뒤 오래 쓰지 않은 설비",
+     who:"철거 하청업체 직원 3명(사망자 63세)",
+     summary:"철거 중 구조물이 무너지면서 작업자 3명이 15~20m 아래로 떨어지거나 낙하물에 맞았다. 1명은 다음 날 새벽 숨졌다.",
+     issue:"수십 년 방치된 불용 설비였다는 점과 다단계 외주 구조가 쟁점이 됐다. 포스코는 자사가 도급인인지 발주자인지 따져 봐야 한다는 입장을 냈다.",
+     follow:"7월 24일 전남경찰청과 광주지방고용노동청이 광양제철소, 포스코A&C, 철거업체를 압수수색했다. 경찰은 현장소장 등 3명을 업무상과실치사상 혐의로 입건했다. 전국플랜트건설노조는 8년간 포스코 사업장 중대재해 사망자가 17명이라며 특별감독을 요구했다.",
+     src:[
+      ["MTN","2025.07.16","광양제철소 또 비극…철거 현장 추락사","https://news.mtn.co.kr/news-detail/2025071600102874192"],
+      ["오마이뉴스","2025.07","포스코 광양제철소 추락사고 60대 치료 중 사망","https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003148680"],
+      ["경향신문","2025.07.20","또 노동자 사고 부를라…포스코 광양제철소 노후 설비 도마에","https://www.khan.co.kr/article/202507202016005"],
+      ["남도일보","2025.07","광양제철소 사고 현장, 30년 넘은 불용시설이었다","https://www.namdonews.com/news/articleView.html?idxno=827271"],
+      ["헤럴드경제","2025.07.23","고용부·경찰, ‘근로자 추락 사망’ 포스코 광양제철소 등 압수수색","https://biz.heraldcorp.com/article/10538635"],
+      ["오마이뉴스","2025.07","‘사망사고’ 포스코 광양제철소 압수수색... 포스코 A&C·철거업체 포함","https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003151284"],
+      ["다음뉴스","2025","포스코 광양제철소 배관 철거 중 사망사고 관계자 3명 입건","https://v.daum.net/v/HbpgajKGhE"],
+      ["세이프타임즈","2025.07","포스코 광양제철소 사망 사고 … 노후설비 관리 부실 논란","https://www.safetimes.co.kr/news/articleView.html?idxno=233056"],
+      ["세이프티퍼스트닷뉴스","2025","포스코 광양제철소 추락사고… 오랫동안 위험 지적됐지만 끝내 ‘예고된 인재’","https://www.safety1stnews.com/news/articleView.html?idxno=7085"],
+      ["페로타임즈","2025.07","포스코노조, 광양제철소 추락사고 관련 성명 발표…3대 안전 실천","https://www.ferrotimes.com/news/articleView.html?idxno=42663"]
+     ]},
+    {d:"2025-11-05", date:"2025.11.05", site:"포항", types:["gas"], deaths:1, injured:3,
+     title:"소둔산세공장 화학물질 배관 파손·누출",
+     place:"스테인리스 압연부 소둔산세공장, 설비 대수리 사전작업(전기 케이블 설치)",
+     who:"포스코DX 하도급업체 직원 4명(사망자 54세)",
+     summary:"오전 9시께 작업자들이 화학물질 배관을 밟고 이동하다 배관이 부서지면서 유해물질이 새어 나왔다. 4명이 호흡 곤란과 가슴 통증을 호소했고 1명이 병원으로 옮겨지던 중 숨졌다.",
+     issue:"새어 나온 물질은 질산·불산 또는 염산 흄으로 보도마다 다르게 추정됐다. 보호구 착용 등 안전조치를 지켰는지가 수사 대상이 됐다.",
+     follow:"포스코DX 대표가 사과문을 냈다. 보름 뒤 같은 제철소에서 두 번째 가스 사고가 났다.",
+     src:[
+      ["뉴시스","2025.11.05","포항제철소 공장서 유해물질 누출 사고, 1명 사망·3명 부상","https://mobile.newsis.com/view/NISX20251105_0003391013"],
+      ["마이데일리","2025.11.05","포스코 DX 협력업체 직원 4명 사상…작업 도중 가스 흡입","https://www.mydaily.co.kr/page/view/2025110512433951805"],
+      ["서울경제","2025.11.05","포항제철소서 외주 근로자 유해 기체 흡입…1명 사망, 3명 부상","https://www.sedaily.com/article/14139405"],
+      ["세계일보","2025.11.05","소둔산세공장 누출 사고 보도","https://www.segye.com/newsView/20251105508827"],
+      ["YTN","2025.11.05","포항제철소 가스 누출 사고 보도","https://www.ytn.co.kr/_ln/0115_202511051607157468"],
+      ["경향신문","2025.11.05","포항제철소 유해물질 누출 보도","https://www.khan.co.kr/article/202511051148001/"],
+      ["다음뉴스","2025.11.05","포스코 5일 근로자 1명 사망 3명 부상...포스코DX 사과문","https://v.daum.net/v/20251105180546753"],
+      ["월요신문","2025.11","“재발 방지에 최선”… 포스코DX, 협력사 직원 사망 공식 사과","https://www.wolyo.co.kr/news/articleView.html?idxno=303676"],
+      ["The Korea Times(영문)","2025.11.05","1 killed, 3 injured as toxic gas leaked at POSCO plant","https://www.koreatimes.co.kr/amp/business/companies/20251105/1-killed-3-injured-as-toxic-gas-leaked-at-posco-plant"]
+     ]},
+    {d:"2025-11-20", date:"2025.11.20", site:"포항", types:["gas"], deaths:1, injured:5,
+     title:"STS 4제강 슬러지 청소 중 가스중독",
+     place:"STS 4제강공장 야외 배관 슬러지 청소",
+     who:"용역업체 직원 2명(50대)·포스코 직원 1명(40대) 심정지, 구조하던 방재팀 3명 노출",
+     summary:"슬러지를 치우던 작업자 3명이 유해가스(일산화탄소 추정)에 노출돼 심정지 상태로 병원에 옮겨졌다. 구조에 나선 포스코 소방대 방재팀원 3명도 가스를 마셨다. 중태였던 50대 용역업체 직원 1명이 12월 15일 숨졌다.",
+     issue:"보름 사이 포항제철소의 두 번째 가스 사고였고, 구조하던 사람까지 노출되는 2차 피해가 났다.",
+     follow:"포스코는 11월 21일 포항제철소장을 보직 해임했고 이희근 사장이 사과하며 제철소장을 겸했다. 12월 15일 경북경찰청과 고용노동부가 포스코 본사·제철소·용역업체를 압수수색했다. 대구지방환경청은 2026년 3월 화학물질관리법 위반으로 과징금 81억7660만원을 부과했고, 포스코는 납부 뒤 취소 소송을 냈다. 대구지방고용노동청은 2026년 5월 11월 두 사고의 근로감독 결과로 과태료 5억7176만원을 부과했다.",
+     src:[
+      ["데일리안","2025.11.20","포스코 포항제철소서 가스흡입 사고…3명 심정지·3명 경상","https://www.dailian.co.kr/news/view/1576184/"],
+      ["YTN","2025.11.21","포스코 직원 1명·협력업체 2명 심정지 상태 이송","https://www.ytn.co.kr/_ln/0115_202511211450405752"],
+      ["뉴데일리","2025.11.21","포항 STS 4제강공장서 가스누출, 3명 심정지 상태로 병원 이송","https://biz.newdaily.co.kr/site/data/html/2025/11/21/2025112100169.html"],
+      ["세계일보","2025.11.21","가스 흡입 사고 보도","https://www.segye.com/newsView/20251121510261"],
+      ["ESG경제","2025.11","포스코 포항제철소서 또 인명 사고…3명 심정지 3명 경상","https://www.esgeconomy.com/news/articleView.html?idxno=13506"],
+      ["디지털데일리","2025.11.21","이희근 포스코 사장 “연이어 발생한 안전사고, 무거운 책임 통감”","https://www.ddaily.co.kr/page/view/2025112116020264787"],
+      ["대구MBC","2025.11","‘6명 쓰러진’ 포스코 가스 유출 사고···11월 26일 합동 감식","https://dgmbc.com/NewsArticle/638110"],
+      ["경향신문","2025.12.15","중태 노동자 사망 보도","https://www.khan.co.kr/article/202512152112005/"],
+      ["세계일보","2025.12.15","중태 노동자 사망 보도","https://www.segye.com/newsView/20251215516930"],
+      ["아웃소싱타임스","2025.12","[산업안전 뉴스] 포스코 본사·협력업체 압수수색...가스 중독 노동자 1명 사망","https://www.outsourcing.co.kr/news/articleView.html?idxno=201478"],
+      ["MTN","2026.08.18","[단독] 포스코, 가스중독 사망사고 과징금 82억…납부 후 취소소송","https://news.mtn.co.kr/news-detail/2026081814302913257"],
+      ["Korea JoongAng Daily(영문)","2025.11","Gas leak at Posco plant sends 6 to hospital, 2 in critical condition","https://www.koreajoongangdaily.com/korea/gas-leak-at-posco-plant-sends-6-to-hospital-2-in-critical-condition/12089606"]
+     ]},
+    {d:"2026-01-20", date:"2026.01.20", site:"포항", types:["caught"], deaths:0, injured:1,
+     title:"1열연공장 이송 대차 끼임",
+     place:"1열연공장 원료·제품 이송장비(대차)",
+     who:"60대 근로자",
+     summary:"오후 2시께 이송장비 대차에 다리가 끼여 양쪽 다리를 다쳤다. 생명에는 지장이 없는 것으로 전해졌다.",
+     src:[
+      ["머니투데이","2026.01.23","포스코 포항제철소 안전사고 발생…근로자 하지 부상","https://www.mt.co.kr/industry/2026/01/23/2026012308132377278"]
+     ]}
+  ];
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g,function(ch){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch];
+    });
+  }
+
+  DATA.forEach(function(it){
+    var parts = [it.title, it.place, it.who, it.summary, it.issue||"", it.follow||"", it.site, it.date];
+    it.types.forEach(function(t){ parts.push(TYPES[t].label); });
+    it.src.forEach(function(s){ parts.push(s[0], s[2]); });
+    it._hay = parts.join(" ").toLowerCase();
+  });
+
+  var state = {site:"all", types:{}, fatal:false, q:"", order:"desc"};
+  var listEl = document.getElementById("list");
+  var emptyEl = document.getElementById("empty");
+  var countEl = document.getElementById("count");
+  var chipsEl = document.getElementById("chips");
+  var sortBtn = document.getElementById("sort");
+
+  function sevHTML(it){
+    if(it.deaths > 0){
+      return '<span class="sev fatal">사망 ' + it.deaths + (it.injured ? ' · 부상 ' + it.injured : '') + '</span>';
+    }
+    if(it.injured > 0){ return '<span class="sev injury">부상 ' + it.injured + '</span>'; }
+    return '<span class="sev none">인명피해 없음</span>';
+  }
+
+  function itemHTML(it){
+    var tags = it.types.map(function(t){
+      return '<span class="tag" style="--c:' + TYPES[t].c + '">' + esc(TYPES[t].label) + '</span>';
+    }).join("");
+    var detail = "";
+    if(it.issue){ detail += '<dt>원인·쟁점</dt><dd>' + esc(it.issue) + '</dd>'; }
+    if(it.follow){ detail += '<dt>후속 조치</dt><dd>' + esc(it.follow) + '</dd>'; }
+    var src = it.src.map(function(s){
+      var meta = esc(s[0]) + (s[1] ? ' · <time>' + esc(s[1]) + '</time>' : '');
+      return '<li><a href="' + esc(s[3]) + '" target="_blank" rel="noopener">' + esc(s[2]) + '</a><span class="o">' + meta + '</span></li>';
+    }).join("");
+    return '<article class="inc">' +
+      '<div class="when"><time datetime="' + esc(it.d) + '">' + esc(it.date) + '</time><span class="site">' + esc(it.site) + '</span></div>' +
+      '<div class="body">' +
+        '<h4>' + esc(it.title) + '</h4>' +
+        '<div class="meta">' + sevHTML(it) + tags + (it.flag ? '<span class="flag">' + esc(it.flag) + '</span>' : '') + '</div>' +
+        '<p class="place">' + esc(it.place) + ' · ' + esc(it.who) + '</p>' +
+        '<p class="summary">' + esc(it.summary) + '</p>' +
+        (detail ? '<dl class="detail">' + detail + '</dl>' : '') +
+        '<div class="src"><h5>자료 ' + it.src.length + '건</h5><ul>' + src + '</ul></div>' +
+      '</div></article>';
+  }
+
+  function activeTypes(){
+    return Object.keys(state.types).filter(function(k){ return state.types[k]; });
+  }
+
+  function matches(it){
+    if(state.site !== "all" && it.site !== state.site){ return false; }
+    var act = activeTypes();
+    if(act.length && !it.types.some(function(t){ return act.indexOf(t) !== -1; })){ return false; }
+    if(state.fatal && !(it.deaths > 0)){ return false; }
+    if(state.q){
+      var words = state.q.split(/\s+/).filter(Boolean);
+      for(var i=0;i<words.length;i++){ if(it._hay.indexOf(words[i]) === -1){ return false; } }
+    }
+    return true;
+  }
+
+  function render(){
+    var items = DATA.filter(matches).sort(function(a,b){
+      return state.order === "desc" ? b.d.localeCompare(a.d) : a.d.localeCompare(b.d);
+    });
+    var html = "", curYear = null, group = [];
+    function flush(){
+      if(!group.length){ return; }
+      var deaths = group.reduce(function(s,i){ return s + i.deaths; },0);
+      html += '<h3 class="year">' + curYear + '<small>' + group.length + '건' + (deaths ? ' · 사망 ' + deaths + '명' : ' · 사망 없음') + '</small></h3>' + group.map(itemHTML).join("");
+      group = [];
+    }
+    items.forEach(function(it){
+      var y = it.d.slice(0,4);
+      if(y !== curYear){ flush(); curYear = y; }
+      group.push(it);
+    });
+    flush();
+    listEl.innerHTML = html;
+    emptyEl.hidden = items.length > 0;
+    var td = items.reduce(function(s,i){ return s + i.deaths; },0);
+    countEl.textContent = items.length + '건 표시 · 사망 ' + td + '명';
+  }
+
+  Object.keys(TYPES).forEach(function(k){
+    var n = DATA.filter(function(it){ return it.types.indexOf(k) !== -1; }).length;
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip";
+    b.id = "chip-" + k;
+    b.setAttribute("aria-pressed","false");
+    b.style.setProperty("--c", TYPES[k].c);
+    b.innerHTML = '<span class="dot" aria-hidden="true"></span>' + esc(TYPES[k].label) + '<span class="n">' + n + '</span>';
+    b.addEventListener("click", function(){
+      state.types[k] = !state.types[k];
+      b.setAttribute("aria-pressed", state.types[k] ? "true" : "false");
+      render();
+    });
+    chipsEl.appendChild(b);
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll(".seg button"), function(b){
+    b.addEventListener("click", function(){
+      state.site = b.getAttribute("data-site");
+      Array.prototype.forEach.call(document.querySelectorAll(".seg button"), function(o){
+        o.setAttribute("aria-pressed", o === b ? "true" : "false");
+      });
+      render();
+    });
+  });
+
+  document.getElementById("fatal-only").addEventListener("change", function(e){
+    state.fatal = e.target.checked;
+    render();
+  });
+
+  document.getElementById("q").addEventListener("input", function(e){
+    state.q = e.target.value.trim().toLowerCase();
+    render();
+  });
+
+  sortBtn.addEventListener("click", function(){
+    state.order = state.order === "desc" ? "asc" : "desc";
+    sortBtn.textContent = state.order === "desc" ? "최신순" : "과거순";
+    render();
+  });
+
+  render();
+})();
+</script>

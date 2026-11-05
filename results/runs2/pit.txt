@@ -1,0 +1,11 @@
+| true_share | target | pit_detection_mean | pit_detection_p5 | pit_detection_p95 | pit_critical_detection_mean | pit_scan_points |
+|---|---|---|---|---|---|---|
+| 0.000 | wet_spot | 0.021 | 0.006 | 0.035 | 0.045 | 570.500 |
+| 0.000 | random | 0.017 | 0.007 | 0.026 | 0.032 | 570.500 |
+| 0.300 | wet_spot | 0.030 | 0.006 | 0.045 | 0.065 | 570.500 |
+| 0.300 | random | 0.019 | 0.009 | 0.030 | 0.040 | 570.500 |
+| 0.600 | wet_spot | 0.035 | 0.009 | 0.052 | 0.066 | 570.500 |
+| 0.600 | random | 0.018 | 0.003 | 0.030 | 0.040 | 570.500 |
+| 0.900 | wet_spot | 0.036 | 0.006 | 0.052 | 0.069 | 570.500 |
+| 0.900 | random | 0.020 | 0.014 | 0.030 | 0.047 | 570.500 |
+wrote: /tmp/claude-0/-home-user/72a7cc9d-958e-56f6-8685-798eb6ea44d6/scratchpad/runs2/pit/strategy/pit_prior.csv

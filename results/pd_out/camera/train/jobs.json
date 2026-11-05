@@ -1,0 +1,193 @@
+{
+ "schema_version": 1,
+ "jobs": [
+  {
+   "job_id": "J000000",
+   "segment_id": "S00038",
+   "image_size": 640,
+   "negative": true,
+   "pipe": {
+    "od_mm": 219.1,
+    "material": "carbon_steel",
+    "insulated": true,
+    "width_frac": 0.4591,
+    "tilt_deg": -2.3,
+    "view_center_m": 41.385,
+    "view_clock_deg": 147.3
+   },
+   "defects": [],
+   "condition": "train",
+   "env": {
+    "brightness": 1.05,
+    "dust": 0.011,
+    "steam": 0.377,
+    "blur_sigma": 1.076,
+    "noise_sigma": 0.0132
+   }
+  },
+  {
+   "job_id": "J000001",
+   "segment_id": "S00022",
+   "image_size": 640,
+   "negative": false,
+   "pipe": {
+    "od_mm": 219.1,
+    "material": "carbon_steel",
+    "insulated": true,
+    "width_frac": 0.4561,
+    "tilt_deg": -1.4,
+    "view_center_m": 27.452,
+    "view_clock_deg": 201.1
+   },
+   "defects": [
+    {
+     "defect_id": "D000007",
+     "kind": "cui",
+     "class_id": 2,
+     "area_cm2": 27.55,
+     "u": 0.683,
+     "v": 0.1013,
+     "w": 0.1093,
+     "h": 0.1087
+    }
+   ],
+   "condition": "train",
+   "env": {
+    "brightness": 0.703,
+    "dust": 0.105,
+    "steam": 0.375,
+    "blur_sigma": 0.561,
+    "noise_sigma": 0.0194
+   }
+  },
+  {
+   "job_id": "J000002",
+   "segment_id": "S00037",
+   "image_size": 640,
+   "negative": false,
+   "pipe": {
+    "od_mm": 323.9,
+    "material": "carbon_steel",
+    "insulated": true,
+    "width_frac": 0.6933,
+    "tilt_deg": 13.85,
+    "view_center_m": 49.036,
+    "view_clock_deg": 208.6
+   },
+   "defects": [
+    {
+     "defect_id": "D000012",
+     "kind": "cui",
+     "class_id": 2,
+     "area_cm2": 18.07,
+     "u": 0.3876,
+     "v": -0.0432,
+     "w": 0.091,
+     "h": 0.0909
+    }
+   ],
+   "condition": "train",
+   "env": {
+    "brightness": 0.777,
+    "dust": 0.064,
+    "steam": 0.485,
+    "blur_sigma": 1.032,
+    "noise_sigma": 0.0046
+   }
+  },
+  {
+   "job_id": "J000003",
+   "segment_id": "S00022",
+   "image_size": 640,
+   "negative": false,
+   "pipe": {
+    "od_mm": 219.1,
+    "material": "carbon_steel",
+    "insulated": true,
+    "width_frac": 0.6218,
+    "tilt_deg": 3.39,
+    "view_center_m": 27.614,
+    "view_clock_deg": 179.3
+   },
+   "defects": [
+    {
+     "defect_id": "D000007",
+     "kind": "cui",
+     "class_id": 2,
+     "area_cm2": 27.55,
+     "u": 0.2914,
+     "v": 0.4637,
+     "w": 0.149,
+     "h": 0.132
+    }
+   ],
+   "condition": "train",
+   "env": {
+    "brightness": 1.029,
+    "dust": 0.184,
+    "steam": 0.031,
+    "blur_sigma": 1.283,
+    "noise_sigma": 0.0341
+   }
+  },
+  {
+   "job_id": "J000004",
+   "segment_id": "S00024",
+   "image_size": 640,
+   "negative": true,
+   "pipe": {
+    "od_mm": 219.1,
+    "material": "carbon_steel",
+    "insulated": false,
+    "width_frac": 0.5575,
+    "tilt_deg": -7.2,
+    "view_center_m": 41.994,
+    "view_clock_deg": 183.4
+   },
+   "defects": [],
+   "condition": "train",
+   "env": {
+    "brightness": 1.011,
+    "dust": 0.301,
+    "steam": 0.074,
+    "blur_sigma": 1.639,
+    "noise_sigma": 0.0273
+   }
+  },
+  {
+   "job_id": "J000005",
+   "segment_id": "S00037",
+   "image_size": 640,
+   "negative": false,
+   "pipe": {
+    "od_mm": 323.9,
+    "material": "carbon_steel",
+    "insulated": true,
+    "width_frac": 0.4171,
+    "tilt_deg": 9.07,
+    "view_center_m": 48.863,
+    "view_clock_deg": 181.0
+   },
+   "defects": [
+    {
+     "defect_id": "D000012",
+     "kind": "cui",
+     "class_id": 2,
+     "area_cm2": 18.07,
+     "u": 0.6543,
+     "v": 0.4243,
+     "w": 0.0547,
+     "h": 0.0496
+    }
+   ],
+   "condition": "train",
+   "env": {
+    "brightness": 1.355,
+    "dust": 0.345,
+    "steam": 0.438,
+    "blur_sigma": 0.944,
+    "noise_sigma": 0.011
+   }
+  }
+ ]
+}

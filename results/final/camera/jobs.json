@@ -1,0 +1,321 @@
+{
+ "schema_version": 1,
+ "jobs": [
+  {
+   "job_id": "J000000",
+   "segment_id": "S01102",
+   "image_size": 640,
+   "negative": false,
+   "pipe": {
+    "od_mm": 114.3,
+    "material": "carbon_steel",
+    "insulated": true,
+    "width_frac": 0.6053,
+    "tilt_deg": 1.31,
+    "view_center_m": 41.25,
+    "view_clock_deg": 237.8
+   },
+   "defects": [
+    {
+     "defect_id": "D000450",
+     "kind": "cui",
+     "class_id": 2,
+     "area_cm2": 68.57,
+     "u": 0.2825,
+     "v": -0.3248,
+     "w": 0.4385,
+     "h": 0.4148
+    }
+   ],
+   "condition": "train",
+   "env": {
+    "brightness": 0.503,
+    "dust": 0.343,
+    "steam": 0.017,
+    "blur_sigma": 1.459,
+    "noise_sigma": 0.007
+   }
+  },
+  {
+   "job_id": "J000001",
+   "segment_id": "S01291",
+   "image_size": 640,
+   "negative": false,
+   "pipe": {
+    "od_mm": 60.3,
+    "material": "carbon_steel",
+    "insulated": false,
+    "width_frac": 0.6521,
+    "tilt_deg": 1.24,
+    "view_center_m": 44.946,
+    "view_clock_deg": 274.7
+   },
+   "defects": [
+    {
+     "defect_id": "D000547",
+     "kind": "external_corrosion",
+     "class_id": 1,
+     "area_cm2": 8.97,
+     "u": 0.6001,
+     "v": 0.0809,
+     "w": 0.3239,
+     "h": 0.3228
+    }
+   ],
+   "condition": "train",
+   "env": {
+    "brightness": 0.528,
+    "dust": 0.05,
+    "steam": 0.335,
+    "blur_sigma": 1.294,
+    "noise_sigma": 0.0246
+   }
+  },
+  {
+   "job_id": "J000002",
+   "segment_id": "S01515",
+   "image_size": 640,
+   "negative": true,
+   "pipe": {
+    "od_mm": 323.9,
+    "material": "carbon_steel",
+    "insulated": true,
+    "width_frac": 0.699,
+    "tilt_deg": 14.43,
+    "view_center_m": 34.277,
+    "view_clock_deg": 234.2
+   },
+   "defects": [],
+   "condition": "train",
+   "env": {
+    "brightness": 1.188,
+    "dust": 0.156,
+    "steam": 0.068,
+    "blur_sigma": 1.443,
+    "noise_sigma": 0.021
+   }
+  },
+  {
+   "job_id": "J000003",
+   "segment_id": "S00884",
+   "image_size": 640,
+   "negative": false,
+   "pipe": {
+    "od_mm": 114.3,
+    "material": "carbon_steel",
+    "insulated": false,
+    "width_frac": 0.4586,
+    "tilt_deg": -0.42,
+    "view_center_m": 16.033,
+    "view_clock_deg": 262.2
+   },
+   "defects": [
+    {
+     "defect_id": "D000341",
+     "kind": "external_corrosion",
+     "class_id": 1,
+     "area_cm2": 79.31,
+     "u": 0.3053,
+     "v": -0.439,
+     "w": 0.3573,
+     "h": 0.321
+    }
+   ],
+   "condition": "train",
+   "env": {
+    "brightness": 0.858,
+    "dust": 0.229,
+    "steam": 0.161,
+    "blur_sigma": 1.189,
+    "noise_sigma": 0.0135
+   }
+  },
+  {
+   "job_id": "J000004",
+   "segment_id": "S01510",
+   "image_size": 640,
+   "negative": true,
+   "pipe": {
+    "od_mm": 323.9,
+    "material": "carbon_steel",
+    "insulated": true,
+    "width_frac": 0.6616,
+    "tilt_deg": -8.19,
+    "view_center_m": 31.159,
+    "view_clock_deg": 30.2
+   },
+   "defects": [],
+   "condition": "train",
+   "env": {
+    "brightness": 1.333,
+    "dust": 0.315,
+    "steam": 0.12,
+    "blur_sigma": 1.753,
+    "noise_sigma": 0.0023
+   }
+  },
+  {
+   "job_id": "J000005",
+   "segment_id": "S00904",
+   "image_size": 640,
+   "negative": false,
+   "pipe": {
+    "od_mm": 114.3,
+    "material": "carbon_steel",
+    "insulated": true,
+    "width_frac": 0.4676,
+    "tilt_deg": -10.49,
+    "view_center_m": 28.488,
+    "view_clock_deg": 147.3
+   },
+   "defects": [
+    {
+     "defect_id": "D000351",
+     "kind": "cui",
+     "class_id": 2,
+     "area_cm2": 39.06,
+     "u": 0.5248,
+     "v": -0.3054,
+     "w": 0.2557,
+     "h": 0.2435
+    }
+   ],
+   "condition": "train",
+   "env": {
+    "brightness": 0.731,
+    "dust": 0.021,
+    "steam": 0.202,
+    "blur_sigma": 0.397,
+    "noise_sigma": 0.0036
+   }
+  },
+  {
+   "job_id": "J000006",
+   "segment_id": "S01231",
+   "image_size": 640,
+   "negative": true,
+   "pipe": {
+    "od_mm": 219.1,
+    "material": "carbon_steel",
+    "insulated": false,
+    "width_frac": 0.4545,
+    "tilt_deg": 5.16,
+    "view_center_m": 9.976,
+    "view_clock_deg": 339.2
+   },
+   "defects": [],
+   "condition": "train",
+   "env": {
+    "brightness": 0.865,
+    "dust": 0.042,
+    "steam": 0.315,
+    "blur_sigma": 1.854,
+    "noise_sigma": 0.0176
+   }
+  },
+  {
+   "job_id": "J000007",
+   "segment_id": "S01148",
+   "image_size": 640,
+   "negative": true,
+   "pipe": {
+    "od_mm": 60.3,
+    "material": "carbon_steel",
+    "insulated": false,
+    "width_frac": 0.6841,
+    "tilt_deg": -0.0,
+    "view_center_m": 21.261,
+    "view_clock_deg": 223.3
+   },
+   "defects": [],
+   "condition": "train",
+   "env": {
+    "brightness": 1.495,
+    "dust": 0.38,
+    "steam": 0.23,
+    "blur_sigma": 1.515,
+    "noise_sigma": 0.0199
+   }
+  },
+  {
+   "job_id": "J000008",
+   "segment_id": "S00945",
+   "image_size": 640,
+   "negative": false,
+   "pipe": {
+    "od_mm": 219.1,
+    "material": "carbon_steel",
+    "insulated": true,
+    "width_frac": 0.625,
+    "tilt_deg": -2.56,
+    "view_center_m": 35.899,
+    "view_clock_deg": 140.2
+   },
+   "defects": [
+    {
+     "defect_id": "D000375",
+     "kind": "cui",
+     "class_id": 2,
+     "area_cm2": 23.11,
+     "u": 0.1916,
+     "v": 0.6578,
+     "w": 0.1371,
+     "h": 0.1033
+    },
+    {
+     "defect_id": "D000377",
+     "kind": "cui",
+     "class_id": 2,
+     "area_cm2": 84.25,
+     "u": 0.3828,
+     "v": -0.2193,
+     "w": 0.2618,
+     "h": 0.2555
+    }
+   ],
+   "condition": "train",
+   "env": {
+    "brightness": 1.432,
+    "dust": 0.046,
+    "steam": 0.365,
+    "blur_sigma": 1.855,
+    "noise_sigma": 0.0387
+   }
+  },
+  {
+   "job_id": "J000009",
+   "segment_id": "S01790",
+   "image_size": 640,
+   "negative": false,
+   "pipe": {
+    "od_mm": 60.3,
+    "material": "carbon_steel",
+    "insulated": true,
+    "width_frac": 0.6523,
+    "tilt_deg": 14.44,
+    "view_center_m": 32.718,
+    "view_clock_deg": 152.3
+   },
+   "defects": [
+    {
+     "defect_id": "D000782",
+     "kind": "cui",
+     "class_id": 2,
+     "area_cm2": 18.29,
+     "u": 0.2714,
+     "v": 0.3596,
+     "w": 0.4626,
+     "h": 0.4317
+    }
+   ],
+   "condition": "train",
+   "env": {
+    "brightness": 1.473,
+    "dust": 0.356,
+    "steam": 0.411,
+    "blur_sigma": 0.96,
+    "noise_sigma": 0.0093
+   }
+  }
+ ]
+}

@@ -1,0 +1,9 @@
+true_share,target,pit_detection_mean,pit_detection_p5,pit_detection_p95,pit_critical_detection_mean,pit_scan_points
+0.0,wet_spot,0.0,0.0,0.0,,10.0
+0.0,random,0.0,0.0,0.0,,10.0
+0.3,wet_spot,0.0,0.0,0.0,,10.0
+0.3,random,0.0,0.0,0.0,,10.0
+0.6,wet_spot,0.0,0.0,0.0,,10.0
+0.6,random,0.0,0.0,0.0,,10.0
+0.9,wet_spot,0.0,0.0,0.0,,10.0
+0.9,random,0.0,0.0,0.0,,10.0

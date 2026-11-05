@@ -1,0 +1,39 @@
+{
+  "network": {
+    "segments": 2000,
+    "features": 25018,
+    "defects": 885,
+    "critical": 200
+  },
+  "ut_train": {
+    "n": 10000,
+    "seed": 1,
+    "baseline": {
+      "thickness_mae_mm": 0.13712731018215774,
+      "min_thickness_mae_mm": 0.07592417059561825,
+      "crack_detection_rate": 0.9996655518394649,
+      "false_alarm_rate": 0.0
+    }
+  },
+  "ut_shifted": {
+    "n": 3000,
+    "seed": 101,
+    "baseline": {
+      "thickness_mae_mm": 1.0312886503619776,
+      "min_thickness_mae_mm": 0.6043385540799772,
+      "crack_detection_rate": 0.8974069898534386,
+      "false_alarm_rate": 0.000946521533364884
+    }
+  },
+  "camera_train": {
+    "n": 2000,
+    "seed": 1,
+    "negatives": 800
+  },
+  "camera_shifted": {
+    "n": 400,
+    "seed": 101,
+    "negatives": 160
+  },
+  "elapsed_s": 227.3
+}

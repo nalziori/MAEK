@@ -1,0 +1,3 @@
+condition,n,n_crack,n_pit,n_avg,pit_method,crack_detection_rate,crack_false_alarm_rate,thickness_mae_mm,thickness_within_t1,thickness_within_t2,pit_detection_rate,pit_false_alarm_rate,pit_depth_mae_mm
+train,120,35,33,16,mf_cfar,1.0,0.0,0.0022308235212543546,1.0,1.0,1.0,0.011494252873563218,0.01700308302156144
+shifted,120,35,33,16,mf_cfar,1.0,0.0,0.013724030898972672,1.0,1.0,0.8181818181818182,0.011494252873563218,0.03360515566881868

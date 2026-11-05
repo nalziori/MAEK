@@ -1,0 +1,7 @@
+function,condition,size_unit,n,hit_rate,min_size,max_size,status,b0,b1,a90,a90_lo,a90_95
+corrosion,train,cm2,2,1.0,34.25,108.45,too_few,,,,,
+crack,train,mm,35,1.0,0.48279482603520935,7.141458780217867,all_hit,,,,,
+thickness_pit,train,mm,33,1.0,0.5888507603492873,6.501129703259319,all_hit,,,,,
+corrosion,shifted,cm2,2,0.0,34.25,108.45,too_few,,,,,
+crack,shifted,mm,35,1.0,0.48279482603520935,7.141458780217867,all_hit,,,,,
+thickness_pit,shifted,mm,33,0.8181818181818182,0.5888507603492873,6.501129703259319,no_trend,,,,,

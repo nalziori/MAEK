@@ -1,0 +1,3 @@
+condition,n_images,n_positive,pixel_iou,detection_rate,false_alarm_rate
+train,6,2,0.8043682669317358,1.0,0.0
+shifted,6,2,0.10116250973232743,1.0,0.0

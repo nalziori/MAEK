@@ -1,0 +1,7 @@
+path: .
+train: train.txt
+val: val.txt
+names:
+  0: corrosion
+  1: cui_sign
+  2: leak_stain

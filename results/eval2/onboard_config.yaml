@@ -1,0 +1,973 @@
+network:
+  total_km:
+    value: 100
+    unit: km
+    assumption: true
+    note: 가상 제철소 배관망 총 길이
+  segment_m:
+    value: 50
+    unit: m
+    assumption: true
+    note: 세그먼트 길이
+  media_mix:
+    cooling_water:
+      value: 0.25
+      assumption: true
+      note: 냉각수 비율
+    steam:
+      value: 0.2
+      assumption: true
+      note: 증기
+    byproduct_gas_co:
+      value: 0.15
+      assumption: true
+      note: 부생가스(CO)
+    oxygen:
+      value: 0.08
+      assumption: true
+      note: 산소
+    nitrogen:
+      value: 0.1
+      assumption: true
+      note: 질소
+    pickling_acid_hf:
+      value: 0.07
+      assumption: true
+      note: 산세액(불산)
+    compressed_air:
+      value: 0.15
+      assumption: true
+      note: 압축공기
+  install_year_min:
+    value: 1975
+    unit: year
+    assumption: true
+  install_year_max:
+    value: 2020
+    unit: year
+    assumption: true
+  insulated_fraction:
+    value: 0.45
+    assumption: true
+    note: 보온 배관 비율
+  elevated_fraction:
+    value: 0.6
+    assumption: true
+    note: 가공(파이프랙) 배관 비율
+  reference_year:
+    value: 2026
+    unit: year
+    assumption: true
+    note: 경년 계산 기준 연도
+  insulated_prob_steam:
+    value: 0.95
+    assumption: true
+    note: 증기 배관 보온 확률(그 외 매질은 insulated_fraction
+    PVC는 보온 없음): null
+  t_min_frac:
+    value: 0.5
+    assumption: true
+    note: 최소 허용 두께 = 공칭 두께 × 비율 (B31.3 계산 대신 단순화)
+  traffic_levels:
+    value:
+    - 0
+    - 1
+    - 2
+    assumption: true
+    note: 주변 통행량 등급 0~2 (균등 선택)
+  nps_weights:
+    nps_2:
+      value: 0.3
+      assumption: true
+    nps_4:
+      value: 0.3
+      assumption: true
+    nps_8:
+      value: 0.25
+      assumption: true
+    nps_12:
+      value: 0.15
+      assumption: true
+  material:
+    acid_pvc:
+      value: 0.6
+      assumption: true
+      note: 산세액 배관 PVC 비율(나머지 스테인리스)
+    oxygen_stainless:
+      value: 0.3
+      assumption: true
+      note: 산소 배관 스테인리스 비율
+    other_stainless:
+      value: 0.05
+      assumption: true
+      note: 그 외 매질 스테인리스 비율(나머지 탄소강)
+  area_by_medium:
+    cooling_water:
+      value:
+      - 제선
+      - 제강
+      - 압연
+      - 발전
+      assumption: true
+    steam:
+      value:
+      - 발전
+      - 압연
+      - 제강
+      assumption: true
+    byproduct_gas_co:
+      value:
+      - 제선
+      - 제강
+      - 발전
+      assumption: true
+    oxygen:
+      value:
+      - 산소공장
+      - 제강
+      - 제선
+      assumption: true
+    nitrogen:
+      value:
+      - 산소공장
+      - 제강
+      - 압연
+      assumption: true
+    pickling_acid_hf:
+      value:
+      - 산세
+      assumption: true
+    compressed_air:
+      value:
+      - 제선
+      - 제강
+      - 압연
+      - 산세
+      assumption: true
+  temp_c_by_medium:
+    cooling_water:
+      value:
+      - 25
+      - 60
+      unit: C
+      assumption: true
+    steam:
+      value:
+      - 100
+      - 220
+      unit: C
+      assumption: true
+    byproduct_gas_co:
+      value:
+      - 30
+      - 90
+      unit: C
+      assumption: true
+    oxygen:
+      value:
+      - -10
+      - 40
+      unit: C
+      assumption: true
+    nitrogen:
+      value:
+      - -10
+      - 40
+      unit: C
+      assumption: true
+    pickling_acid_hf:
+      value:
+      - 40
+      - 85
+      unit: C
+      assumption: true
+    compressed_air:
+      value:
+      - 20
+      - 60
+      unit: C
+      assumption: true
+  features_per_km:
+    weld:
+      value: 85
+      unit: 1/km
+      assumption: true
+      note: 약 12m 스풀마다 원주 용접
+    support:
+      value: 125
+      unit: 1/km
+      assumption: true
+      note: 약 8m 간격 지지대
+    elbow:
+      value: 15
+      unit: 1/km
+      assumption: true
+    tee:
+      value: 6
+      unit: 1/km
+      assumption: true
+    flange:
+      value: 10
+      unit: 1/km
+      assumption: true
+    valve_downstream:
+      value: 4
+      unit: 1/km
+      assumption: true
+    orifice_downstream:
+      value: 1
+      unit: 1/km
+      assumption: true
+    nozzle:
+      value: 3
+      unit: 1/km
+      assumption: true
+    dead_leg:
+      value: 0.5
+      unit: 1/km
+      assumption: true
+  pipe_sizes:
+    nps_2:
+      od_mm:
+        value: 60.3
+        unit: mm
+        source: https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html
+        note: ASME B36.10, NPS 2 외경
+      wall_mm:
+        value: 3.91
+        unit: mm
+        source: https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html
+        note: ASME B36.10 SCH 40
+    nps_4:
+      od_mm:
+        value: 114.3
+        unit: mm
+        source: https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html
+        note: ASME B36.10, NPS 4 외경
+      wall_mm:
+        value: 6.02
+        unit: mm
+        source: https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html
+        note: ASME B36.10 SCH 40
+    nps_8:
+      od_mm:
+        value: 219.1
+        unit: mm
+        source: https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html
+        note: ASME B36.10, NPS 8 외경
+      wall_mm:
+        value: 8.18
+        unit: mm
+        source: https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html
+        note: ASME B36.10 SCH 40
+    nps_12:
+      od_mm:
+        value: 323.9
+        unit: mm
+        source: https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html
+        note: ASME B36.10, NPS 12 외경
+      wall_mm:
+        value: 10.31
+        unit: mm
+        source: https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html
+        note: ASME B36.10 SCH 40 (표준 STD 9.53 mm 아님)
+defects:
+  age_ref_years:
+    value: 30
+    unit: year
+    assumption: true
+    note: 경년 배율 = (경년/기준)^지수
+  age_exponent:
+    value: 1.0
+    assumption: true
+  exposure_frac_range:
+    value:
+    - 0.1
+    - 0.6
+    assumption: true
+    note: 감육 진행 기간 = 경년 × U(범위) (부식 개시 지연 반영)
+  consequence_gain:
+    value: 0.5
+    assumption: true
+    note: 결함 확률 배율 = 1 + gain × (피해등급-1)/4
+  external_corrosion:
+    rate_per_km:
+      value: 6
+      unit: 1/km
+      assumption: true
+      note: 비보온 탄소강
+      기준 경년에서 기대 개수: null
+  internal_pitting:
+    rate_per_km:
+      value: 2
+      unit: 1/km
+      assumption: true
+      note: 습식 매질 금속 배관
+    media:
+      value:
+      - cooling_water
+      - steam
+      - byproduct_gas_co
+      - pickling_acid_hf
+      assumption: true
+  flange_leak:
+    p_per_flange:
+      value: 0.03
+      assumption: true
+      note: 기준 경년에서 플랜지당 누설 확률
+  cui:
+    temp_min_c:
+      value: -12
+      unit: C
+      source: https://www.fabrico.io/blog/corrosion-under-insulation/
+      note: CUI 발생 온도 하한
+    temp_max_c:
+      value: 175
+      unit: C
+      source: https://www.fabrico.io/blog/corrosion-under-insulation/
+      note: CUI 발생 온도 상한
+    peak_min_c:
+      value: 60
+      unit: C
+      source: https://www.fabrico.io/blog/corrosion-under-insulation/
+      note: 피크 구간 하한
+    peak_max_c:
+      value: 120
+      unit: C
+      source: https://www.fabrico.io/blog/corrosion-under-insulation/
+      note: 피크 구간 상한
+    location_weight:
+      support:
+        value: 0.35
+        source: https://inspectioneering.com/blog/2014-12-08/4286/what-is-corrosion-under-insulation-cui
+        note: 지지대; 가중치 수치는 정성 서술 기반 정규화
+      nozzle:
+        value: 0.25
+        source: https://inspectioneering.com/blog/2014-12-08/4286/what-is-corrosion-under-insulation-cui
+        note: 노즐
+      dead_leg:
+        value: 0.25
+        source: https://inspectioneering.com/blog/2014-12-08/4286/what-is-corrosion-under-insulation-cui
+        note: 데드레그
+      straight:
+        value: 0.15
+        assumption: true
+        note: 직관부 기본 확률
+    rate_per_km:
+      value: 4
+      unit: 1/km
+      assumption: true
+      note: 보온 탄소강
+      CUI 온도대: null
+      기준 경년: null
+    peak_factor:
+      value: 2.0
+      assumption: true
+      note: 60~120C 피크 구간 발생 배율
+    external_sign_prob:
+      value: 0.4
+      assumption: true
+      note: 보온 외장에 얼룩/변형 징후가 보일 확률
+  fac:
+    location_weight:
+      elbow:
+        value: 0.4
+        source: https://www.intechopen.com/chapters/39784
+        note: 엘보 하류
+      tee:
+        value: 0.25
+        source: https://www.intechopen.com/chapters/39784
+        note: 티 하류
+      orifice:
+        value: 0.2
+        source: https://www.intechopen.com/chapters/39784
+        note: 오리피스 하류
+      valve:
+        value: 0.15
+        source: https://www.intechopen.com/chapters/39784
+        note: 밸브 하류
+      straight:
+        value: 0.05
+        assumption: true
+        note: 직관부(정규화 전)
+    rate_per_km:
+      value: 3
+      unit: 1/km
+      assumption: true
+      note: 수/증기 탄소강
+      기준 경년: null
+    media:
+      value:
+      - cooling_water
+      - steam
+      assumption: true
+    rate_factor:
+      value: 2.0
+      assumption: true
+      note: 감육 속도 배율(부식속도 분포 대비)
+  corrosion_rate:
+    mean_mm_per_year:
+      value: 0.15
+      unit: mm/yr
+      assumption: true
+      note: 로그정규 평균
+    sigma_log:
+      value: 0.6
+      assumption: true
+      note: 로그정규 시그마
+    max_mm_per_year:
+      value: 1.5
+      unit: mm/yr
+      assumption: true
+  crack:
+    length_mean_mm:
+      value: 8.0
+      unit: mm
+      assumption: true
+    length_sigma_log:
+      value: 0.5
+      assumption: true
+    depth_frac_mean:
+      value: 0.25
+      assumption: true
+      note: 두께 대비 깊이 비율 평균
+    depth_frac_max:
+      value: 0.8
+      assumption: true
+    rate_per_km:
+      value: 1
+      unit: 1/km
+      assumption: true
+      note: 금속 배관
+      기준 경년: null
+    critical_height_frac:
+      value: 0.4
+      assumption: true
+      note: 두께 대비 균열 높이가 이 값 초과면 critical
+    growth_mm_per_year:
+      value: 0.05
+      unit: mm/yr
+      assumption: true
+    location_weight:
+      weld:
+        value: 0.6
+        assumption: true
+      elbow:
+        value: 0.3
+        assumption: true
+      straight:
+        value: 0.1
+        assumption: true
+risk:
+  consequence:
+    oxygen:
+      value: 5
+      assumption: true
+      note: 피해등급 1~5
+      화재·폭발: null
+    pickling_acid_hf:
+      value: 5
+      assumption: true
+      note: 불산 독성
+    byproduct_gas_co:
+      value: 5
+      assumption: true
+      note: CO 중독·폭발
+    steam:
+      value: 3
+      assumption: true
+      note: 화상
+    nitrogen:
+      value: 2
+      assumption: true
+      note: 질식
+    compressed_air:
+      value: 1
+      assumption: true
+    cooling_water:
+      value: 1
+      assumption: true
+ut:
+  v_long:
+    value: 5920
+    unit: m/s
+    source: https://materialwelding.com/ultrasonic-velocity-chart/
+    note: 강 종파 속도
+  v_shear:
+    value: 3240
+    unit: m/s
+    source: https://materialwelding.com/ultrasonic-velocity-chart/
+    note: 강 횡파 속도
+  temp_coeff_mps_per_c:
+    value: -0.7
+    unit: m/s/C
+    source: https://tractian.com/en/glossary/speed-of-sound
+    note: 온도 계수(약)
+  probe_freq_mhz:
+    value: 5
+    unit: MHz
+    assumption: true
+  sampling_mhz:
+    value: 100
+    unit: MHz
+    assumption: true
+  angle_beam_angles_deg:
+    value:
+    - 45
+    - 60
+    - 70
+    unit: deg
+    assumption: true
+  noise_std:
+    value: 0.02
+    assumption: true
+    note: 가우시안 노이즈 표준편차(정규화 진폭)
+  grain_noise_std:
+    value: 0.01
+    assumption: true
+    note: 결정립 산란 노이즈
+  n_samples:
+    value: 4096
+    assumption: true
+    note: A-scan 샘플 수 (100 MHz에서 40.96 us)
+  interface_delay_us:
+    value: 1.0
+    unit: us
+    assumption: true
+    note: 탐촉자 지연재/계면 에코 시각
+  pulse_sigma_us:
+    value: 0.08
+    unit: us
+    assumption: true
+    note: 가우시안 포락선 표준편차(광대역 탐촉자)
+  interface_amp:
+    value: 1.5
+    assumption: true
+    note: 계면(초기) 에코 진폭
+  backwall_amp:
+    value: 1.0
+    assumption: true
+    note: 첫 저면 에코 진폭(정규화)
+  backwall_decay:
+    value: 0.6
+    assumption: true
+    note: 왕복당 저면 다중 에코 감쇠비
+  atten_db_per_mm:
+    value: 0.02
+    unit: dB/mm
+    assumption: true
+    note: 5 MHz 강 감쇠(경로 길이 기준)
+  temp_coeff_shear_mps_per_c:
+    value: -0.5
+    unit: m/s/C
+    assumption: true
+    note: 횡파 온도 계수
+  crack_amp_max:
+    value: 1.0
+    assumption: true
+    note: 코너 트랩 에코 포화 진폭
+  crack_h0_mm:
+    value: 1.0
+    unit: mm
+    assumption: true
+    note: '진폭 포화 상수: A = A_max(1-exp(-h/h0))'
+  crack_threshold:
+    value: 0.15
+    assumption: true
+    note: 게이트 내 포락선 검출 임계값
+  crack_snr:
+    value: 5.0
+    assumption: true
+    note: 게이트 밖 잡음 RMS 대비 검출 배수
+  clutter_amp:
+    value: 0.05
+    assumption: true
+    note: 형상 클러터 최대 진폭
+  gate_halfwidth_us:
+    value: 0.5
+    unit: us
+    assumption: true
+    note: 코너 트랩 게이트 반폭(+경로시간 3%)
+  temp_compensation:
+    value: measured
+    assumption: true
+    note: '음속 온도 보정 입력: measured=측정 온도(진짜+오차), none=20 C 가정(보정 없음)'
+  max_inspection_interval_yr:
+    value: 10
+    unit: yr
+    assumption: true
+    note: API 570 Class 2 두께측정 최대 주기 10년을 상한으로 가정
+  dataset:
+    wall_range_mm:
+      value:
+      - 3.0
+      - 12.0
+      unit: mm
+      assumption: true
+      note: 일반 배관 두께 범위
+    pit_prob:
+      value: 0.3
+      assumption: true
+    pit_depth_frac_range:
+      value:
+      - 0.1
+      - 0.6
+      assumption: true
+      note: 두께 대비 피트 깊이
+    pit_fraction_range:
+      value:
+      - 0.1
+      - 0.5
+      assumption: true
+      note: 빔 내 피트 면적 비율
+    crack_prob:
+      value: 0.3
+      assumption: true
+    crack_height_frac_range:
+      value:
+      - 0.05
+      - 0.8
+      assumption: true
+      note: 두께 대비 균열 높이
+    train_temp_range_c:
+      value:
+      - 10
+      - 60
+      unit: C
+      assumption: true
+    train_coupling_range:
+      value:
+      - 0.8
+      - 1.0
+      assumption: true
+    shifted_temp_range_c:
+      value:
+      - 100
+      - 175
+      unit: C
+      assumption: true
+      note: 고온 배관(보정 미흡 상황 포함)
+    shifted_coupling_range:
+      value:
+      - 0.3
+      - 0.7
+      assumption: true
+      note: 불량 접촉
+    shifted_noise_scale:
+      value: 3.0
+      assumption: true
+      note: 노이즈 배율
+    train_temp_meas_error_c:
+      value: 2.0
+      unit: C
+      assumption: true
+      note: 해석에 쓰는 측정 온도의 표준편차(진짜 온도 + 오차)
+    shifted_temp_meas_error_c:
+      value: 15.0
+      unit: C
+      assumption: true
+      note: 고온 배관 표면 온도 측정 오차(비접촉/단열 영향)
+camera:
+  image_size:
+    value: 640
+    unit: px
+    assumption: true
+  brightness_range:
+    value:
+    - 0.5
+    - 1.5
+    assumption: true
+    note: 조명 배율
+  dust_opacity_range:
+    value:
+    - 0.0
+    - 0.4
+    assumption: true
+    note: 분진
+  steam_opacity_range:
+    value:
+    - 0.0
+    - 0.5
+    assumption: true
+    note: 증기
+  negative_frac:
+    value: 0.4
+    assumption: true
+    note: 결함 없는 음성 이미지 비율
+  pipe_width_frac_range:
+    value:
+    - 0.35
+    - 0.7
+    assumption: true
+    note: 이미지 높이 대비 배관 외경 폭
+  tilt_deg_range:
+    value:
+    - -15
+    - 15
+    unit: deg
+    assumption: true
+    note: 배관 기울기(시점)
+  blur_sigma_range:
+    value:
+    - 0.0
+    - 2.0
+    unit: px
+    assumption: true
+    note: 초점/모션 블러
+  noise_sigma_range:
+    value:
+    - 0.0
+    - 0.04
+    assumption: true
+    note: 센서 노이즈(0-1 스케일)
+  view_window_pad:
+    value: 1.0
+    assumption: true
+    note: 시야 안 결함 포함 여지(이미지 폭 배수)
+  shifted_brightness_range:
+    value:
+    - 0.25
+    - 0.6
+    assumption: true
+    note: '분포 이동(shifted): 어두운 조명(역광/야간)'
+  shifted_dust_opacity_range:
+    value:
+    - 0.3
+    - 0.7
+    assumption: true
+    note: shifted 분진
+  shifted_steam_opacity_range:
+    value:
+    - 0.3
+    - 0.8
+    assumption: true
+    note: shifted 증기
+  shifted_blur_sigma_range:
+    value:
+    - 1.5
+    - 3.5
+    unit: px
+    assumption: true
+    note: shifted 블러(드론 진동)
+  shifted_noise_sigma_range:
+    value:
+    - 0.03
+    - 0.08
+    assumption: true
+    note: shifted 센서 노이즈
+  min_defect_px:
+    value: 6
+    unit: px
+    assumption: true
+    note: 렌더 결함 최소 크기
+strategy:
+  cost_ut_point_krw:
+    value: 150000
+    unit: KRW
+    assumption: true
+    note: UT 1점 측정
+  cost_scaffold_krw:
+    value: 2000000
+    unit: KRW
+    assumption: true
+    note: 비계 설치
+  cost_drone_per_km_krw:
+    value: 500000
+    unit: KRW/km
+    assumption: true
+    note: 드론 촬영
+  cost_labor_hour_krw:
+    value: 50000
+    unit: KRW/h
+    assumption: true
+  cost_drone_contact_ut_extra_krw:
+    value: 100000
+    unit: KRW
+    assumption: true
+    note: 가공 배관 드론 접촉 UT 1점 추가 비용(비계 대체)
+  elevated_ut_mode:
+    value: drone
+    assumption: true
+    note: 'AI 전략의 가공 배관 UT 방식: drone(드론 접촉 UT, 비계 없음) 또는 scaffold'
+  cml_per_segment:
+    value: 2
+    assumption: true
+    note: 기준 전략 세그먼트당 고정 두께측정점(CML) 수
+    세그먼트 길이 균등 분할 중앙: null
+  probe_footprint_m:
+    value: 0.3
+    unit: m
+    assumption: true
+    note: 고정 UT점이 결함을 측정할 수 있는 축방향 반경
+  walk_km_per_h:
+    value: 1.0
+    unit: km/h
+    assumption: true
+    note: 작업자 육안 순찰 속도
+  drone_km_per_h:
+    value: 5.0
+    unit: km/h
+    assumption: true
+    note: 드론/로봇 촬영 속도
+  ut_hours_per_point:
+    value: 0.5
+    unit: h
+    assumption: true
+    note: UT 1점 작업 시간
+  scaffold_hours:
+    value: 8
+    unit: h
+    assumption: true
+    note: 비계 설치·해체 작업 시간
+  camera_false_flag_prob:
+    value: 0.03
+    assumption: true
+    note: 결함 없는 세그먼트를 카메라가 오검출하여 UT 확인하는 확률
+  high_consequence_min:
+    value: 4
+    assumption: true
+    note: 고피해 등급 기준(이상)
+  risk_ut_consequence_min:
+    value: 4
+    assumption: true
+    note: AI 전략이 위험 형상 UT를 수행하는 최소 피해등급
+  weld_sample_frac:
+    value: 0.05
+    assumption: true
+    note: AI 전략의 용접부 균열 UT 샘플 비율
+  crack_ut_mode:
+    value: risk_ranked
+    assumption: true
+    note: 'AI 전략 균열 사각 UT 표본: risk_ranked(경년x피해등급x형상 순위 상위) 또는 random(용접부 무작위 + 고피해
+      엘보)'
+  crack_ut_budget_frac:
+    value: 0.3
+    assumption: true
+    note: risk_ranked 모드의 균열 UT 점 수 = 이 비율 x 기준 전략 고정 UT 점 수
+  support_sample_frac:
+    value: 0.05
+    assumption: true
+    note: AI 전략의 지지대 CUI UT 샘플 비율
+  human_elevated_factor:
+    value: 0.4
+    assumption: true
+    note: 가공 배관에서 육안 검출 확률 배율
+  pod:
+    human:
+      b0:
+        value: -2.0
+        assumption: true
+        note: 육안 POD 로지스틱 절편, a=면적 cm2
+      b1:
+        value: 1.2
+        assumption: true
+    camera:
+      b0:
+        value: -1.0
+        assumption: true
+        note: 카메라 POD 절편, a=면적 cm2 (외부 가시 결함/CUI 징후)
+      b1:
+        value: 1.2
+        assumption: true
+    ut_straight:
+      b0:
+        value: 0.5
+        assumption: true
+        note: 직진 UT POD 절편, a=감육 깊이 mm
+      b1:
+        value: 2.5
+        assumption: true
+    ut_angle:
+      b0:
+        value: 0.0
+        assumption: true
+        note: 사각 UT POD 절편, a=균열 깊이 mm
+      b1:
+        value: 2.5
+        assumption: true
+onboard:
+  target_fps:
+    value: 5
+    unit: fps
+    assumption: true
+  memory_limit_gb:
+    value: 2
+    unit: GB
+    assumption: true
+  bench_image_sizes:
+    value:
+    - 640
+    - 320
+    unit: px
+    assumption: true
+    note: 온보드 지연 측정 입력 해상도
+  bench_threads:
+    value:
+    - 1
+    - 2
+    - 3
+    - 4
+    assumption: true
+    note: '소형 보드 근사: 사용 코어/스레드 수(OMP_NUM_THREADS + CPU affinity)'
+  bench_n_images:
+    value: 12
+    assumption: true
+    note: 해상도별 측정 이미지 수
+  bench_n_ut:
+    value: 60
+    assumption: true
+    note: 측정 A-scan 수(균열/두께 각각)
+eval:
+  n_camera:
+    value: 300
+    assumption: true
+    note: 조건(train/shifted)별 평가 이미지 수
+  n_ut:
+    value: 3000
+    assumption: true
+    note: 조건별 UT 샘플 수
+  camera_image_size:
+    value: 640
+    unit: px
+    assumption: true
+    note: 평가 렌더 해상도
+  seg_hue_range_deg:
+    value:
+    - 5
+    - 40
+    unit: deg
+    assumption: true
+    note: 녹(주황-갈색) 색상 범위
+  seg_sat_min:
+    value: 0.35
+    assumption: true
+    note: 녹 판정 최소 채도
+  seg_val_min:
+    value: 0.12
+    assumption: true
+    note: 녹 판정 최소 명도
+  seg_min_pred_px:
+    value: 30
+    unit: px
+    assumption: true
+    note: 이미지 단위 검출 판정 최소 예측 픽셀 수
+  seg_hit_recall:
+    value: 0.3
+    assumption: true
+    note: 결함 단위 hit 판정 최소 재현율(결함 영역 내 예측 비율)
+  thickness_tol_mm:
+    value:
+    - 0.1
+    - 0.5
+    unit: mm
+    assumption: true
+    note: 두께 오차 허용 구간
+  pit_margin_mm:
+    value: 0.3
+    unit: mm
+    assumption: true
+    note: 최소 두께 추정이 공칭 두께보다 이만큼 얇으면 피트 검출
+  pod_bootstrap:
+    value: 300
+    assumption: true
+    note: a90 부트스트랩 반복 수

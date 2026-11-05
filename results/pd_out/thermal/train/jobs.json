@@ -1,0 +1,241 @@
+[
+ {
+  "job_id": "ir00000",
+  "segment_id": "IRS00000",
+  "condition": "train",
+  "image_w": 320,
+  "image_h": 256,
+  "negative": false,
+  "seg": {
+   "medium": "steam",
+   "material": "carbon_steel",
+   "temp_c": 185.77877473135095,
+   "od_mm": 60.3,
+   "insulated": true,
+   "insulation_mm": 49.17913238977723,
+   "jacket": "aluminium",
+   "pressure_barg": 10.368128210621775,
+   "traced": false
+  },
+  "scene": {
+   "ambient_c": 19.334777725294824,
+   "sky_offset_k": -3.0637951692363297,
+   "wind_mps": 2.8897411370202626,
+   "sun_k": 0.0,
+   "eps_jacket": 0.2832500000809985,
+   "eps_set": 0.17246233648472067,
+   "hw_px": 26.211110887539572,
+   "tilt_deg": -5.631203443810897,
+   "cy_px": 141.18667227542971,
+   "blur_sigma": 0.9479681955008057,
+   "bare_eps": 0.6486700155935241
+  },
+  "hard": [
+   "seam"
+  ],
+  "distractors": [
+   {
+    "type": "seam",
+    "period": 63.3672663262216,
+    "phase": 135.41390456066244,
+    "width": 2.1287951059898274,
+    "d_eps": 0.12462170859747547
+   }
+  ],
+  "defects": [
+   {
+    "kind": "wet_insulation",
+    "class_id": 1,
+    "u": -99.23225216205412,
+    "a_px": 14.045631274749159,
+    "v": 7.6138121980015265,
+    "b_px": 10.774832679734086,
+    "moisture": 0.6729426718510092,
+    "soft": 0.35,
+    "length_mm": 0.0,
+    "circ_frac": 0.0,
+    "orifice_mm": 0.0,
+    "clock_deg": 180.0,
+    "true_dt_k": 22.173545528201366
+   }
+  ]
+ },
+ {
+  "job_id": "ir00001",
+  "segment_id": "IRS00001",
+  "condition": "train",
+  "image_w": 320,
+  "image_h": 256,
+  "negative": false,
+  "seg": {
+   "medium": "traced",
+   "material": "carbon_steel",
+   "temp_c": 52.455152223807346,
+   "od_mm": 60.3,
+   "insulated": true,
+   "insulation_mm": 67.53521155498042,
+   "jacket": "aluminium",
+   "pressure_barg": 0.0,
+   "traced": true
+  },
+  "scene": {
+   "ambient_c": 29.03163452959111,
+   "sky_offset_k": -2.0032056140281096,
+   "wind_mps": 0.20646031466973358,
+   "sun_k": 0.0,
+   "eps_jacket": 0.05777896767109582,
+   "eps_set": 0.17668888868867175,
+   "hw_px": 29.630166381480468,
+   "tilt_deg": -0.17781988462566645,
+   "cy_px": 106.28946163882696,
+   "blur_sigma": 0.6450910919565144,
+   "bare_eps": 0.7975187678323011
+  },
+  "hard": [],
+  "distractors": [],
+  "defects": [
+   {
+    "kind": "insulation_damage",
+    "class_id": 2,
+    "u": 65.56395320723439,
+    "a_px": 6.300317975571883,
+    "v": -1.5255881144884895,
+    "b_px": 19.340460554179106,
+    "moisture": 0.0,
+    "soft": 0.07,
+    "circ_frac": 0.8159108990975552,
+    "orifice_mm": 0.0,
+    "length_mm": 0.0,
+    "clock_deg": 175.36611004689527,
+    "true_dt_k": 22.088684459070123
+   }
+  ]
+ },
+ {
+  "job_id": "ir00002",
+  "segment_id": "IRS00002",
+  "condition": "train",
+  "image_w": 320,
+  "image_h": 256,
+  "negative": false,
+  "seg": {
+   "medium": "steam",
+   "material": "carbon_steel",
+   "temp_c": 189.9139068328147,
+   "od_mm": 60.3,
+   "insulated": true,
+   "insulation_mm": 67.97375409152647,
+   "jacket": "aluminium",
+   "pressure_barg": 11.468039516502774,
+   "traced": false
+  },
+  "scene": {
+   "ambient_c": 21.87388286007331,
+   "sky_offset_k": -5.425294707540241,
+   "wind_mps": 1.3309909483926172,
+   "sun_k": 0.0,
+   "eps_jacket": 0.2655175614455964,
+   "eps_set": 0.17369788224472155,
+   "hw_px": 32.94269861285804,
+   "tilt_deg": 4.132576350951931,
+   "cy_px": 135.1612997650119,
+   "blur_sigma": 1.4578255036571195,
+   "bare_eps": 0.6695432647129895
+  },
+  "hard": [],
+  "distractors": [],
+  "defects": [
+   {
+    "kind": "wet_insulation",
+    "class_id": 1,
+    "u": 33.118974605629305,
+    "a_px": 13.38659223178951,
+    "v": 8.469654066173286,
+    "b_px": 12.96401082730351,
+    "moisture": 0.9431319110762788,
+    "soft": 0.35,
+    "length_mm": 0.0,
+    "circ_frac": 0.0,
+    "orifice_mm": 0.0,
+    "clock_deg": 180.0,
+    "true_dt_k": 30.346309079964776
+   }
+  ]
+ },
+ {
+  "job_id": "ir00003",
+  "segment_id": "IRS00003",
+  "condition": "train",
+  "image_w": 320,
+  "image_h": 256,
+  "negative": false,
+  "seg": {
+   "medium": "condensate",
+   "material": "carbon_steel",
+   "temp_c": 69.96514861581474,
+   "od_mm": 323.9,
+   "insulated": true,
+   "insulation_mm": 59.01696511883624,
+   "jacket": "galvanized",
+   "pressure_barg": 2.7709036499133743,
+   "traced": false
+  },
+  "scene": {
+   "ambient_c": 4.137033339986196,
+   "sky_offset_k": -5.595013424847113,
+   "wind_mps": 0.9733933079321855,
+   "sun_k": 0.0,
+   "eps_jacket": 0.2578210559299509,
+   "eps_set": 0.27351343525454547,
+   "hw_px": 41.78212749389976,
+   "tilt_deg": 6.253435502802457,
+   "cy_px": 141.06646041149884,
+   "blur_sigma": 1.0107766987575162,
+   "bare_eps": 0.8610756399722804
+  },
+  "hard": [
+   "seam"
+  ],
+  "distractors": [
+   {
+    "type": "seam",
+    "period": 69.5450711111154,
+    "phase": 134.10653094526432,
+    "width": 1.7794406144824915,
+    "d_eps": 0.12409779464400607
+   }
+  ],
+  "defects": [
+   {
+    "kind": "insulation_damage",
+    "class_id": 2,
+    "u": -70.09672884918407,
+    "a_px": 8.384228031421346,
+    "v": -0.08318013945637662,
+    "b_px": 16.16478801116474,
+    "moisture": 0.0,
+    "soft": 0.07,
+    "circ_frac": 0.4836035459636665,
+    "orifice_mm": 0.0,
+    "length_mm": 0.0,
+    "clock_deg": 179.82082739678188,
+    "true_dt_k": 61.53702275733965
+   },
+   {
+    "kind": "insulation_damage",
+    "class_id": 2,
+    "u": 76.50656580770121,
+    "a_px": 15.592651377099006,
+    "v": -10.296371941058878,
+    "b_px": 21.465992727117836,
+    "moisture": 0.0,
+    "soft": 0.07,
+    "circ_frac": 0.6422002066030474,
+    "orifice_mm": 0.0,
+    "length_mm": 0.0,
+    "clock_deg": 157.82129512599388,
+    "true_dt_k": 61.53702275733965
+   }
+  ]
+ }
+]
