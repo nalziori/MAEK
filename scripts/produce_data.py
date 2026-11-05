@@ -12,7 +12,10 @@ Outputs:
                                      (train/val split by segment; dataset.yaml has `path: .`,
                                      train_yolo_seg.py resolves it to the YAML's folder, so the
                                      unzipped release trains from anywhere)
-    strategy/   compare.csv, sensitivity.csv
+    strategy/   compare.csv, sensitivity.csv (base config), compare_steam.csv,
+                sensitivity_steam.csv (steam scenario), pit_prior.csv, sweep.csv
+    eva/        eva_summary.csv  (extreme-value pitting circuit analysis)
+    thermal/train, thermal/shifted  IR images/*.png (16-bit), masks, labels, dataset.yaml
     DATA_CARD.md
 """
 
@@ -30,7 +33,8 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from maek import network, params, strategy, ut
+from maek import eva, network, params, strategy, ut
+from maek import thermal_render as tr
 from maek.camera import composite2d, jobs
 
 
@@ -57,17 +61,32 @@ def main() -> int:
     ap.add_argument("--ut-shifted", type=int, default=3000)
     ap.add_argument("--img-train", type=int, default=2000)
     ap.add_argument("--img-shifted", type=int, default=400)
+    ap.add_argument("--ir-train", type=int, default=1000)
+    ap.add_argument("--ir-shifted", type=int, default=300)
     ap.add_argument("--strategy-runs", type=int, default=20)
+    ap.add_argument("--pit-runs", type=int, default=10)
+    ap.add_argument("--sweep-runs", type=int, default=5)
+    ap.add_argument("--sweep-km", type=float, default=20.0)
+    ap.add_argument("--eva-runs", type=int, default=10)
+    ap.add_argument("--total-km", type=float, default=None,
+                    help="network / base strategy length (default: network.total_km)")
+    ap.add_argument("--steam-km", type=float, default=None,
+                    help="steam scenario strategy length (default: the scenario's total_km)")
+    ap.add_argument("--scenario", action="append", default=None, metavar="NAME",
+                    help="overlay config/scenarios/NAME.yaml on the base dataset (repeatable)")
     ap.add_argument("--workers", type=int, default=4)
     a = ap.parse_args()
 
     out = Path(a.out)
-    cfg = params.load_config(a.config)
+    overlays = [params.scenario_path(n) for n in (a.scenario or [])]
+    cfg = params.load_config(a.config, overlays)
     params.validate(cfg)
+    cfg_steam = params.load_config(a.config, [*overlays, params.scenario_path("steam")])
+    params.validate(cfg_steam)
     log = {}
     t0 = time.perf_counter()
 
-    seg, feat, dfx = network.generate_network(cfg, a.seed)
+    seg, feat, dfx = network.generate_network(cfg, a.seed, total_km=a.total_km)
     network.save_network(out / "network", seg, feat, dfx)
     log["network"] = {"segments": len(seg), "features": len(feat), "defects": len(dfx),
                       "critical": int(dfx["critical"].sum())}
@@ -85,9 +104,27 @@ def main() -> int:
 
     st_dir = out / "strategy"
     st_dir.mkdir(parents=True, exist_ok=True)
-    comp, sens = strategy.compare_and_sensitivity(cfg, a.seed, a.strategy_runs)
+    comp, sens = strategy.compare_and_sensitivity(cfg, a.seed, a.strategy_runs, a.total_km)
     comp.to_csv(st_dir / "compare.csv", index=False)
     sens.to_csv(st_dir / "sensitivity.csv", index=False)
+    comp_s, sens_s = strategy.compare_and_sensitivity(cfg_steam, a.seed, a.strategy_runs,
+                                                      a.steam_km)
+    comp_s.to_csv(st_dir / "compare_steam.csv", index=False)
+    sens_s.to_csv(st_dir / "sensitivity_steam.csv", index=False)
+    strategy.pit_prior_sensitivity(cfg, a.seed, a.pit_runs, a.total_km).to_csv(
+        st_dir / "pit_prior.csv", index=False)
+    sw = strategy.sweep(cfg, a.seed, a.sweep_runs, a.sweep_km)
+    sw.to_csv(st_dir / "sweep.csv", index=False)
+    log["sweep_ai_better"] = f"{int(sw['ai_better'].sum())}/{len(sw)}"
+
+    (out / "eva").mkdir(parents=True, exist_ok=True)
+    eva.summary(eva.run(cfg, a.seed, a.eva_runs, a.total_km)).to_csv(
+        out / "eva" / "eva_summary.csv", index=False)
+
+    for cond, n, s in (("train", a.ir_train, a.seed), ("shifted", a.ir_shifted, a.seed + 100)):
+        ir_jobs = tr.make_ir_jobs(cfg, n, s, cond)
+        tr.render_all_ir(cfg, ir_jobs, out / "thermal" / cond, s, workers=a.workers)
+        log[f"thermal_{cond}"] = {"n": len(ir_jobs), "seed": s}
 
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], check=False, cwd=ROOT,
                             capture_output=True, text=True).stdout.strip()
@@ -113,9 +150,12 @@ def _card(a, commit: str, log: dict) -> str:
 | network | 100km 배관망 구간·특징·결함 정답 | 구간 {nw['segments']}, 결함 {nw['defects']} (위험 {nw['critical']}) |
 | ut/train, ut/shifted | ② 균열(사각 탐촉자)·③ 두께(수직 탐촉자) A-scan, float16 | {a.ut_train} / {a.ut_shifted} |
 | camera/train, camera/shifted | ① 부식 이미지(JPEG)·마스크·YOLO-seg 라벨 | {a.img_train} / {a.img_shifted} |
-| strategy | 기존 방식 vs AI 선별 방식 비교, 단가 민감도 | {a.strategy_runs}회 |
+| strategy | 3가지 점검 방식(사람+비계 / 드론 / 드론+AI) 비교(compare.csv), 단가 민감도(sensitivity.csv), 증기 시나리오(compare_steam.csv, sensitivity_steam.csv), 내부 피팅 스캔 사전지식 민감도(pit_prior.csv), 가정 변화 강건성(sweep.csv) | {a.strategy_runs}회 (pit {a.pit_runs}, sweep {a.sweep_runs}회 x {a.sweep_km:g} km) |
+| eva | 극값(Gumbel) 내부 피팅 회로 분석 요약 (eva_summary.csv) | {a.eva_runs}회 |
+| thermal/train, thermal/shifted | ④ 열화상(IR) 이미지(16비트 PNG, (온도 C + 50) x 100)·마스크·YOLO-seg 라벨. 젖은 보온재, 외장 훼손, 증기 누설 | {a.ir_train} / {a.ir_shifted} |
 
-`shifted`는 학습에 쓰지 않은 어려운 조건(잡음, 극단 온도, 접촉 불량, 조명·분진·증기)입니다. 평가에만 쓰세요.
+`shifted`는 학습에 쓰지 않은 어려운 조건(잡음, 극단 온도, 접촉 불량, 조명·분진·증기, 열화상은 맑은 낮·강풍·방사율 설정 오차)입니다. 평가에만 쓰세요.
+strategy의 비용·시간·고장 트랩 점검 시간 등은 모두 가정값이며, 증기 시나리오는 `config/scenarios/steam.yaml`을 덮어쓴 결과입니다.
 파라미터와 출처는 저장소 `docs/params.md`, 기준 성능은 `docs/results.md`에 있습니다.
 """
 
