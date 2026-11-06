@@ -1,0 +1,53 @@
+network:
+  total_km:
+    value: 1064.836
+    unit: km
+    assumption: true
+    note: 'posco_pipe_length_scenario_2026-11-06.json: gwangyang/base; 합성 가정, 실제 설비
+      목록 아님'
+  media_mix:
+    cooling_water:
+      value: 0.591058708626219
+      assumption: true
+      note: 'posco_pipe_length_scenario_2026-11-06.json: gwangyang/base; 합성 가정, 실제
+        설비 목록 아님; 냉각·공업용수 + 폐수·처리수; 반올림 합계로 정규화'
+    steam:
+      value: 0.09050594693074512
+      assumption: true
+      note: 'posco_pipe_length_scenario_2026-11-06.json: gwangyang/base; 합성 가정, 실제
+        설비 목록 아님; 증기·응축수 중 증기 0.7; 반올림 합계로 정규화'
+    byproduct_gas_co:
+      value: 0.04084200838627581
+      assumption: true
+      note: 'posco_pipe_length_scenario_2026-11-06.json: gwangyang/base; 합성 가정, 실제
+        설비 목록 아님; BFG·COG·LDG·수소·천연가스를 피해등급 5 가스로 묶음; 반올림 합계로 정규화'
+    oxygen:
+      value: 0.01477318082144182
+      assumption: true
+      note: 'posco_pipe_length_scenario_2026-11-06.json: gwangyang/base; 합성 가정, 실제
+        설비 목록 아님; 산소; 반올림 합계로 정규화'
+    nitrogen:
+      value: 0.020855813341973166
+      assumption: true
+      note: 'posco_pipe_length_scenario_2026-11-06.json: gwangyang/base; 합성 가정, 실제
+        설비 목록 아님; 질소·아르곤을 질소로 묶음; 반올림 합계로 정규화'
+    pickling_acid_hf:
+      value: 0.020317607892302563
+      assumption: true
+      note: 'posco_pipe_length_scenario_2026-11-06.json: gwangyang/base; 합성 가정, 실제
+        설비 목록 아님; 압축공기·유압·화학물 중 산세액 0.1; 반올림 합계로 정규화'
+    compressed_air:
+      value: 0.18285847103072306
+      assumption: true
+      note: 'posco_pipe_length_scenario_2026-11-06.json: gwangyang/base; 합성 가정, 실제
+        설비 목록 아님; 압축공기·유압·화학물의 나머지 0.9; 반올림 합계로 정규화'
+    condensate:
+      value: 0.03878826297031934
+      assumption: true
+      note: 'posco_pipe_length_scenario_2026-11-06.json: gwangyang/base; 합성 가정, 실제
+        설비 목록 아님; 증기·응축수 중 응축수 0.3; 반올림 합계로 정규화'
+    traced_process:
+      value: 0.0
+      assumption: true
+      note: 'posco_pipe_length_scenario_2026-11-06.json: gwangyang/base; 합성 가정, 실제
+        설비 목록 아님; 원본에 별도 항목 없음; 반올림 합계로 정규화'

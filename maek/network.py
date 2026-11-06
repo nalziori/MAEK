@@ -453,3 +453,14 @@ def summary(segments, features, defects) -> str:
         lines.append(f"  {k:<20} {int(counts.get(k, 0)):>6}  critical {int(crit.get(k, 0))}")
     lines.append(f"critical total: {int(defects['critical'].sum())}")
     return "\n".join(lines)
+
+
+def mix_error(seg, cfg):
+    """Return target, length-weighted observed and observed-minus-target fractions."""
+    total = seg["length_m"].sum()
+    if total <= 0:
+        raise ValueError("network must have positive length")
+    actual = seg.groupby("medium")["length_m"].sum() / total
+    return {key: {"target": leaf["value"], "actual": float(actual.get(key, 0.0)),
+                  "difference": float(actual.get(key, 0.0) - leaf["value"])}
+            for key, leaf in cfg["network"]["media_mix"].items()}
