@@ -39,7 +39,9 @@ def test_eval_ut_tiny_metrics_in_range(cfg):
                   "thickness_within_t2", "pit_detection_rate", "pit_false_alarm_rate"):
             assert _in01(r[k]), k
         assert r["thickness_within_t1"] <= r["thickness_within_t2"]
-        assert r["thickness_mae_mm"] >= 0
+        assert r["thickness_mae_valid_mm"] >= 0
+        assert 0 <= r["thickness_fail_rate"] <= 1.0
+        assert 0 <= r["thickness_n_valid"] <= 40
 
 
 def test_pod_summary_degenerate_and_ok():

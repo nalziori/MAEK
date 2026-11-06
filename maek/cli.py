@@ -54,8 +54,8 @@ def _ut(args) -> int:
     ut.save_dataset(args.out, straight, angle, labels)
     m = ut.baseline(cfg, straight, angle, labels)
     print(f"ut: n={args.n} condition={args.condition} seed={args.seed} -> {args.out}")
-    print(f"  thickness MAE      {m['thickness_mae_mm']:.3f} mm")
-    print(f"  min-thickness MAE  {m['min_thickness_mae_mm']:.3f} mm")
+    print(f"  thickness MAE (valid)  {m['thickness_mae_valid_mm']:.3f} mm")
+    print(f"  min-thickness MAE      {m['min_thickness_mae_valid_mm']:.3f} mm")
     print(f"  crack detection    {m['crack_detection_rate']:.3f}")
     print(f"  false alarms       {m['false_alarm_rate']:.3f}")
     return 0

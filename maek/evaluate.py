@@ -171,8 +171,13 @@ def eval_ut(cfg, condition, n, seed=0) -> dict:
                     for s, r, t in zip(angle, rows, temps)])
     pits = [ut.detect_pit(cfg, s, w, t) for s, w, t in zip(straight, lab["wall_mm"], temps)]
     crack = lab["crack"].to_numpy(bool)
-    err = np.abs(th - lab["wall_mm"].to_numpy())
-    err = np.where(np.isnan(err), np.inf, err)  # a failed estimate counts as a miss
+    th_np = lab["wall_mm"].to_numpy()
+    err = np.abs(th - th_np)
+    valid = np.isfinite(th) & ~np.isnan(err)
+    n_valid = int(valid.sum())
+    fail_rate = float(1.0 - (n_valid / len(th))) if len(th) > 0 else float("nan")
+    mae_valid = float(np.mean(err[valid])) if n_valid > 0 else float("nan")
+    err_miss = np.where(valid, err, np.inf)  # a failed estimate counts as a miss
     t1, t2 = _g(cfg, "thickness_tol_mm")
     nb = _g(cfg, "pod_bootstrap")
     return {
@@ -182,9 +187,11 @@ def eval_ut(cfg, condition, n, seed=0) -> dict:
         "crack_detection_rate": float(det[crack].mean()),
         "crack_false_alarm_rate": float(det[~crack].mean()),
         "crack_pod": pod_summary(lab["crack_height_mm"][crack], det[crack], nb, seed),
-        "thickness_mae_mm": float(np.mean(err[np.isfinite(err)])),
-        "thickness_within_t1": float((err <= t1).mean()),
-        "thickness_within_t2": float((err <= t2).mean()),
+        "thickness_mae_valid_mm": mae_valid,
+        "thickness_n_valid": n_valid,
+        "thickness_fail_rate": fail_rate,
+        "thickness_within_t1": float((err_miss <= t1).mean()),
+        "thickness_within_t2": float((err_miss <= t2).mean()),
         **_pit_metrics(lab, [r["found"] for r in pits], [r["depth_est_mm"] for r in pits], nb,
                        seed),
         "crack_sizes": lab["crack_height_mm"][crack].tolist(), "crack_hits": det[crack].tolist(),
@@ -454,11 +461,11 @@ def pod_cell(p) -> str:
     if p["status"] == "ok":
         return f"{fmt(p['a90'], 2)} [{fmt(p['a90_95'], 2)}]"
     if p["status"] == "all_hit":
-        return f"전부 검출(a90 < {fmt(p['min_size'], 2)})"
+        return "전부 검출(a90 추정 불가)"
     if p["status"] == "beyond_range":
         return f"도달 못함(a90 > 시험 범위 최대 {fmt(p['max_size'], 1)})"
     if p["status"] == "all_miss":
-        return "전부 미검출(a90 > 범위)"
+        return "전부 미검출(a90 추정 불가)"
     if p["status"] == "no_trend":
         return f"깊이 추세 없음(hit율 {fmt(p['hit_rate'], 2)})"
     return p["status"]
@@ -490,7 +497,8 @@ def tables_markdown(res) -> str:
         ("a90 [a90/95] (균열 높이 mm)", pod_cell, pair(u, "crack_pod"))])
     thk = tab(f"③ 두께 (직진 UT 에코 간격 / 피트: {u['train']['pit_method']}, "
               f"평균 {u['train']['n_avg']}회)", [
-        ("MAE (mm)", n3, pair(u, "thickness_mae_mm")),
+        ("유효 추정 MAE (mm)", n3, pair(u, "thickness_mae_valid_mm")),
+        ("추정 실패율", n3, pair(u, "thickness_fail_rate")),
         ("+-0.1 mm 이내 비율", n3, pair(u, "thickness_within_t1")),
         ("+-0.5 mm 이내 비율", n3, pair(u, "thickness_within_t2")),
         ("피트 검출률", n3, pair(u, "pit_detection_rate")),
