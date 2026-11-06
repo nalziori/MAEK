@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import json
 import os
-import resource
 import subprocess
 import sys
 import time
@@ -55,8 +54,12 @@ def measure(fn, items, warmup: int = 2, repeat: int = 1) -> dict:
             "throughput_per_s": 1000.0 / med, "tracemalloc_peak_mb": float(peak)}
 
 
-def _rss_mb() -> float:
-    return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024.0  # Linux: KiB
+def _rss_mb() -> float | None:
+    try:
+        import resource
+        return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024.0  # Linux: KiB
+    except (ImportError, AttributeError):
+        return None
 
 
 def make_inputs(cfg, sizes, n_images, n_ut, seed=0) -> dict:
@@ -104,7 +107,8 @@ def judge(cfg, df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df["target_fps"] = fps
     df["pass_fps"] = df["throughput_per_s"] >= fps
-    df["pass_memory"] = df["process_peak_rss_mb"] <= mem_mb
+    rss = pd.to_numeric(df["process_peak_rss_mb"])
+    df["pass_memory"] = (rss <= mem_mb).astype(object).where(rss.notna(), None)  # None: not measured
     return df
 
 
@@ -117,7 +121,7 @@ def run_all(cfg, out_dir, threads=None, seed=0, sizes=None, config_label="defaul
     """
     threads = threads or params.get(cfg, "onboard.bench_threads")
     root = Path(__file__).resolve().parents[1]
-    out = Path(out_dir)
+    out = Path(out_dir).resolve()  # workers run with cwd=root: hand them absolute paths
     out.mkdir(parents=True, exist_ok=True)
     cfg_file = out / "onboard_config.yaml"
     cfg_file.write_text(yaml.safe_dump(cfg, allow_unicode=True, sort_keys=False),
