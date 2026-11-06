@@ -76,27 +76,20 @@ def fit_pod_firth(sizes, hits, max_iter=200, tol=1e-9) -> dict:
 
 
 # ------------------------------------------------------------------ (1) corrosion images
-def _defect_center_radius(job, d):
-    """Pixel centre and search radius of a job defect (same geometry as the renderer)."""
-    S = job["image_size"]
-    cx, cy = composite2d.defect_center(job, d)
-    r = 1.2 * max(d["w"], d["h"]) * S / 2 + 3
-    return cx, cy, r
+def eval_camera_image(cfg, job, rgb, mask, ids) -> dict:
+    """Metrics of the rust segmenter on one rendered image.
 
-
-def eval_camera_image(cfg, job, rgb, mask) -> dict:
-    """Metrics of the rust segmenter on one rendered image."""
+    A defect's hit is the recall over its own visible pixels (ids == k + 1), so a neighbouring
+    rust defect inside the same area cannot turn a miss into a hit.
+    """
     pred = segment.segment_rust(rgb, tuple(_g(cfg, "seg_hue_range_deg")), _g(cfg, "seg_sat_min"),
                                 _g(cfg, "seg_val_min"))
     gt = mask == 1
-    S = mask.shape[0]
-    yy, xx = np.mgrid[0:S, 0:S]
     defects = []
-    for d in job["defects"]:
+    for k, d in enumerate(job["defects"]):
         if d["class_id"] != 1:
             continue
-        cx, cy, r = _defect_center_radius(job, d)
-        win = ((xx - cx) ** 2 + (yy - cy) ** 2 <= r * r) & gt
+        win = ids == k + 1
         n = int(win.sum())
         if n < 4:  # hidden by the pipe edge / other class: no ground-truth pixels to hit
             continue
@@ -116,8 +109,9 @@ def eval_camera(cfg, condition, n, seed=0, size=None) -> dict:
     det, gt_pos, rows = [], [], []
     min_px = _g(cfg, "seg_min_pred_px")
     for i, job in enumerate(js):
-        rgb, mask = composite2d.render_job(cfg, job, np.random.default_rng([seed, 7, i]))
-        r = eval_camera_image(cfg, job, rgb, mask)
+        rgb, mask, ids = composite2d.render_job(cfg, job, np.random.default_rng([seed, 7, i]),
+                                                return_ids=True)
+        r = eval_camera_image(cfg, job, rgb, mask, ids)
         inter += r["inter"]
         union += r["union"]
         gt_pos.append(r["gt_pos"])

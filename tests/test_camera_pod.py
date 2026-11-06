@@ -196,3 +196,28 @@ def test_relative_yaml_resolves_to_yaml_folder(cfg, jl, tmp_path):
             assert (root / line).exists()
     assert len(t.find_images(str(ds))) == 6
     assert t.find_images(str(ds), 2)[0].suffix == ".jpg"
+
+
+def test_h2_ids_match_mask_and_render_unchanged(cfg, jl):
+    job = next(j for j in jl if len(j["defects"]) > 1) if any(len(j["defects"]) > 1 for j in jl) \
+        else next(j for j in jl if j["defects"])
+    rgb0, m0 = composite2d.render_job(cfg, job, np.random.default_rng(5))
+    rgb, m, ids = composite2d.render_job(cfg, job, np.random.default_rng(5), return_ids=True)
+    assert rgb.tobytes() == rgb0.tobytes() and m.tobytes() == m0.tobytes()
+    assert ((ids > 0) == (m > 0)).all()
+    for k, d in enumerate(job["defects"]):
+        assert (m[ids == k + 1] == d["class_id"]).all()
+
+
+def test_h2_neighbour_does_not_make_missed_defect_a_hit(cfg, monkeypatch):
+    from maek import evaluate
+    job = _corr_job(0.15, cfg)
+    a, b = job["defects"][0], dict(job["defects"][0])
+    a.update(defect_id="A", u=0.3)
+    b.update(defect_id="B", u=0.62)
+    job["defects"] = [a, b]
+    rgb, m, ids = composite2d.render_job(cfg, job, np.random.default_rng(0), return_ids=True)
+    assert (ids == 1).sum() >= 4 and (ids == 2).sum() >= 4
+    monkeypatch.setattr(evaluate.segment, "segment_rust", lambda *_: ids == 2)  # sees B only
+    hits = [r["hit"] for r in evaluate.eval_camera_image(cfg, job, rgb, m, ids)["defects"]]
+    assert hits == [False, True]

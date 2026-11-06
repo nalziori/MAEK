@@ -142,7 +142,7 @@ def _patch(job, d, rng):
     return y0, y1, x0, x1, field.astype(np.float32), nz
 
 
-def _paint(rgb, mask, job, d, rng, inside):
+def _paint(rgb, mask, job, d, rng, inside, ids=None, k=0):
     p = _patch(job, d, rng)
     if p is None:
         return
@@ -179,21 +179,29 @@ def _paint(rgb, mask, job, d, rng, inside):
         a_ = alpha[..., None] * 0.7
     sub[...] = sub * (1 - a_) + col * a_
     mask[y0:y1, x0:x1][region] = cls
+    if ids is not None:
+        ids[y0:y1, x0:x1][region] = k + 1
 
 
-def render_job(cfg: dict, job: dict, rng) -> tuple[np.ndarray, np.ndarray]:
-    """Render one job -> (rgb uint8 HxWx3, mask uint8 HxW)."""
+def render_job(cfg: dict, job: dict, rng, return_ids: bool = False):
+    """Render one job -> (rgb uint8 HxWx3, mask uint8 HxW).
+
+    With return_ids=True also returns ids (uint8 HxW): ids == k + 1 marks the visible pixels of
+    job["defects"][k] (later-painted defects overwrite earlier ones, as in the class mask).
+    """
     S = job["image_size"]
     rgb, inside, u, v = _pipe_layers(job, rng)
     mask = np.zeros((S, S), np.uint8)
+    ids = np.zeros((S, S), np.uint8) if return_ids else None
     env = job["env"]
     hw = _frame(job)[3]
-    for d in sorted(job["defects"], key=lambda q: q["class_id"]):
-        d = dict(d)
+    order = sorted(range(len(job["defects"])), key=lambda k: job["defects"][k]["class_id"])
+    for k in order:
+        d = dict(job["defects"][k])
         d["_wet"] = rng.random() < 0.5
         if d["class_id"] == 3:   # flange body at the leak position
             _flange(rgb, job, d, hw, u, v)
-        _paint(rgb, mask, job, d, rng, inside)
+        _paint(rgb, mask, job, d, rng, inside, ids, k)
     # lighting: global gain + soft gradient
     ang = rng.uniform(0, 2 * math.pi)
     yy, xx = np.mgrid[0:S, 0:S].astype(np.float32) / S - 0.5
@@ -212,7 +220,8 @@ def render_job(cfg: dict, job: dict, rng) -> tuple[np.ndarray, np.ndarray]:
     rgb = _blur(rgb.astype(np.float32), env["blur_sigma"])
     if env["noise_sigma"] > 0:
         rgb = rgb + np.float32(env["noise_sigma"]) * rng.standard_normal(rgb.shape, dtype=np.float32)
-    return (np.clip(rgb, 0, 1) * 255 + 0.5).astype(np.uint8), mask
+    out = (np.clip(rgb, 0, 1) * 255 + 0.5).astype(np.uint8)
+    return (out, mask, ids) if return_ids else (out, mask)
 
 
 def _flange(rgb, job, d, hw, u, v):
