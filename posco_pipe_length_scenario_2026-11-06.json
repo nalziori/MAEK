@@ -1,0 +1,158 @@
+{
+  "title": "포항·광양 제철소 배관 길이 시뮬레이션",
+  "as_of": "2026-11-06",
+  "status": "synthetic_scenario_not_asset_inventory",
+  "unit": "km of individual pipe centerline",
+  "scope": "구내 공정·공급·회수 배관. 별도 관은 각각 집계. 구외 도입관, 일반 배수로·하수도, 기기 내부 튜브·호스, 미계상 특수계통 제외. LDG는 전로 가스 회수 경로만 포함. 기준 사이트와 경계 일치는 가정.",
+  "formulas": {
+    "D": "sqrt(area_km2)",
+    "B": "reference_blast_furnaces (POSCO 2023)",
+    "S": "D/4 (assumed branch route length)",
+    "total_km": "500 * (area_km2 / 5)^p",
+    "p": {
+      "fixed_topology": 0.5,
+      "base": 0.75,
+      "fixed_density": 1
+    },
+    "gas_dedicated_formulas": {
+      "bfg": "2*D+B*S",
+      "cog": "2*D+4*S",
+      "ldg": "D+4*S",
+      "oxygen": "2*D+(B+4)*S",
+      "nitrogen_argon": "(2*D+8*S)+(D+4*S)",
+      "hydrogen": "D/2+2*S",
+      "natural_gas": "D+6*S"
+    },
+    "residual_km": "total_km - sum(seven dedicated gas lengths)",
+    "residual_weight_assumptions": {
+      "cooling_and_industrial_water": 0.48,
+      "wastewater_and_treated_water": 0.16,
+      "steam_and_condensate": 0.14,
+      "compressed_air_hydraulic_and_chemicals": 0.22
+    }
+  },
+  "notes": [
+    "전체 11개 행은 해커톤에서 합성 설비를 생성하기 위한 배분이다. 계통별 실제 설치 비중이나 비파괴검사 가능 길이가 아니다.",
+    "p 시나리오는 총연장 산식만 변경한다. 개별 가스망 길이는 D와 분기 가정으로 결정한다. 소수점 3자리는 재계산 편의를 위한 반올림이다."
+  ],
+  "sources": {
+    "site_area": "https://www.sec.gov/Archives/edgar/data/889132/000119312526188766/d26797d20f.htm",
+    "furnaces": "https://www.posco.co.kr/homepage/docs/kor7/jsp/prcenter/press/s91c600310v.jsp?idx=185&onPage=1",
+    "reference_pipelines": "https://www.voestalpine.com/blog/en/innovation-technology/digitalization/digital-twin-in-linz-der-doppelte-standort-2/",
+    "reference_area": "https://www.esri.de/de-de/case-studies/voestalpine-digital-twin-macht-industriegelaende-fit-fuer-die-zukunft",
+    "gas_plant_comparison": "https://www.tatabex.com/assessments/safety-excellence/safety/tata-steel-innovating-to-eliminate-fire-and-explosions-risks-in-gas-pipeline",
+    "research_gas_network": "https://doi.org/10.1016/j.powtec.2024.120116"
+  },
+  "sites": [
+    {
+      "site": "pohang",
+      "area_km2": 8.9,
+      "reference_blast_furnaces": 3,
+      "scenarios": {
+        "fixed_topology": {
+          "length_km": {
+            "bfg": 8.204,
+            "cog": 8.95,
+            "ldg": 5.967,
+            "oxygen": 11.187,
+            "nitrogen_argon": 17.9,
+            "hydrogen": 2.983,
+            "natural_gas": 7.458,
+            "cooling_and_industrial_water": 290.128,
+            "wastewater_and_treated_water": 96.709,
+            "steam_and_condensate": 84.621,
+            "compressed_air_hydraulic_and_chemicals": 132.976
+          },
+          "total_km": 667.083
+        },
+        "base": {
+          "length_km": {
+            "bfg": 8.204,
+            "cog": 8.95,
+            "ldg": 5.967,
+            "oxygen": 11.187,
+            "nitrogen_argon": 17.9,
+            "hydrogen": 2.983,
+            "natural_gas": 7.458,
+            "cooling_and_industrial_water": 339.779,
+            "wastewater_and_treated_water": 113.26,
+            "steam_and_condensate": 99.102,
+            "compressed_air_hydraulic_and_chemicals": 155.732
+          },
+          "total_km": 770.522
+        },
+        "fixed_density": {
+          "length_km": {
+            "bfg": 8.204,
+            "cog": 8.95,
+            "ldg": 5.967,
+            "oxygen": 11.187,
+            "nitrogen_argon": 17.9,
+            "hydrogen": 2.983,
+            "natural_gas": 7.458,
+            "cooling_and_industrial_water": 397.128,
+            "wastewater_and_treated_water": 132.376,
+            "steam_and_condensate": 115.829,
+            "compressed_air_hydraulic_and_chemicals": 182.017
+          },
+          "total_km": 890
+        }
+      }
+    },
+    {
+      "site": "gwangyang",
+      "area_km2": 13.7,
+      "reference_blast_furnaces": 5,
+      "scenarios": {
+        "fixed_topology": {
+          "length_km": {
+            "bfg": 12.029,
+            "cog": 11.104,
+            "ldg": 7.403,
+            "oxygen": 15.731,
+            "nitrogen_argon": 22.208,
+            "hydrogen": 3.701,
+            "natural_gas": 9.253,
+            "cooling_and_industrial_water": 358.184,
+            "wastewater_and_treated_water": 119.395,
+            "steam_and_condensate": 104.47,
+            "compressed_air_hydraulic_and_chemicals": 164.168
+          },
+          "total_km": 827.647
+        },
+        "base": {
+          "length_km": {
+            "bfg": 12.029,
+            "cog": 11.104,
+            "ldg": 7.403,
+            "oxygen": 15.731,
+            "nitrogen_argon": 22.208,
+            "hydrogen": 3.701,
+            "natural_gas": 9.253,
+            "cooling_and_industrial_water": 472.035,
+            "wastewater_and_treated_water": 157.345,
+            "steam_and_condensate": 137.677,
+            "compressed_air_hydraulic_and_chemicals": 216.349
+          },
+          "total_km": 1064.836
+        },
+        "fixed_density": {
+          "length_km": {
+            "bfg": 12.029,
+            "cog": 11.104,
+            "ldg": 7.403,
+            "oxygen": 15.731,
+            "nitrogen_argon": 22.208,
+            "hydrogen": 3.701,
+            "natural_gas": 9.253,
+            "cooling_and_industrial_water": 618.514,
+            "wastewater_and_treated_water": 206.171,
+            "steam_and_condensate": 180.4,
+            "compressed_air_hydraulic_and_chemicals": 283.485
+          },
+          "total_km": 1370
+        }
+      }
+    }
+  ]
+}
