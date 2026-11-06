@@ -155,7 +155,7 @@ def test_shifted_measurement_error_reduces_accuracy_at_high_temp(cfg):
 
 def test_h6_thickness_valid_and_fail_rate(cfg):
     import pandas as pd
-    from maek import evaluate
+
 
     st, an, lab = ut.make_dataset(cfg, 10, 0, "train")
     b = ut.baseline(cfg, st, an, lab)
