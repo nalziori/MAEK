@@ -419,6 +419,10 @@ def render_all(cfg: dict, jobs: list[dict], out_dir, seed: int = 0, *,
     if image_format not in ("png", "jpg"):
         raise ValueError(f"image_format must be 'png' or 'jpg', got {image_format!r}")
     out = Path(out_dir)
+    if any((out / name).exists() for name in ("dataset.yaml", "train.txt", "val.txt")) or any(
+        p.is_dir() and any(p.iterdir()) for p in (out / s for s in ("images", "masks", "labels"))
+    ):
+        raise FileExistsError(f"Dataset already exists in {out}; choose a new output directory")
     for sub in ("images", "masks", "labels"):
         (out / sub).mkdir(parents=True, exist_ok=True)
     tasks = [(seed, i, job, str(out), image_format, jpg_quality) for i, job in enumerate(jobs)]

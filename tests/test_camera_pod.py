@@ -8,6 +8,18 @@ from maek import network, params, pod
 from maek.camera import composite2d, jobs
 
 
+def test_h3_existing_dataset_and_manifest_images(cfg, jl, tmp_path):
+    from scripts.train_yolo_seg import find_images
+
+    ds = composite2d.render_all(cfg, jl[:2], tmp_path, image_format="png")
+    before = sorted(p.name for p in (tmp_path / "images").iterdir())
+    with pytest.raises(FileExistsError):
+        composite2d.render_all(cfg, jl[:1], tmp_path, image_format="jpg")
+    assert sorted(p.name for p in (tmp_path / "images").iterdir()) == before
+    (tmp_path / "images" / "stale.jpg").write_bytes(b"stale")
+    assert {p.name for p in find_images(str(ds))} == set(before)
+
+
 @pytest.fixture(scope="module")
 def cfg():
     c = copy.deepcopy(params.load_config())

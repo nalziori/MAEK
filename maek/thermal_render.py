@@ -560,6 +560,10 @@ def render_all_ir(cfg: dict, jobs: list[dict], out_dir, seed: int = 0, val_frac:
     """Write images/ (16-bit PNG, (T_app_C + 50) x 100), masks/, labels/ (YOLO-seg), train.txt,
     val.txt, dataset.yaml and jobs.json (with the true dT / orifice per defect)."""
     out = Path(out_dir)
+    if any((out / name).exists() for name in ("dataset.yaml", "train.txt", "val.txt")) or any(
+        p.is_dir() and any(p.iterdir()) for p in (out / s for s in ("images", "masks", "labels"))
+    ):
+        raise FileExistsError(f"Dataset already exists in {out}; choose a new output directory")
     for sub in ("images", "masks", "labels"):
         (out / sub).mkdir(parents=True, exist_ok=True)
     tasks = [(seed, i, job, str(out)) for i, job in enumerate(jobs)]

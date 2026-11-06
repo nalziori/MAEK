@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shlex
 import subprocess
 import sys
 import time
@@ -40,9 +41,9 @@ from maek.camera import composite2d, jobs
 
 def render_set(cfg, js, out_dir: Path, seed: int, workers: int) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
-    jobs.save_jobs(out_dir / "jobs.json", js)
     composite2d.render_all(cfg, js, out_dir, seed, image_format="jpg", jpg_quality=92,
                            workers=workers, relative_yaml=True)
+    jobs.save_jobs(out_dir / "jobs.json", js)
 
 
 def save_ut(out_dir: Path, straight, angle, labels) -> None:
@@ -78,23 +79,27 @@ def main() -> int:
     a = ap.parse_args()
 
     out = Path(a.out)
+    if out.exists() and any(out.iterdir()):
+        raise FileExistsError(f"Output directory is not empty: {out}; choose a new directory")
     overlays = [params.scenario_path(n) for n in (a.scenario or [])]
     cfg = params.load_config(a.config, overlays)
     params.validate(cfg)
     cfg_steam = params.load_config(a.config, [*overlays, params.scenario_path("steam")])
     params.validate(cfg_steam)
-    log = {}
+    log = {"argv": sys.argv[1:], "arguments": vars(a),
+           "effective_config": {"base": cfg, "steam": cfg_steam}}
     t0 = time.perf_counter()
 
     seg, feat, dfx = network.generate_network(cfg, a.seed, total_km=a.total_km)
     network.save_network(out / "network", seg, feat, dfx)
-    log["network"] = {"segments": len(seg), "features": len(feat), "defects": len(dfx),
+    log["network"] = {"length_km": float(seg["length_m"].sum() / 1000),
+                      "segments": len(seg), "features": len(feat), "defects": len(dfx),
                       "critical": int(dfx["critical"].sum())}
 
     for cond, n, s in (("train", a.ut_train, a.seed), ("shifted", a.ut_shifted, a.seed + 100)):
         st, an, lab = ut.make_dataset(cfg, n, s, cond)
         save_ut(out / "ut" / cond, st, an, lab)
-        log[f"ut_{cond}"] = {"n": n, "seed": s, "baseline": ut.baseline(cfg, st, an, lab)}
+        log[f"ut_{cond}"] = {"n": len(lab), "seed": s, "baseline": ut.baseline(cfg, st, an, lab)}
 
     for cond, n, s in (("train", a.img_train, a.seed), ("shifted", a.img_shifted, a.seed + 100)):
         js = jobs.make_jobs(cfg, seg, dfx, n, s, condition=cond)
@@ -128,31 +133,41 @@ def main() -> int:
 
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], check=False, cwd=ROOT,
                             capture_output=True, text=True).stdout.strip()
+    log["git_commit"] = commit or None
+    log["strategy"] = {"runs": a.strategy_runs, "base_km": a.total_km if a.total_km is not None
+                       else params.get(cfg, "network.total_km"),
+                       "steam_km": a.steam_km if a.steam_km is not None
+                       else params.get(cfg_steam, "network.total_km"),
+                       "pit_runs": a.pit_runs, "sweep_runs": a.sweep_runs,
+                       "sweep_km": a.sweep_km, "eva_runs": a.eva_runs}
     log["elapsed_s"] = round(time.perf_counter() - t0, 1)
     (out / "manifest.json").write_text(json.dumps(log, indent=2, default=float), encoding="utf-8")
-    (out / "DATA_CARD.md").write_text(_card(a, commit, log), encoding="utf-8")
-    print(json.dumps(log, indent=2, default=float))
+    (out / "DATA_CARD.md").write_text(_card(log), encoding="utf-8")
+    print(f"Wrote dataset and manifest to {out}")
     return 0
 
 
-def _card(a, commit: str, log: dict) -> str:
+def _card(log: dict) -> str:
     nw = log["network"]
+    st = log["strategy"]
+    command = shlex.join(["python", "scripts/produce_data.py", *log["argv"]])
     return f"""# MAEK 합성 데이터셋 카드
 
 가상 제철소 배관망 시뮬레이션으로 만든 합성 데이터입니다. 실제 점검 데이터가 아닙니다.
 
-- 생성 코드: nalziori/MAEK 커밋 `{commit}`, 설정 `config/default.yaml`
-- 재생성: `OMP_NUM_THREADS=1 python scripts/produce_data.py --seed {a.seed}`
+- 생성 코드: nalziori/MAEK 커밋 `{log['git_commit']}`
+- 실행 명령: `OMP_NUM_THREADS=1 {command}`
+- 실행 인자와 병합된 기본·증기 설정의 내용은 `manifest.json`에 보존됩니다. 재생성 시 동일한 설정 내용과 코드를 사용하세요.
 - 생성 시간: {log['elapsed_s']}초
 
 | 묶음 | 내용 | 규모 |
 |---|---|---|
-| network | 100km 배관망 구간·특징·결함 정답 | 구간 {nw['segments']}, 결함 {nw['defects']} (위험 {nw['critical']}) |
-| ut/train, ut/shifted | ② 균열(사각 탐촉자)·③ 두께(수직 탐촉자) A-scan, float16 | {a.ut_train} / {a.ut_shifted} |
-| camera/train, camera/shifted | ① 부식 이미지(JPEG)·마스크·YOLO-seg 라벨 | {a.img_train} / {a.img_shifted} |
-| strategy | 3가지 점검 방식(사람+비계 / 드론 / 드론+AI) 비교(compare.csv), 단가 민감도(sensitivity.csv), 증기 시나리오(compare_steam.csv, sensitivity_steam.csv), 내부 피팅 스캔 사전지식 민감도(pit_prior.csv), 가정 변화 강건성(sweep.csv) | {a.strategy_runs}회 (pit {a.pit_runs}, sweep {a.sweep_runs}회 x {a.sweep_km:g} km) |
-| eva | 극값(Gumbel) 내부 피팅 회로 분석 요약 (eva_summary.csv) | {a.eva_runs}회 |
-| thermal/train, thermal/shifted | ④ 열화상(IR) 이미지(16비트 PNG, (온도 C + 50) x 100)·마스크·YOLO-seg 라벨. 젖은 보온재, 외장 훼손, 증기 누설 | {a.ir_train} / {a.ir_shifted} |
+| network | 배관망 구간·특징·결함 정답 | {nw['length_km']:g} km, 구간 {nw['segments']}, 결함 {nw['defects']} (위험 {nw['critical']}) |
+| ut/train, ut/shifted | 초음파 A-scan | {log['ut_train']['n']} / {log['ut_shifted']['n']} |
+| camera/train, camera/shifted | 부식 이미지·마스크·YOLO-seg 라벨 | {log['camera_train']['n']} / {log['camera_shifted']['n']} |
+| strategy | 점검 방식과 민감도 비교 | {st['runs']}회, 기본 {st['base_km']:g} km / 증기 {st['steam_km']:g} km (pit {st['pit_runs']}, sweep {st['sweep_runs']}회 x {st['sweep_km']:g} km) |
+| eva | 극값 내부 피팅 회로 분석 | {st['eva_runs']}회 |
+| thermal/train, thermal/shifted | 열화상·마스크·YOLO-seg 라벨 | {log['thermal_train']['n']} / {log['thermal_shifted']['n']} |
 
 `shifted`는 학습에 쓰지 않은 어려운 조건(잡음, 극단 온도, 접촉 불량, 조명·분진·증기, 열화상은 맑은 낮·강풍·방사율 설정 오차)입니다. 평가에만 쓰세요.
 strategy의 비용·시간·고장 트랩 점검 시간 등은 모두 가정값이며, 증기 시나리오는 `config/scenarios/steam.yaml`을 덮어쓴 결과입니다.
