@@ -8,6 +8,15 @@ from maek import params, thermal
 from maek import thermal_render as tr
 from maek.camera import composite2d
 
+
+def test_h3_existing_thermal_dataset(cfg, tmp_path):
+    jobs = tr.make_ir_jobs(cfg, 2, 1, "train")
+    tr.render_all_ir(cfg, jobs, tmp_path, seed=1)
+    before = sorted(p.name for p in (tmp_path / "images").iterdir())
+    with pytest.raises(FileExistsError):
+        tr.render_all_ir(cfg, jobs[:1], tmp_path, seed=1)
+    assert sorted(p.name for p in (tmp_path / "images").iterdir()) == before
+
 SEG = {"medium": "steam", "material": "carbon_steel", "temp_c": 180.0, "od_mm": 114.3,
        "insulated": True, "insulation_mm": 50.0, "jacket": "aluminium", "pressure_barg": 8.0,
        "traced": False}

@@ -1,13 +1,41 @@
+import json
 import os
 import subprocess
 import sys
 from pathlib import Path
 
 import pytest
+import yaml
 
 from maek import params
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_h4_release_manifest_and_card(tmp_path):
+    cfg = yaml.safe_load((ROOT / "config/default.yaml").read_text(encoding="utf-8"))
+    cfg["network"]["segment_m"]["value"] = 40
+    config = tmp_path / "custom.yaml"
+    config.write_text(yaml.safe_dump(cfg, allow_unicode=True), encoding="utf-8")
+    out = tmp_path / "release"
+    args = ["--config", str(config), "--out", str(out), "--scenario", "steam",
+            "--total-km", "0.5", "--steam-km", "0.5", "--ut-train", "4",
+            "--ut-shifted", "4", "--img-train", "2", "--img-shifted", "2",
+            "--ir-train", "2", "--ir-shifted", "2", "--strategy-runs", "1",
+            "--pit-runs", "1", "--sweep-runs", "1", "--sweep-km", "0.5",
+            "--eva-runs", "1", "--workers", "1"]
+    subprocess.run([sys.executable, str(ROOT / "scripts/produce_data.py"), *args], cwd=ROOT,
+                   env={**os.environ, "OMP_NUM_THREADS": "1"}, check=True, capture_output=True)
+    manifest = json.loads((out / "manifest.json").read_text(encoding="utf-8"))
+    card = (out / "DATA_CARD.md").read_text(encoding="utf-8")
+    assert manifest["argv"] == args
+    assert manifest["arguments"]["scenario"] == ["steam"]
+    assert manifest["effective_config"]["base"]["network"]["segment_m"]["value"] == 40
+    assert manifest["effective_config"]["steam"]["network"]["media_mix"]["steam"]["value"] == 0.5
+    assert manifest["network"]["length_km"] == 0.5
+    assert manifest["camera_train"]["n"] == 2
+    assert "0.5 km" in card and str(config) in card
+    assert "100km 배관망" not in card
 
 
 def test_config_validates():

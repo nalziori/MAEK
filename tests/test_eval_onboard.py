@@ -39,7 +39,9 @@ def test_eval_ut_tiny_metrics_in_range(cfg):
                   "thickness_within_t2", "pit_detection_rate", "pit_false_alarm_rate"):
             assert _in01(r[k]), k
         assert r["thickness_within_t1"] <= r["thickness_within_t2"]
-        assert r["thickness_mae_mm"] >= 0
+        assert r["thickness_mae_valid_mm"] >= 0
+        assert 0 <= r["thickness_fail_rate"] <= 1.0
+        assert 0 <= r["thickness_n_valid"] <= 40
 
 
 def test_pod_summary_degenerate_and_ok():
@@ -88,3 +90,30 @@ def test_onboard_run_all_uses_callers_config_seed_and_sizes(cfg, tmp_path):
 def test_with_helper_is_single_source():
     assert not hasattr(onboard, "_with_size")
     assert onboard._with is evaluate._with
+
+
+def test_h1_rss_mb_handles_missing_resource():
+    rss = onboard._rss_mb()
+    assert rss is None or rss > 0
+
+
+def test_h5_relative_out_from_external_cwd_gives_worker_absolute_config(cfg, tmp_path,
+                                                                        monkeypatch):
+    import json as _json
+    import subprocess
+    from pathlib import Path
+    seen = {}
+
+    def fake_run(cmd, cwd=None, **_):
+        cfg_path = Path(cmd[cmd.index("--config") + 1])
+        seen["ok"] = cfg_path.is_absolute() and (Path(cwd) / cfg_path).exists()
+        rec = {"function": "thickness", "input": "x", "median_ms": 1.0, "p95_ms": 1.0,
+               "throughput_per_s": 1000.0, "tracemalloc_peak_mb": 0.0,
+               "process_peak_rss_mb": None}
+        return subprocess.CompletedProcess(cmd, 0, stdout=_json.dumps([rec]), stderr="")
+
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(onboard.subprocess, "run", fake_run)
+    df = onboard.run_all(cfg, "rel/out", threads=[1])
+    assert seen["ok"] and (tmp_path / "rel/out/onboard.csv").exists()
+    assert df["pass_memory"].isna().all()  # unmeasured memory is not a pass or a fail

@@ -46,9 +46,20 @@ def resolve_data(data: str) -> str:
 
 
 def find_images(data: str, n: int | None = None) -> list[Path]:
-    """Images under `images/` next to dataset.yaml, any common extension, sorted."""
-    root = Path(data).parent / "images"
-    imgs = sorted(p for p in root.glob("*") if p.suffix.lower() in IMAGE_EXTS)
+    """Read the train/val image lists specified by the dataset YAML."""
+    yaml_path = Path(data).resolve()
+    cfg = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+    root = yaml_path.parent
+    imgs = set()
+    for split in ("train", "val"):
+        list_path = root / cfg[split]
+        for line in list_path.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                image = (root / line.strip()).resolve()
+                if image.suffix.lower() not in IMAGE_EXTS or not image.is_file():
+                    raise ValueError(f"Invalid dataset image: {image}")
+                imgs.add(image)
+    imgs = sorted(imgs)
     return imgs[:n] if n else imgs
 
 

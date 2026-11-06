@@ -145,9 +145,60 @@ def test_shifted_measurement_error_reduces_accuracy_at_high_temp(cfg):
     zero = evaluate._with(base, "ut.dataset.shifted_temp_meas_error_c", 0.0)
     big = evaluate._with(base, "ut.dataset.shifted_temp_meas_error_c", 40.0)
     none = evaluate._with(base, "ut.temp_compensation", "none")
-    mae = {k: evaluate.eval_ut(c, "shifted", 60, seed=5)["thickness_mae_mm"]
+    mae = {k: evaluate.eval_ut(c, "shifted", 60, seed=5)["thickness_mae_valid_mm"]
            for k, c in (("zero", zero), ("big", big), ("none", none))}
     assert mae["big"] > mae["zero"]
     assert mae["none"] > mae["zero"]
     # 15 C default error sits between perfect and uncorrected
-    assert evaluate.eval_ut(base, "shifted", 60, seed=5)["thickness_mae_mm"] >= mae["zero"]
+    assert evaluate.eval_ut(base, "shifted", 60, seed=5)["thickness_mae_valid_mm"] >= mae["zero"]
+
+
+def test_h6_thickness_valid_and_fail_rate(cfg):
+    import pandas as pd
+
+
+    st, an, lab = ut.make_dataset(cfg, 10, 0, "train")
+    b = ut.baseline(cfg, st, an, lab)
+    for k in ("thickness_mae_valid_mm", "thickness_n_valid", "thickness_fail_rate",
+              "min_thickness_mae_valid_mm"):
+        assert k in b
+    assert b["thickness_n_valid"] == 10
+    assert b["thickness_fail_rate"] == 0.0
+    assert b["thickness_mae_valid_mm"] >= 0
+
+    dummy_labels = pd.DataFrame({"wall_mm": [10.0, 10.0], "t_min_mm": [10.0, 10.0],
+                                 "temp_c": [20.0, 20.0], "crack": [False, False],
+                                 "angle_deg": [45, 45]})
+    nan_straight = [np.full(2048, np.nan), np.full(2048, np.nan)]
+    dummy_angle = [np.zeros(2048), np.zeros(2048)]
+    b_fail = ut.baseline(cfg, nan_straight, dummy_angle, dummy_labels)
+    assert b_fail["thickness_n_valid"] == 0
+    assert b_fail["thickness_fail_rate"] == 1.0
+    assert np.isnan(b_fail["thickness_mae_valid_mm"])
+
+    # Mixed case: 1 valid, 1 NaN
+    mixed_straight = [st[0], np.full(2048, np.nan)]
+    mixed_angle = [an[0], np.zeros(2048)]
+    mixed_labels = pd.DataFrame({"wall_mm": [lab["wall_mm"].iloc[0], 10.0],
+                                 "t_min_mm": [lab["t_min_mm"].iloc[0], 10.0],
+                                 "temp_c": [lab["temp_c"].iloc[0], 20.0],
+                                 "crack": [False, False],
+                                 "angle_deg": [45, 45]})
+    b_mixed = ut.baseline(cfg, mixed_straight, mixed_angle, mixed_labels)
+    assert b_mixed["thickness_n_valid"] == 1
+    assert b_mixed["thickness_fail_rate"] == 0.5
+    assert not np.isnan(b_mixed["thickness_mae_valid_mm"])
+
+
+def test_h7_pod_cell_all_hit_text():
+    from maek import evaluate
+
+    s = np.linspace(0.5, 5.0, 20)
+    all_hit_summary = evaluate.pod_summary(s, np.ones(20))
+    assert all_hit_summary["status"] == "all_hit"
+    assert evaluate.pod_cell(all_hit_summary) == "전부 검출(a90 추정 불가)"
+
+    all_miss_summary = evaluate.pod_summary(s, np.zeros(20))
+    assert all_miss_summary["status"] == "all_miss"
+    assert evaluate.pod_cell(all_miss_summary) == "전부 미검출(a90 추정 불가)"
+

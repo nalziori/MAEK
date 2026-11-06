@@ -401,9 +401,19 @@ def baseline(cfg, straight, angle, labels) -> dict:
     det = np.array([detect_crack(cfg, s, r.wall_mm, r.angle_deg, t)["found"]
                     for s, r, t in zip(angle, rows, temps)])
     crack = labels["crack"].to_numpy(bool)
+    err_th = np.abs(th - labels["wall_mm"].to_numpy())
+    valid_th = np.isfinite(err_th)
+    n_valid = int(valid_th.sum())
+    fail_rate = float(1.0 - (n_valid / len(th))) if len(th) > 0 else float("nan")
+    mae_th = float(np.mean(err_th[valid_th])) if n_valid > 0 else float("nan")
+    err_tm = np.abs(tm - labels["t_min_mm"].to_numpy())
+    valid_tm = np.isfinite(err_tm)
+    mae_tm = float(np.mean(err_tm[valid_tm])) if valid_tm.any() else float("nan")
     return {
-        "thickness_mae_mm": float(np.nanmean(np.abs(th - labels["wall_mm"]))),
-        "min_thickness_mae_mm": float(np.nanmean(np.abs(tm - labels["t_min_mm"]))),
+        "thickness_mae_valid_mm": mae_th,
+        "thickness_n_valid": n_valid,
+        "thickness_fail_rate": fail_rate,
+        "min_thickness_mae_valid_mm": mae_tm,
         "crack_detection_rate": float(det[crack].mean()) if crack.any() else float("nan"),
         "false_alarm_rate": float(det[~crack].mean()) if (~crack).any() else float("nan"),
     }
