@@ -28,9 +28,9 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from maek import params  # noqa: E402
-from maek.camera import CLASSES, composite2d, jobs, segment  # noqa: E402
-from maek.evaluate import pod_summary  # noqa: E402
+from maek import params
+from maek.camera import CLASSES, composite2d, jobs, segment
+from maek.evaluate import pod_summary
 
 ENV = ("brightness", "dust", "steam", "blur_sigma", "noise_sigma")
 
