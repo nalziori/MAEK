@@ -8,6 +8,8 @@ breakdowns. Per-defect ids are re-rendered from jobs.json (render_job is determi
     python scripts/eval_camera_seg.py --data release/camera/shifted --seed 101 --method hsv --out out/hsv
     python scripts/eval_camera_seg.py --data release/camera/shifted --seed 101 --method yolo \
         --weights best.pt --out out/e20
+    # E5: same model, image corrected before inference; --save-pred feeds scripts/failure_grid.py
+    python scripts/eval_camera_seg.py ... --pre clahe --save-pred --out out/e20_clahe
 
 Seeds of the data-v3 release (scripts/produce_data.py --seed 1): train 1, shifted 101.
 Outputs in --out: summary.csv (per class), by_condition.csv (per class x env-factor quartile),
@@ -74,6 +76,27 @@ def yolo_predictor(weights, conf, imgsz, device):
     return predict
 
 
+def preprocessor(name: str):
+    """Inference-time image correction (E5): none | gamma (auto, mean -> 0.45) | clahe (LAB L channel)."""
+    if name == "none":
+        return lambda rgb: rgb
+    if name == "gamma":
+        def gamma(rgb):
+            x = rgb.astype(np.float32) / 255.0
+            g = np.log(0.45) / np.log(np.clip(x.mean(), 0.02, 0.98))
+            return (np.clip(x ** g, 0, 1) * 255).astype(np.uint8)
+        return gamma
+    import cv2  # ships with ultralytics; only needed here
+
+    cl = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+
+    def clahe(rgb):
+        lab = cv2.cvtColor(rgb, cv2.COLOR_RGB2LAB)
+        lab[..., 0] = cl.apply(lab[..., 0])
+        return cv2.cvtColor(lab, cv2.COLOR_LAB2RGB)
+    return clahe
+
+
 def contrast(rgb, win, any_def, r=6):
     """Colour distance between a defect and its surrounding ring, in units of ring noise."""
     x = rgb.astype(np.float32) / 255.0
@@ -84,7 +107,7 @@ def contrast(rgb, win, any_def, r=6):
     return float(d / max(x[ring].std(0).mean(), 1e-3))
 
 
-def evaluate(cfg, data: Path, seed: int, predict, split=None, check=3):
+def evaluate(cfg, data: Path, seed: int, predict, split=None, check=3, pre=None, save_pred=None):
     js = jobs.load_jobs(data / "jobs.json")
     keep = None
     if split:
@@ -105,7 +128,9 @@ def evaluate(cfg, data: Path, seed: int, predict, split=None, check=3):
                 raise ValueError(f"re-rendered mask != {mp}: wrong --seed?")
             check -= 1
         rgb = np.array(Image.open(image_path(data, jid)).convert("RGB"))
-        pred = predict(rgb)
+        pred = predict(pre(rgb) if pre else rgb)  # contrast below stays on the raw image
+        if save_pred:
+            Image.fromarray(pred).save(save_pred / f"{jid}.png")
         env = {k: job["env"][k] for k in ENV}
         any_def = mask > 0
         for c in (1, 2, 3):
@@ -165,6 +190,9 @@ def main(argv=None) -> int:
     ap.add_argument("--device", default=None)
     ap.add_argument("--split", choices=("train", "val"), default=None,
                     help="only images listed in train.txt / val.txt (default: all)")
+    ap.add_argument("--pre", choices=("none", "gamma", "clahe"), default="none",
+                    help="inference-time image correction applied before the model")
+    ap.add_argument("--save-pred", action="store_true", help="write predicted masks to OUT/pred/")
     ap.add_argument("--config", default=str(ROOT / "config" / "default.yaml"))
     ap.add_argument("--out", required=True)
     a = ap.parse_args(argv)
@@ -172,9 +200,13 @@ def main(argv=None) -> int:
     if a.method == "yolo" and not a.weights:
         ap.error("--weights is required for --method yolo")
     predict = hsv_predictor(cfg) if a.method == "hsv" else yolo_predictor(a.weights, a.conf, a.imgsz, a.device)
-    summary, by_cond, dfd, dfi = evaluate(cfg, Path(a.data), a.seed, predict, a.split)
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
+    sp = out / "pred" if a.save_pred else None
+    if sp:
+        sp.mkdir(exist_ok=True)
+    summary, by_cond, dfd, dfi = evaluate(cfg, Path(a.data), a.seed, predict, a.split,
+                                          pre=preprocessor(a.pre), save_pred=sp)
     summary.to_csv(out / "summary.csv", index=False)
     by_cond.to_csv(out / "by_condition.csv", index=False)
     dfd.to_csv(out / "defects.csv", index=False)
