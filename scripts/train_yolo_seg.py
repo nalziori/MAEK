@@ -72,8 +72,18 @@ def _yolo(weights: str):
 def cmd_train(a) -> int:
     model = _yolo(a.weights)
     model.train(data=resolve_data(a.data), epochs=a.epochs, imgsz=a.imgsz, batch=a.batch, device=a.device,
-                project=a.project, name=a.name, seed=a.seed, exist_ok=True)
+                project=str(Path(a.project).resolve()), name=a.name, seed=a.seed, exist_ok=True,
+                **parse_opts(a.opt))
     return 0
+
+
+def parse_opts(opts: list[str]) -> dict:
+    """['hsv_v=0.7', 'degrees=5'] -> {'hsv_v': 0.7, 'degrees': 5} (extra Ultralytics train args)."""
+    out = {}
+    for o in opts:
+        k, v = o.split("=", 1)
+        out[k] = yaml.safe_load(v)
+    return out
 
 
 def cmd_val(a) -> int:
@@ -132,6 +142,8 @@ def main(argv=None) -> int:
     t.add_argument("--seed", type=int, default=0)
     t.add_argument("--project", default="runs/segment")
     t.add_argument("--name", default="maek")
+    t.add_argument("--opt", action="append", default=[], metavar="KEY=VALUE",
+                   help="extra Ultralytics train arg, repeatable (e.g. --opt hsv_v=0.7 --opt degrees=5)")
     t.set_defaults(func=cmd_train)
     v = sub.add_parser("val")
     common(v)
