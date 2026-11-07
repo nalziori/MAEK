@@ -27,8 +27,8 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from maek import network, params  # noqa: E402
-from maek.camera import composite2d, jobs  # noqa: E402
+from maek import network, params
+from maek.camera import composite2d, jobs
 
 WIDE = {"brightness_range": [0.2, 1.6], "dust_opacity_range": [0.0, 0.8],
         "steam_opacity_range": [0.0, 0.9], "blur_sigma_range": [0.0, 4.0],

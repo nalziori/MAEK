@@ -5,8 +5,8 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 
-import eval_camera_seg as ev  # noqa: E402
-import make_dr_camera as dr  # noqa: E402
+import eval_camera_seg as ev
+import make_dr_camera as dr
 
 
 def test_dr_dataset_then_defect_level_eval(tmp_path):
