@@ -1,16 +1,22 @@
 """POD sweep: "if the AI's detection rate is X, how do the inspection strategies compare?"
 
-Sweeps the mean detection rate (POD) of one sensor at a time, re-runs the strategy simulation,
-and writes a CSV plus curve PNGs (ratio vs the human method, 1x line = break-even).
+Sweeps the mean detection rate (POD) of one AI at a time, re-runs the strategy simulation, and
+writes a CSV plus curve PNGs (ratio vs the human method, 1x line = break-even).
 
     python scripts/pod_sweep.py                       # 100 km x 20 runs, both access modes
     python scripts/pod_sweep.py --total-km 20 --runs 3 --out out/pod_quick   # quick check
     python scripts/pod_sweep.py --targets 0.2 0.4 0.6 0.8 --sensors camera
 
-Sensors: `camera` (strategy.pod.camera, defect area) and `ut` (drone-contact ultrasound,
-strategy.pod.ut_straight_drone / ut_angle_drone, defect depth). The x axis is the *mean* POD over
-the simulated defects (what A/B report as a detection rate), converted to the logistic intercept
-b0 here. Human-method sensors are not changed. All numbers are simulated, not field-verified.
+Sensors (the AI whose detection rate is swept; only the drone+AI strategy changes, the human and
+plain-drone methods keep the current assumptions):
+  camera  A's corrosion AI       strategy.pod.camera                       size = defect area
+  crack   B's crack classifier   strategy.pod.ut_angle + ut_angle_drone    size = crack depth
+  pit     B's pit classifier     strategy.pod.ut_pit_manual + ut_pit_drone size = pit depth
+  wall    wall-thinning UT read  strategy.pod.ut_straight + ut_straight_drone (not an AI task)
+The x axis is the *mean* POD over the simulated defects (what A/B report as a detection rate),
+converted to the logistic intercept b0 here. Assumption for crack/pit: the AI reads every UT
+signal of the drone+AI strategy, whether the probe is on a drone or in a person's hand.
+All numbers are simulated, not field-verified.
 """
 
 from __future__ import annotations
@@ -30,23 +36,33 @@ from maek.pod import pod
 
 ACCESS = {"scaffold": "비계", "lift": "고소작업차"}
 
+# sensor -> (strategy.pod keys moved together, defect rows that give the sizes, per-kind column)
+SENSORS = {
+    "camera": (("camera",), "camera", "external_corrosion"),
+    "crack": (("ut_angle", "ut_angle_drone"), "crack", "crack"),
+    "pit": (("ut_pit_manual", "ut_pit_drone"), "pit", "internal_pitting"),
+    "wall": (("ut_straight", "ut_straight_drone"), "wall", "fac_thinning"),
+}
+
 
 def _sample(cfg, seed, total_km):
-    """Defects of one generated network, used to turn b0 <-> mean POD."""
+    """Defect sizes of one generated network, used to turn b0 <-> mean POD."""
     d = network.generate_network(cfg, seed, total_km=total_km)[2]
-    vis = strategy._visible(d)
-    area = d.loc[vis, "area_cm2"].to_numpy(float)
     mode = strategy._mode(d)
     kind = d["kind"].to_numpy()
-    depth = d["depth_mm"].to_numpy(float)[(mode == "straight") & (kind != "internal_pitting")]
-    return {"camera": area[area > 0], "ut": depth[depth > 0]}
+    depth = d["depth_mm"].to_numpy(float)
+    area = d.loc[strategy._visible(d), "area_cm2"].to_numpy(float)
+    sizes = {
+        "camera": area,
+        "crack": depth[(mode == "angle") & (kind == "crack")],
+        "pit": depth[(mode == "straight") & (kind == "internal_pitting")],
+        "wall": depth[(mode == "straight") & (kind != "internal_pitting")],
+    }
+    return {k: v[v > 0] for k, v in sizes.items()}
 
 
-SENSORS = {"camera": "camera", "ut": "ut_straight_drone"}  # sensor -> main strategy.pod key
-
-
-def _b(cfg, sensor):
-    return (strategy._s(cfg, f"pod.{sensor}.b0"), strategy._s(cfg, f"pod.{sensor}.b1"))
+def _b(cfg, key):
+    return (strategy._s(cfg, f"pod.{key}.b0"), strategy._s(cfg, f"pod.{key}.b1"))
 
 
 def b0_for_mean_pod(sizes, b1, target):
@@ -60,46 +76,49 @@ def b0_for_mean_pod(sizes, b1, target):
     return (lo + hi) / 2
 
 
-def overrides(cfg, sensor, b0):
-    """Config overrides that put `b0` on the sensor (angle UT keeps its offset to straight UT)."""
-    if sensor == "camera":
-        return {"strategy.pod.camera.b0": b0}
-    off = _b(cfg, "ut_angle_drone")[0] - _b(cfg, "ut_straight_drone")[0]
-    return {"strategy.pod.ut_straight_drone.b0": b0, "strategy.pod.ut_angle_drone.b0": b0 + off}
-
-
 def summarize(res):
-    return {n: {"det": float(df["detection_rate"].mean()),
-                "missed": float(df["missed_high_consequence_critical"].mean()),
-                "cost": float(df["cost_krw"].mean()),
-                "days": float(df["elapsed_days"].mean())} for n, df in res.items()}
+    out = {}
+    for n, df in res.items():
+        out[n] = {"det": float(df["detection_rate"].mean()),
+                  "missed": float(df["missed_high_consequence_critical"].mean()),
+                  "cost": float(df["cost_krw"].mean()),
+                  "days": float(df["elapsed_days"].mean())}
+        for col in df.columns:
+            if col.startswith("detection_rate_"):
+                out[n][col] = float(df[col].mean())
+    return out
 
 
 def run(args):
     cfg0 = _cfg(argparse.Namespace(config=args.config, scenario=args.scenario, set=args.set))
-    sizes = _sample(cfg0, args.seed, args.total_km)
+    sizes = _sample(cfg0, args.seed, max(args.total_km, 100.0))
+    for s in args.sensors:
+        print(f"[{s}] {len(sizes[SENSORS[s][1]])} defects used for the mean-POD conversion")
     rows = []
     for access in args.access:
         cfg_a = params.with_values(cfg0, {"strategy.human_elevated_access": access})
-        base = summarize(strategy.run_all(cfg_a, args.seed, args.runs, args.total_km,
-                                          strategies=("baseline",)))["baseline"]
+        s0 = summarize(strategy.run_all(cfg_a, args.seed, args.runs, args.total_km,
+                                        strategies=("baseline", "drone")))
+        base, dr = s0["baseline"], s0["drone"]
         print(f"[{access}] baseline: det {base['det']:.3f}, cost {base['cost'] / 1e6:,.0f} M KRW")
         for sensor in args.sensors:
-            main = SENSORS[sensor]
-            b0_now, b1 = _b(cfg_a, main)
-            points = [("current", float(pod(sizes[sensor], b0_now, b1).mean()), None)]
-            points += [(f"{t:.2f}", t, b0_for_mean_pod(sizes[sensor], b1, t)) for t in args.targets]
-            for label, mean_pod, b0 in points:
-                cfg = cfg_a if b0 is None else params.with_values(
-                    cfg_a, overrides(cfg_a, sensor, b0))
-                s = summarize(strategy.run_all(cfg, args.seed, args.runs, args.total_km,
-                                               strategies=("drone", "ai_triage")))
-                ai, dr = s["ai_triage"], s["drone"]
+            keys, size_key, kind = SENSORS[sensor]
+            sz = sizes[size_key]
+            now = float(np.mean([pod(sz, *_b(cfg_a, k)).mean() for k in keys]))
+            points = [("current", now, None)] + [(f"{t:.2f}", t, t) for t in args.targets]
+            for label, mean_pod, target in points:
+                cfg = cfg_a if target is None else params.with_values(cfg_a, {
+                    f"strategy.pod.{k}.b0": b0_for_mean_pod(sz, _b(cfg_a, k)[1], target)
+                    for k in keys})
+                ai = summarize(strategy.run_all(cfg, args.seed, args.runs, args.total_km,
+                                                strategies=("ai_triage",)))["ai_triage"]
+                kcol = f"detection_rate_{kind}"
                 rows.append({
-                    "sensor": sensor, "access": access, "point": label,
-                    "mean_pod": mean_pod, "b0": b0_now if b0 is None else b0,
+                    "sensor": sensor, "access": access, "point": label, "mean_pod": mean_pod,
                     "det_baseline": base["det"], "det_drone": dr["det"], "det_ai": ai["det"],
                     "det_ratio_ai": ai["det"] / base["det"] if base["det"] else np.nan,
+                    "kind": kind, "kind_det_baseline": base.get(kcol, np.nan),
+                    "kind_det_ai": ai.get(kcol, np.nan),
                     "missed_baseline": base["missed"], "missed_ai": ai["missed"],
                     "missed_ratio_ai": ai["missed"] / base["missed"] if base["missed"] else np.nan,
                     "cost_ratio_drone": dr["cost"] / base["cost"],
@@ -108,6 +127,7 @@ def run(args):
                 })
                 r = rows[-1]
                 print(f"  {sensor:6s} {label:>7s} pod={mean_pod:.2f}  det x{r['det_ratio_ai']:.2f}"
+                      f"  {kind} {r['kind_det_baseline']:.2f}->{r['kind_det_ai']:.2f}"
                       f"  missed x{r['missed_ratio_ai']:.2f}  cost x{r['cost_ratio_ai']:.2f}")
     return pd.DataFrame(rows)
 
@@ -129,10 +149,16 @@ def plot(df, out, total_km, runs):
     def t(k, e):
         return k if ko else e
 
-    names = {"camera": t("카메라 AI", "camera AI"), "ut": t("드론 초음파 AI", "drone UT AI")}
-    for sensor, g in df.groupby("sensor"):
-        fig, axes = plt.subplots(1, 3, figsize=(13, 4))
+    names = {"camera": t("카메라 AI", "camera AI"), "crack": t("균열 AI", "crack AI"),
+             "pit": t("피팅 AI", "pit AI"), "wall": t("두께(감육) 초음파", "wall-thinning UT")}
+    kinds = {"external_corrosion": t("외부 부식", "external corrosion"),
+             "crack": t("균열", "crack"), "internal_pitting": t("내부 피팅", "internal pitting"),
+             "fac_thinning": t("유동가속부식 감육", "FAC thinning")}
+    for sensor, g in df.groupby("sensor", sort=False):
+        fig, axes = plt.subplots(1, 4, figsize=(17, 4))
+        kind = kinds[g["kind"].iloc[0]]
         panels = (("det_ratio_ai", t("위험 결함 발견율 (사람 대비 배)", "risk-defect detection (x human)")),
+                  ("kind_det_ai", t(f"{kind} 발견율 (드론+AI, 절대값)", f"{kind} detection (drone+AI)")),
                   ("missed_ratio_ai", t("놓친 고피해 결함 (사람 대비 배)", "missed high-damage (x human)")),
                   ("cost_ratio_ai", t("비용 (사람 대비 배)", "cost (x human)")))
         for ax, (col, title) in zip(axes, panels):
@@ -141,9 +167,10 @@ def plot(df, out, total_km, runs):
                 ax.plot(ga["mean_pod"], ga[col], marker="o", label=ACCESS[access] if ko else access)
                 cur = ga[ga["point"] == "current"]
                 ax.scatter(cur["mean_pod"], cur[col], s=130, facecolors="none", edgecolors="k")
-            ax.axhline(1.0, color="gray", ls="--", lw=1)
+            if col != "kind_det_ai":
+                ax.axhline(1.0, color="gray", ls="--", lw=1)
             ax.set_xlabel(t(f"{names[sensor]} 평균 탐지률", f"{names[sensor]} mean detection rate"))
-            ax.set_title(title, fontsize=10)
+            ax.set_title(title, fontsize=9)
             ax.set_ylim(bottom=0)
             ax.grid(alpha=0.3)
         axes[0].legend(title=t("사람 방식의 높은 곳 접근", "human-method access"), fontsize=8)
@@ -169,7 +196,7 @@ def main(argv=None):
     p.add_argument("--total-km", type=float, default=100.0)
     p.add_argument("--targets", type=float, nargs="+", default=[0.3, 0.5, 0.7, 0.9],
                    help="mean detection rates to sweep (the current assumption is always added)")
-    p.add_argument("--sensors", nargs="+", choices=list(SENSORS), default=list(SENSORS))
+    p.add_argument("--sensors", nargs="+", choices=list(SENSORS), default=["camera", "crack", "pit"])
     p.add_argument("--access", nargs="+", choices=list(ACCESS), default=list(ACCESS),
                    help="how the human method reaches high places")
     p.add_argument("--out", default="data/pod_sweep")
