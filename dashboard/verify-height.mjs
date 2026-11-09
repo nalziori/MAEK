@@ -68,7 +68,7 @@ try {
   });
   for (const selector of [
     "#expand-map",
-    "#follow-drone",
+    ".map-controls [data-map-action=selected]",
     "#problem-next",
     ".map-controls [data-map-action=fit]",
   ]) {

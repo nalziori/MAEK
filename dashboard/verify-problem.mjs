@@ -125,7 +125,7 @@ try {
   checks.push(
     "Verified same-pipe saved RGB and mapped regions shown; unlinked thermal and NDT never shown as normal",
   );
-  await p.click("#follow-drone");
+  await p.goto(base + "?pipe=BF2-G101", { waitUntil: "networkidle0" });
   const active = await p.$eval(".pipe-context h2", (e) =>
     e.firstChild.textContent.trim(),
   );
@@ -141,7 +141,7 @@ try {
     "BF1-G004",
   );
   checks.push(
-    "Drone-follow and map selection update all sensor panels to the selected pipe",
+    "Pipe links and map selection update all sensor panels to the selected pipe",
   );
   const record = {
     result_id: "UI-TEST-ONLY-1",
@@ -170,7 +170,7 @@ try {
   checks.push(
     "Valid same-pipe NDT report links below drone evidence, persists locally and remains review-pending",
   );
-  await p.click("#follow-drone");
+  await p.goto(base + "?pipe=BF2-G101", { waitUntil: "networkidle0" });
   assert.equal(await p.$(".ndt-measurement"), null);
   assert.ok(await p.$(".ndt-pending"));
   await importResult(".hallmark/problem/ndt-test.json");

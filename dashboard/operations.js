@@ -398,7 +398,7 @@ function ndtPanel() {
 function home() {
   const rgb = window.MAEK_EVIDENCE.byPipe[selected.id]?.rgb,
     thermal = window.MAEK_EVIDENCE.byPipe[selected.id]?.thermal;
-  return `${problemStrip()}<div class="unified-layout"><section class="map-panel" aria-label="배관 지도와 드론 위치">${mapMarkup(false, true)}<div class="drone-location"><p class="visited-summary">방문 구역 <strong>${[...new Set(pipes.slice(0, step).map((p) => (p.id.startsWith("BF1") ? "1고로" : p.id.startsWith("BF2") ? "2고로" : "기타 구역")))].join(" · ") || "방문 전"}</strong></p><span>현재 위치 <small>저장 기준</small><strong>${current() ? escapeHTML(current().id) : "종료"}</strong></span>${current() ? `<button id="follow-drone" type="button" class="icon-button" aria-label="드론 현재 배관 보기" title="드론 현재 배관 보기">${uiIcon("locate")}</button>` : ""}</div><div class="map-legend"><span class="legend-item"><i class="legend-line route"></i>방문 구역</span><span class="legend-item"><i class="legend-line current"></i>현재 위치</span><span class="legend-item"><i class="legend-line visit"></i>조치 필요</span></div></section><section class="inspection-flow" aria-label="선택 배관의 연속 검사"><div class="pipe-context problem-context"><div class="pipe-main"><h2>${escapeHTML(selected.id)}<span class="selected-issue">${escapeHTML(problemReason(selected))}</span></h2><p>${escapeHTML(selected.service)}</p></div>${heightSummary()}</div><div class="drone-evidence"><section class="sensor-panel"><div class="sensor-heading"><h3>RGB · 부식 관측</h3><span>저장 촬영</span></div>${droneImage("rgb")}<div class="sensor-analysis"><strong>${rgb?.regions.length ? "부식 후보 " + rgb.regions.length + "건" : rgb ? "의심 표시 없음" : "분석 결과 없음"}</strong><span>${rgb ? "색상 규칙 분석" : ""}</span></div></section><section class="sensor-panel"><div class="sensor-heading"><h3>열화상 · 열 관측</h3><span>${thermal ? "연결 촬영" : ""}</span></div>${droneImage("thermal")}<div class="sensor-analysis"><strong>${thermal ? escapeHTML(thermal.analysis_summary || "판독 결과 확인 필요") : "분석 결과 없음"}</strong><span>${thermal ? escapeHTML(thermal.quality_status || "품질 확인 필요") : ""}</span></div></section></div>${ndtPanel()}</section></div>`;
+  return `${problemStrip()}<div class="unified-layout"><section class="map-panel" aria-label="배관 지도와 드론 위치">${mapMarkup(false, true)}<div class="drone-location"><p class="visited-summary">방문 구역 <strong>${[...new Set(pipes.slice(0, step).map((p) => (p.id.startsWith("BF1") ? "1고로" : p.id.startsWith("BF2") ? "2고로" : "기타 구역")))].join(" · ") || "방문 전"}</strong></p></div><div class="map-legend"><span class="legend-item"><i class="legend-line route"></i>방문 구역</span><span class="legend-item"><i class="legend-line current"></i>현재 위치</span><span class="legend-item"><i class="legend-line visit"></i>조치 필요</span></div></section><section class="inspection-flow" aria-label="선택 배관의 연속 검사"><div class="pipe-context problem-context"><div class="pipe-main"><h2>${escapeHTML(selected.id)}<span class="selected-issue">${escapeHTML(problemReason(selected))}</span></h2><p>${escapeHTML(selected.service)}</p></div>${heightSummary()}</div><div class="drone-evidence"><section class="sensor-panel"><div class="sensor-heading"><h3>RGB · 부식 관측</h3><span>저장 촬영</span></div>${droneImage("rgb")}<div class="sensor-analysis"><strong>${rgb?.regions.length ? "부식 후보 " + rgb.regions.length + "건" : rgb ? "의심 표시 없음" : "분석 결과 없음"}</strong><span>${rgb ? "색상 규칙 분석" : ""}</span></div></section><section class="sensor-panel"><div class="sensor-heading"><h3>열화상 · 열 관측</h3><span>${thermal ? "연결 촬영" : ""}</span></div>${droneImage("thermal")}<div class="sensor-analysis"><strong>${thermal ? escapeHTML(thermal.analysis_summary || "판독 결과 확인 필요") : "분석 결과 없음"}</strong><span>${thermal ? escapeHTML(thermal.quality_status || "품질 확인 필요") : ""}</span></div></section></div>${ndtPanel()}</section></div>`;
 }
 
 function rows(filtered, record = false) {
@@ -471,12 +471,6 @@ function bind() {
   if ($("problem-next"))
     $("problem-next").onclick = () => {
       problemPage++;
-      render();
-    };
-  if ($("follow-drone"))
-    $("follow-drone").onclick = () => {
-      selected = current();
-      ndtNotice = "";
       render();
     };
   if ($("import-ndt"))
