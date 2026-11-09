@@ -1,0 +1,1978 @@
+{
+  "BF1-G001": {
+    "service": "BFG_RAW",
+    "fluidC": 226.85000000000002,
+    "odMm": 2100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-G002": {
+    "service": "BFG_RAW",
+    "fluidC": 226.85000000000002,
+    "odMm": 2100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-G003": {
+    "service": "BFG_RAW",
+    "fluidC": 226.85000000000002,
+    "odMm": 2700.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-G004": {
+    "service": "BFG_DEDUST",
+    "fluidC": 176.85000000000002,
+    "odMm": 2000.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-G005": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 1800.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-G006": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 1500.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-G100": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 1400.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-G101": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 1400.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-G102": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 1400.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-G110": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 900.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-F099": {
+    "service": "FLUE",
+    "fluidC": 226.85000000000002,
+    "odMm": 1400.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-C200": {
+    "service": "COLD_BLAST",
+    "fluidC": 76.85000000000002,
+    "odMm": 920.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-H200": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-G200": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 800.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-A200": {
+    "service": "COMB_AIR",
+    "fluidC": 36.85000000000002,
+    "odMm": 700.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-F200": {
+    "service": "FLUE",
+    "fluidC": 226.85000000000002,
+    "odMm": 1200.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-C201": {
+    "service": "COLD_BLAST",
+    "fluidC": 76.85000000000002,
+    "odMm": 920.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-H201": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-G201": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 800.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-A201": {
+    "service": "COMB_AIR",
+    "fluidC": 36.85000000000002,
+    "odMm": 700.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-F201": {
+    "service": "FLUE",
+    "fluidC": 226.85000000000002,
+    "odMm": 1200.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-C202": {
+    "service": "COLD_BLAST",
+    "fluidC": 76.85000000000002,
+    "odMm": 920.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-H202": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-G202": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 800.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-A202": {
+    "service": "COMB_AIR",
+    "fluidC": 36.85000000000002,
+    "odMm": 700.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-F202": {
+    "service": "FLUE",
+    "fluidC": 226.85000000000002,
+    "odMm": 1200.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-C001": {
+    "service": "COLD_BLAST",
+    "fluidC": 76.85000000000002,
+    "odMm": 1300.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-C002": {
+    "service": "COLD_BLAST",
+    "fluidC": 76.85000000000002,
+    "odMm": 1300.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-C003": {
+    "service": "COLD_BLAST",
+    "fluidC": 76.85000000000002,
+    "odMm": 1300.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-H001": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1700.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-H002": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1700.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-A001": {
+    "service": "COMB_AIR",
+    "fluidC": 36.85000000000002,
+    "odMm": 1000.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-A002": {
+    "service": "COMB_AIR",
+    "fluidC": 36.85000000000002,
+    "odMm": 1000.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-A003": {
+    "service": "COMB_AIR",
+    "fluidC": 36.85000000000002,
+    "odMm": 1000.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-F001": {
+    "service": "FLUE",
+    "fluidC": 226.85000000000002,
+    "odMm": 1300.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-F002": {
+    "service": "FLUE",
+    "fluidC": 226.85000000000002,
+    "odMm": 1300.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-F003": {
+    "service": "FLUE",
+    "fluidC": 226.85000000000002,
+    "odMm": 1300.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-T000": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-T001": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-T002": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-T003": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-T004": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-T005": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-T006": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-T007": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-T008": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-T009": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-T010": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-T011": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-B000": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-B001": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-B002": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-B003": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-B004": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-B005": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-B006": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-B007": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-B008": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-B009": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-B010": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-B011": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-H003": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1700.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-W001": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 460.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WS000": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WR000": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WS001": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WR001": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WS002": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WR002": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WS003": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WR003": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WS004": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WR004": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WS005": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WR005": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WS006": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WR006": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WS007": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WR007": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WS008": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WR008": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WS009": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WR009": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WS010": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WR010": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WS011": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WR011": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WSR000": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WSR001": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WSR002": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WSR003": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WSR004": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WSR005": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WSR006": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WSR007": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WSR008": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WSR009": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WSR010": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WSR011": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WRR000": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WRR001": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WRR002": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WRR003": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WRR004": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WRR005": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WRR006": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WRR007": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WRR008": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WRR009": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WRR010": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-WRR011": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-W002": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 460.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-W003": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 460.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-Q001": {
+    "service": "WASH",
+    "fluidC": 29.850000000000023,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-Q002": {
+    "service": "WASH",
+    "fluidC": 29.850000000000023,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-Q003": {
+    "service": "SLURRY",
+    "fluidC": 29.850000000000023,
+    "odMm": 500.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-Q004": {
+    "service": "WASH",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1-Q005": {
+    "service": "SLURRY",
+    "fluidC": 29.850000000000023,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-G001": {
+    "service": "BFG_RAW",
+    "fluidC": 226.85000000000002,
+    "odMm": 2100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-G002": {
+    "service": "BFG_RAW",
+    "fluidC": 226.85000000000002,
+    "odMm": 2100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-G003": {
+    "service": "BFG_RAW",
+    "fluidC": 226.85000000000002,
+    "odMm": 2700.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-G004": {
+    "service": "BFG_DEDUST",
+    "fluidC": 176.85000000000002,
+    "odMm": 2000.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-G005": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 1800.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-G006": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 1500.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-G100": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 1400.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-G101": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 1400.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-G102": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 1400.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-G110": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 900.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-F099": {
+    "service": "FLUE",
+    "fluidC": 226.85000000000002,
+    "odMm": 1400.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-C200": {
+    "service": "COLD_BLAST",
+    "fluidC": 76.85000000000002,
+    "odMm": 920.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-H200": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-G200": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 800.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-A200": {
+    "service": "COMB_AIR",
+    "fluidC": 36.85000000000002,
+    "odMm": 700.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-F200": {
+    "service": "FLUE",
+    "fluidC": 226.85000000000002,
+    "odMm": 1200.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-C201": {
+    "service": "COLD_BLAST",
+    "fluidC": 76.85000000000002,
+    "odMm": 920.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-H201": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-G201": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 800.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-A201": {
+    "service": "COMB_AIR",
+    "fluidC": 36.85000000000002,
+    "odMm": 700.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-F201": {
+    "service": "FLUE",
+    "fluidC": 226.85000000000002,
+    "odMm": 1200.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-C202": {
+    "service": "COLD_BLAST",
+    "fluidC": 76.85000000000002,
+    "odMm": 920.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-H202": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-G202": {
+    "service": "BFG_CLEAN",
+    "fluidC": 56.85000000000002,
+    "odMm": 800.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-A202": {
+    "service": "COMB_AIR",
+    "fluidC": 36.85000000000002,
+    "odMm": 700.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-F202": {
+    "service": "FLUE",
+    "fluidC": 226.85000000000002,
+    "odMm": 1200.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-C001": {
+    "service": "COLD_BLAST",
+    "fluidC": 76.85000000000002,
+    "odMm": 1300.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-C002": {
+    "service": "COLD_BLAST",
+    "fluidC": 76.85000000000002,
+    "odMm": 1300.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-C003": {
+    "service": "COLD_BLAST",
+    "fluidC": 76.85000000000002,
+    "odMm": 1300.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-H001": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1700.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-H002": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1700.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-A001": {
+    "service": "COMB_AIR",
+    "fluidC": 36.85000000000002,
+    "odMm": 1000.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-A002": {
+    "service": "COMB_AIR",
+    "fluidC": 36.85000000000002,
+    "odMm": 1000.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-A003": {
+    "service": "COMB_AIR",
+    "fluidC": 36.85000000000002,
+    "odMm": 1000.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-F001": {
+    "service": "FLUE",
+    "fluidC": 226.85000000000002,
+    "odMm": 1300.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-F002": {
+    "service": "FLUE",
+    "fluidC": 226.85000000000002,
+    "odMm": 1300.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-F003": {
+    "service": "FLUE",
+    "fluidC": 226.85000000000002,
+    "odMm": 1300.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-T000": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-T001": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-T002": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-T003": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-T004": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-T005": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-T006": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-T007": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-T008": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-T009": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-T010": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-T011": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-B000": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-B001": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-B002": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-B003": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-B004": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-B005": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-B006": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-B007": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-B008": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-B009": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-B010": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-B011": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1100.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-H003": {
+    "service": "HOT_BLAST",
+    "fluidC": 1199.85,
+    "odMm": 1700.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-W001": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 460.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WS000": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WR000": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WS001": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WR001": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WS002": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WR002": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WS003": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WR003": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WS004": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WR004": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WS005": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WR005": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WS006": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WR006": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WS007": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WR007": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WS008": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WR008": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WS009": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WR009": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WS010": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WR010": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WS011": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WR011": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WSR000": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WSR001": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WSR002": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WSR003": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WSR004": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WSR005": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WSR006": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WSR007": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WSR008": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WSR009": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WSR010": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WSR011": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WRR000": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WRR001": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WRR002": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WRR003": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WRR004": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WRR005": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WRR006": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WRR007": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WRR008": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WRR009": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WRR010": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-WRR011": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-W002": {
+    "service": "CW_SUPPLY",
+    "fluidC": 29.850000000000023,
+    "odMm": 460.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-W003": {
+    "service": "CW_RETURN",
+    "fluidC": 29.850000000000023,
+    "odMm": 460.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-Q001": {
+    "service": "WASH",
+    "fluidC": 29.850000000000023,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-Q002": {
+    "service": "WASH",
+    "fluidC": 29.850000000000023,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-Q003": {
+    "service": "SLURRY",
+    "fluidC": 29.850000000000023,
+    "odMm": 500.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-Q004": {
+    "service": "WASH",
+    "fluidC": 29.850000000000023,
+    "odMm": 360.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2-Q005": {
+    "service": "SLURRY",
+    "fluidC": 29.850000000000023,
+    "odMm": 440.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1.CASTHOUSE.TRAIN-SUP": {
+    "service": "TRAIN_CW",
+    "fluidC": 19.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF1.CASTHOUSE.TRAIN-RET": {
+    "service": "TRAIN_CW",
+    "fluidC": 19.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2.CASTHOUSE.TRAIN-SUP": {
+    "service": "TRAIN_CW",
+    "fluidC": 19.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "BF2.CASTHOUSE.TRAIN-RET": {
+    "service": "TRAIN_CW",
+    "fluidC": 19.850000000000023,
+    "odMm": 240.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "UTIL-N001": {
+    "service": "N2",
+    "fluidC": 19.850000000000023,
+    "odMm": 70.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "UTIL-N002": {
+    "service": "N2",
+    "fluidC": 19.850000000000023,
+    "odMm": 70.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "UTIL-N003": {
+    "service": "N2",
+    "fluidC": 19.850000000000023,
+    "odMm": 70.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "UTIL-N004": {
+    "service": "N2",
+    "fluidC": 19.850000000000023,
+    "odMm": 70.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "UTIL-I001": {
+    "service": "INSTR_AIR",
+    "fluidC": 19.850000000000023,
+    "odMm": 50.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "UTIL-I002": {
+    "service": "INSTR_AIR",
+    "fluidC": 19.850000000000023,
+    "odMm": 50.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  },
+  "UTIL-I003": {
+    "service": "INSTR_AIR",
+    "fluidC": 19.850000000000023,
+    "odMm": 50.0,
+    "insulationMm": 0,
+    "temperatureBasis": "hydraulic_results.json baseline (assumed)",
+    "surfaceBasis": "bare visual model; wall and inner-film resistance neglected; emissivity 0.85 assumed"
+  }
+}

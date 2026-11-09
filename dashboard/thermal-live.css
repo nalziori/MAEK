@@ -1,0 +1,16 @@
+body[data-tab="thermal"] #screen { overflow:auto; min-height:0; }
+#thermal-workspace { padding:18px; background:white; border:1px solid var(--line); border-radius:5px; }
+.thermal-title { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.thermal-title h2 { font-size:1.15rem; margin:0; }.thermal-title p,.thermal-title span,.thermal-scope { font-size:.8rem; color:var(--muted); }
+.thermal-title span { border:1px solid var(--line); padding:5px 9px; border-radius:4px; }
+.thermal-verdict { padding:12px 0; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; color:#795019; }.thermal-verdict span { font-size:.8rem; }
+.thermal-images { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.thermal-images figure,.thermal-modal figure { margin:0; min-width:0; }.thermal-images figcaption,.thermal-modal figcaption { display:flex; align-items:center; justify-content:space-between; font-size:.9rem; margin-bottom:5px; }.thermal-images button { padding:4px 12px; }
+.thermal-frame { position:relative; aspect-ratio:320/256; width:min(100%,425px); margin-inline:auto; background:#111a2d; }
+.thermal-frame img { display:block; width:100%; height:100%; object-fit:fill; }
+.thermal-frame svg { position:absolute; inset:0; width:100%; height:100%; fill:none; stroke:#fff83c; stroke-width:1.5; pointer-events:none; }
+.thermal-legend { display:flex; justify-content:center; align-items:center; gap:8px; font-size:.8rem; padding:10px 0; flex-wrap:wrap; }.thermal-legend i { width:220px; height:13px; background:linear-gradient(90deg,#10143d,#26378e,#159aa8,#e9c43d,#f95822,#fff4df); }.thermal-legend small { color:var(--muted); }
+.thermal-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:8px 0; }.thermal-stats div { padding:10px 14px; background:#f3f7f7; border-radius:4px; }.thermal-stats dt { font-size:.8rem; color:var(--muted); }.thermal-stats dd { margin:3px 0 0; font-size:1.4rem; font-variant-numeric:tabular-nums; }.thermal-stats small { font-size:.8rem; }
+.thermal-details summary { min-height:44px; cursor:pointer; }.thermal-details dl { display:grid; grid-template-columns:140px minmax(0,1fr); gap:6px; font-size:.8rem; }.thermal-details dd { margin:0; overflow-wrap:anywhere; }.thermal-message { padding:30px 12px; min-height:200px; color:var(--muted); }
+.thermal-modal { width:min(900px,92vw); max-height:92vh; overflow:auto; border:1px solid var(--line); border-radius:7px; }.thermal-modal::backdrop { background:#102532aa; }.thermal-modal header { display:flex; align-items:center; justify-content:space-between; }.thermal-modal .thermal-frame { width:min(100%,760px); }
+@media(max-width:800px) { .thermal-images { grid-template-columns:1fr; }.thermal-stats { grid-template-columns:1fr 1fr; }.thermal-details dl { grid-template-columns:1fr; } }

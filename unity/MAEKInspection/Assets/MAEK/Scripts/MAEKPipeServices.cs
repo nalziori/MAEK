@@ -17,7 +17,7 @@ namespace MAEK {
   public PipeServiceDefinition[] services;public ServicePipe[] pipes;public UtilityAsset[] utilityAssets;
  }
  public sealed class MAEKPipeServices:MonoBehaviour {
-  public TextAsset definitions;public bool colorOverlay=true;
+  public bool showInterface=true;public TextAsset definitions;public bool colorOverlay=true;
   public PipeServiceData Data {get;private set;} public string SelectedId {get;private set;}
   public int BoundPipeCount {get{return assets.Count;}}
   readonly Dictionary<string,MAEKPipeService> assets=new Dictionary<string,MAEKPipeService>();
@@ -26,7 +26,7 @@ namespace MAEK {
   readonly Dictionary<Renderer,MaterialPropertyBlock> oldBlocks=new Dictionary<Renderer,MaterialPropertyBlock>();
   bool initialized,show=true;string filter="",lastDroneId="";Vector2 listScroll,panelScroll;Font koreanFont;GUIStyle label,button;
   public static Vector3 V(float[] p){return new Vector3(p[0],p[2],p[1]);}
-  public bool PointerOverPanel(Vector2 screenPoint){if(!show||!enabled)return false;float width=Mathf.Min(405,Screen.width*.43f);return new Rect(Screen.width-width-12,12,width,Screen.height-24).Contains(new Vector2(screenPoint.x,Screen.height-screenPoint.y));}
+  public bool PointerOverPanel(Vector2 screenPoint){if(!showInterface||!show||!enabled)return false;float width=Mathf.Min(405,Screen.width*.43f);return new Rect(Screen.width-width-12,12,width,Screen.height-24).Contains(new Vector2(screenPoint.x,Screen.height-screenPoint.y));}
   public void Initialize(){if(initialized)return;initialized=true;Data=JsonUtility.FromJson<PipeServiceData>(definitions.text);foreach(var d in Data.services)services[d.code]=d;foreach(var p in Data.pipes)pipes[p.id]=p;
    foreach(var a in FindObjectsByType<MAEKPipeService>(FindObjectsSortMode.None)){if(!pipes.ContainsKey(a.lineId))continue;assets.Add(a.lineId,a);foreach(var r in a.GetComponentsInChildren<Renderer>()){var block=new MaterialPropertyBlock();r.GetPropertyBlock(block);oldBlocks[r]=block;}}
    SelectedId=Data.pipes[0].id;ApplyColors();
@@ -43,7 +43,7 @@ namespace MAEK {
    if(!Input.GetKeyDown(KeyCode.E))return;var camera=FindObjectsByType<Camera>(FindObjectsSortMode.None).FirstOrDefault(c=>c.enabled);if(!camera)return;var ray=camera.ViewportPointToRay(new Vector3(.5f,.5f,0));if(Physics.Raycast(ray,out var hit,300,1<<8,QueryTriggerInteraction.Ignore)){var info=hit.collider.GetComponentInParent<MAEKPipeService>();if(info)SelectPipe(info.lineId);}
   }
   void Styles(){if(label!=null)return;koreanFont=Font.CreateDynamicFontFromOSFont(new[]{"Malgun Gothic","맑은 고딕","Noto Sans CJK KR","Arial"},15);label=new GUIStyle(GUI.skin.label){font=koreanFont,wordWrap=true,fontSize=15};button=new GUIStyle(GUI.skin.button){font=koreanFont,wordWrap=true,fontSize=14};}
-  void OnGUI(){if(!initialized||!show)return;Styles();float width=Mathf.Min(405,Screen.width*.43f);var area=new Rect(Screen.width-width-12,12,width,Screen.height-24);GUI.Box(area,"");GUILayout.BeginArea(new Rect(area.x+12,area.y+10,area.width-24,area.height-20));panelScroll=GUILayout.BeginScrollView(panelScroll);
+  void OnGUI(){if(!showInterface||!initialized||!show)return;Styles();float width=Mathf.Min(405,Screen.width*.43f);var area=new Rect(Screen.width-width-12,12,width,Screen.height-24);GUI.Box(area,"");GUILayout.BeginArea(new Rect(area.x+12,area.y+10,area.width-24,area.height-20));panelScroll=GUILayout.BeginScrollView(panelScroll);
    GUILayout.Label("MAEK 배관 계통 / 용도",label);GUILayout.Label("E: 조준 배관 선택  ·  L: 색상  ·  M: 패널",label);
    var hydraulic=FindFirstObjectByType<MAEKHydraulicFlow>();if(hydraulic)hydraulic.DrawControls(label,button);
    if(GUILayout.Button(colorOverlay?"계통 색상 표시 중 / 원래 재질 보기":"계통 색상 켜기",button))SetOverlay(!colorOverlay);

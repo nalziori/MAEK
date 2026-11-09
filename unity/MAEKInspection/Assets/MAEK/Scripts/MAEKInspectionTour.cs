@@ -65,6 +65,8 @@ namespace MAEK {
   public TourPlan Plan {get;private set;} public bool Active {get;private set;}
   public bool Complete {get;private set;} public bool Blocked {get;private set;}
   public bool Waiting {get;private set;} public bool Paused {get;private set;}
+  public MAEKSafetyDemo Safety=>GetComponent<MAEKSafetyDemo>();
+  public bool SafetyBlocked=>Safety && !Safety.CanInspect;
   public int Leg {get;private set;} public float Elapsed {get;private set;}
   public string Status {get;private set;}="준비";
   public string CurrentPipe {get;private set;}="";
@@ -134,6 +136,7 @@ namespace MAEK {
    using(var sha=SHA256.Create())return BitConverter.ToString(sha.ComputeHash(bytes)).Replace("-","").ToLowerInvariant();
   }
   public void Begin(string output=null) {
+   if(Safety && !Safety.CanStart){Status="안전 조건 미충족 또는 비행 중 · 검사 시작 차단";return;}
    GetComponent<MAEKInspectionScenarios>()?.BeforeTourBegin(routeData);
    Initialize();if(Active)End();generation++;StopAllCoroutines();
    var cfd=FindFirstObjectByType<MAEKCFDPlayback>();if(cfd&&cfd.ActiveView)cfd.SetView(false);
@@ -153,14 +156,21 @@ namespace MAEK {
    tourCamera.enabled=true;tourCamera.aspect=16f/9;
    tourCamera.transform.SetPositionAndRotation(Plan.points[0].position,Quaternion.LookRotation(Plan.points[0].target-Plan.points[0].position));
    Complete=Plan.points.Length==1;Status=Complete?CompletionStatus():"제철소 전경에서 검사 구역으로 접근";Cursor.lockState=CursorLockMode.None;WriteProgress();
+   if(Safety)Safety.OnTourStarted();
   }
   public void End() {
+   if(Safety && !Safety.Grounded){Safety.RequestStop();return;}
    if(Recorder&&Recorder.Recording)Recorder.StopRecording();
    generation++;StopAllCoroutines();Waiting=false;Active=false;
    foreach(var p in prior)if(p.Key)p.Key.enabled=p.Value;
    prior.Clear();
   }
-  public void SetPaused(bool paused){if(Active)Paused=paused;}
+  public void SetPaused(bool paused){if(Active && (paused || !SafetyBlocked))Paused=paused;}
+  public void SuspendForSafety(string reason) {
+   generation++;StopAllCoroutines();Waiting=false;PendingPipe="";Paused=true;Status=reason;
+   if(!string.IsNullOrEmpty(CurrentPipe))DeferInspection(CurrentPipe,"safety_interrupted");
+   else WriteProgress();
+  }
   public void HideResults(){showResults=false;}
   void OnDisable(){if(Active)End();}
   void Update() {
@@ -168,19 +178,19 @@ namespace MAEK {
    if(Input.GetKeyDown(KeyCode.T)){if(Active)End();else Begin();}
    if(!Active)return;
    Physics.SyncTransforms();
-   if(Input.GetKeyDown(KeyCode.Space))Paused=!Paused;
+   if(Input.GetKeyDown(KeyCode.Space))SetPaused(!Paused);
    if(Input.GetKeyDown(KeyCode.R)){if(Recorder.Recording)Recorder.StopRecording();else Recorder.StartRecording(this);}
    int steps=Recorder&&Recorder.Recording?1:Mathf.Clamp(verificationStepsPerUpdate,1,200);
    for(int i=0;i<steps&&!Waiting&&!Complete&&!Blocked&&!Paused&&PendingPipe=="";i++)
     Advance(Recorder&&Recorder.Recording?1f/Recorder.fps:steps>1?.1f:Time.deltaTime);
-   if(PendingPipe!=""&&!Waiting){string id=PendingPipe;PendingPipe="";StartCoroutine(Analyse(id));}
+   if(PendingPipe!=""&&!Waiting&&!SafetyBlocked){string id=PendingPipe;PendingPipe="";StartCoroutine(Analyse(id));}
   }
   public bool SegmentClear(Vector3 a,Vector3 b) {
    if(Physics.CheckSphere(a,Plan.radius,1<<8,QueryTriggerInteraction.Ignore)||Physics.CheckSphere(b,Plan.radius,1<<8,QueryTriggerInteraction.Ignore))return false;
    var d=b-a;return d.magnitude<1e-5f||!Physics.SphereCast(a,Plan.radius,d.normalized,out var hit,d.magnitude,1<<8,QueryTriggerInteraction.Ignore);
   }
   public void Advance(float dt) {
-   if(!Active||Complete||Blocked||Waiting||Paused||PendingPipe!="")return;
+   if(!Active||Complete||Blocked||Waiting||Paused||PendingPipe!=""||SafetyBlocked)return;
    dt=Mathf.Clamp(dt,0,.1f);Elapsed+=dt;
    var point=Plan.points[Leg];
    if(arrived){dwell+=dt;if(dwell<point.dwell)return;Leg++;arrived=false;dwell=0;
@@ -215,6 +225,7 @@ namespace MAEK {
     RenderTexture.ReleaseTemporary(rt);DestroyImmediate(image);foreach(var p in pins)p.SetActive(true);}
   }
   public RGBRequest MakeCapture(string pipeId,out InspectionCapture context) {
+   if(SafetyBlocked)throw new InvalidOperationException("Safety gate blocks inspection capture");
    var png=CapturePixels(captureWidth,captureHeight);
    context=new InspectionCapture{requestId=Guid.NewGuid().ToString("N"),pipeId=pipeId,
     imageSha256=Hash(png),position=tourCamera.transform.position,rotation=tourCamera.transform.rotation,sampleId=Plan.points[Leg].sampleId,
@@ -241,6 +252,8 @@ namespace MAEK {
   public void Failure(string reason){Waiting=false;AnalysisErrors.Add(reason);Status="검사보류: "+reason;if(!string.IsNullOrEmpty(CurrentPipe))DeferInspection(CurrentPipe,reason);else WriteProgress();}
   public void ConsumePendingForVerification(){PendingPipe="";}
   public int ApplyResult(InspectionCapture capture,string json) {
+   if(SafetyBlocked)throw new InvalidOperationException("Safety gate blocks analysis application");
+   if(Safety && !Captures.Contains(capture))throw new InvalidOperationException("Safety session rejects stale capture");
    var result=JsonUtility.FromJson<RGBResult>(json);
    if(result==null||result.version!=1||(result.status!="ok"&&!(result.status=="low_light"&&result.quality!=null&&!result.quality.canInfer))||result.requestId!=capture.requestId||
      result.imageSha256!=capture.imageSha256||result.width!=capture.width||result.height!=capture.height||result.components==null)
@@ -312,13 +325,14 @@ namespace MAEK {
     processContext=GetComponent<MAEKProcessContext>()?.Caption(CurrentPipe)??"",numericalScope=GetComponent<MAEKSupplementaryCircuits>()?.Selected==true?GetComponent<MAEKSupplementaryCircuits>().Data.flowBasis:GetComponent<MAEKProcessContext>()?.Data?.numericalScope??"가정 조건 계산",workerContext="가상 배관 · 실제 사고 위치 아님 · 작업 허가 미판정"};
   }
   void OnGUI() {
+   if(GetComponent<MAEKThermalDemo>()?.Displaying==true)return;
    if(text==null){font=Font.CreateDynamicFontFromOSFont(new[]{"Malgun Gothic","Arial"},17);text=new GUIStyle(GUI.skin.label){font=font,fontSize=17,wordWrap=true};button=new GUIStyle(GUI.skin.button){font=font,fontSize=15};}
    if(!Active){if(GUI.Button(new Rect(12,125,270,34),"T: MAEK 연속 검사 시연 시작",button))Begin();return;}
    GUI.Box(new Rect(12,12,Mathf.Min(740,Screen.width-24),178),"");
    GUI.Label(new Rect(25,22,700,28),"MAEK | 유효 관측 배관 "+AnalysedPipes+" / "+(Plan.pipeIds?.Length??0)+" · 촬영 "+Captures.Count+" / "+Plan.requiredCaptures+" (예약 "+Plan.expectedCaptures+")",text);
    GUI.Label(new Rect(25,54,690,48),Status,text);
    GUI.Label(new Rect(25,103,690,28),"합성 장면 · RGB 부식 규칙 기준선 · 균열 발생 예측 아님",text);
-   if(GUI.Button(new Rect(25,143,145,32),Paused?"재생 (Space)":"일시 정지 (Space)",button))Paused=!Paused;
+   if(GUI.Button(new Rect(25,143,145,32),Paused?"재생 (Space)":"일시 정지 (Space)",button))SetPaused(!Paused);
    if(GUI.Button(new Rect(180,143,170,32),Recorder.Recording?"녹화 종료 (R)":"영상 프레임 녹화 (R)",button)){if(Recorder.Recording)Recorder.StopRecording();else Recorder.StartRecording(this);}
    if(GUI.Button(new Rect(360,143,125,32),"종료 (T)",button))End();
    if(GUI.Button(new Rect(495,143,140,32),"처음부터 다시",button))Begin();

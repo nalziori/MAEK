@@ -1,4 +1,4 @@
-// Adapted from the user-owned ShiftLink FactoryWorkerVisual.cs; no ShiftLink runtime dependency.
+﻿// Adapted from the user-owned ShiftLink FactoryWorkerVisual.cs; no ShiftLink runtime dependency.
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,6 +108,12 @@ public sealed class MAEKInspectorVisual : MonoBehaviour
         var target=transform.InverseTransformPoint(worldGrip);
         ArmTarget("Left",target,new Vector3(-.42f,.80f,.1f));
         Aim("LeftHand",Vector3.forward);
+    }
+    public void HoldUTAt(Vector3 instrumentGrip, Vector3 probeGrip) {
+        if(!initialized)Initialize();
+        ArmTarget("Right",transform.InverseTransformPoint(instrumentGrip),new Vector3(.42f,.8f,.05f));
+        Aim("RightHand",new Vector3(0,0,1));
+        InspectAt(probeGrip);
     }
     void Rotate(string name, Quaternion delta)
     {

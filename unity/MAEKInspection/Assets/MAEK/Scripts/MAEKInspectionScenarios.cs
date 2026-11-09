@@ -41,8 +41,9 @@ namespace MAEK {
   }
   void RestoreAppearance(){foreach(var p in originals)if(p.Key)p.Key.sharedMaterials=p.Value;originals.Clear();foreach(var m in materials)if(m)DestroyImmediate(m);materials.Clear();if(occluder)DestroyImmediate(occluder);occluder=null;}
   public void Stop(){Running=false;SuiteRunning=false;Finished=false;nextCase=-1;if(tour.Active)tour.End();}
-  public void StartSuite(){Initialize();Cancel();Evaluations.Clear();SuiteRunning=true;suiteIndex=0;StartCase(Data.scenarios[0].id,true);}
+  public void StartSuite(){if(GetComponent<MAEKSafetyDemo>())return;Initialize();Cancel();Evaluations.Clear();SuiteRunning=true;suiteIndex=0;StartCase(Data.scenarios[0].id,true);}
   public void StartCase(string id,bool suite=false){
+   if(GetComponent<MAEKSafetyDemo>())return;
    Initialize();tour.Initialize();var selected=Data.scenarios.Single(s=>s.id==id);bool keepSuite=suite;
    if(tour.routeData!=caseRoute)cataloguePlan=tour.Plan;
    var source=cataloguePlan;
