@@ -13,7 +13,8 @@ namespace MAEK.Editor {
   public static string Output=>Path.GetFullPath(Path.Combine(Application.dataPath,"../../../visualization/inspection_demo"));
   static readonly List<Check> checks=new List<Check>();
   [Serializable] class Check {public string name,detail;public bool pass;}
-  [Serializable] class Report {public string status,scope;public Check[] checks;public int captures,findings,frames,expectedCaptures,coveredPipes;public float distanceM;}
+  [Serializable] class Report {public string status,scope;public Check[] checks;public int captures,findings,frames,expectedCaptures,coveredPipes,cataloguePipes,scheduledPipes,requiredCaptures,deferredCaptures,deferredPipes,partialPipes;public bool siteFirst;public float distanceM;}
+  [Serializable] class AccessAudit {public string status,scope,layoutBefore,layoutAfter;public bool layoutUnchanged;public int cataloguePipes,requiredCaptures,scheduledCaptures,deferredCaptures,accessiblePipes,partialPipes,deferredPipes;public float bodyRadius,clearanceMargin,queryRadius;public InspectionAccess[] rows;}
   sealed class LocalClient:WebClient {
    protected override WebRequest GetWebRequest(Uri address){var request=base.GetWebRequest(address);request.Timeout=20000;return request;}
   }
@@ -86,62 +87,43 @@ namespace MAEK.Editor {
   [MenuItem("MAEK/Build continuous inspection demo")]
   public static void Run() {try{Build();if(Application.isBatchMode)EditorApplication.Exit(0);}catch(Exception e){Debug.LogException(e);if(Application.isBatchMode)EditorApplication.Exit(1);else throw;}}
   public static void Build() {
-   BuildStandaloneTeam.Configure();
-   checks.Clear();Directory.CreateDirectory(Output);
+   BuildStandaloneTeam.Configure();checks.Clear();Directory.CreateDirectory(Output);
+   CheckThat("equipment placement independent of route",EnhanceSteelworks.VerifyLayoutIndependence(probe=>{
+    EditorSceneManager.OpenScene(Root+"/Scenes/MAEKHydraulicCFD.unity");
+    var probeServices=UnityEngine.Object.FindFirstObjectByType<MAEKPipeServices>();probeServices.Initialize();probeServices.RestoreColors();EnhanceSteelworks.Apply(probe);
+   }));
    var scene=EditorSceneManager.OpenScene(Root+"/Scenes/MAEKHydraulicCFD.unity");Physics.SyncTransforms();
+   var legacy=JsonUtility.FromJson<TourPlan>(File.ReadAllText(Root+"/Source/inspection_tour.json"));
    var services=UnityEngine.Object.FindFirstObjectByType<MAEKPipeServices>();services.Initialize();services.SetOverlay(false);
-   var routes=JsonUtility.FromJson<DroneRouteSet>(AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/Source/service_drone_routes.json").text);
-   var start=new Vector3(-145,75,-135);var points=new List<TourPoint>{new TourPoint{position=start,target=new Vector3(-25,24,15),speed=12}};
-   var expected=services.Data.pipes.Select(p=>p.id).OrderBy(x=>x).ToArray();
-   if(expected.Length!=247||routes.routes.Select(r=>r.id).Distinct().Count()!=247||!expected.SequenceEqual(routes.routes.Select(r=>r.id).OrderBy(x=>x)))throw new Exception("Pipe catalogue and 247 drone routes differ");
-   var remaining=routes.routes.OrderBy(r=>r.id).ToList();var visits=new List<PipeVisit>();var transfers=new List<PipeTransfer>();string previousPipe="OVERVIEW";
-   while(remaining.Count>0) {
-    var origin=points.Last().position;
-    var route=remaining.OrderBy(r=>Mathf.Min(Vector3.Distance(origin,MAEKDroneInspection.V(r.waypoints[0].position)),Vector3.Distance(origin,MAEKDroneInspection.V(r.waypoints.Last().position)))).ThenBy(r=>r.id).First();
-    bool reverse=Vector3.Distance(origin,MAEKDroneInspection.V(route.waypoints.Last().position))<Vector3.Distance(origin,MAEKDroneInspection.V(route.waypoints[0].position));
-    var waypoints=reverse?route.waypoints.Reverse().ToArray():route.waypoints;
-    var sourceIndices=Enumerable.Range(0,waypoints.Length).ToArray();
-    if(!waypoints.Any(w=>Visible(MAEKDroneInspection.V(w.position),MAEKDroneInspection.V(w.target),route.id))){
-     var extended=new List<DroneWaypoint>();var indices=new List<int>();
-     for(int i=0;i<waypoints.Length;i++){if(i>0){var a=MAEKDroneInspection.V(waypoints[i-1].position);var b=MAEKDroneInspection.V(waypoints[i].position);var p=(a+b)*.5f;var t=(MAEKDroneInspection.V(waypoints[i-1].target)+MAEKDroneInspection.V(waypoints[i].target))*.5f;extended.Add(new DroneWaypoint{position=new[]{p.x,p.y,p.z},target=new[]{t.x,t.y,t.z}});indices.Add(-1);}extended.Add(waypoints[i]);indices.Add(i);}
-     waypoints=extended.ToArray();sourceIndices=indices.ToArray();
-    }
-    Debug.Log("MAEK_PLAN_PIPE "+(visits.Count+1)+"/247 "+previousPipe+" -> "+route.id);
-    int firstTransit=points.Count-1;
-    AppendTransit(points,MAEKDroneInspection.V(waypoints[0].position),MAEKDroneInspection.V(waypoints[0].target),route.id);
-    float transferLength=0;for(int i=firstTransit+1;i<points.Count;i++)transferLength+=Vector3.Distance(points[i-1].position,points[i].position);
-    transfers.Add(new PipeTransfer{fromPipe=previousPipe,toPipe=route.id,firstLeg=firstTransit,lastLeg=points.Count-1,length=transferLength});
-    var captures=CaptureIndices(waypoints,route.id);int firstLeg=points.Count;
-    for(int i=0;i<waypoints.Length;i++)points.Add(new TourPoint{position=MAEKDroneInspection.V(waypoints[i].position),target=MAEKDroneInspection.V(waypoints[i].target),speed=3,dwell=captures.Contains(i)?.4f:0,pipeId=captures.Contains(i)?route.id:"",routePipeId=route.id,phase="inspection",sourceIndex=sourceIndices[i],sampleId=captures.Contains(i)?route.id+"/"+i.ToString("D3"):""});
-    visits.Add(new PipeVisit{pipeId=route.id,firstLeg=firstLeg,lastLeg=points.Count-1,captures=captures.Count,reversed=reverse});
-    remaining.Remove(route);previousPipe=route.id;
-   }
-   var plan=new TourPlan{basis="All 247 original pipe paths, nearest-endpoint order, swept-sphere verified transfers; sampled RGB views, not full-surface coverage or flight dynamics",points=points.ToArray(),pipeIds=expected,visits=visits.ToArray(),transfers=transfers.ToArray(),expectedCaptures=points.Count(p=>p.pipeId!="")};
-   for(int i=1;i<points.Count;i++)plan.distanceM+=Vector3.Distance(points[i-1].position,points[i].position);
-   for(int i=1;i<points.Count;i++)CheckThat("continuous segment "+i,Clear(points[i-1].position,points[i].position));
-   foreach(var visit in visits)CheckThat("pipe route complete "+visit.pipeId,points.Skip(visit.firstLeg).Take(visit.lastLeg-visit.firstLeg+1).Count(p=>p.sourceIndex>=0)==routes.routes.First(r=>r.id==visit.pipeId).waypoints.Length&&visit.captures>0);
-   foreach(var t in transfers)CheckThat("transfer "+t.fromPipe+" -> "+t.toPipe,Enumerable.Range(t.firstLeg+1,t.lastLeg-t.firstLeg).All(i=>Clear(points[i-1].position,points[i].position)));
-   foreach(var point in points.Where(p=>p.pipeId!=""))CheckThat("visible target "+point.sampleId,Visible(point.position,point.target,point.pipeId));
-   CheckThat("exact catalogue coverage",visits.Select(v=>v.pipeId).OrderBy(x=>x).SequenceEqual(expected));
-   if(checks.Any(c=>!c.pass))throw new Exception("Route validation failed before scene save: "+string.Join(";",checks.Where(c=>!c.pass).Select(c=>c.name)));
-   string source=Root+"/Source/inspection_tour.json";File.WriteAllText(source,JsonUtility.ToJson(plan,true));AssetDatabase.ImportAsset(source);
-   var go=new GameObject("MAEK continuous drone inspection");var tour=go.AddComponent<MAEKInspectionTour>();go.AddComponent<MAEKTourRecorder>();
-   var camera=new GameObject("MAEK continuous drone RGB").AddComponent<Camera>();camera.fieldOfView=52;camera.nearClipPlane=.03f;camera.farClipPlane=1500;camera.enabled=false;camera.transform.position=start;camera.transform.LookAt(points[0].target);
-   tour.tourCamera=camera;tour.routeData=AssetDatabase.LoadAssetAtPath<TextAsset>(source);
+   CheckThat("original 247 catalogue retained",services.Data.pipes.Select(p=>p.id).OrderBy(p=>p).SequenceEqual(legacy.pipeIds.OrderBy(p=>p)));
+   var go=new GameObject("MAEK layout-first drone inspection");var tour=go.AddComponent<MAEKInspectionTour>();go.AddComponent<MAEKTourRecorder>();
+   var camera=new GameObject("MAEK continuous drone RGB").AddComponent<Camera>();camera.fieldOfView=52;camera.nearClipPlane=.03f;camera.farClipPlane=1500;camera.enabled=false;camera.transform.position=legacy.points[0].position;camera.transform.LookAt(legacy.points[0].target);
+   tour.tourCamera=camera;tour.routeData=AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/Source/inspection_tour.json");
    var process=go.AddComponent<MAEKProcessContext>();process.definitions=AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/Source/process_context.json");process.safetyDefinitions=AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/Source/worker_safety_context.json");process.Validate();
    var cfd=UnityEngine.Object.FindFirstObjectByType<MAEKCFDPlayback>();cfd.startInCFDView=false;
-   // Existing service/cfd scenes remain untouched; this is a dedicated demonstration entry point.
-   services.RestoreColors();EnhanceSteelworks.Apply(plan);EnhanceInteriors.Apply();BuildSupplementaryCircuits.Apply(tour);
-   EditorSceneManager.SaveScene(scene,Root+"/Scenes/MAEKInspectionDemo.unity");
-   EditorBuildSettings.scenes=new[]{new EditorBuildSettingsScene(Root+"/Scenes/MAEKInspectionDemo.unity",true)};AssetDatabase.SaveAssets();
-   ReportTo("build_report.json",tour);Debug.Log("MAEK_TOUR_BUILD_PASS points="+points.Count+" captures="+plan.expectedCaptures+" metres="+plan.distanceM);
-   AuditEnhancedColliders.Audit("after-interior");
-   BuildSupplementaryCircuits.Audit();
-   CaptureFactoryPhotos.CaptureScene();CaptureInteriorPhotos.CaptureScene();
+   // Finish the physical site before routing. No flight or photograph corridor is reserved.
+   services.RestoreColors();EnhanceSteelworks.Apply(legacy);EnhanceInteriors.Apply();BuildSupplementaryCircuits.Apply(tour);Physics.SyncTransforms();
+   string fixedLayout=SiteInspectionPlanner.LayoutSignature();
+   var plan=SiteInspectionPlanner.Build(legacy);string main=Root+"/Source/site_inspection_tour.json";
+   File.WriteAllText(main,JsonUtility.ToJson(plan,true));AssetDatabase.ImportAsset(main);tour.SetRoute(AssetDatabase.LoadAssetAtPath<TextAsset>(main));
+   var extra=go.GetComponent<MAEKSupplementaryCircuits>();extra.originalRoute=tour.routeData;
+   var oldExtra=JsonUtility.FromJson<TourPlan>(extra.inspectionRoute.text);var extraPlan=SiteInspectionPlanner.Build(oldExtra);string annex=Root+"/Source/site_supplementary_tour.json";
+   File.WriteAllText(annex,JsonUtility.ToJson(extraPlan,true));AssetDatabase.ImportAsset(annex);extra.inspectionRoute=AssetDatabase.LoadAssetAtPath<TextAsset>(annex);
+   string afterPlanning=SiteInspectionPlanner.LayoutSignature();CheckThat("planning cannot modify fixed equipment",fixedLayout==afterPlanning);
+   var audit=new AccessAudit{status=fixedLayout==afterPlanning?"PASS":"FAIL",scope="Fixed virtual equipment first; no geometry changes during route planning. Counts refer to required observation poses, not physical surface coverage or actual site authorization.",layoutBefore=fixedLayout,layoutAfter=afterPlanning,layoutUnchanged=fixedLayout==afterPlanning,cataloguePipes=plan.pipeIds.Length,requiredCaptures=plan.requiredCaptures,scheduledCaptures=plan.expectedCaptures,deferredCaptures=plan.access.Count(a=>!a.accessible),accessiblePipes=plan.visits.Count(v=>v.accessStatus=="accessible"),partialPipes=plan.visits.Count(v=>v.accessStatus=="partial"),deferredPipes=plan.visits.Count(v=>v.accessStatus=="deferred"),bodyRadius=plan.bodyRadius,clearanceMargin=plan.clearanceMargin,queryRadius=plan.radius,rows=plan.access};
+   File.WriteAllText(Path.Combine(Output,"site_access_audit.json"),JsonUtility.ToJson(audit,true));
+   var scenarios=go.AddComponent<MAEKInspectionScenarios>();scenarios.definitions=AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/Source/inspection_scenarios.json");
+   go.AddComponent<MAEKVirtualDrone>().tour=tour;go.AddComponent<MAEKDashboardLink>();
+   foreach(var row in plan.access)CheckThat("access partition "+row.sampleId,row.accessible==plan.points.Any(p=>p.pipeId==row.pipeId&&p.sampleId==row.sampleId));
+   CheckThat("all required observations accounted",plan.requiredCaptures==legacy.expectedCaptures&&plan.access.Length==legacy.expectedCaptures);
+   CheckThat("deferred observations retained",plan.access.Any(a=>!a.accessible));
+   EditorSceneManager.SaveScene(scene,Root+"/Scenes/MAEKInspectionDemo.unity");EditorBuildSettings.scenes=new[]{new EditorBuildSettingsScene(Root+"/Scenes/MAEKInspectionDemo.unity",true)};AssetDatabase.SaveAssets();
+   ReportTo("build_report.json",tour);Debug.Log("MAEK_SITE_BUILD_PASS pipes="+plan.pipeIds.Length+" scheduled="+plan.expectedCaptures+" required="+plan.requiredCaptures+" deferred="+plan.access.Count(a=>!a.accessible));
+   AuditEnhancedColliders.Audit("after-interior");BuildSupplementaryCircuits.Audit();CaptureFactoryPhotos.CaptureScene();CaptureInteriorPhotos.CaptureScene();
   }
   static void ReportTo(string file,MAEKInspectionTour tour,int frames=0,int captures=0,int findings=0) {
    var plan=tour?.Plan??JsonUtility.FromJson<TourPlan>(File.ReadAllText(Root+"/Source/inspection_tour.json"));
-   var report=new Report{status=checks.All(c=>c.pass)?"PASS":"FAIL",scope="All 247 pipes, sampled synthetic RGB inspection; not full surface/field accuracy",checks=checks.ToArray(),captures=tour?.Captures.Count??captures,findings=tour?.Findings.Count??findings,frames=frames,expectedCaptures=plan.expectedCaptures,coveredPipes=tour?.AnalysedPipes??0,distanceM=plan.distanceM};
+   var report=new Report{status=checks.All(c=>c.pass)?"PASS":"FAIL",scope="Layout-first catalogue accounting; scheduled observations only, explicit inspection deferral; not full-surface/field accuracy",siteFirst=plan.siteFirst,cataloguePipes=plan.pipeIds.Length,scheduledPipes=plan.visits.Count(v=>v.captures>0),requiredCaptures=plan.siteFirst?plan.requiredCaptures:plan.expectedCaptures,deferredCaptures=plan.siteFirst?plan.access.Count(a=>!a.accessible):0,deferredPipes=plan.visits.Count(v=>v.captures==0),partialPipes=plan.visits.Count(v=>v.captures>0&&v.captures<v.requiredCaptures),checks=checks.ToArray(),captures=tour?.Captures.Count??captures,findings=tour?.Findings.Count??findings,frames=frames,expectedCaptures=plan.expectedCaptures,coveredPipes=tour?.AnalysedPipes??0,distanceM=plan.distanceM};
    File.WriteAllText(Path.Combine(Output,file),JsonUtility.ToJson(report,true));if(report.status!="PASS")throw new Exception(string.Join("; ",checks.Where(c=>!c.pass).Select(c=>c.name)));
   }
   [MenuItem("MAEK/Verify continuous inspection end to end")]
@@ -151,7 +133,7 @@ namespace MAEK.Editor {
    checks.Clear();EditorSceneManager.OpenScene(Root+"/Scenes/MAEKInspectionDemo.unity");Physics.SyncTransforms();
    var tour=UnityEngine.Object.FindFirstObjectByType<MAEKInspectionTour>();tour.externalClock=true;tour.Initialize();
    var process=tour.GetComponent<MAEKProcessContext>();process.safetyDefinitions=AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/Source/worker_safety_context.json");process.Validate();CheckThat("process roles and scope",process.CountRole("primary_inspection")==138);
-   string session=Path.Combine(Output,record?"recorded-session":"verified-session",DateTime.Now.ToString("yyyyMMdd-HHmmss"));tour.Begin(session);
+   string session=Path.Combine(Output,record?"recorded-session":"verified-session",DateTime.Now.ToString("yyyyMMdd-HHmmss"));tour.Begin(session);CheckThat("no observation is not healthy",process.FollowUps().rows.All(r=>r.observationStatus=="unobserved"&&r.status=="inspection_deferred"));
    var recorder=tour.GetComponent<MAEKTourRecorder>();if(record){recorder.width=960;recorder.height=540;recorder.fps=12;recorder.StartRecording(tour,Path.Combine(session,"video"));}
    float dt=1f/12;float maxMove=0,maxRotation=0;int frames=0;
    using(var client=new LocalClient()) {
@@ -164,7 +146,7 @@ namespace MAEK.Editor {
       string id=tour.PendingPipe;var request=tour.MakeCapture(id,out var context);
       string json=client.UploadString(tour.endpoint,JsonUtility.ToJson(request));tour.ApplyResult(context,json);
       tour.ConsumePendingForVerification();
-      if(id=="BF1-W002"&&!checks.Any(c=>c.name=="wrong image hash rejected")) {
+      if(!checks.Any(c=>c.name=="wrong image hash rejected")) {
        var original=tour.tourCamera.transform.position;tour.tourCamera.transform.position+=Vector3.up*7;
        bool provenanceRejected=false;try{tour.ApplyResult(context,json.Replace(context.imageSha256,new string('0',64)));}catch{provenanceRejected=true;}
        CheckThat("wrong image hash rejected",provenanceRejected);
@@ -184,13 +166,20 @@ namespace MAEK.Editor {
    if(record)recorder.StopRecording();
    CheckThat("tour completes",tour.Complete&&!tour.Blocked);
    CheckThat("all planned captures executed",tour.Captures.Count==tour.Plan.expectedCaptures&&tour.Outcomes.Count==tour.Plan.expectedCaptures);
-   CheckThat("247 pipes analysed",tour.AnalysedPipes==247);
+   CheckThat("catalogue retained including inaccessible pipes",tour.Plan.pipeIds.Length==247&&process.FollowUps().rows.Length==247);
+   CheckThat("every required sample accounted",tour.Plan.access.Length==tour.Plan.requiredCaptures&&tour.Plan.access.Count(a=>a.accessible)==tour.Captures.Count);
    CheckThat("exact capture sequence",tour.Captures.Select(c=>c.sampleId).SequenceEqual(tour.Plan.points.Where(p=>p.pipeId!="").Select(p=>p.sampleId)));
    CheckThat("every photograph sees requested pipe",tour.Captures.All(c=>c.visibleTargetSamples>0));
-   foreach(var id in tour.Plan.pipeIds)CheckThat("analysed pipe "+id,tour.Outcomes.Any(o=>o.pipeId==id&&(o.status=="candidate"||o.status=="no_candidate")));
+   foreach(var visit in tour.Plan.visits){
+    var follow=process.FollowUps().rows.Single(r=>r.pipeId==visit.pipeId);
+    CheckThat("scheduled images executed "+visit.pipeId,tour.Outcomes.Count(o=>o.pipeId==visit.pipeId)==visit.captures);
+    CheckThat("required sample count retained "+visit.pipeId,follow.plannedImages==visit.requiredCaptures);
+    if(visit.captures<visit.requiredCaptures)CheckThat("inaccessible observations stay deferred "+visit.pipeId,follow.inspectionStatus!="completed"&&follow.status!="no_rgb_candidate");
+    if(visit.captures==0)CheckThat("unobserved has no fabricated RGB "+visit.pipeId,follow.status=="inspection_deferred"&&follow.observationStatus=="unobserved"&&follow.evidenceRequestIds.Length==0&&!tour.Captures.Any(c=>c.pipeId==visit.pipeId));
+   }
    CheckThat("bounded continuous translation",maxMove<=12*dt+.001f,maxMove.ToString());
    CheckThat("bounded smooth rotation",maxRotation<=60*dt+.05f,maxRotation.ToString());
-   CheckThat("actual image detection on inspection pipe",tour.Findings.Any(f=>f.pipeId=="BF1-W002"),"Not a fixture response; live Python RGB baseline");
+   CheckThat("inaccessible samples exist without forced coverage",tour.Plan.access.Any(a=>!a.accessible));
    CheckThat("no inference errors",tour.AnalysisErrors.Count==0);
    foreach(var f in tour.Findings) {
     bool surface=Physics.Raycast(f.position+f.normal*.05f,-f.normal,out var hit,.12f,1<<8,QueryTriggerInteraction.Ignore)&&hit.collider.GetComponentInParent<MAEKPipeService>()?.lineId==f.pipeId;
@@ -198,6 +187,7 @@ namespace MAEK.Editor {
    }
    // Test the actual runtime collision gate for every transfer, then inject an obstacle.
    foreach(var transfer in tour.Plan.transfers){
+    if(transfer.lastLeg<=transfer.firstLeg)continue;
     int j=Enumerable.Range(transfer.firstLeg+1,transfer.lastLeg-transfer.firstLeg).OrderByDescending(i=>Vector3.Distance(tour.Plan.points[i-1].position,tour.Plan.points[i].position)).First();
     var a=tour.Plan.points[j-1].position;var b=tour.Plan.points[j].position;
     var obstacle=GameObject.CreatePrimitive(PrimitiveType.Cube);obstacle.layer=8;obstacle.transform.position=(a+b)*.5f;obstacle.transform.localScale=Vector3.one*.3f;Physics.SyncTransforms();

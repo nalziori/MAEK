@@ -13,14 +13,20 @@ namespace MAEK {
   public string routePipeId="",sampleId="",phase="transit";
   public int sourceIndex=-1;
  }
- [Serializable] public class PipeVisit {public string pipeId;public int firstLeg,lastLeg,captures;public bool reversed;}
+ [Serializable] public class PipeVisit {public string pipeId;public int firstLeg,lastLeg,captures,requiredCaptures;public string accessStatus;public string[] accessReasons;public bool reversed;}
+ [Serializable] public class InspectionAccess {public string pipeId,sampleId,status,reason;public Vector3 position,target;public int sourceIndex;public bool accessible;}
+ [Serializable] public class PipeInspectionProgress {
+  public string pipeId,observationStatus,inspectionStatus,accessStatus;public string[] accessReasons;
+  public int plannedImages,scheduledImages,deferredImages,analysedImages;
+ }
  [Serializable] public class PipeTransfer {public string fromPipe,toPipe;public int firstLeg,lastLeg;public float length;}
  [Serializable] public class TourPlan {
-  public int version=2; public float radius=.12f; public string basis; public TourPoint[] points;
+  public int version=2; public bool siteFirst;public float bodyRadius=.24f,clearanceMargin=.10f;public InspectionAccess[] access; public float radius=.34f; public string basis; public TourPoint[] points;
   public string[] pipeIds;public PipeVisit[] visits;public PipeTransfer[] transfers;
-  public int expectedCaptures;public float distanceM;
+  public int expectedCaptures,requiredCaptures;public float distanceM;
  }
- [Serializable] public class RGBRequest {public string requestId,imageBase64;}
+ [Serializable] public class RGBRequest {public string requestId,imageBase64,sessionId,pipeId,sampleId,scenarioId,scenarioRunId;}
+ [Serializable] public class RGBQuality {public bool canInfer;public string code;public float meanLuminance;}
  [Serializable] public class RGBSample {public float u,v;}
  [Serializable] public class RGBComponent {
   public string kind; public int pixelCount; public int[] bbox; public RGBSample[] samples;
@@ -28,6 +34,7 @@ namespace MAEK {
  [Serializable] public class RGBResult {
   public int version,width,height; public string requestId,status,model,imageSha256,scope;
   public RGBComponent[] components;
+  public RGBQuality quality;
  }
  [Serializable] public class InspectionCapture {
   public string requestId,pipeId,imageSha256,sampleId; public Vector3 position; public Quaternion rotation;
@@ -73,14 +80,52 @@ namespace MAEK {
   public float MaxMovementStep {get;private set;}
   public float MaxRotationStep {get;private set;}
   public int CollisionSteps {get;private set;}
-  public int AnalysedPipes=>Outcomes.Where(o=>o.status=="candidate"||o.status=="no_candidate").Select(o=>o.pipeId).Distinct().Count();
+  public int AnalysedPipes=>Outcomes.Where(Usable).Select(o=>o.pipeId).Distinct().Count();
+  public static bool Usable(InspectionOutcome o)=>o.visibleTargetSamples>0&&(o.status=="candidate"||o.status=="no_candidate");
+  readonly Dictionary<string,List<string>> deferredReasons=new Dictionary<string,List<string>>();
+  public int ScheduledImages(string id)=>Plan.points.Count(p=>p.pipeId==id);
+  public int RequiredImages(string id) {
+   var visit=Plan.visits?.FirstOrDefault(v=>v.pipeId==id);
+   if(visit!=null&&visit.requiredCaptures>0)return visit.requiredCaptures;
+   int canonical=Plan.access?.Count(a=>a.pipeId==id)??0;
+   return canonical>0?canonical:Mathf.Max(1,visit?.captures??ScheduledImages(id));
+  }
+  public InspectionOutcome[] ValidObservations(string id) {
+   var scheduled=new HashSet<string>(Plan.points.Where(p=>p.pipeId==id).Select(p=>p.sampleId));
+   return Outcomes.Where(o=>o.pipeId==id&&Usable(o)&&scheduled.Contains(o.sampleId))
+    .GroupBy(o=>string.IsNullOrEmpty(o.sampleId)?o.requestId:o.sampleId).Select(g=>g.First()).ToArray();
+  }
+  public PipeInspectionProgress Coverage(string id) {
+   int required=RequiredImages(id),scheduled=ScheduledImages(id),valid=ValidObservations(id).Length;
+   var visit=Plan.visits?.FirstOrDefault(v=>v.pipeId==id);var reasons=new List<string>(visit?.accessReasons??Array.Empty<string>());
+   foreach(var a in Plan.access??Array.Empty<InspectionAccess>())if(a.pipeId==id&&!a.accessible)reasons.Add(string.IsNullOrEmpty(a.reason)?a.status??"inaccessible":a.reason);
+   if(deferredReasons.TryGetValue(id,out var failures))reasons.AddRange(failures);
+   foreach(var o in Outcomes.Where(o=>o.pipeId==id&&!Usable(o)))reasons.Add(o.status=="not_visible"?"occluded":o.status=="quality_recheck"?"quality":o.status);
+   if(valid<required)reasons.Add(Blocked?"blocked":scheduled==0?"inaccessible":scheduled<required?"missing_access":Complete?"missing_observation":"awaiting_observation");
+   return new PipeInspectionProgress{pipeId=id,plannedImages=required,scheduledImages=scheduled,deferredImages=Mathf.Max(0,required-scheduled),analysedImages=valid,
+    observationStatus=valid==0?"unobserved":valid<required?"partial":"observed",inspectionStatus=valid>=required?"completed":valid>0?"partial":"deferred",
+    accessStatus=scheduled==0?"deferred":scheduled<required?"partial":"accessible",accessReasons=reasons.Where(r=>!string.IsNullOrEmpty(r)).Distinct().ToArray()};
+  }
+  public void DeferInspection(string id,string reason) {
+   if(!deferredReasons.TryGetValue(id,out var reasons))deferredReasons[id]=reasons=new List<string>();
+   reasons.Add(reason);Status=id+": 검사보류 · "+reason;WriteProgress();
+  }
+  string CompletionStatus() {
+   var rows=Plan.pipeIds.Select(Coverage).ToArray();
+   return "경로 완료 · 검사 완료 "+rows.Count(r=>r.inspectionStatus=="completed")+" · 부분 "+rows.Count(r=>r.inspectionStatus=="partial")+" · 보류 "+rows.Count(r=>r.inspectionStatus=="deferred");
+  }
   readonly List<GameObject> pins=new List<GameObject>();
   readonly Dictionary<Behaviour,bool> prior=new Dictionary<Behaviour,bool>();
   float dwell; bool arrived,showResults;Vector2 resultsScroll; int generation; GUIStyle text,button; Font font;
   public void Initialize() {
    if(Plan!=null)return;
    Plan=JsonUtility.FromJson<TourPlan>(routeData.text);
-   if(Plan==null||Plan.points==null||Plan.points.Length<2)throw new Exception("Invalid tour route");
+   if(Plan==null||Plan.points==null||Plan.points.Length<1)throw new Exception("Invalid tour route");
+   if(Plan.pipeIds==null)Plan.pipeIds=(Plan.visits?.Select(v=>v.pipeId)??Plan.points.Where(p=>!string.IsNullOrEmpty(p.pipeId)).Select(p=>p.pipeId)).Distinct().ToArray();
+   if(Plan.visits==null)Plan.visits=Plan.pipeIds.Select(id=>new PipeVisit{pipeId=id,captures=ScheduledImages(id)}).ToArray();
+   Plan.bodyRadius=Mathf.Max(.24f,Plan.bodyRadius);Plan.clearanceMargin=Mathf.Max(.10f,Plan.clearanceMargin);
+   Plan.radius=Mathf.Max(Plan.radius,Plan.bodyRadius+Plan.clearanceMargin);
+   if(Plan.requiredCaptures<=0)Plan.requiredCaptures=Plan.pipeIds.Sum(RequiredImages);
    Recorder=GetComponent<MAEKTourRecorder>();
   }
   public void SetRoute(TextAsset next){if(Active)throw new InvalidOperationException("End the active tour before changing catalogue");routeData=next;Plan=null;Initialize();}
@@ -89,6 +134,7 @@ namespace MAEK {
    using(var sha=SHA256.Create())return BitConverter.ToString(sha.ComputeHash(bytes)).Replace("-","").ToLowerInvariant();
   }
   public void Begin(string output=null) {
+   GetComponent<MAEKInspectionScenarios>()?.BeforeTourBegin(routeData);
    Initialize();if(Active)End();generation++;StopAllCoroutines();
    var cfd=FindFirstObjectByType<MAEKCFDPlayback>();if(cfd&&cfd.ActiveView)cfd.SetView(false);
    var drone=FindFirstObjectByType<MAEKDroneInspection>();if(drone)drone.EndInspection();
@@ -98,7 +144,7 @@ namespace MAEK {
      prior[b]=b.enabled;b.enabled=false;
     }
    var services=FindFirstObjectByType<MAEKPipeServices>();if(services){services.Initialize();services.SetOverlay(false);}
-   foreach(var p in pins)if(p){DestroyImmediate(p.GetComponent<Renderer>().sharedMaterial);DestroyImmediate(p);}pins.Clear();Findings.Clear();Captures.Clear();Outcomes.Clear();AnalysisErrors.Clear();
+   foreach(var p in pins)if(p){DestroyImmediate(p.GetComponent<Renderer>().sharedMaterial);DestroyImmediate(p);}pins.Clear();Findings.Clear();Captures.Clear();Outcomes.Clear();AnalysisErrors.Clear();deferredReasons.Clear();
    SessionDirectory=output??Path.Combine(Application.persistentDataPath,"MAEK-recordings",DateTime.Now.ToString("yyyyMMdd-HHmmss-fff"));
    Directory.CreateDirectory(SessionDirectory);
    Leg=1;Elapsed=0;dwell=0;arrived=false;Blocked=false;Complete=false;Waiting=false;Paused=false;
@@ -106,7 +152,7 @@ namespace MAEK {
    MaxMovementStep=0;MaxRotationStep=0;CollisionSteps=0;
    tourCamera.enabled=true;tourCamera.aspect=16f/9;
    tourCamera.transform.SetPositionAndRotation(Plan.points[0].position,Quaternion.LookRotation(Plan.points[0].target-Plan.points[0].position));
-   Status="제철소 전경에서 검사 구역으로 접근";Cursor.lockState=CursorLockMode.None;
+   Complete=Plan.points.Length==1;Status=Complete?CompletionStatus():"제철소 전경에서 검사 구역으로 접근";Cursor.lockState=CursorLockMode.None;WriteProgress();
   }
   public void End() {
    if(Recorder&&Recorder.Recording)Recorder.StopRecording();
@@ -114,6 +160,8 @@ namespace MAEK {
    foreach(var p in prior)if(p.Key)p.Key.enabled=p.Value;
    prior.Clear();
   }
+  public void SetPaused(bool paused){if(Active)Paused=paused;}
+  public void HideResults(){showResults=false;}
   void OnDisable(){if(Active)End();}
   void Update() {
    if(externalClock)return;
@@ -136,10 +184,10 @@ namespace MAEK {
    dt=Mathf.Clamp(dt,0,.1f);Elapsed+=dt;
    var point=Plan.points[Leg];
    if(arrived){dwell+=dt;if(dwell<point.dwell)return;Leg++;arrived=false;dwell=0;
-    if(Leg>=Plan.points.Length){Complete=true;Status=AnalysisErrors.Count>0||AnalysedPipes!=(Plan.pipeIds?.Length??0)||Outcomes.Any(o=>o.status=="not_visible")?"경로 완료 · 미분석/가림 구간 확인 필요":"전체 "+AnalysedPipes+"개 배관 촬영·분석 완료";WriteProgress();return;}point=Plan.points[Leg];}
+    if(Leg>=Plan.points.Length){Complete=true;Status=CompletionStatus();WriteProgress();return;}point=Plan.points[Leg];}
    var old=tourCamera.transform.position;var next=Vector3.MoveTowards(old,point.position,point.speed*dt);
    CollisionSteps++;
-   if(!SegmentClear(old,next)){Blocked=true;Status="장애물 감지: 비행 중지 (우회 필요)";WriteProgress();return;}
+   if(!SegmentClear(old,next)){Blocked=true;Status="장애물 감지: 이동 중지 · 미관측 구간 검사보류";WriteProgress();return;}
    var oldRotation=tourCamera.transform.rotation;
    tourCamera.transform.position=next;var direction=point.target-next;
    if(direction.sqrMagnitude>.001f)tourCamera.transform.rotation=Quaternion.RotateTowards(tourCamera.transform.rotation,Quaternion.LookRotation(direction),60*dt);
@@ -153,13 +201,16 @@ namespace MAEK {
    }
   }
   public byte[] CapturePixels(int width,int height) {
+   var scenario=GetComponent<MAEKInspectionScenarios>();if(scenario&&!scenario.CameraAvailable)throw new IOException("가상 카메라 영상 중단 · 촬영 미완료");
    var rt=RenderTexture.GetTemporary(width,height,24,RenderTextureFormat.ARGB32);
    var old=RenderTexture.active;var target=tourCamera.targetTexture;float aspect=tourCamera.aspect;
    var image=new Texture2D(width,height,TextureFormat.RGB24,false);
    // Analysis must not see its own previous orange result pins.
    foreach(var p in pins)p.SetActive(false);
    try {tourCamera.aspect=(float)width/height;tourCamera.targetTexture=rt;tourCamera.Render();RenderTexture.active=rt;
-    image.ReadPixels(new Rect(0,0,width,height),0,0);image.Apply();return image.EncodeToPNG();
+    image.ReadPixels(new Rect(0,0,width,height),0,0);image.Apply();
+    if(scenario&&scenario.Exposure<1){var pixels=image.GetPixels32();for(int i=0;i<pixels.Length;i++){pixels[i].r=(byte)(pixels[i].r*scenario.Exposure);pixels[i].g=(byte)(pixels[i].g*scenario.Exposure);pixels[i].b=(byte)(pixels[i].b*scenario.Exposure);}image.SetPixels32(pixels);image.Apply();}
+    return image.EncodeToPNG();
    } finally {tourCamera.targetTexture=target;tourCamera.aspect=aspect;RenderTexture.active=old;
     RenderTexture.ReleaseTemporary(rt);DestroyImmediate(image);foreach(var p in pins)p.SetActive(true);}
   }
@@ -172,7 +223,8 @@ namespace MAEK {
     if(Physics.Raycast(context.Ray(.5f+x*.012f,.5f+y*.012f),out var hit,250,1<<8,QueryTriggerInteraction.Ignore)&&MAEKSupplementaryCircuits.TargetId(hit.collider)==pipeId)context.visibleTargetSamples++;
    Captures.Add(context);File.WriteAllBytes(Path.Combine(SessionDirectory,context.requestId+".png"),png);
    File.WriteAllText(Path.Combine(SessionDirectory,context.requestId+".capture.json"),JsonUtility.ToJson(context,true));
-   return new RGBRequest{requestId=context.requestId,imageBase64=Convert.ToBase64String(png)};
+   var scenario=GetComponent<MAEKInspectionScenarios>();
+   return new RGBRequest{requestId=context.requestId,imageBase64=Convert.ToBase64String(png),sessionId=Path.GetFileName(SessionDirectory),pipeId=pipeId,sampleId=context.sampleId,scenarioId=scenario?.Current?.id??"catalogue",scenarioRunId=scenario?.Current!=null?scenario.RunId:Path.GetFileName(SessionDirectory)};
   }
   IEnumerator Analyse(string pipeId) {
    Waiting=true;int token=generation;Status="RGB 분석 중: "+pipeId;
@@ -186,16 +238,16 @@ namespace MAEK {
    }
    Waiting=false;
   }
-  public void Failure(string reason){Waiting=false;AnalysisErrors.Add(reason);Status="분석 보류: "+reason;WriteProgress();}
+  public void Failure(string reason){Waiting=false;AnalysisErrors.Add(reason);Status="검사보류: "+reason;if(!string.IsNullOrEmpty(CurrentPipe))DeferInspection(CurrentPipe,reason);else WriteProgress();}
   public void ConsumePendingForVerification(){PendingPipe="";}
   public int ApplyResult(InspectionCapture capture,string json) {
    var result=JsonUtility.FromJson<RGBResult>(json);
-   if(result==null||result.version!=1||result.status!="ok"||result.requestId!=capture.requestId||
+   if(result==null||result.version!=1||(result.status!="ok"&&!(result.status=="low_light"&&result.quality!=null&&!result.quality.canInfer))||result.requestId!=capture.requestId||
      result.imageSha256!=capture.imageSha256||result.width!=capture.width||result.height!=capture.height||result.components==null)
     throw new Exception("Analysis response provenance/dimensions mismatch");
    if(Outcomes.Any(o=>o.requestId==capture.requestId))throw new Exception("Duplicate analysis response");
-   int count=0;bool mappedCandidate=false;
-   foreach(var component in result.components) {
+   int count=0;bool mappedCandidate=false;bool canInfer=result.quality==null||result.quality.canInfer;
+   foreach(var component in canInfer&&capture.visibleTargetSamples>0?result.components:Array.Empty<RGBComponent>()) {
     if(component.samples==null)continue;
     var hits=new List<RaycastHit>();
     foreach(var s in component.samples) {
@@ -221,37 +273,49 @@ namespace MAEK {
    File.WriteAllText(Path.Combine(SessionDirectory,capture.requestId+".analysis.json"),json);
    File.WriteAllText(Path.Combine(SessionDirectory,"findings.json"),JsonUtility.ToJson(new FindingSet{findings=Findings.ToArray()},true));
    var outcome=new InspectionOutcome{requestId=capture.requestId,pipeId=capture.pipeId,sampleId=capture.sampleId,
-    visibleTargetSamples=capture.visibleTargetSamples,newFindings=count,status=capture.visibleTargetSamples==0?"not_visible":mappedCandidate?"candidate":"no_candidate"};
+    visibleTargetSamples=capture.visibleTargetSamples,newFindings=count,status=capture.visibleTargetSamples==0?"not_visible":!canInfer?"quality_recheck":mappedCandidate?"candidate":"no_candidate"};
    Outcomes.Add(outcome);WriteProgress();
-   Status=capture.visibleTargetSamples==0?capture.pipeId+": 대상 배관 가림 · 판독 보류":mappedCandidate?capture.pipeId+": 부식 의심 위치 표시 · 후속 검사 적용성 검토 · 작업 허가 미판정":capture.pipeId+": RGB 후보 없음 · 건전성 보장 아님";
+   Status=capture.visibleTargetSamples==0?capture.pipeId+": 대상 배관 가림 · 검사보류":!canInfer?capture.pipeId+": 영상 품질 부족 · 검사보류 · 재촬영 필요":mappedCandidate?capture.pipeId+": 부식 의심 위치 표시 · 후속 검사 적용성 검토 · 작업 허가 미판정":capture.pipeId+": RGB 후보 없음 · 건전성 보장 아님";
    return count;
   }
   [Serializable] class FindingSet {public InspectionFinding[] findings;}
-  [Serializable] class Progress {public string[] plannedPipes,analysedPipes,missingPipes;public int expectedCaptures,captures;public InspectionOutcome[] outcomes;public string[] errors;}
+  [Serializable] class Progress {public string[] plannedPipes,analysedPipes,missingPipes;public bool routeComplete;public int expectedCaptures,requiredCaptures,captures;public PipeInspectionProgress[] pipes;public string[] unobservedPipes;public InspectionAccess[] unobservedCaptures;public InspectionOutcome[] outcomes;public string[] errors;}
+  InspectionAccess[] UnobservedCaptures() {
+   var canonical=Plan.access??Plan.points.Where(p=>!string.IsNullOrEmpty(p.pipeId)).Select(p=>new InspectionAccess{pipeId=p.pipeId,sampleId=p.sampleId,sourceIndex=p.sourceIndex,position=p.position,target=p.target,accessible=true}).ToArray();
+   var observed=Plan.pipeIds.ToDictionary(id=>id,id=>new HashSet<string>(ValidObservations(id).Select(o=>o.sampleId)));
+   var coverage=Plan.pipeIds.ToDictionary(id=>id,Coverage);
+   return canonical.Where(a=>!observed[a.pipeId].Contains(a.sampleId)).Select(a=>new InspectionAccess{
+    pipeId=a.pipeId,sampleId=a.sampleId,sourceIndex=a.sourceIndex,position=a.position,target=a.target,accessible=a.accessible,
+    status=a.accessible?"unobserved":a.status,reason=string.Join("; ",coverage[a.pipeId].accessReasons.Concat(string.IsNullOrEmpty(a.reason)?Array.Empty<string>():new[]{a.reason}).Distinct())}).ToArray();
+  }
   public void WriteProgress() {
    if(string.IsNullOrEmpty(SessionDirectory)||Plan==null)return;
    var ids=Plan.pipeIds??Plan.points.Where(p=>p.pipeId!="").Select(p=>p.pipeId).Distinct().ToArray();
-   var done=Outcomes.Where(o=>o.status=="candidate"||o.status=="no_candidate").Select(o=>o.pipeId).Distinct().OrderBy(x=>x).ToArray();
-   File.WriteAllText(Path.Combine(SessionDirectory,"inspection_progress.json"),JsonUtility.ToJson(new Progress{plannedPipes=ids,analysedPipes=done,missingPipes=ids.Except(done).ToArray(),expectedCaptures=Plan.expectedCaptures,captures=Captures.Count,outcomes=Outcomes.ToArray(),errors=AnalysisErrors.ToArray()},true));
+   var rows=ids.Select(Coverage).ToArray();
+   var done=Outcomes.Where(Usable).Select(o=>o.pipeId).Distinct().OrderBy(x=>x).ToArray();
+   File.WriteAllText(Path.Combine(SessionDirectory,"inspection_progress.json"),JsonUtility.ToJson(new Progress{plannedPipes=ids,analysedPipes=done,missingPipes=rows.Where(r=>r.inspectionStatus!="completed").Select(r=>r.pipeId).ToArray(),unobservedPipes=rows.Where(r=>r.observationStatus=="unobserved").Select(r=>r.pipeId).ToArray(),pipes=rows,unobservedCaptures=UnobservedCaptures(),routeComplete=Complete,requiredCaptures=Plan.requiredCaptures,expectedCaptures=Plan.expectedCaptures,captures=Captures.Count,outcomes=Outcomes.ToArray(),errors=AnalysisErrors.ToArray()},true));
    var process=GetComponent<MAEKProcessContext>();if(process)process.WriteFollowUps(SessionDirectory);
   }
-  public TourVideoFrame VideoFrame(int frame,float time) {
+  public VideoPin[] VisiblePins(Camera camera) {
    var visible=new List<VideoPin>();
    foreach(var f in Findings) {
-    var p=tourCamera.WorldToViewportPoint(f.position+f.normal*.05f);
-    var d=f.position-tourCamera.transform.position;
-    bool occluded=Physics.Raycast(tourCamera.transform.position,d.normalized,out var hit,d.magnitude-.08f,1<<8,QueryTriggerInteraction.Ignore);
+    var p=camera.WorldToViewportPoint(f.position+f.normal*.05f);
+    var d=f.position-camera.transform.position;
+    bool occluded=Physics.Raycast(camera.transform.position,d.normalized,out var hit,d.magnitude-.08f,1<<8,QueryTriggerInteraction.Ignore);
     if(!occluded&&p.z>0&&p.x>0&&p.x<1&&p.y>0&&p.y<1)visible.Add(new VideoPin{pipeId=f.pipeId,label="부식 후보 · 후속 검사 검토",u=p.x,v=1-p.y});
    }
+   return visible.ToArray();
+  }
+  public TourVideoFrame VideoFrame(int frame,float time) {
    return new TourVideoFrame{frame=frame,time=time,position=tourCamera.transform.position,
-    stage=Complete?"완료":CurrentPipe==""?"전경 → 검사 구역":Waiting?"분석 중":"배관 검사",pipeId=CurrentPipe,status=Status,pins=visible.ToArray(),
+    stage=Complete?"경로 완료":CurrentPipe==""?"전경 → 검사 구역":Waiting?"분석 중":"배관 검사",pipeId=CurrentPipe,status=Status,pins=VisiblePins(tourCamera),
     processContext=GetComponent<MAEKProcessContext>()?.Caption(CurrentPipe)??"",numericalScope=GetComponent<MAEKSupplementaryCircuits>()?.Selected==true?GetComponent<MAEKSupplementaryCircuits>().Data.flowBasis:GetComponent<MAEKProcessContext>()?.Data?.numericalScope??"가정 조건 계산",workerContext="가상 배관 · 실제 사고 위치 아님 · 작업 허가 미판정"};
   }
   void OnGUI() {
    if(text==null){font=Font.CreateDynamicFontFromOSFont(new[]{"Malgun Gothic","Arial"},17);text=new GUIStyle(GUI.skin.label){font=font,fontSize=17,wordWrap=true};button=new GUIStyle(GUI.skin.button){font=font,fontSize=15};}
    if(!Active){if(GUI.Button(new Rect(12,125,270,34),"T: MAEK 연속 검사 시연 시작",button))Begin();return;}
    GUI.Box(new Rect(12,12,Mathf.Min(740,Screen.width-24),178),"");
-   GUI.Label(new Rect(25,22,700,28),"MAEK | 전체 배관 검사 "+AnalysedPipes+" / "+(Plan.pipeIds?.Length??0)+" · 촬영 "+Captures.Count+" / "+Plan.expectedCaptures,text);
+   GUI.Label(new Rect(25,22,700,28),"MAEK | 유효 관측 배관 "+AnalysedPipes+" / "+(Plan.pipeIds?.Length??0)+" · 촬영 "+Captures.Count+" / "+Plan.requiredCaptures+" (예약 "+Plan.expectedCaptures+")",text);
    GUI.Label(new Rect(25,54,690,48),Status,text);
    GUI.Label(new Rect(25,103,690,28),"합성 장면 · RGB 부식 규칙 기준선 · 균열 발생 예측 아님",text);
    if(GUI.Button(new Rect(25,143,145,32),Paused?"재생 (Space)":"일시 정지 (Space)",button))Paused=!Paused;
@@ -261,8 +325,14 @@ namespace MAEK {
    if(GUI.Button(new Rect(645,143,85,32),"결과표",button))showResults=!showResults;
    if(showResults){GUI.Box(new Rect(Screen.width-340,200,328,Screen.height-250),"");GUILayout.BeginArea(new Rect(Screen.width-330,210,308,Screen.height-270));resultsScroll=GUILayout.BeginScrollView(resultsScroll);
     var process=GetComponent<MAEKProcessContext>();if(Plan.pipeIds.Length==247&&process&&GUILayout.Button(process.CoreResultsOnly?"주요 검사 138개 / 전체 247개로 전환":"전체 247개 / 주요 검사만 보기",button))process.CoreResultsOnly=!process.CoreResultsOnly;
-    foreach(var id in Plan.pipeIds){if(Plan.pipeIds.Length==247&&process&&process.CoreResultsOnly&&!process.IsCore(id))continue;var outcomes=Outcomes.Where(o=>o.pipeId==id).ToArray();int planned=Plan.visits.First(v=>v.pipeId==id).captures;string state=outcomes.Length==0?"대기":outcomes.Any(o=>o.status=="not_visible")?"가림/재검사":outcomes.Any(o=>o.status=="candidate")?"부식 의심":"RGB 후보 없음";GUILayout.Label(id+"  "+outcomes.Length+"/"+planned+"  "+state+(process?"\n"+MAEKProcessContext.RoleLabel(process.ForPipe(id).role):""),text);}GUILayout.EndScrollView();GUILayout.EndArea();}
-   foreach(var p in VideoFrame(0,Elapsed).pins){float x=p.u*Screen.width,y=p.v*Screen.height;GUI.Box(new Rect(x-5,y-5,10,10),"");GUI.Label(new Rect(Mathf.Clamp(x+12,12,Screen.width-300),Mathf.Clamp(y+10,200,Screen.height-70),285,65),p.pipeId+"\n"+p.label,text);}
+    foreach(var id in Plan.pipeIds){if(Plan.pipeIds.Length==247&&process&&process.CoreResultsOnly&&!process.IsCore(id))continue;
+     var row=Coverage(id);bool candidate=ValidObservations(id).Any(o=>o.status=="candidate");
+     string state=row.scheduledImages==0?"미관측·검사보류":row.inspectionStatus=="deferred"?"미관측·검사보류":row.inspectionStatus=="partial"?"부분 관측·검사보류":candidate?"부식 의심":"RGB 후보 없음";
+     if(candidate&&row.inspectionStatus!="completed")state="부식 의심·검사보류";
+     GUILayout.Label(id+"  "+row.analysedImages+"/"+row.plannedImages+" (예약 "+row.scheduledImages+")  "+state+(process?"\n"+MAEKProcessContext.RoleLabel(process.ForPipe(id)?.role):""),text);
+    }GUILayout.EndScrollView();GUILayout.EndArea();}
+   var display=GetComponent<MAEKVirtualDrone>()?.DisplayCamera??tourCamera;
+   foreach(var p in VisiblePins(display)){float x=p.u*Screen.width,y=p.v*Screen.height;GUI.Box(new Rect(x-5,y-5,10,10),"");GUI.Label(new Rect(Mathf.Clamp(x+12,12,Screen.width-300),Mathf.Clamp(y+10,200,Screen.height-70),285,65),p.pipeId+"\n"+p.label,text);}
    if(Recorder.Recording)GUI.Label(new Rect(25,Screen.height-40,900,30),"REC · "+Recorder.FrameCount+" frames · "+Recorder.OutputDirectory,text);
   }
  }

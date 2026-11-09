@@ -14,6 +14,7 @@ namespace MAEK {
  }
  [Serializable] public class FollowUpRow {
   public string pipeId,service,role,status,action,workerContext,inspectionLimit,workPermissionStatus;public bool syntheticAsset;public int plannedImages,analysedImages,mappedFindings;
+  public int scheduledImages,deferredImages;public string observationStatus,inspectionStatus,accessStatus;public string[] accessReasons;
   public string[] evidenceRequestIds;
  }
  [Serializable] public class FollowUpSet {
@@ -49,14 +50,14 @@ namespace MAEK {
   public static string RoleLabel(string role){switch(role){case "primary_inspection":return "주요 검사 후보";case "process_context":return "공정 설명 / 선택 검사";case "reference_extension":return "공개 참고 계통 / 별도 증설";case "training_only":return "훈련 전용";case "standalone_utility_demo":return "독립 유틸리티 시험대";default:return "전경";}}
   public string Caption(string id){var item=ForPipe(id);return item==null?Data.processName:item.label+" · "+RoleLabel(item.role)+" | "+item.chain;}
   public FollowUpSet FollowUps(){Initialize();tour.Initialize();var rows=new List<FollowUpRow>();
-   foreach(var id in tour.Plan.pipeIds){var context=ForPipe(id);var outcomes=tour.Outcomes.Where(o=>o.pipeId==id).ToArray();var findings=tour.Findings.Where(f=>f.pipeId==id).ToArray();int planned=tour.Plan.visits.First(v=>v.pipeId==id).captures;
-    bool candidate=outcomes.Any(o=>o.status=="candidate");bool incomplete=outcomes.Length!=planned||outcomes.Any(o=>o.status=="not_visible");
-    string state=candidate?(incomplete?"candidate_incomplete":"candidate"):incomplete?"incomplete":"no_rgb_candidate";
-    string action=candidate?context.followUp:incomplete?"미완료/가림 촬영 보완; 판정 보류":"새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인";
-    if(candidate&&incomplete)action+=" · 미완료/가림 촬영도 보완";
+   foreach(var id in tour.Plan.pipeIds){var context=ForPipe(id);var outcomes=tour.Outcomes.Where(o=>o.pipeId==id).ToArray();var findings=tour.Findings.Where(f=>f.pipeId==id).ToArray();var coverage=tour.Coverage(id);int planned=coverage.plannedImages;
+    bool candidate=tour.ValidObservations(id).Any(o=>o.status=="candidate");bool incomplete=coverage.inspectionStatus!="completed";
+    string state=candidate?(incomplete?"candidate_incomplete":"candidate"):incomplete?(coverage.analysedImages==0?"inspection_deferred":"inspection_partial"):"no_rgb_candidate";
+    string action=candidate?context.followUp:incomplete?"미관측/누락/가림/품질/연결 확인; 검사보류":"새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인";
+    if(candidate&&incomplete)action+=" · 미완료/가림 촬영도 보완 · 검사보류";
     if(context.role=="training_only"||context.role=="standalone_utility_demo")action=RoleLabel(context.role)+" · "+action;
     var extra=GetComponent<MAEKSupplementaryCircuits>()?.Circuit(id);var safety=byPipe.ContainsKey(id)?WorkerSafety.ForService(byPipe[id].serviceCode):null;
-    rows.Add(new FollowUpRow{pipeId=id,service=context.label,role=context.role,status=state,action=action,plannedImages=planned,analysedImages=outcomes.Length,mappedFindings=findings.Length,evidenceRequestIds=outcomes.Select(o=>o.requestId).Distinct().ToArray(),workerContext=safety?.workerContext??extra?.workerContext,inspectionLimit=safety?.inspectionLimit??extra?.limit,workPermissionStatus="not_assessed",syntheticAsset=true});
+    rows.Add(new FollowUpRow{pipeId=id,service=context.label,role=context.role,status=state,action=action,plannedImages=planned,analysedImages=coverage.analysedImages,scheduledImages=coverage.scheduledImages,deferredImages=coverage.deferredImages,observationStatus=coverage.observationStatus,inspectionStatus=coverage.inspectionStatus,accessStatus=coverage.accessStatus,accessReasons=coverage.accessReasons.Select(r=>r.Length>512?r.Substring(0,512):r).Distinct().Take(16).ToArray(),mappedFindings=findings.Length,evidenceRequestIds=outcomes.Select(o=>o.requestId).Distinct().ToArray(),workerContext=safety?.workerContext??extra?.workerContext,inspectionLimit=safety?.inspectionLimit??extra?.limit,workPermissionStatus="not_assessed",syntheticAsset=true});
    }
    return new FollowUpSet{rows=rows.ToArray()};
   }

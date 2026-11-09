@@ -49,6 +49,9 @@ visualization/realism/baseline/maek_manifest.json filter=lfs diff=lfs merge=lfs 
 visualization/realism/baseline/pipe_services.json filter=lfs diff=lfs merge=lfs -text
 visualization/realism/baseline/service_drone_routes.json filter=lfs diff=lfs merge=lfs -text
 visualization/saved_drone_model_verification.json filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Source/site_inspection_tour.json filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Source/site_supplementary_tour.json filter=lfs diff=lfs merge=lfs -text
+visualization/inspection_demo/site_access_audit.json filter=lfs diff=lfs merge=lfs -text
 
 # Unity serializes empty YAML fields with trailing spaces; preserve tested assets.
 unity/**/*.meta whitespace=-blank-at-eol,cr-at-eol

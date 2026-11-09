@@ -13,7 +13,7 @@ namespace MAEK.Editor {
   static Material steel,paint,yellow,blue,silver,black,screen,white,labelMaterial;
   static int fixtures,stations,spools,omitted;
   static readonly List<string> notes=new List<string>();
-  [Serializable] class Report {public string status,scope;public int rooms,stations,closedSpools,physicalFixtures,omittedAssemblies;public string[] omissions;}
+  [Serializable] class Report {public string status,scope,layoutSignature;public bool layoutFirst=true;public int rooms,stations,closedSpools,physicalFixtures,omittedAssemblies;public string[] omissions;}
   static Material Mat(string name,Color c,bool glow=false){
    string path=Folder+"/"+name+".mat";var m=AssetDatabase.LoadAssetAtPath<Material>(path);
    if(!m){m=new Material(Shader.Find("Standard"));AssetDatabase.CreateAsset(m,path);}
@@ -44,7 +44,7 @@ namespace MAEK.Editor {
   static bool FinishGroup(){
    Physics.SyncTransforms();var cols=group.GetComponentsInChildren<Collider>();string reason="";
    foreach(var c in cols){
-    if(EnhanceSteelworks.Protected(c.bounds)){reason="reserved flight/view/access space";break;}
+    if(EnhanceSteelworks.Protected(c.bounds)){reason="reserved pedestrian access space";break;}
     foreach(var other in Physics.OverlapBox(c.bounds.center,c.bounds.extents,Quaternion.identity,1<<8)){
      if(other.transform.IsChildOf(group))continue;
      if(Physics.ComputePenetration(c,c.transform.position,c.transform.rotation,other,other.transform.position,other.transform.rotation,out _,out float depth)&&depth>.015f){reason="overlap "+other.name;break;}
@@ -164,8 +164,8 @@ namespace MAEK.Editor {
    foreach(var room in rooms)Room(room);
    Physics.SyncTransforms();
    foreach(var station in root.GetComponentsInChildren<MAEKInteriorStation>())if(!AccessClear(station.aislePoint,station.approachPoint))throw new Exception("Blocked interior station "+station.name);
-   var report=new Report{status="PASS",scope="Five existing rooms; unchanged 247 process IDs. Added cold mock spools are visual training fixtures, not hydraulic/MAEK-analysis circuits.",rooms=rooms.Length,stations=stations,closedSpools=spools,physicalFixtures=fixtures,omittedAssemblies=omitted,omissions=notes.ToArray()};
-   string output=Path.GetFullPath("../../visualization/interior_detail");Directory.CreateDirectory(output);File.WriteAllText(Path.Combine(output,"build_report.json"),JsonUtility.ToJson(report,true));AssetDatabase.SaveAssets();Debug.Log("MAEK_INTERIOR_BUILD_PASS stations="+stations+" closedSpools="+spools+" colliders="+fixtures);
+   var report=new Report{status="LAYOUT_CHECKED",layoutFirst=true,layoutSignature=EnhanceSteelworks.LayoutSignature(),scope="Fixed reference layout, not as-built; pedestrian and physical checks only, no flight/capture certification. Five existing rooms; unchanged 247 process IDs. Added cold mock spools are visual training fixtures, not hydraulic/MAEK-analysis circuits.",rooms=rooms.Length,stations=stations,closedSpools=spools,physicalFixtures=fixtures,omittedAssemblies=omitted,omissions=notes.ToArray()};
+   string output=Path.GetFullPath("../../visualization/interior_detail");Directory.CreateDirectory(output);File.WriteAllText(Path.Combine(output,"build_report.json"),JsonUtility.ToJson(report,true));AssetDatabase.SaveAssets();Debug.Log("MAEK_INTERIOR_LAYOUT_CHECKED stations="+stations+" closedSpools="+spools+" colliders="+fixtures);
   }
  }
 }

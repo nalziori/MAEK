@@ -74,7 +74,7 @@ namespace MAEK.Editor {
    Physics.SyncTransforms();
   }
   [Serializable] class Check {public string name,detail;public bool pass;}
-  [Serializable] class Report {public string status,scope;public int lines,joints,colliders,routeSegments,views;public Check[] checks;}
+  [Serializable] class Report {public string status,scope;public int lines,joints,colliders,routeSegments,views,requiredViews,deferredViews;public bool siteFirst;public Check[] checks;}
   static bool Related(Collider a,Collider b){
    var x=a.GetComponentInParent<MAEKSupplementaryLine>();var y=b.GetComponentInParent<MAEKSupplementaryLine>();
    if(x&&y){var l=data.lines.Single(v=>v.id==x.lineId);var r=data.lines.Single(v=>v.id==y.lineId);return x==y||new[]{l.from,l.to}.Intersect(new[]{r.from,r.to}).Any();}
@@ -98,10 +98,10 @@ namespace MAEK.Editor {
     check("clash "+c.name+" / "+other.name,!collision||Related(c,other),collision?"depth="+depth+"; only shared declared ports exempt":"clear");
    }}
    var plan=JsonUtility.FromJson<TourPlan>(ext.inspectionRoute.text);
-   foreach(var p in plan.points.Where(p=>p.pipeId!="")){var d=p.target-p.position;check("view "+p.pipeId,Physics.Raycast(p.position,d.normalized,out var hit,250,1<<8)&&MAEKSupplementaryCircuits.TargetId(hit.collider)==p.pipeId,hit.collider?hit.collider.name:"none");}
+   foreach(var p in plan.points.Where(p=>p.pipeId!="")){var d=p.target-p.position;check("view "+p.pipeId,SiteInspectionPlanner.VisibleSamples(p.position,p.target,p.pipeId)>0,"sampled first-hit target visibility");}
    for(int i=1;i<plan.points.Length;i++)check("supplementary flight "+i,tour.SegmentClear(plan.points[i-1].position,plan.points[i].position),"");
    check("original catalogue untouched",UnityEngine.Object.FindObjectsByType<MAEKPipeService>(FindObjectsSortMode.None).Length==247,"");
-   var report=new Report{status=checks.All(c=>c.pass)?"PASS":"FAIL",scope="Saved scene: exact span end ports; typed directed reachability; actual Unity collider penetration (>15mm) vs all scene colliders, only shared declared ports exempt; 0.12m swept drone route and first-hit target visibility. No hydraulic or structural certification.",lines=data.lines.Length,joints=data.nodes.Length,colliders=colliders.Length,routeSegments=plan.points.Length-1,views=plan.expectedCaptures,checks=checks.ToArray()};
+   var report=new Report{status=checks.All(c=>c.pass)?"PASS":"FAIL",scope="Saved fixed scene: exact span ports; typed reachability; physical penetration checks. Only accessible scheduled views and configured-radius routes are executed; omitted observations stay deferred. Not hydraulic or structural certification.",siteFirst=plan.siteFirst,requiredViews=plan.siteFirst?plan.requiredCaptures:plan.expectedCaptures,deferredViews=plan.siteFirst?plan.access.Count(a=>!a.accessible):0,lines=data.lines.Length,joints=data.nodes.Length,colliders=colliders.Length,routeSegments=plan.points.Length-1,views=plan.expectedCaptures,checks=checks.ToArray()};
    File.WriteAllText(Path.Combine(Output,"connections_colliders.json"),JsonUtility.ToJson(report,true));Debug.Log("MAEK_SUPPLEMENTARY_"+report.status+" checks="+checks.Count);
    if(report.status!="PASS")throw new Exception(string.Join("; ",checks.Where(c=>!c.pass).Take(16).Select(c=>c.name+": "+c.detail)));
    var camera=new GameObject("Supplementary reference camera").AddComponent<Camera>();camera.enabled=false;camera.farClipPlane=1600;camera.nearClipPlane=.03f;
