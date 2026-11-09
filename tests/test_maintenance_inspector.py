@@ -15,7 +15,7 @@ PREFAB = ROOT / "Resources/MAEK/MaintenanceInspector.prefab"
 def test_prefab_has_no_missing_local_asset_references():
     guids = {}
     for path in ASSETS.rglob("*.meta"):
-        match = re.search(r"^guid: ([a-f0-9]{32})$", path.read_text(encoding="utf-8-sig"), re.M)
+        match = re.search(r"^guid: ([a-f0-9]{32})$", path.read_text(encoding="utf-8-sig"), re.MULTILINE)
         if match:
             assert match[1] not in guids, f"Duplicate asset GUID: {path} / {guids[match[1]]}"
             guids[match[1]] = path
