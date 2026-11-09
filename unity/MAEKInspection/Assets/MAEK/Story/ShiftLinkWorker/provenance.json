@@ -1,0 +1,34 @@
+{
+  "scope": "User-requested reuse of ShiftLink chibi worker and PDA assets; ShiftLink source is read-only",
+  "sourceRoot": "D:\\obsd\\Projects\\ShiftLink",
+  "assets": [
+    {
+      "source": "unity\\ShiftLinkFactory\\Assets\\Models\\Characters\\ChibiWorkers_v2\\ChibiWorker_Male.fbx",
+      "sha256": "78eef01e1925457d9fc23285842e78cec9a9f293dd8a1a1f0b971b98a875b1f7"
+    },
+    {
+      "source": "unity\\ShiftLinkFactory\\Assets\\Models\\Characters\\ChibiWorkers_v2\\ChibiWorker_Male.fbx.meta",
+      "sha256": "775b9fac7512502f2b114ec3c759f902a318423771170ac02258647084a942d2"
+    },
+    {
+      "source": "unity\\ShiftLinkFactory\\Assets\\Models\\Characters\\ChibiWorkers_v2\\ChibiWorker_PDA.fbx",
+      "sha256": "e6e51350a8174a52953779e4efd2558c8ee18374f3c94cee297d4b7ed9f5d864"
+    },
+    {
+      "source": "unity\\ShiftLinkFactory\\Assets\\Models\\Characters\\ChibiWorkers_v2\\ChibiWorker_PDA.fbx.meta",
+      "sha256": "9c5aa157681f6c606a0a6828e492a8d13a2e17cef9449890c8505c1b3e16fe73"
+    },
+    {
+      "source": "unity\\ShiftLinkFactory\\Assets\\Models\\Characters\\ChibiWorkers_v2\\WorkerToon.shader",
+      "sha256": "470c959bc6daf06bb6955cc7b68da269565717dbc06dff05967482af9694fc49"
+    },
+    {
+      "source": "unity\\ShiftLinkFactory\\Assets\\Models\\Characters\\ChibiWorkers_v2\\WorkerToon.shader.meta",
+      "sha256": "ded0a67cb588c3d2809a06388c5fd19fcb3961084f0e3c68fb0d6f6f8cc6a49b"
+    }
+  ],
+  "rigSource": "unity/ShiftLinkFactory/Assets/Scripts/FactoryWorkerVisual.cs",
+  "prefabSource": "unity/ShiftLinkFactory/Assets/Resources/Factory/WorkerMale.prefab",
+  "prefabSourceSha256": "9613598589f6a4b90d2b9cfec1c0c98449c434cf12a87113ef7b8678a43fc921",
+  "adaptation": "MAEK procedural visual script; waiting inspector component; 1.8m capsule; no ShiftLink runtime dependencies"
+}
