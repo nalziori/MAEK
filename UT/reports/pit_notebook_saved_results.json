@@ -1,0 +1,37 @@
+{
+  "evidence_level": "saved_notebook_output_only_not_replayed",
+  "source": "notebooks/UT.ipynb",
+  "source_sha256": "7758c89f197734ebbd873e2f8224c28a78be95af0595211f5cbaed04011a6d1f",
+  "cell_index_zero_based": 19,
+  "model": "PitCNN low-FAR checkpoint",
+  "modality": "synthetic normal-incidence UT,16 shots",
+  "results": {
+    "ordinary": {
+      "tp": 3951,
+      "positive_units": 4000,
+      "fp": 0,
+      "normal_units": 4000,
+      "recall": 0.98775,
+      "far": 0.0
+    },
+    "shifted": {
+      "tp": 3819,
+      "positive_units": 4000,
+      "fp": 2,
+      "normal_units": 4000,
+      "recall": 0.95475,
+      "far": 0.0005
+    }
+  },
+  "count_derivation": "TP = exact saved recall * 4000; FP explicitly printed in notebook. Not independently recounted from individual predictions.",
+  "missing_for_replay": [
+    "cnn_followup.py",
+    "cnn_followup_recovery.py",
+    "cnn_lowfar.pt",
+    "frozen threshold and preprocessing files",
+    "final_ordinary.npz",
+    "final_shifted.npz",
+    "same_data_predictions.csv"
+  ],
+  "jetson_benchmark": false
+}

@@ -1,0 +1,399 @@
+{
+  "status": "completed",
+  "scope": "synthetic only; no measured angle-beam performance",
+  "selected_seed": 4103,
+  "results": {
+    "retrained": {
+      "general": {
+        "tp": 1200,
+        "positive_units": 1200,
+        "fp": 1,
+        "normal_units": 1200,
+        "recall": 1.0,
+        "far": 0.0008333333333333334,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "positive_true_echo_outside_window": 0,
+        "positive_true_echo_outside_record": 0,
+        "angles": {
+          "45.0": {
+            "tp": 392,
+            "positive_units": 392,
+            "fp": 1,
+            "normal_units": 408,
+            "recall": 1.0,
+            "far": 0.0024509803921568627,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 410,
+            "positive_units": 410,
+            "fp": 0,
+            "normal_units": 390,
+            "recall": 1.0,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 398,
+            "positive_units": 398,
+            "fp": 0,
+            "normal_units": 402,
+            "recall": 1.0,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      },
+      "shifted": {
+        "tp": 1185,
+        "positive_units": 1200,
+        "fp": 0,
+        "normal_units": 1200,
+        "recall": 0.9875,
+        "far": 0.0,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "positive_true_echo_outside_window": 0,
+        "positive_true_echo_outside_record": 0,
+        "angles": {
+          "45.0": {
+            "tp": 390,
+            "positive_units": 394,
+            "fp": 0,
+            "normal_units": 406,
+            "recall": 0.9898477157360406,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 401,
+            "positive_units": 406,
+            "fp": 0,
+            "normal_units": 394,
+            "recall": 0.9876847290640394,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 394,
+            "positive_units": 400,
+            "fp": 0,
+            "normal_units": 400,
+            "recall": 0.985,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      },
+      "geometry": {
+        "tp": 1191,
+        "positive_units": 1200,
+        "fp": 0,
+        "normal_units": 1200,
+        "recall": 0.9925,
+        "far": 0.0,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "positive_true_echo_outside_window": 0,
+        "positive_true_echo_outside_record": 0,
+        "angles": {
+          "45.0": {
+            "tp": 392,
+            "positive_units": 397,
+            "fp": 0,
+            "normal_units": 403,
+            "recall": 0.9874055415617129,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 401,
+            "positive_units": 404,
+            "fp": 0,
+            "normal_units": 396,
+            "recall": 0.9925742574257426,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 398,
+            "positive_units": 399,
+            "fp": 0,
+            "normal_units": 401,
+            "recall": 0.9974937343358395,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      },
+      "thermal_geometry": {
+        "tp": 1195,
+        "positive_units": 1200,
+        "fp": 0,
+        "normal_units": 1200,
+        "recall": 0.9958333333333333,
+        "far": 0.0,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "positive_true_echo_outside_window": 0,
+        "positive_true_echo_outside_record": 0,
+        "angles": {
+          "45.0": {
+            "tp": 411,
+            "positive_units": 412,
+            "fp": 0,
+            "normal_units": 388,
+            "recall": 0.9975728155339806,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 392,
+            "positive_units": 394,
+            "fp": 0,
+            "normal_units": 406,
+            "recall": 0.9949238578680203,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 392,
+            "positive_units": 394,
+            "fp": 0,
+            "normal_units": 406,
+            "recall": 0.9949238578680203,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      }
+    },
+    "old_weights_wide_window": {
+      "general": {
+        "tp": 1200,
+        "positive_units": 1200,
+        "fp": 1,
+        "normal_units": 1200,
+        "recall": 1.0,
+        "far": 0.0008333333333333334,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "positive_true_echo_outside_window": 0,
+        "positive_true_echo_outside_record": 0,
+        "angles": {
+          "45.0": {
+            "tp": 392,
+            "positive_units": 392,
+            "fp": 0,
+            "normal_units": 408,
+            "recall": 1.0,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 410,
+            "positive_units": 410,
+            "fp": 1,
+            "normal_units": 390,
+            "recall": 1.0,
+            "far": 0.002564102564102564,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 398,
+            "positive_units": 398,
+            "fp": 0,
+            "normal_units": 402,
+            "recall": 1.0,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      },
+      "shifted": {
+        "tp": 1159,
+        "positive_units": 1200,
+        "fp": 0,
+        "normal_units": 1200,
+        "recall": 0.9658333333333333,
+        "far": 0.0,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "positive_true_echo_outside_window": 0,
+        "positive_true_echo_outside_record": 0,
+        "angles": {
+          "45.0": {
+            "tp": 383,
+            "positive_units": 394,
+            "fp": 0,
+            "normal_units": 406,
+            "recall": 0.9720812182741116,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 396,
+            "positive_units": 406,
+            "fp": 0,
+            "normal_units": 394,
+            "recall": 0.9753694581280788,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 380,
+            "positive_units": 400,
+            "fp": 0,
+            "normal_units": 400,
+            "recall": 0.95,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      },
+      "geometry": {
+        "tp": 1178,
+        "positive_units": 1200,
+        "fp": 0,
+        "normal_units": 1200,
+        "recall": 0.9816666666666667,
+        "far": 0.0,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "positive_true_echo_outside_window": 0,
+        "positive_true_echo_outside_record": 0,
+        "angles": {
+          "45.0": {
+            "tp": 390,
+            "positive_units": 397,
+            "fp": 0,
+            "normal_units": 403,
+            "recall": 0.982367758186398,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 400,
+            "positive_units": 404,
+            "fp": 0,
+            "normal_units": 396,
+            "recall": 0.9900990099009901,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 388,
+            "positive_units": 399,
+            "fp": 0,
+            "normal_units": 401,
+            "recall": 0.9724310776942355,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      },
+      "thermal_geometry": {
+        "tp": 1160,
+        "positive_units": 1200,
+        "fp": 0,
+        "normal_units": 1200,
+        "recall": 0.9666666666666667,
+        "far": 0.0,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "positive_true_echo_outside_window": 0,
+        "positive_true_echo_outside_record": 0,
+        "angles": {
+          "45.0": {
+            "tp": 401,
+            "positive_units": 412,
+            "fp": 0,
+            "normal_units": 388,
+            "recall": 0.9733009708737864,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 387,
+            "positive_units": 394,
+            "fp": 0,
+            "normal_units": 406,
+            "recall": 0.9822335025380711,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 372,
+            "positive_units": 394,
+            "fp": 0,
+            "normal_units": 406,
+            "recall": 0.9441624365482234,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      }
+    }
+  },
+  "measured_validation": false,
+  "peak_torch_allocated_bytes": 74200576,
+  "peak_torch_reserved_bytes": 96468992,
+  "unique_units": 27600
+}

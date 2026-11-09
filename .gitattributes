@@ -57,3 +57,6 @@ visualization/inspection_demo/site_access_audit.json filter=lfs diff=lfs merge=l
 unity/**/*.meta whitespace=-blank-at-eol,cr-at-eol
 unity/**/*.mat whitespace=-blank-at-eol,cr-at-eol
 unity/**/*.asset whitespace=-blank-at-eol,cr-at-eol
+
+# Frozen UT artifacts use SHA-256 across Windows/Linux. Preserve exact bytes.
+UT/** -text whitespace=cr-at-eol

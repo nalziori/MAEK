@@ -1,0 +1,82 @@
+{
+  "version": "normal_ut_reviewed_v1",
+  "domain": "normal longitudinal SYNTHETIC, not angle-beam",
+  "train_n": 2000,
+  "validation_n": 2000,
+  "test_n_per_condition": 2000,
+  "seeds": {
+    "train": 202611091601,
+    "validation": 202611091602,
+    "test_ordinary": 202611091603,
+    "test_shifted": 202611091604,
+    "references": 202611091605
+  },
+  "averaging": [
+    1,
+    16
+  ],
+  "model_seeds": [
+    1601,
+    1602,
+    1603
+  ],
+  "optimizer": {
+    "steps": 1500,
+    "lr": 0.01,
+    "weight_decay": 0.001,
+    "hidden": 16
+  },
+  "operating_far": [
+    0.007,
+    0.01
+  ],
+  "selection": "validation maxRecall at <=.01; .007 also frozen",
+  "estimator_inputs": [
+    "RF",
+    "acquisition n_avg",
+    "independently perturbed nominal wall",
+    "measured temperature",
+    "independent reference calibration"
+  ],
+  "geometry": "independent wall/depth/beam-area-fraction draws; no independent curvature/width physics",
+  "assumptions": {
+    "c20_stress_mps": 70,
+    "delay_stress_ns": 50,
+    "nominal_wall_sigma_mm": 0.05,
+    "temp_error_c": [
+      2,
+      15
+    ],
+    "calibration_blocks_mm": [
+      5,
+      15
+    ],
+    "calibration_temp_c": [
+      20,
+      140
+    ],
+    "calibration_repeats": 8,
+    "calibration_shots_per_repeat": 16,
+    "primary_reference_labels": "exact, internal consistency only",
+    "sensitivity_reference_length_sigma_mm": 0.02,
+    "sensitivity_reference_temp_sigma_c": 2
+  },
+  "final_goals_unchanged": {
+    "pit_recall": 0.889,
+    "pit_far": 0.007
+  },
+  "exclusions": [
+    "curvature/width physical validation",
+    "actual angle-beam performance",
+    "pit-bottom minimum wall",
+    "field qualification"
+  ],
+  "failure_policy": "retain all denominators; valid-only MAE labeled; .1mm rate uses all rows",
+  "review_changes": [
+    "C/D identical gate",
+    "Wilson intervals",
+    "nominal-record thickness baseline"
+  ],
+  "generalization_scope": "one synthetic instrument, geometry variables only",
+  "comparison_scope": "A/B calibration; C/D learning; A-vs-D is confounded by training distribution"
+}

@@ -1,0 +1,640 @@
+{
+  "detection": [
+    {
+      "condition": "ordinary",
+      "n_avg": 1,
+      "operating_far": 0.007,
+      "arm": "B_existing_MLP_no_hard_gate",
+      "tp": 1979,
+      "n_pos": 2000,
+      "fp": 5,
+      "n_neg": 2000,
+      "recall": 0.9895,
+      "far": 0.0025,
+      "far_wilson_ci95": [
+        0.0010683087284139143,
+        0.005839153316432755
+      ],
+      "recall_wilson_ci95": [
+        0.9840010980925269,
+        0.9931221126191265
+      ]
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 16,
+      "operating_far": 0.007,
+      "arm": "B_existing_MLP_no_hard_gate",
+      "tp": 2000,
+      "n_pos": 2000,
+      "fp": 4,
+      "n_neg": 2000,
+      "recall": 1.0,
+      "far": 0.002,
+      "far_wilson_ci95": [
+        0.0007780273070510575,
+        0.005131351785076866
+      ],
+      "recall_wilson_ci95": [
+        0.9980829527187469,
+        0.9999999999999998
+      ]
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 1,
+      "operating_far": 0.007,
+      "arm": "C_MF_CFAR_no_extra_gate",
+      "tp": 2000,
+      "n_pos": 2000,
+      "fp": 4,
+      "n_neg": 2000,
+      "recall": 1.0,
+      "far": 0.002,
+      "far_wilson_ci95": [
+        0.0007780273070510575,
+        0.005131351785076866
+      ],
+      "recall_wilson_ci95": [
+        0.9980829527187469,
+        0.9999999999999998
+      ]
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 16,
+      "operating_far": 0.007,
+      "arm": "C_MF_CFAR_no_extra_gate",
+      "tp": 2000,
+      "n_pos": 2000,
+      "fp": 7,
+      "n_neg": 2000,
+      "recall": 1.0,
+      "far": 0.0035,
+      "far_wilson_ci95": [
+        0.0016964316970424177,
+        0.007207196253241745
+      ],
+      "recall_wilson_ci95": [
+        0.9980829527187469,
+        0.9999999999999998
+      ]
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 1,
+      "operating_far": 0.007,
+      "arm": "D_new_MLP_no_hard_gate",
+      "tp": 1989,
+      "n_pos": 2000,
+      "fp": 5,
+      "n_neg": 2000,
+      "recall": 0.9945,
+      "far": 0.0025,
+      "far_wilson_ci95": [
+        0.0010683087284139143,
+        0.005839153316432755
+      ],
+      "recall_wilson_ci95": [
+        0.9901779372483848,
+        0.9969261029904561
+      ]
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 16,
+      "operating_far": 0.007,
+      "arm": "D_new_MLP_no_hard_gate",
+      "tp": 2000,
+      "n_pos": 2000,
+      "fp": 5,
+      "n_neg": 2000,
+      "recall": 1.0,
+      "far": 0.0025,
+      "far_wilson_ci95": [
+        0.0010683087284139143,
+        0.005839153316432755
+      ],
+      "recall_wilson_ci95": [
+        0.9980829527187469,
+        0.9999999999999998
+      ]
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 1,
+      "operating_far": 0.01,
+      "arm": "B_existing_MLP_no_hard_gate",
+      "tp": 1985,
+      "n_pos": 2000,
+      "fp": 6,
+      "n_neg": 2000,
+      "recall": 0.9925,
+      "far": 0.003,
+      "far_wilson_ci95": [
+        0.0013756299236301083,
+        0.006529915073935308
+      ],
+      "recall_wilson_ci95": [
+        0.9876620858637751,
+        0.9954496225641908
+      ]
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 16,
+      "operating_far": 0.01,
+      "arm": "B_existing_MLP_no_hard_gate",
+      "tp": 2000,
+      "n_pos": 2000,
+      "fp": 6,
+      "n_neg": 2000,
+      "recall": 1.0,
+      "far": 0.003,
+      "far_wilson_ci95": [
+        0.0013756299236301083,
+        0.006529915073935308
+      ],
+      "recall_wilson_ci95": [
+        0.9980829527187469,
+        0.9999999999999998
+      ]
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 1,
+      "operating_far": 0.01,
+      "arm": "C_MF_CFAR_no_extra_gate",
+      "tp": 2000,
+      "n_pos": 2000,
+      "fp": 6,
+      "n_neg": 2000,
+      "recall": 1.0,
+      "far": 0.003,
+      "far_wilson_ci95": [
+        0.0013756299236301083,
+        0.006529915073935308
+      ],
+      "recall_wilson_ci95": [
+        0.9980829527187469,
+        0.9999999999999998
+      ]
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 16,
+      "operating_far": 0.01,
+      "arm": "C_MF_CFAR_no_extra_gate",
+      "tp": 2000,
+      "n_pos": 2000,
+      "fp": 12,
+      "n_neg": 2000,
+      "recall": 1.0,
+      "far": 0.006,
+      "far_wilson_ci95": [
+        0.003435594376936234,
+        0.010458448336941664
+      ],
+      "recall_wilson_ci95": [
+        0.9980829527187469,
+        0.9999999999999998
+      ]
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 1,
+      "operating_far": 0.01,
+      "arm": "D_new_MLP_no_hard_gate",
+      "tp": 1992,
+      "n_pos": 2000,
+      "fp": 7,
+      "n_neg": 2000,
+      "recall": 0.996,
+      "far": 0.0035,
+      "far_wilson_ci95": [
+        0.0016964316970424177,
+        0.007207196253241745
+      ],
+      "recall_wilson_ci95": [
+        0.9921265357039621,
+        0.9979717533930348
+      ]
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 16,
+      "operating_far": 0.01,
+      "arm": "D_new_MLP_no_hard_gate",
+      "tp": 2000,
+      "n_pos": 2000,
+      "fp": 6,
+      "n_neg": 2000,
+      "recall": 1.0,
+      "far": 0.003,
+      "far_wilson_ci95": [
+        0.0013756299236301083,
+        0.006529915073935308
+      ],
+      "recall_wilson_ci95": [
+        0.9980829527187469,
+        0.9999999999999998
+      ]
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 1,
+      "operating_far": 0.007,
+      "arm": "B_existing_MLP_no_hard_gate",
+      "tp": 1255,
+      "n_pos": 2000,
+      "fp": 2,
+      "n_neg": 2000,
+      "recall": 0.6275,
+      "far": 0.001,
+      "far_wilson_ci95": [
+        0.0002742789176520342,
+        0.003638934269038394
+      ],
+      "recall_wilson_ci95": [
+        0.6060858442270278,
+        0.6484253087162526
+      ]
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 16,
+      "operating_far": 0.007,
+      "arm": "B_existing_MLP_no_hard_gate",
+      "tp": 1765,
+      "n_pos": 2000,
+      "fp": 10,
+      "n_neg": 2000,
+      "recall": 0.8825,
+      "far": 0.005,
+      "far_wilson_ci95": [
+        0.0027181808584985597,
+        0.009179695949941846
+      ],
+      "recall_wilson_ci95": [
+        0.8676485316803879,
+        0.8958849271494533
+      ]
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 1,
+      "operating_far": 0.007,
+      "arm": "C_MF_CFAR_no_extra_gate",
+      "tp": 1202,
+      "n_pos": 2000,
+      "fp": 6,
+      "n_neg": 2000,
+      "recall": 0.601,
+      "far": 0.003,
+      "far_wilson_ci95": [
+        0.0013756299236301083,
+        0.006529915073935308
+      ],
+      "recall_wilson_ci95": [
+        0.5793647479136985,
+        0.6222480085354882
+      ]
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 16,
+      "operating_far": 0.007,
+      "arm": "C_MF_CFAR_no_extra_gate",
+      "tp": 1719,
+      "n_pos": 2000,
+      "fp": 7,
+      "n_neg": 2000,
+      "recall": 0.8595,
+      "far": 0.0035,
+      "far_wilson_ci95": [
+        0.0016964316970424177,
+        0.007207196253241745
+      ],
+      "recall_wilson_ci95": [
+        0.8435800264665468,
+        0.8740416165382324
+      ]
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 1,
+      "operating_far": 0.007,
+      "arm": "D_new_MLP_no_hard_gate",
+      "tp": 1297,
+      "n_pos": 2000,
+      "fp": 4,
+      "n_neg": 2000,
+      "recall": 0.6485,
+      "far": 0.002,
+      "far_wilson_ci95": [
+        0.0007780273070510575,
+        0.005131351785076866
+      ],
+      "recall_wilson_ci95": [
+        0.6273091553210961,
+        0.6691214816363718
+      ]
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 16,
+      "operating_far": 0.007,
+      "arm": "D_new_MLP_no_hard_gate",
+      "tp": 1751,
+      "n_pos": 2000,
+      "fp": 12,
+      "n_neg": 2000,
+      "recall": 0.8755,
+      "far": 0.006,
+      "far_wilson_ci95": [
+        0.003435594376936234,
+        0.010458448336941664
+      ],
+      "recall_wilson_ci95": [
+        0.8603068678385486,
+        0.8892534296532302
+      ]
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 1,
+      "operating_far": 0.01,
+      "arm": "B_existing_MLP_no_hard_gate",
+      "tp": 1289,
+      "n_pos": 2000,
+      "fp": 7,
+      "n_neg": 2000,
+      "recall": 0.6445,
+      "far": 0.0035,
+      "far_wilson_ci95": [
+        0.0016964316970424177,
+        0.007207196253241745
+      ],
+      "recall_wilson_ci95": [
+        0.6232632602811659,
+        0.665182713054552
+      ]
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 16,
+      "operating_far": 0.01,
+      "arm": "B_existing_MLP_no_hard_gate",
+      "tp": 1795,
+      "n_pos": 2000,
+      "fp": 16,
+      "n_neg": 2000,
+      "recall": 0.8975,
+      "far": 0.008,
+      "far_wilson_ci95": [
+        0.0049302968532159265,
+        0.012956077671536958
+      ],
+      "recall_wilson_ci95": [
+        0.883436204935987,
+        0.9100397424754167
+      ]
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 1,
+      "operating_far": 0.01,
+      "arm": "C_MF_CFAR_no_extra_gate",
+      "tp": 1265,
+      "n_pos": 2000,
+      "fp": 14,
+      "n_neg": 2000,
+      "recall": 0.6325,
+      "far": 0.007,
+      "far_wilson_ci95": [
+        0.0041743460559210965,
+        0.011715862563394297
+      ],
+      "recall_wilson_ci95": [
+        0.6111350893256917,
+        0.6533568931447762
+      ]
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 16,
+      "operating_far": 0.01,
+      "arm": "C_MF_CFAR_no_extra_gate",
+      "tp": 1751,
+      "n_pos": 2000,
+      "fp": 9,
+      "n_neg": 2000,
+      "recall": 0.8755,
+      "far": 0.0045,
+      "far_wilson_ci95": [
+        0.0023692806369618345,
+        0.008530513218759823
+      ],
+      "recall_wilson_ci95": [
+        0.8603068678385486,
+        0.8892534296532302
+      ]
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 1,
+      "operating_far": 0.01,
+      "arm": "D_new_MLP_no_hard_gate",
+      "tp": 1357,
+      "n_pos": 2000,
+      "fp": 7,
+      "n_neg": 2000,
+      "recall": 0.6785,
+      "far": 0.0035,
+      "far_wilson_ci95": [
+        0.0016964316970424177,
+        0.007207196253241745
+      ],
+      "recall_wilson_ci95": [
+        0.6577054850262555,
+        0.6986101290943373
+      ]
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 16,
+      "operating_far": 0.01,
+      "arm": "D_new_MLP_no_hard_gate",
+      "tp": 1784,
+      "n_pos": 2000,
+      "fp": 17,
+      "n_neg": 2000,
+      "recall": 0.892,
+      "far": 0.0085,
+      "far_wilson_ci95": [
+        0.005313767739685552,
+        0.013570689737786079
+      ],
+      "recall_wilson_ci95": [
+        0.8776380291245442,
+        0.9048590058069534
+      ]
+    }
+  ],
+  "thickness": [
+    {
+      "condition": "ordinary",
+      "n_avg": 1,
+      "arm": "old_calibrated_autocorrelation",
+      "n": 4000,
+      "valid": 4000,
+      "failed": 0,
+      "valid_only_mae_mm": 0.00382298020187043,
+      "valid_only_p95_mm": 0.010714081083959655,
+      "within01": 4000,
+      "within01_all": 1.0
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 1,
+      "arm": "nominal_record",
+      "n": 4000,
+      "valid": 4000,
+      "failed": 0,
+      "valid_only_mae_mm": 0.040361615402655655,
+      "valid_only_p95_mm": 0.09878867045554189,
+      "within01": 3813,
+      "within01_all": 0.95325
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 1,
+      "arm": "selected_profile",
+      "n": 4000,
+      "valid": 4000,
+      "failed": 0,
+      "valid_only_mae_mm": 0.002265265932450081,
+      "valid_only_p95_mm": 0.00582581582722188,
+      "within01": 3999,
+      "within01_all": 0.99975
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 16,
+      "arm": "old_calibrated_autocorrelation",
+      "n": 4000,
+      "valid": 4000,
+      "failed": 0,
+      "valid_only_mae_mm": 0.0027822382132994847,
+      "valid_only_p95_mm": 0.007820205356975673,
+      "within01": 4000,
+      "within01_all": 1.0
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 16,
+      "arm": "nominal_record",
+      "n": 4000,
+      "valid": 4000,
+      "failed": 0,
+      "valid_only_mae_mm": 0.040361615402655655,
+      "valid_only_p95_mm": 0.09878867045554189,
+      "within01": 3813,
+      "within01_all": 0.95325
+    },
+    {
+      "condition": "ordinary",
+      "n_avg": 16,
+      "arm": "selected_profile",
+      "n": 4000,
+      "valid": 4000,
+      "failed": 0,
+      "valid_only_mae_mm": 0.002120807563662863,
+      "valid_only_p95_mm": 0.005781961147757552,
+      "within01": 4000,
+      "within01_all": 1.0
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 1,
+      "arm": "old_calibrated_autocorrelation",
+      "n": 4000,
+      "valid": 4000,
+      "failed": 0,
+      "valid_only_mae_mm": 0.7216034042085132,
+      "valid_only_p95_mm": 6.042107934261615,
+      "within01": 3352,
+      "within01_all": 0.838
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 1,
+      "arm": "nominal_record",
+      "n": 4000,
+      "valid": 4000,
+      "failed": 0,
+      "valid_only_mae_mm": 0.04020047447230352,
+      "valid_only_p95_mm": 0.09978146736338046,
+      "within01": 3801,
+      "within01_all": 0.95025
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 1,
+      "arm": "selected_profile",
+      "n": 4000,
+      "valid": 4000,
+      "failed": 0,
+      "valid_only_mae_mm": 0.014282952462443651,
+      "valid_only_p95_mm": 0.03797374684883001,
+      "within01": 3998,
+      "within01_all": 0.9995
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 16,
+      "arm": "old_calibrated_autocorrelation",
+      "n": 4000,
+      "valid": 4000,
+      "failed": 0,
+      "valid_only_mae_mm": 0.03136759469983109,
+      "valid_only_p95_mm": 0.04381041511233128,
+      "within01": 3986,
+      "within01_all": 0.9965
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 16,
+      "arm": "nominal_record",
+      "n": 4000,
+      "valid": 4000,
+      "failed": 0,
+      "valid_only_mae_mm": 0.04020047447230352,
+      "valid_only_p95_mm": 0.09978146736338046,
+      "within01": 3801,
+      "within01_all": 0.95025
+    },
+    {
+      "condition": "shifted",
+      "n_avg": 16,
+      "arm": "selected_profile",
+      "n": 4000,
+      "valid": 4000,
+      "failed": 0,
+      "valid_only_mae_mm": 0.013542635691362744,
+      "valid_only_p95_mm": 0.03748348756077515,
+      "within01": 4000,
+      "within01_all": 1.0
+    }
+  ],
+  "selection": {
+    "1:0.007": "D_new_MLP_no_hard_gate",
+    "16:0.007": "D_new_MLP_no_hard_gate",
+    "1:0.01": "D_new_MLP_no_hard_gate",
+    "16:0.01": "D_new_MLP_no_hard_gate"
+  },
+  "wall_estimator": "profile",
+  "test_evaluations": 1,
+  "geometry_units": 8000,
+  "domain": "normal-incidence synthetic internal consistency; not angle-beam validation"
+}

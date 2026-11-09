@@ -1,0 +1,20 @@
+{
+  "selected_seed": 4103,
+  "candidates": [
+    {
+      "seed": 4101,
+      "best_validation_bce": 0.012764143757522106,
+      "best_epoch": 19
+    },
+    {
+      "seed": 4102,
+      "best_validation_bce": 0.012756995856761932,
+      "best_epoch": 20
+    },
+    {
+      "seed": 4103,
+      "best_validation_bce": 0.012534618377685547,
+      "best_epoch": 18
+    }
+  ]
+}

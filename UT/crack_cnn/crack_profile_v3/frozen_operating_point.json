@@ -1,0 +1,46 @@
+{
+  "selected_seed": 1110,
+  "model_sha256": "384f85dfdd1ec6ec62f90ccdc956b865eb612c60ab948ac1c4345ed5c3665ad7",
+  "angle_thresholds": {
+    "45.0": -1.6465202569961548,
+    "60.0": -2.0958850383758545,
+    "70.0": -2.606553792953491
+  },
+  "domain_thresholds": {
+    "calibration_general_normal": {
+      "45.0": {
+        "threshold": -3.080517053604126,
+        "n": 1983,
+        "allowed_exceedances": 9
+      },
+      "60.0": {
+        "threshold": -2.0958850383758545,
+        "n": 2027,
+        "allowed_exceedances": 9
+      },
+      "70.0": {
+        "threshold": -2.606553792953491,
+        "n": 1990,
+        "allowed_exceedances": 9
+      }
+    },
+    "calibration_dr_normal": {
+      "45.0": {
+        "threshold": -1.6465202569961548,
+        "n": 1972,
+        "allowed_exceedances": 9
+      },
+      "60.0": {
+        "threshold": -3.000317335128784,
+        "n": 1934,
+        "allowed_exceedances": 9
+      },
+      "70.0": {
+        "threshold": -3.734837770462036,
+        "n": 2094,
+        "allowed_exceedances": 10
+      }
+    }
+  },
+  "unsupported_angle": "abstain"
+}

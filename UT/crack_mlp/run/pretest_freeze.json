@@ -1,0 +1,11 @@
+{
+  "protocol_sha256": "d4117af4cb63cf9347c20e9041f91bb73d802fd591e29ed81a9c756557ed457d",
+  "point_sha256": "5a2e0f9352062a2abc2b8ee428e0cf0a5f6f2190d8f5f600f8785df7372594fc",
+  "normalization_sha256": "0164a96e3183729a941af2e3766641dce724785d1356c4d926731f603f963c07",
+  "source_hashes": {
+    "train_mlp_gpu.py": "f768a06813b5a41135a9ae839bc2753a75ea66520262fe4f4b4fb23dbd238def",
+    "crack_mlp.py": "a58f2f1beca20f5277c97846812f723625124036a02a1d9d18ed4f9ffed8b727"
+  },
+  "cnn_weight_sha256": "274ec555e1faabe057934278ab5117d11031c2394da7cdd97c29ee40ada9f4df",
+  "frozen_unix": 1794217526.4314566
+}

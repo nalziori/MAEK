@@ -1,0 +1,77 @@
+{
+  "status": "full_raw_RF_replay_recount_passed",
+  "split_ids_disjoint": true,
+  "total_unit_ids_checked": 31200,
+  "results": {
+    "test_general": {
+      "counts": {
+        "tp": 1847,
+        "positive_units": 1847,
+        "fp": 18,
+        "normal_units": 4153,
+        "recall": 1.0,
+        "far": 0.004334216229231881,
+        "recall_ci95": [
+          0.9979244036874901,
+          1.0
+        ],
+        "far_ci95": [
+          0.0027433911357893437,
+          0.0068411934680598875
+        ]
+      },
+      "channels_max_abs_difference": 0.0,
+      "logits_match": true,
+      "decisions_match": true,
+      "paired_true_defects": {
+        "cnn_only_detected": 0,
+        "rule_only_detected": 0,
+        "both_missed": 0,
+        "recall_gain": 0.0,
+        "paired_bootstrap_ci95": [
+          0.0,
+          0.0
+        ],
+        "mcnemar_exact_p": 1.0
+      },
+      "scope": "independent synthetic units; known exact nominal geometry for primary test; no field claim"
+    },
+    "test_shifted": {
+      "counts": {
+        "tp": 2680,
+        "positive_units": 2693,
+        "fp": 6,
+        "normal_units": 6307,
+        "recall": 0.9951726698848867,
+        "far": 0.0009513239257967338,
+        "recall_ci95": [
+          0.9917579175551055,
+          0.9971766939548921
+        ],
+        "far_ci95": [
+          0.000436064972986244,
+          0.002074154900065236
+        ]
+      },
+      "channels_max_abs_difference": 0.0,
+      "logits_match": true,
+      "decisions_match": true,
+      "paired_true_defects": {
+        "cnn_only_detected": 31,
+        "rule_only_detected": 0,
+        "both_missed": 13,
+        "recall_gain": 0.011511325659116228,
+        "paired_bootstrap_ci95": [
+          0.007797994801336799,
+          0.015595989602673598
+        ],
+        "mcnemar_exact_p": 9.313225746154785e-10
+      },
+      "scope": "independent synthetic units; known exact nominal geometry for primary test; no field claim"
+    }
+  },
+  "model_sha256": "384f85dfdd1ec6ec62f90ccdc956b865eb612c60ab948ac1c4345ed5c3665ad7",
+  "runtime_sha256": "387cd34030a3ab9d386193da7f1542a35de57ae6bad8d145e01808b8b847a755",
+  "claude_review_received": true,
+  "real_angle_or_Jetson_validation": false
+}

@@ -1,0 +1,193 @@
+{
+  "selected_seed": 4103,
+  "candidates": {
+    "retrained": {
+      "angle_thresholds": {
+        "45.0": 1.8590558767318726,
+        "60.0": 1.4666892290115356,
+        "70.0": 0.49214091897010803
+      },
+      "strata": [
+        {
+          "angle": 45.0,
+          "source": "general",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": 1.8590558767318726
+        },
+        {
+          "angle": 45.0,
+          "source": "shifted",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -1.0130366086959839
+        },
+        {
+          "angle": 45.0,
+          "source": "geometry",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -3.8978939056396484
+        },
+        {
+          "angle": 45.0,
+          "source": "thermal_geometry",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -1.7981524467468262
+        },
+        {
+          "angle": 60.0,
+          "source": "general",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": 1.4666892290115356
+        },
+        {
+          "angle": 60.0,
+          "source": "shifted",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -2.864464044570923
+        },
+        {
+          "angle": 60.0,
+          "source": "geometry",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -2.728916645050049
+        },
+        {
+          "angle": 60.0,
+          "source": "thermal_geometry",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -1.192949891090393
+        },
+        {
+          "angle": 70.0,
+          "source": "general",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": 0.49214091897010803
+        },
+        {
+          "angle": 70.0,
+          "source": "shifted",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -1.9534791707992554
+        },
+        {
+          "angle": 70.0,
+          "source": "geometry",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -1.3856197595596313
+        },
+        {
+          "angle": 70.0,
+          "source": "thermal_geometry",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -1.559953212738037
+        }
+      ],
+      "delta_each": 0.0020833333333333333
+    },
+    "old_weights_wide_window": {
+      "angle_thresholds": {
+        "45.0": 0.9088528156280518,
+        "60.0": -2.522893190383911,
+        "70.0": -2.9297587871551514
+      },
+      "strata": [
+        {
+          "angle": 45.0,
+          "source": "general",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": 0.9088528156280518
+        },
+        {
+          "angle": 45.0,
+          "source": "shifted",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -3.6887075901031494
+        },
+        {
+          "angle": 45.0,
+          "source": "geometry",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -5.117524147033691
+        },
+        {
+          "angle": 45.0,
+          "source": "thermal_geometry",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -5.324082851409912
+        },
+        {
+          "angle": 60.0,
+          "source": "general",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -2.522893190383911
+        },
+        {
+          "angle": 60.0,
+          "source": "shifted",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -4.022053241729736
+        },
+        {
+          "angle": 60.0,
+          "source": "geometry",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -4.276175498962402
+        },
+        {
+          "angle": 60.0,
+          "source": "thermal_geometry",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -4.950621128082275
+        },
+        {
+          "angle": 70.0,
+          "source": "general",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -2.9297587871551514
+        },
+        {
+          "angle": 70.0,
+          "source": "shifted",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -5.379047393798828
+        },
+        {
+          "angle": 70.0,
+          "source": "geometry",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -5.40548849105835
+        },
+        {
+          "angle": 70.0,
+          "source": "thermal_geometry",
+          "n": 1000,
+          "zero_based_rank": 998,
+          "threshold": -5.702817916870117
+        }
+      ],
+      "delta_each": 0.0020833333333333333
+    }
+  }
+}

@@ -1,0 +1,27 @@
+name: UT package replay
+
+on:
+  pull_request:
+    paths: ['UT/**', 'tests/test_ut_final_package.py', '.github/workflows/ut-package.yml']
+  push:
+    branches: [main]
+    paths: ['UT/**', 'tests/test_ut_final_package.py', '.github/workflows/ut-package.yml']
+
+jobs:
+  frozen-replay:
+    runs-on: ubuntu-latest
+    env:
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install CPU runtime
+        run: |
+          python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r UT/requirements.txt
+      - name: Check frozen files and inference examples
+        run: python UT/verify_final.py
