@@ -5,6 +5,10 @@
 노란 안전모·작업복 남성 캐릭터와 PDA를 프로젝트 내부에 포함했으므로
 ShiftLink 폴더나 별도 에셋 다운로드가 필요하지 않다.
 
+바로 확인하려면 Play 중 Hierarchy에서 `MAEK maintenance inspector`를 검색하고
+선택한 뒤 Scene 뷰에서 F를 누른다. Game 뷰의 드론 시점과 경로는 바뀌지 않는다.
+모델만 살펴보려면 아래 프리팹을 더블클릭해 Prefab Mode에서 연다.
+
 프리팹: `Assets/MAEK/Resources/MAEK/MaintenanceInspector.prefab`.
 다른 촬영용 씬에서도 프리팹을 끌어다 배치할 수 있다. 모델 높이는 약 1.72m이며,
 기본 상태는 PDA를 든 대기 자세와 작은 유휴 동작이다. 이번 추가 범위는 정비인
