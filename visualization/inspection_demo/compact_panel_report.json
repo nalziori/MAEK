@@ -1,0 +1,64 @@
+{
+  "checks": [
+    {
+      "width": 1280,
+      "collapsed": {
+        "x": 1131.375,
+        "y": 26,
+        "width": 128.625,
+        "height": 32
+      },
+      "popup": {
+        "x": 960,
+        "y": 64,
+        "width": 300,
+        "height": 165.5
+      },
+      "keyboard": true,
+      "outsideClick": true,
+      "modeSwitch": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "collapsed": {
+        "x": 253.375,
+        "y": 22,
+        "width": 120.625,
+        "height": 40
+      },
+      "popup": {
+        "x": 74,
+        "y": 68,
+        "width": 300,
+        "height": 221.5
+      },
+      "keyboard": true,
+      "outsideClick": true,
+      "modeSwitch": true,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "collapsed": {
+        "x": 183.375,
+        "y": 30.796875,
+        "width": 120.625,
+        "height": 40
+      },
+      "popup": {
+        "x": 16,
+        "y": 76.796875,
+        "width": 288,
+        "height": 221.5
+      },
+      "keyboard": true,
+      "outsideClick": true,
+      "modeSwitch": true,
+      "overflow": false
+    }
+  ],
+  "exceptions": [],
+  "posts": [],
+  "status": "PASS"
+}

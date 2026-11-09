@@ -72,7 +72,12 @@
 
 Unity 6000.3.12f1에서 `MAEKInspectionDemo.unity`를 열고 Play를 누르면 가상 드론의
 위치·원본 RGB 영상·분석 기록이 연결된다. 기본 라이브 미리보기는 초당 2회 갱신되는 PNG이며
-영상 통신 프로토콜이나 실물 드론 연결은 아니다. `V`로 추적 시점을 전환해도 분석 카메라는
+영상 통신 프로토콜이나 실물 드론 연결은 아니다.
+`MAEKDashboardLink.Initialize`가 `Application.runInBackground=true`를 설정해 대시보드로
+전환했을 때도 Unity의 백그라운드 실행을 허용한다. 이 추가 수정은 Unity 6000.3의 C# 컴파일러와
+프로젝트 참조 설정으로 런타임 어셈블리 컴파일을 통과했다. 대화형 Play 재검증은 사용자의
+PR만 진행 요청에 따라 중단했다.
+`V`로 추적 시점을 전환해도 분석 카메라는
 원래 FPV 촬영 포즈를 유지한다. 가상 드론 외형과 Collider는 기체 반경 0.24m 안에 있으며,
 이동 경로는 여유 0.10m를 더한 반경 0.34m로 검사한다.
 
@@ -99,6 +104,36 @@ Unity 시나리오 선택으로 냉각수·산소·소결 RGB 부식 후보, 정
 적용 응답을 받아 상태를 표시하며, 평가가 통과해도 현장 정확도나 작업 허가를 입증하지 않는다.
 Unity의 기존 녹화 기능 및 대시보드 추가 제어의 녹화 전환은 PNG 프레임과 메타데이터를 저장한다.
 이 소스 변경이 과거 EXE ZIP에 자동으로 반영되지는 않는다.
+
+### Unity와 대시보드의 실제 연동 재검증
+
+로컬 서버와 Unity Play 실행이 모두 켜진 상태에서 다음 검증을 실행한다.
+Windows의 Microsoft Edge와 Python `playwright` 패키지가 필요하다.
+
+```powershell
+./.venv/Scripts/python.exe -m pip install playwright
+./.venv/Scripts/python.exe scripts/verify_live_dashboard.py
+```
+
+전체 배관 검사 모드의 실제 Unity 영상·분석·배관 매핑이 들어올 때까지 기다린 뒤,
+데스크톱·모바일 화면의 분석 이미지 SHA-256과 표시 상태를 검사한다. 브라우저의
+일시정지·재개 버튼을 눌러 Unity의 적용 ACK와 실제 비행 위치 변경을 확인한다.
+247개 접근·관측 행, 요구/예약/보류 집계와 제공 중인 대시보드 파일 해시도 남긴다.
+가짜 텔레메트리나 저장 영상 재생으로 실시간 연결을 대신하지 않는다.
+
+자동 전체 Play 실행은 기존 `MAEK.Editor.VerifyInspectionPlayMode.Run`을 사용한다.
+실행 중 다른 터미널에서 위 브라우저 검증을 함께 실행한다. 기본 대기 시간은 20분이며,
+서버 주소는 `--base`, 결과 폴더는 `--output`, 대기 시간은 `--timeout`으로 지정한다.
+캐시가 있는 다른 Unity 프로젝트를 사용할 때는 `--unity-project 경로`로 실행 소스·장면·
+경로가 이 체크아웃과 일치하는지도 확인한다. 결과는
+`visualization/inspection_scenarios/dashboard/live-날짜-시각/report.json`과 화면 PNG로 남는다.
+실제 실행 실패·해시 불일치·명령 미적용·화면 오류는 종료 코드 1로 처리한다.
+
+2026-11-09 실제 연동 세션 `20261109-175022-060`은 브라우저 4개 화면의 원본 해시와
+정지·재개 ACK/위치 갱신을 통과했다. 요약은
+`visualization/inspection_demo/dashboard_live_report.json`에 보존한다. 같은 세션의
+`play_mode_report.json`은 664개 촬영, 24프레임 녹화, 11개 평가 ACK·미전송 0건으로 PASS다.
+브라우저 보고서의 관측 집계는 촬영 중 스냅샷이며 최종 관측 집계와 구별한다.
 
 ### 주상·정비동 내부
 

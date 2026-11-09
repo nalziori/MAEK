@@ -38,7 +38,7 @@ namespace MAEK {
   readonly Queue<DashboardAck> acknowledgements=new Queue<DashboardAck>();
   readonly Dictionary<string,DashboardAck> appliedCommands=new Dictionary<string,DashboardAck>();
   readonly Queue<string> appliedOrder=new Queue<string>();
-  public void Initialize(){if(ready)return;tour=GetComponent<MAEKInspectionTour>();scenarios=GetComponent<MAEKInspectionScenarios>();drone=GetComponent<MAEKVirtualDrone>();BaseUrl=new Uri(tour.endpoint).GetLeftPart(UriPartial.Authority);ready=true;scenarios.Initialize();}
+  public void Initialize(){if(ready)return;Application.runInBackground=true;tour=GetComponent<MAEKInspectionTour>();scenarios=GetComponent<MAEKInspectionScenarios>();drone=GetComponent<MAEKVirtualDrone>();BaseUrl=new Uri(tour.endpoint).GetLeftPart(UriPartial.Authority);ready=true;scenarios.Initialize();}
   void Start(){Initialize();}
   public DashboardTelemetry Snapshot(bool image){
    Initialize();tour.Initialize();string session=string.IsNullOrEmpty(tour.SessionDirectory)?"":Path.GetFileName(tour.SessionDirectory);
