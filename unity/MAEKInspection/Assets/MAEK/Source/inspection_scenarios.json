@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "scope": "Virtual Unity test conditions, not field defect accuracy. Expected outcomes stay in evaluation only; detector receives rendered pixels. Missing UT/IR cases are declared assumptions, not fabricated sensor measurements.",
+  "scenarios": [
+    {
+      "id": "S01",
+      "title": "냉각수 배관 부식",
+      "pipeId": "BF1-W002",
+      "mode": "corrosion",
+      "expected": "corrosion_candidate",
+      "description": "노출 냉각수 배관의 합성 외관 부식 색상 후보를 촬영한다.",
+      "capability": "RGB 부식 후보"
+    },
+    {
+      "id": "S02",
+      "title": "산소 공급 배관 부식",
+      "pipeId": "O2-L007",
+      "mode": "corrosion",
+      "expected": "corrosion_candidate",
+      "description": "산소 소비처 인입 경계의 외관 부식을 선별한다. 산소 누출·청정도는 판단하지 않는다.",
+      "capability": "RGB 부식 후보"
+    },
+    {
+      "id": "S03",
+      "title": "소결 집진 덕트 부식",
+      "pipeId": "SINTER-D005",
+      "mode": "corrosion",
+      "expected": "corrosion_candidate",
+      "description": "소결 2차 집진 합류 덕트 외관 부식. 하중과 구조 건전성은 별도 검토 대상이다.",
+      "capability": "RGB 부식 후보"
+    },
+    {
+      "id": "S04",
+      "title": "부식 없는 대조군",
+      "pipeId": "BF1-W002",
+      "mode": "clean",
+      "expected": "no_corrosion_candidate",
+      "description": "같은 배관·경로에서 부식 표현만 제거한다. 무검출은 전체 건전성 보장이 아니다.",
+      "capability": "RGB 음성 대조군"
+    },
+    {
+      "id": "S05",
+      "title": "주황색 도장 오탐 시험",
+      "pipeId": "BF1-W002",
+      "mode": "paint",
+      "expected": "no_corrosion_candidate",
+      "description": "부식이 아닌 주황색 도장을 적용한다. HSV 기준선의 실제 오탐을 숨기지 않고 FP로 기록한다.",
+      "capability": "RGB 유사 색상 스트레스"
+    },
+    {
+      "id": "S06",
+      "title": "저조도 재촬영",
+      "pipeId": "BF1-W002",
+      "mode": "low_light",
+      "expected": "quality_recheck",
+      "description": "카메라 노출을 합성으로 낮춘다. 실제 픽셀 품질이 부족하면 정상 대신 재촬영으로 보낸다.",
+      "capability": "RGB 품질 게이트"
+    },
+    {
+      "id": "S07",
+      "title": "가림에 따른 판독 보류",
+      "pipeId": "BF1-W002",
+      "mode": "occlusion",
+      "expected": "not_visible",
+      "description": "비행 경로 밖에 가림판을 배치한다. 대상 표면을 볼 수 없으면 미검사로 유지한다.",
+      "capability": "표면 가시성 검증"
+    },
+    {
+      "id": "S08",
+      "title": "분석 연결 장애",
+      "pipeId": "BF1-W002",
+      "mode": "analysis_offline",
+      "expected": "analysis_error",
+      "description": "실제 분석 연결 실패를 발생시키며 영상은 유지한다. 오류를 정상 결과로 바꾸지 않는다.",
+      "capability": "통신 오류 처리"
+    },
+    {
+      "id": "S09",
+      "title": "카메라 영상 중단",
+      "pipeId": "BF1-W002",
+      "mode": "camera_offline",
+      "expected": "camera_error",
+      "description": "새 촬영과 영상 전송을 중단한다. 이전 프레임을 현재 영상으로 표시하지 않는다.",
+      "capability": "카메라 오류 처리"
+    },
+    {
+      "id": "S10",
+      "title": "내부 균열 관측 한계",
+      "pipeId": "BF1-W002",
+      "mode": "ut_required",
+      "expected": "additional_sensor_required",
+      "description": "내부 균열이 있다고 가정한 센서 요구 시험. RGB로 확진하지 않고 UT 미입력을 표시한다. 물리적 균열 전파 모델은 아니다.",
+      "capability": "UT 입력 필요 · 현재 미연결"
+    },
+    {
+      "id": "S11",
+      "title": "보온 이상 관측 한계",
+      "pipeId": "BF1-W002",
+      "mode": "ir_required",
+      "expected": "additional_sensor_required",
+      "description": "보온 이상을 가정한 센서 요구 시험. 합성 IR/PEC 측정값을 RGB 결과로 꾸미지 않는다. 보온 손상 기하/열해석은 이 사례에 추가하지 않는다.",
+      "capability": "IR/PEC 입력 필요 · 현재 미연결"
+    }
+  ]
+}

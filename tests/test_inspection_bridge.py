@@ -53,3 +53,23 @@ def test_reject_bad_input_and_oversize():
     request, _ = payload(np.zeros((20, 1300, 3), np.uint8))
     with pytest.raises(ValueError, match="1280x720"):
         analyse(request)
+
+
+@pytest.mark.parametrize("brightness,can_infer", [(0, False), (7, False), (8, True), (110, True)])
+def test_quality_from_pixels_only(brightness, can_infer):
+    request, _ = payload(np.full((32, 48, 3), brightness, np.uint8))
+    request["expected"] = "normal"
+    request["quality"] = {"canInfer": True}
+    result = analyse(request)
+    assert result["quality"]["canInfer"] is can_infer
+    assert result["quality"]["code"] == ("ok" if can_infer else "low_light")
+    if not can_infer:
+        assert result["status"] == "low_light"
+        assert result["components"] == []
+
+
+def test_dark_scene_with_visible_patch_not_rejected():
+    rgb = np.zeros((100, 100, 3), np.uint8)
+    rgb[:10] = 30
+    request, _ = payload(rgb)
+    assert analyse(request)["quality"]["canInfer"] is True

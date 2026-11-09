@@ -1,12 +1,12 @@
 {
-    "status": "PASS",
-    "scope": "Five existing rooms; unchanged 247 process IDs. Added cold mock spools are visual training fixtures, not hydraulic/MAEK-analysis circuits.",
+    "status": "LAYOUT_CHECKED",
+    "scope": "Fixed reference layout, not as-built; pedestrian and physical checks only, no flight/capture certification. Five existing rooms; unchanged 247 process IDs. Added cold mock spools are visual training fixtures, not hydraulic/MAEK-analysis circuits.",
+    "layoutSignature": "66213a4a91a679ee1873ca8940ffca01566d90410eac07b3128db16e67e12842",
+    "layoutFirst": true,
     "rooms": 5,
     "stations": 16,
     "closedSpools": 12,
-    "physicalFixtures": 940,
-    "omittedAssemblies": 1,
-    "omissions": [
-        "BF2.CASTHOUSE entry signage: reserved flight/view/access space"
-    ]
+    "physicalFixtures": 941,
+    "omittedAssemblies": 0,
+    "omissions": []
 }

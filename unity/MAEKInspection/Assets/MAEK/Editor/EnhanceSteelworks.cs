@@ -7,38 +7,31 @@ using UnityEditor;
 using UnityEngine;
 
 namespace MAEK.Editor {
- // Visual enrichment only. The authoritative process graph and flight plan are immutable.
+ // Reference layout first; the authoritative process graph and legacy route remain immutable.
  public static class EnhanceSteelworks {
   const string Assets="Assets/MAEK/Generated/Realism";
   const string Source="Assets/MAEK/Source/";
   static readonly string Output=Path.GetFullPath("../../visualization/realism");
   static Transform root;
-  static TourPlan plan;
   static AuditEnhancedColliders.Room[] accessRooms;
   static Material steel,clad,roof,concrete,glass,pipe;
   static int accepted,rejected,repainted,loops;
   static readonly List<string> omissions=new List<string>();
   [Serializable] class Audit {
-   public string status,basis,routeSha256;
-   public int addedColliders,omittedParts,weatheredRenderers,auxiliaryLoops,processPipes,checkedSegments,checkedViews;
+   public string status,basis,routeSha256,layoutSignature;
+   public int addedColliders,omittedParts,weatheredRenderers,auxiliaryLoops,processPipes,checkedSegments,checkedViews,blockedSegments,occludedViews;
+   public bool layoutFirst=true,legacyRouteDiagnosticsOnly=true;
    public bool originalCollidersPreserved,originalMeshesPreserved,originalProcessSourcesPreserved;
    public string[] omissions;
   }
   static string Hash(string path){using(var s=SHA256.Create())return BitConverter.ToString(s.ComputeHash(File.ReadAllBytes(path))).Replace("-","").ToLowerInvariant();}
   static void Require(bool ok,string message){if(!ok)throw new Exception("REALISM: "+message);}
-  static bool Hits(Bounds bounds,Vector3 a,Vector3 b,float margin){
-   bounds.Expand(margin*2);if(bounds.Contains(a)||bounds.Contains(b))return true;
-   var d=b-a;return d.sqrMagnitude>1e-8f&&bounds.IntersectRay(new Ray(a,d.normalized),out float t)&&t<=d.magnitude;
-  }
   public static bool Protected(Bounds b){
+   if(accessRooms==null)accessRooms=JsonUtility.FromJson<AuditEnhancedColliders.Rooms>(File.ReadAllText(Source+"interior_rooms.json")).rooms;
    foreach(var room in accessRooms){
     var corridor=new Bounds(new Vector3(room.x,1.3f,room.y),new Vector3(4,2.3f,room.depth+8));
     if(corridor.Intersects(b))return true;
    }
-   // Keep the existing presentation photograph usable as well as the flight captures.
-   if(Hits(b,new Vector3(-86,10,-25),new Vector3(-72,6.5f,-12),1.5f))return true;
-   for(int i=1;i<plan.points.Length;i++)if(Hits(b,plan.points[i-1].position,plan.points[i].position,plan.radius+.12f))return true;
-   foreach(var p in plan.points)if(!string.IsNullOrEmpty(p.pipeId)&&Hits(b,p.position,p.target,.22f))return true;
    return false;
   }
   static Material Mat(string name,Color color,float rust,float ribs=0,float metal=.35f){
@@ -88,7 +81,7 @@ namespace MAEK.Editor {
       }
       Beam("BF"+index+" diagonal brace",A(-9.1f,y+.4f),A(9.1f,y+5.6f),.28f,steel);
      }
-     // Walkways are narrow perimeter strips; process and camera access stays open.
+     // Walkways are narrow perimeter strips; process-pipe and pedestrian exclusions apply.
      Box("BF"+index+" service floor",A(0,y-.25f),along?new Vector3(20,.22f,1.3f):new Vector3(1.3f,.22f,20),steel);
      Beam("BF"+index+" guardrail",A(-9.4f,y+1.05f),A(9.4f,y+1.05f),.065f,steel);
      for(int k=-9;k<=9;k+=3)Beam("BF"+index+" railing upright",A(k,y),A(k,y+1.05f),.055f,steel);
@@ -96,7 +89,7 @@ namespace MAEK.Editor {
    }
    bool complete=false;
    foreach(float centerZ in new[]{18f,24f,12f})if(Crown(x,index,centerZ)){complete=true;break;}
-   Require(complete,"No complete supported crown fits the frozen route for BF"+index);
+   Require(complete,"No complete supported crown fits physical/access exclusions for BF"+index);
   }
   static bool Crown(float x,int index,float centerZ){
    int before=accepted,omitted=rejected;var parent=root;
@@ -164,14 +157,73 @@ namespace MAEK.Editor {
    if(!safe){rejected+=objects.Count;omissions.Add(name+" (whole connected assembly)");UnityEngine.Object.DestroyImmediate(group);return;}
    accepted+=objects.Count;loops++;
   }
+  // The callback must reload the same undecorated base and apply exterior/interior layout.
+  // Only an explicit parent test invokes rebuilds; ordinary Apply never changes the route.
+  public static bool VerifyLayoutIndependence(Action<TourPlan> rebuildFromSameBase){
+   if(rebuildFromSameBase==null)throw new ArgumentNullException(nameof(rebuildFromSameBase));
+   var first=new TourPlan{radius=.01f,points=new[]{
+    new TourPoint{position=new Vector3(-86,10,-25),target=new Vector3(-72,6.5f,-12)},
+    new TourPoint{position=new Vector3(-72,6.5f,-12),target=Vector3.zero,pipeId="layout-probe",sampleId="near"}}};
+   var second=new TourPlan{radius=8f,points=new[]{
+    new TourPoint{position=new Vector3(900,500,900),target=Vector3.zero},
+    new TourPoint{position=new Vector3(-900,500,-900),target=new Vector3(62,58,18),pipeId="layout-probe",sampleId="far"}}};
+   rebuildFromSameBase(first);string before=LayoutSignature();
+   rebuildFromSameBase(second);string after=LayoutSignature();
+   Require(before==after,"Layout geometry depends on route/camera input: "+before+" != "+after);
+   return true;
+  }
+  // Parent test hook: rebuild the same base scene with different fake Apply plans and compare.
+  public static string LayoutSignature(){
+   var layout=UnityEngine.Object.FindFirstObjectByType<MAEKExteriorDetail>();
+   Require(layout,"Layout signature requires exterior geometry");
+   var records=new List<string>();var meshes=new Dictionary<Mesh,string>();
+   foreach(var t in layout.GetComponentsInChildren<Transform>(true)){
+    var filter=t.GetComponent<MeshFilter>();var collider=t.GetComponent<Collider>();
+    var text=t.GetComponent<TextMesh>();
+    if(!filter&&!collider&&!text)continue;
+    using(var bytes=new MemoryStream())using(var writer=new BinaryWriter(bytes)){
+     var names=new List<string>();for(var ancestor=t;ancestor;ancestor=ancestor.parent){names.Add(ancestor.name);if(ancestor==layout.transform)break;}
+     names.Reverse();writer.Write(string.Join("/",names));writer.Write(t.gameObject.layer);
+     writer.Write(t.gameObject.activeSelf);
+     var matrix=t.localToWorldMatrix;for(int i=0;i<16;i++)writer.Write(matrix[i]);
+     writer.Write(filter&&filter.sharedMesh);
+     if(filter&&filter.sharedMesh){
+      var mesh=filter.sharedMesh;
+      if(!meshes.TryGetValue(mesh,out var signature)){
+       using(var data=new MemoryStream())using(var geometry=new BinaryWriter(data)){
+        geometry.Write(mesh.vertexCount);
+        foreach(var v in mesh.vertices){geometry.Write(v.x);geometry.Write(v.y);geometry.Write(v.z);}
+        geometry.Write(mesh.subMeshCount);
+        for(int sub=0;sub<mesh.subMeshCount;sub++){
+         geometry.Write((int)mesh.GetTopology(sub));var indices=mesh.GetIndices(sub);
+         geometry.Write(indices.Length);foreach(int index in indices)geometry.Write(index);
+        }
+        geometry.Flush();signature=HashBytes(data.ToArray());
+       }
+       meshes.Add(mesh,signature);
+      }
+      writer.Write(signature);
+     }
+     writer.Write((bool)collider);
+     if(collider){
+      writer.Write(collider.GetType().FullName);writer.Write(collider.enabled);writer.Write(collider.isTrigger);
+      var b=collider.bounds;
+      foreach(float value in new[]{b.center.x,b.center.y,b.center.z,b.size.x,b.size.y,b.size.z})writer.Write(value);
+     }
+     writer.Write(text?text.text:"");writer.Flush();records.Add(HashBytes(bytes.ToArray()));
+    }
+   }
+   records.Sort(StringComparer.Ordinal);
+   return HashBytes(System.Text.Encoding.UTF8.GetBytes(string.Join("\n",records)));
+  }
+  static string HashBytes(byte[] bytes){using(var sha=SHA256.Create())return BitConverter.ToString(sha.ComputeHash(bytes)).Replace("-","").ToLowerInvariant();}
   public static void Apply(TourPlan frozenPlan){
-   plan=frozenPlan;accepted=rejected=repainted=loops=0;omissions.Clear();
+   accepted=rejected=repainted=loops=0;omissions.Clear();
    accessRooms=JsonUtility.FromJson<AuditEnhancedColliders.Rooms>(File.ReadAllText(Source+"interior_rooms.json")).rooms;
    Directory.CreateDirectory(Output);Directory.CreateDirectory(Assets);AssetDatabase.Refresh();
    string baseline=Path.Combine(Output,"baseline/inspection_tour.json");
    Require(File.Exists(baseline),"Frozen baseline is required");
-   Require(File.ReadAllText(baseline)==JsonUtility.ToJson(plan,true),"Original flight plan changed");
-   string[] fixedSources={"pipe_services.json","service_drone_routes.json","maek_manifest.json","collision_network.json"};
+   string[] fixedSources={"inspection_tour.json","pipe_services.json","service_drone_routes.json","maek_manifest.json","collision_network.json"};
    foreach(var f in fixedSources)Require(Hash(Source+f)==Hash(Path.Combine(Output,"baseline",f)),"Process source changed: "+f);
    var originalColliders=UnityEngine.Object.FindObjectsByType<Collider>(FindObjectsSortMode.None);
    var originalPos=originalColliders.Select(c=>c.transform.localToWorldMatrix).ToArray();
@@ -228,21 +280,30 @@ namespace MAEK.Editor {
      Beam("Hot-blast stove shell band",new Vector3(x+3.12f*Mathf.Cos(a),y,25+3.12f*Mathf.Sin(a)),new Vector3(x+3.12f*Mathf.Cos(b),y,25+3.12f*Mathf.Sin(b)),.12f,steel);}
    }
    Physics.SyncTransforms();
-   for(int i=1;i<plan.points.Length;i++){
-    var a=plan.points[i-1].position;var b=plan.points[i].position;var d=b-a;
-    Require(!Physics.CheckSphere(a,plan.radius,1<<8)&&!Physics.CheckSphere(b,plan.radius,1<<8)&&!Physics.SphereCast(a,plan.radius,d.normalized,out _,d.magnitude,1<<8),"Blocked preserved flight segment "+i);
-   }
-   int views=0;foreach(var p in plan.points.Where(p=>!string.IsNullOrEmpty(p.pipeId))){
-    var d=p.target-p.position;
-    Require(Physics.Raycast(p.position,d.normalized,out var hit,d.magnitude+2,1<<8)&&hit.collider.GetComponentInParent<MAEKPipeService>()?.lineId==p.pipeId,"Occluded preserved capture "+p.sampleId);views++;
+   // Route blockage is an outcome of the fixed layout, never a reason to remove an asset.
+   int segments=0,views=0,blocked=0,occluded=0;
+   if(frozenPlan!=null&&frozenPlan.points!=null){
+    for(int i=1;i<frozenPlan.points.Length;i++){
+     var a=frozenPlan.points[i-1].position;var b=frozenPlan.points[i].position;var d=b-a;
+     bool clear=!Physics.CheckSphere(a,frozenPlan.radius,1<<8,QueryTriggerInteraction.Ignore)&&
+      !Physics.CheckSphere(b,frozenPlan.radius,1<<8,QueryTriggerInteraction.Ignore)&&
+      (d.sqrMagnitude<1e-8f||!Physics.SphereCast(a,frozenPlan.radius,d.normalized,out _,d.magnitude,1<<8,QueryTriggerInteraction.Ignore));
+     segments++;if(!clear)blocked++;
+    }
+    foreach(var p in frozenPlan.points.Where(p=>!string.IsNullOrEmpty(p.pipeId))){
+     var d=p.target-p.position;
+     bool visible=d.sqrMagnitude>1e-8f&&Physics.Raycast(p.position,d.normalized,out var hit,d.magnitude+2,1<<8,QueryTriggerInteraction.Ignore)&&hit.collider.GetComponentInParent<MAEKPipeService>()?.lineId==p.pipeId;
+     views++;if(!visible)occluded++;
+    }
    }
    bool colliders=originalColliders.Select((c,i)=>c&&c.enabled&&c.transform.localToWorldMatrix==originalPos[i]).All(v=>v);
    bool sameMeshes=originalMeshes.Select((m,i)=>m&&m.sharedMesh==meshes[i]).All(v=>v);
    Require(colliders&&sameMeshes,"Existing geometry changed");
    Require(UnityEngine.Object.FindObjectsByType<MAEKPipeService>(FindObjectsSortMode.None).Length==247,"Process catalogue changed");
-   var audit=new Audit{status="PASS",basis="User POSCO photographs: architectural reference, fictional layout; auxiliary loops are not simulated process circuits",routeSha256=Hash(baseline),addedColliders=accepted,omittedParts=rejected,weatheredRenderers=repainted,auxiliaryLoops=loops,processPipes=247,checkedSegments=plan.points.Length-1,checkedViews=views,originalCollidersPreserved=colliders,originalMeshesPreserved=sameMeshes,originalProcessSourcesPreserved=true,omissions=omissions.ToArray()};
+   foreach(var f in fixedSources)Require(Hash(Source+f)==Hash(Path.Combine(Output,"baseline",f)),"Process source changed during layout: "+f);
+   var audit=new Audit{status="LAYOUT_CHECKED",layoutFirst=true,layoutSignature=LayoutSignature(),basis="User POSCO photographs: fixed architectural reference, fictional layout, not as-built; legacy-route checks are diagnostics only, not flight certification; auxiliary loops are not simulated process circuits",routeSha256=Hash(baseline),addedColliders=accepted,omittedParts=rejected,weatheredRenderers=repainted,auxiliaryLoops=loops,processPipes=247,checkedSegments=segments,checkedViews=views,blockedSegments=blocked,occludedViews=occluded,originalCollidersPreserved=colliders,originalMeshesPreserved=sameMeshes,originalProcessSourcesPreserved=true,omissions=omissions.ToArray()};
    File.WriteAllText(Path.Combine(Output,"geometry_audit.json"),JsonUtility.ToJson(audit,true));
-   AssetDatabase.SaveAssets();Debug.Log("MAEK_REALISM_PASS colliders="+accepted+" auxiliaryLoops="+loops+" omitted="+rejected);
+   AssetDatabase.SaveAssets();Debug.Log("MAEK_LAYOUT_CHECKED colliders="+accepted+" auxiliaryLoops="+loops+" omitted="+rejected+" legacyBlocked="+blocked+" legacyOccluded="+occluded);
   }
  }
 }

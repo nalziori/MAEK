@@ -13,7 +13,7 @@ if ($openEditors) { throw 'Close the MAEK Unity project before the batch harness
 New-Item -ItemType Directory -Force -Path $output | Out-Null
 Push-Location $projectRoot
 try {
-    & $python -m pytest tests/test_inspection_bridge.py tests/test_inspection_harness.py tests/test_worker_safety_context.py tests/test_supplementary_circuits.py -q
+    & $python -m pytest tests/test_inspection_bridge.py tests/test_inspection_dashboard.py tests/test_inspection_scenarios.py tests/test_inspection_harness.py tests/test_inspection_access.py tests/test_worker_safety_context.py tests/test_supplementary_circuits.py -q
     if ($LASTEXITCODE -ne 0) { throw 'RGB contract tests failed.' }
     & (Join-Path $PSScriptRoot 'start_inspection_bridge.ps1')
     function Invoke-DemoUnity([string]$method,[string]$logName) {
@@ -23,8 +23,13 @@ try {
         if ($process.ExitCode -ne 0) { throw "Unity failed: $method; inspect $logName" }
     }
     Invoke-DemoUnity 'MAEK.Editor.BuildInspectionTour.Run' 'unity_build.log'
+    $sitePlan = Join-Path $unityProject 'Assets/MAEK/Source/site_inspection_tour.json'
+    if (!(Test-Path -LiteralPath $sitePlan)) { throw 'Build did not generate site_inspection_tour.json.' }
+    & $python scripts/check_inspection_harness.py
+    if ($LASTEXITCODE -ne 0) { throw 'Site-first access plan or frozen legacy contract failed.' }
     Invoke-DemoUnity 'MAEK.Editor.BuildInspectionTour.Verify' 'unity_verify.log'
     Invoke-DemoUnity 'MAEK.Editor.VerifyInspectionPlayMode.Run' 'unity_play.log'
+    Invoke-DemoUnity 'MAEK.Editor.VerifyInspectionScenarios.Run' 'unity_scenarios.log'
     & $python scripts/check_inspection_harness.py --seal
     if ($LASTEXITCODE -ne 0) { throw 'Evidence sealing failed.' }
     if ($Record) {

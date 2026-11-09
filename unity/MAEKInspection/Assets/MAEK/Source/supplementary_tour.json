@@ -1,6 +1,10 @@
 {
     "version": 2,
-    "radius": 0.11999999731779099,
+    "siteFirst": false,
+    "bodyRadius": 0.23999999463558198,
+    "clearanceMargin": 0.10000000149011612,
+    "access": [],
+    "radius": 0.3400000035762787,
     "basis": "Separate public-reference annex: 17 connected spans including filter/fan equipment interiors; sampled RGB only. Original 247 tour retained independently.",
     "points": [
         {
@@ -694,6 +698,9 @@
             "firstLeg": 2,
             "lastLeg": 2,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -701,6 +708,9 @@
             "firstLeg": 4,
             "lastLeg": 4,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -708,6 +718,9 @@
             "firstLeg": 6,
             "lastLeg": 6,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -715,6 +728,9 @@
             "firstLeg": 8,
             "lastLeg": 8,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -722,6 +738,9 @@
             "firstLeg": 10,
             "lastLeg": 10,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -729,6 +748,9 @@
             "firstLeg": 12,
             "lastLeg": 12,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -736,6 +758,9 @@
             "firstLeg": 14,
             "lastLeg": 14,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -743,6 +768,9 @@
             "firstLeg": 16,
             "lastLeg": 16,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -750,6 +778,9 @@
             "firstLeg": 18,
             "lastLeg": 18,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -757,6 +788,9 @@
             "firstLeg": 20,
             "lastLeg": 20,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -764,6 +798,9 @@
             "firstLeg": 22,
             "lastLeg": 22,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -771,6 +808,9 @@
             "firstLeg": 24,
             "lastLeg": 24,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -778,6 +818,9 @@
             "firstLeg": 26,
             "lastLeg": 26,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -785,6 +828,9 @@
             "firstLeg": 28,
             "lastLeg": 28,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -792,6 +838,9 @@
             "firstLeg": 30,
             "lastLeg": 30,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -799,6 +848,9 @@
             "firstLeg": 32,
             "lastLeg": 32,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         },
         {
@@ -806,6 +858,9 @@
             "firstLeg": 34,
             "lastLeg": 34,
             "captures": 1,
+            "requiredCaptures": 0,
+            "accessStatus": "",
+            "accessReasons": [],
             "reversed": false
         }
     ],
@@ -931,5 +986,6 @@
         }
     ],
     "expectedCaptures": 17,
+    "requiredCaptures": 0,
     "distanceM": 257.456787109375
 }

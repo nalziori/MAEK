@@ -2,7 +2,7 @@
 
 Scope: this Unity project and its inspection-demo integration with `maek/`.
 
-- Read `../docs/inspection-demo.md` and `../docs/unity-checkout.md` before changing the demo.
+- Read `../RULES.md` and `../docs/inspection-demo.md` before changing the demo.
 - `MAEKInspectionDemo.unity` is the continuous RGB demonstration entry point.
   Preserve the earlier hydraulic/CFD scenes. Generated scenes are rebuilt through
   `MAEK.Editor.BuildInspectionTour.Run`, not hand-edited YAML.
@@ -11,9 +11,10 @@ Scope: this Unity project and its inspection-demo integration with `maek/`.
   alone do not prove that the integrated demonstration works.
 - Every transit segment must pass swept-sphere collision checks. Camera cuts
   cannot be described as continuous flight. Unexpected obstacles must stop motion.
-- Catalogue coverage must match all 247 distinct pipe IDs, not just a count. Retain
-  every original per-pipe waypoint (forward or reversed), with explicit transfer
-  spans and unique capture sample IDs. Validate planned vs captured vs analysed IDs.
+- Catalogue coverage must account for all 247 pipe IDs. Keep the legacy route immutable
+  as a reference, but plan only after physical site generation. Partition every required
+  observation into scheduled or deferred, with a reason. Zero scheduled images must
+  remain unobserved/inspection deferred; it is never a successful negative inspection.
 - Require visible target-pipe surface evidence at every capture. Port endpoints may
   be occluded by equipment; add collision-checked viewpoints, never treat occlusion
   or an empty response as a completed healthy-pipe inspection.
@@ -32,18 +33,19 @@ Scope: this Unity project and its inspection-demo integration with `maek/`.
   decodes and includes result labels before claiming video delivery.
 - Do not mark prior evidence current after source changes. Run the harness and
   refresh its source hash seal. Keep failures in `../docs/failures/inspection-demo.md`.
-- Visual enrichment runs through `EnhanceSteelworks.Apply` after the original route
-  is computed. Keep `visualization/realism/baseline` immutable. Hash-check original
-  geometry, process sources and exact final route; never reroute to fit decoration.
-  Added physical assets need layer-8 colliders. Reject additions that obstruct a
-  preserved flight segment, capture sightline or original process pipe. Reject an
-  auxiliary pipe assembly as a whole so filtering cannot leave disconnected elbows.
-  Auxiliary visual loops must not become new process IDs or hydraulic claims.
+- Generate the complete fixed physical site before drone routing. Never remove, move,
+  shrink or omit equipment to preserve a flight path, camera sightline or photograph.
+  Keep `visualization/realism/baseline` and original six inputs immutable as legacy
+  evidence; write current plans separately to `site_inspection_tour.json` and
+  `site_supplementary_tour.json`. Preserve physical pipe connections and reject genuine
+  unrelated penetrations. Pedestrian access is a site constraint, not a drone corridor.
+  A bounded search failure means no route found under configured resolution/budget,
+  not proof that no possible route exists. Report that limit and defer the observation.
 - Interior work must follow a saved-scene collider audit. Preserve the initial
   failures and the passing pre-interior gate in `visualization/interior_detail`.
   Use `EnhanceInteriors.Apply` for the two cast houses and three maintenance halls.
-  Protect the central access corridor, workstation approaches and original flight
-  route; use capsule sweeps as well as sample overlaps for pedestrian access.
+  Protect the central pedestrian access corridor and workstation approaches; use
+  capsule sweeps and sample overlaps. Do not protect a prior drone route or view.
   New training spools are closed visual fixtures, not new MAEK process IDs.
   Validate every spool joint and accept workstations only as complete assemblies.
   Only planar floor paint and printed faces may use `MAEKSurfaceMarking` without a
@@ -75,9 +77,9 @@ Scope: this Unity project and its inspection-demo integration with `maek/`.
 
 
 - Oxygen/sinter additions use a separate typed graph and `MAEKSupplementaryLine` tags.
-  Preserve the original 247 catalogue/routes. Require exact physical endpoint checks,
-  directed source-to-sink reachability, all-scene collider checks and sampled target
-  visibility. Shared declared ports may touch; unrelated equipment cannot penetrate.
+  Preserve the original 247 catalogue and legacy route evidence. Require physical endpoint checks,
+  directed source-to-sink reachability, all-scene collider checks and explicit per-view
+  accessible/deferred classification. Shared declared ports may touch; unrelated equipment cannot penetrate.
   Oxygen reference scope ends at the consumer inlet boundary. Sinter secondary dust
   extraction is not blast-furnace flue or primary sinter process gas. Do not reuse the
   old assumed pressure/flow results as new-circuit operating conditions.
@@ -85,3 +87,13 @@ Scope: this Unity project and its inspection-demo integration with `maek/`.
   both original 247/771 and supplementary 17/17 captures, projected RGB evidence,
   work-permission-not-assessed follow-ups and recording. Unity build success alone
   does not prove the EXE demonstration works.
+
+- Use the existing repository `dashboard/` for live integration. Keep stored RGB,
+  thermal and locally registered NDT evidence separate from live Unity observations.
+  Draw analysis boxes only on the matching hash-verified still, never the current
+  moving preview. Scenario truth belongs only in evaluation, not detector inputs.
+  Run `MAEK.Editor.VerifyInspectionScenarios.Run` for scenario and RGB-contract
+  changes. Preserve genuine false positives; missing UT/IR must remain unmeasured.
+- Configure scenarios through the Unity game view, not the web dashboard. Web UI
+  changes alone may refresh an existing full evidence seal with `--seal-ui` and
+  hash-bound browser QA; this must reject changed engine sources or core reports.
