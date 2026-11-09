@@ -21,8 +21,14 @@ assert(!thermalHtml(o,'connected',pipe,true).includes('<img'));
 const {thermalPhotoHtml}=await import('./thermal-view.mjs');
 const photo=thermalPhotoHtml(actual,'connected',pipe);
 assert(photo.includes('class="sensor-image"'));assert(photo.includes('/'+id+'/thermal.png'));
-for(const marker of ['thermal-stats','thermal-legend','thermal-verdict','thermal-details','<rect','50.0'])assert(!photo.includes(marker));
+for(const marker of ['thermal-stats','thermal-legend','thermal-verdict','thermal-details','<rect'])assert(!photo.includes(marker));
 assert(!thermalPhotoHtml(actual,'connected','BF1-G004').includes('<img'));
 assert(!thermalPhotoHtml({...actual,stage:'Analysing',result:null},'connected',pipe).includes('<img'));
 assert(!thermalPhotoHtml(actual,'disconnected',pipe).includes('<img'));
 console.log('Main thermal photo: original image class, photo-only content and identity guards passed');
+
+assert(photo.includes('class="sensor-analysis"'));assert(photo.includes('최대 50.0°C'));assert(photo.includes('평균 30.0°C'));assert(photo.includes('24.0°C'));
+const poor={...actual,result:{...actual.result,status:'indeterminate',quality:{canInfer:false},findings:[]}};
+assert(thermalPhotoHtml(poor,'connected',pipe).includes('판독 보류'));assert(!thermalPhotoHtml(poor,'connected',pipe).includes('50.0'));
+assert(!thermalPhotoHtml({...actual,stage:'Analysing',result:null},'connected',pipe).includes('sensor-analysis'));
+console.log('Main thermal summary: compact temperatures, quality hold and pending-state checks passed');

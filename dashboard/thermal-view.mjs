@@ -27,5 +27,9 @@ export function thermalPhotoHtml(o,connection,pipe){
  if(!o)return empty('열화상 사진 미연결');
  if(!validThermal(o,pipe))return empty('촬영 정보 불일치');
  if(!o.result)return empty(stages[o.stage]);
- return `<button type="button" class="sensor-image" data-thermal-expand="thermal" aria-label="${esc(pipe)} 열화상 사진 크게 보기"><img src="/api/thermal/file/${o.requestId}/thermal.png" width="320" height="256" alt="${esc(pipe)} 합성 열화상 사진"><span class="image-expand"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m0-5 6 6M16 3h5v5m0-5-6 6M3 16v5h5m-5 0 6-6m7 6h5v-5m0 5-6-6"/></svg></span></button>`;
+ const r=o.result;
+ const summary=r.quality.canInfer
+  ? `<strong>최대 ${r.maxC.toFixed(1)}°C</strong><span>평균 ${r.meanC.toFixed(1)}°C · <abbr title="배관 관심영역의 20백분위 온도 대비 최대 온도 차이">ΔT</abbr> ${r.deltaC.toFixed(1)}°C</span><span>합성 표면온도 · ${r.status==='anomaly_observed'?'온도 이상 후보':'이상 후보 미검출'}</span>`
+  : '<strong>판독 보류</strong><span>방사율·반사 조건 확인 후 재촬영</span><span>합성 열화상 · 온도 수치 판정 제외</span>';
+ return `<button type="button" class="sensor-image" data-thermal-expand="thermal" aria-label="${esc(pipe)} 열화상 사진 크게 보기"><img src="/api/thermal/file/${o.requestId}/thermal.png" width="320" height="256" alt="${esc(pipe)} 합성 열화상 사진"><span class="image-expand"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m0-5 6 6M16 3h5v5m0-5-6 6M3 16v5h5m-5 0 6-6m7 6h5v-5m0 5-6-6"/></svg></span></button><div class="sensor-analysis">${summary}</div>`;
 }
