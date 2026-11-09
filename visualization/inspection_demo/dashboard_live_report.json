@@ -1,0 +1,492 @@
+{
+  "origin": "http://127.0.0.1:8765/dashboard",
+  "kind": "actual Unity Play catalogue; real HTTP producer; no injected telemetry",
+  "commands": [
+    {
+      "command": "pause",
+      "expectedPaused": true,
+      "ack": {
+        "commandId": "0ef2234657c3487fa136da2ac089612e",
+        "command": "pause",
+        "scenarioId": null,
+        "status": "applied",
+        "message": "가상 환경에 적용됨"
+      },
+      "state": {
+        "sessionId": "20261109-175022-060",
+        "connected": true,
+        "ageSeconds": 0.0781698226928711,
+        "phase": "inspection",
+        "active": true,
+        "paused": true,
+        "scenarioId": "catalogue",
+        "activePipe": "BF1-H002",
+        "analysedPipes": 15,
+        "plannedPipes": 247,
+        "captures": 38,
+        "expectedCaptures": 664
+      },
+      "transitions": [
+        {
+          "commandId": "0ef2234657c3487fa136da2ac089612e",
+          "command": "pause",
+          "status": "queued",
+          "paused": false
+        },
+        {
+          "commandId": "0ef2234657c3487fa136da2ac089612e",
+          "command": "pause",
+          "status": "applied",
+          "paused": false
+        },
+        {
+          "commandId": "0ef2234657c3487fa136da2ac089612e",
+          "command": "pause",
+          "status": "applied",
+          "paused": true
+        }
+      ]
+    },
+    {
+      "command": "resume",
+      "expectedPaused": false,
+      "ack": {
+        "commandId": "295caabde266471bb8a61cc78555497d",
+        "command": "resume",
+        "scenarioId": null,
+        "status": "applied",
+        "message": "가상 환경에 적용됨"
+      },
+      "state": {
+        "sessionId": "20261109-175022-060",
+        "connected": true,
+        "ageSeconds": 0.05061841011047363,
+        "phase": "inspection",
+        "active": true,
+        "paused": false,
+        "scenarioId": "catalogue",
+        "activePipe": "BF1-H001",
+        "analysedPipes": 15,
+        "plannedPipes": 247,
+        "captures": 39,
+        "expectedCaptures": 664
+      },
+      "transitions": [
+        {
+          "commandId": "295caabde266471bb8a61cc78555497d",
+          "command": "resume",
+          "status": "queued",
+          "paused": true
+        },
+        {
+          "commandId": "295caabde266471bb8a61cc78555497d",
+          "command": "resume",
+          "status": "applied",
+          "paused": true
+        },
+        {
+          "commandId": "295caabde266471bb8a61cc78555497d",
+          "command": "resume",
+          "status": "applied",
+          "paused": false
+        }
+      ]
+    }
+  ],
+  "screens": {
+    "desktop-paused": {
+      "connection": "Unity 연결됨 · 0.4초 전 수신",
+      "pipe": "실시간 대상 · BF1-H002",
+      "flight": "일시 정지 · BF1-H002: RGB 후보 없음 · 건전성 보장 아님",
+      "provenance": "요청 117eaa4daaee4e35a6994753e1353418 · 샘플 BF1-H002/005 · SHA-256 02725d67f3ee83fcc64547fde6e3b6a096cf064fd91dbd46271235ac159831ad",
+      "expectedHash": "02725d67f3ee83fcc64547fde6e3b6a096cf064fd91dbd46271235ac159831ad",
+      "actualHash": "02725d67f3ee83fcc64547fde6e3b6a096cf064fd91dbd46271235ac159831ad",
+      "hashMatches": true,
+      "canvasHidden": false,
+      "images": [
+        {
+          "src": "/api/frame/20261109-175022-060-preview-45",
+          "hidden": false,
+          "width": 640,
+          "height": 360
+        },
+        {
+          "src": "blob:http://127.0.0.1:8765/5f8f1259-6839-425f-928e-428a92bf313a",
+          "hidden": false,
+          "width": 640,
+          "height": 360
+        }
+      ],
+      "viewportWidth": 1280,
+      "documentWidth": 1280,
+      "commands": [
+        {
+          "text": "저장 자료",
+          "disabled": false
+        },
+        {
+          "text": "실시간 RGB",
+          "disabled": false
+        },
+        {
+          "text": "일시 정지",
+          "disabled": true
+        },
+        {
+          "text": "재개",
+          "disabled": false
+        },
+        {
+          "text": "중지",
+          "disabled": false
+        },
+        {
+          "text": "녹화 켜기",
+          "disabled": false
+        },
+        {
+          "text": "Unity 시점 전환",
+          "disabled": false
+        }
+      ]
+    },
+    "mobile-paused": {
+      "connection": "Unity 연결됨 · 0.3초 전 수신",
+      "pipe": "실시간 대상 · BF1-H002",
+      "flight": "일시 정지 · BF1-H002: RGB 후보 없음 · 건전성 보장 아님",
+      "provenance": "요청 117eaa4daaee4e35a6994753e1353418 · 샘플 BF1-H002/005 · SHA-256 02725d67f3ee83fcc64547fde6e3b6a096cf064fd91dbd46271235ac159831ad",
+      "expectedHash": "02725d67f3ee83fcc64547fde6e3b6a096cf064fd91dbd46271235ac159831ad",
+      "actualHash": "02725d67f3ee83fcc64547fde6e3b6a096cf064fd91dbd46271235ac159831ad",
+      "hashMatches": true,
+      "canvasHidden": false,
+      "images": [
+        {
+          "src": "/api/frame/20261109-175022-060-preview-47",
+          "hidden": false,
+          "width": 640,
+          "height": 360
+        },
+        {
+          "src": "blob:http://127.0.0.1:8765/5f8f1259-6839-425f-928e-428a92bf313a",
+          "hidden": false,
+          "width": 640,
+          "height": 360
+        }
+      ],
+      "viewportWidth": 390,
+      "documentWidth": 390,
+      "commands": [
+        {
+          "text": "저장 자료",
+          "disabled": false
+        },
+        {
+          "text": "실시간 RGB",
+          "disabled": false
+        },
+        {
+          "text": "일시 정지",
+          "disabled": true
+        },
+        {
+          "text": "재개",
+          "disabled": false
+        },
+        {
+          "text": "중지",
+          "disabled": false
+        },
+        {
+          "text": "녹화 켜기",
+          "disabled": false
+        },
+        {
+          "text": "Unity 시점 전환",
+          "disabled": false
+        }
+      ]
+    },
+    "mobile-resumed": {
+      "connection": "Unity 연결됨 · 0.5초 전 수신",
+      "pipe": "실시간 대상 · BF1-H001",
+      "flight": "실행 중 · RGB 분석 중: BF1-H001",
+      "provenance": "요청 72d7aace1a22465abb6bcd52c571b3df · 샘플 BF1-H001/000 · SHA-256 6d4194fb2fb92d526163185b68822a3d1deb03f086acae14755a8b0839ef9567",
+      "expectedHash": "6d4194fb2fb92d526163185b68822a3d1deb03f086acae14755a8b0839ef9567",
+      "actualHash": "6d4194fb2fb92d526163185b68822a3d1deb03f086acae14755a8b0839ef9567",
+      "hashMatches": true,
+      "canvasHidden": false,
+      "images": [
+        {
+          "src": "/api/frame/20261109-175022-060-preview-51",
+          "hidden": false,
+          "width": 640,
+          "height": 360
+        },
+        {
+          "src": "blob:http://127.0.0.1:8765/6aaea1db-3d3b-4cf9-ad09-cddf94dda165",
+          "hidden": false,
+          "width": 640,
+          "height": 360
+        }
+      ],
+      "viewportWidth": 390,
+      "documentWidth": 390,
+      "commands": [
+        {
+          "text": "저장 자료",
+          "disabled": false
+        },
+        {
+          "text": "실시간 RGB",
+          "disabled": false
+        },
+        {
+          "text": "일시 정지",
+          "disabled": false
+        },
+        {
+          "text": "재개",
+          "disabled": true
+        },
+        {
+          "text": "중지",
+          "disabled": false
+        },
+        {
+          "text": "녹화 켜기",
+          "disabled": false
+        },
+        {
+          "text": "Unity 시점 전환",
+          "disabled": false
+        }
+      ]
+    },
+    "desktop-resumed": {
+      "connection": "Unity 연결됨 · 1.2초 전 수신",
+      "pipe": "실시간 대상 · BF1-H001",
+      "flight": "실행 중 · RGB 분석 중: BF1-H001",
+      "provenance": "요청 ee081723032d42859b6d2c0a232dcfb5 · 샘플 BF1-H001/003 · SHA-256 e55a4f4a0ec993964ae5c19aa837248a95941b9e480c9d0309ecd62362936a78",
+      "expectedHash": "e55a4f4a0ec993964ae5c19aa837248a95941b9e480c9d0309ecd62362936a78",
+      "actualHash": "e55a4f4a0ec993964ae5c19aa837248a95941b9e480c9d0309ecd62362936a78",
+      "hashMatches": true,
+      "canvasHidden": false,
+      "images": [
+        {
+          "src": "/api/frame/20261109-175022-060-preview-51",
+          "hidden": false,
+          "width": 640,
+          "height": 360
+        },
+        {
+          "src": "blob:http://127.0.0.1:8765/357be1f1-6243-4153-8561-21caa5a48af8",
+          "hidden": false,
+          "width": 640,
+          "height": 360
+        }
+      ],
+      "viewportWidth": 1280,
+      "documentWidth": 1280,
+      "commands": [
+        {
+          "text": "저장 자료",
+          "disabled": false
+        },
+        {
+          "text": "실시간 RGB",
+          "disabled": false
+        },
+        {
+          "text": "일시 정지",
+          "disabled": false
+        },
+        {
+          "text": "재개",
+          "disabled": true
+        },
+        {
+          "text": "중지",
+          "disabled": false
+        },
+        {
+          "text": "녹화 켜기",
+          "disabled": false
+        },
+        {
+          "text": "Unity 시점 전환",
+          "disabled": false
+        }
+      ]
+    }
+  },
+  "errors": [
+    {
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:8765/favicon.ico",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ],
+  "responses": [],
+  "completed": true,
+  "sourceHashes": {
+    "maek/inspection_bridge.py": "4ae948a796571e8662a2c82969feb40c7844ebbdf1a7de4de25e94af92b3e350",
+    "maek/inspection_dashboard.py": "a602250cfcd74ef8784bf1a170d0fe7ef7cb14e95bae7609ced622b3f6aed7cc",
+    "maek/camera/segment.py": "86f03bedfb369e542b9552e479a075ac50f368430fcd7003d2e8e75021ee1d9d",
+    "maek/web/existing-dashboard-adapter.css": "345e0976b30a86863b161638c7595999a81222e9d75dd83ae8876586ab74c032",
+    "maek/web/existing-dashboard-adapter.js": "646f49f1da890c6b07cf9f5683569abff7e2db70566d7ec441626a1fe7e8d784",
+    "dashboard/index.html": "b3d7f2b668a81b15e2f91d227dc34421cfde6774c1f1ca275438afcb908df7c7",
+    "dashboard/operations.js": "5dc1140131c24485deb235f19c9239d72e005206cf2387c10a2982a701f99427",
+    "dashboard/operations.css": "7a673143aaf2a2cd8ac67f466916a2c59e4d9773125a22faf51646466131831e",
+    "dashboard/operations-data.js": "76bc0f0ce0d02f0f1999b931dc2e0197b2b9fdb6ba16d8613d3bd5b751a2950e",
+    "dashboard/inspection-evidence.js": "32cd2a0bf5d1ebdd7d7a145200bac14b43a92628b84ea7a64100b5eef46f3eec",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/FurnacePhysics.cs": "90d36c6b53deedb396d30f4917c722c13866a9200b661338747aa3c439570531",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKAssetInfo.cs": "ccb72466a7e3d801e562b58539f34763e67c33b7fa9640511455cbfa5b0e51b2",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKCFDPlayback.cs": "93aac46629f0a94f17802785e9bcc7ca03156729b809b719a5c9ca4d365d7884",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKDroneInspection.cs": "43f86b105ec2c0266956481701a9601eefdc054af5246af648a8706c21ee82cc",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKExteriorDetail.cs": "42756f05fddcf5835b1b6a1fd78fcbc2286f2725d224f4b5ca5a1ac74c45b413",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKFurnaceSimulation.cs": "70a941f18d91eccac8683472eafb26fbc784fb574526b3b4369d71fbc96ae2f1",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKHydraulicFlow.cs": "89009ac98a749e3df705a797344ea9f030e783487252de211acde46e70b069c3",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKInspectionTour.cs": "216a8a991db06db4b19d124670db4a0680a0a8cb01e56924ddc2929e948ba80a",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKInteriorStation.cs": "374b4955c9119d96504393a31567297dc56d5344a5267bca8ef40e6e6eb18d4b",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKPipeService.cs": "cfedef2b7032695ee19fdb240e231c54631778423659fe437d7ae43240130624",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKPipeServices.cs": "a7e4c41160260e9f2ab1c0f766112071bf598e51980d0cb2218dd73f4bb76550",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKPrintedLabel.cs": "1831cd000e68d086bc58d69e579793687054b299620c8103ae6a421504d0a355",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKProcessContext.cs": "71d6e14e3077e7759af9186e9229be9cf595bb2d300ca266de14819f1509f84a",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKSupplementaryCircuits.cs": "5cc3e0267f2f5af2b82cfb0a71da981fc680a9118b52b15358bac58d6f713295",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKSupplementaryLine.cs": "7caa5d3fe015329d93d60f5892f8e4599a44b46d6edd45ccc1f02cfac6a294b5",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKSurfaceMarking.cs": "7e4fdc4714d9de4ee848e063e4c66cab8eee3169fe57855062b7bf86903a5a7f",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKTourRecorder.cs": "06ed4617a98773dbe01ec1f22b2c6fd34fb8d001beaf34e9fc2485b49316081e",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKWalkthrough.cs": "abf7da6b6785febcbdf9fa964360667ae49b9f18609b8bf805583080cd9cd067",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKWorkerSafety.cs": "d4836b87c7d6eab821c782f9c4561b82a04f8b839a78251a093ea23afa4c3c90",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKDashboardLink.cs": "2905c6f138978c66e88b2840ed11b1f68f247aef04b6066a7b4ad98c160b2082",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKInspectionScenarios.cs": "5883a4280e95c745743c079cc5ce331a11ed9d8041d5c7e3db60aa6f110e6d6a",
+    "unity/MAEKInspection/Assets/MAEK/Scripts/MAEKVirtualDrone.cs": "ef2951f9c2844eb8057a18e31862e03cf5cdd0849c1c2da5937052801588d4c4",
+    "unity/MAEKInspection/Assets/MAEK/Editor/VerifyInspectionPlayMode.cs": "4dddb44dd1999cf0273a077a871d768d3163a1e8fb1c107c3750fdab2e97aa8e",
+    "unity/MAEKInspection/Assets/MAEK/Scenes/MAEKInspectionDemo.unity": "94cb64cda790e1cb640acc8b67e27d329f4b41ae4aaad54121d0a7cb22f8c57c",
+    "unity/MAEKInspection/Assets/MAEK/Source/site_inspection_tour.json": "cd154f16220e18f7a8c3290ab8d976c893a2136c93a0d42eb93aca240a0c654a",
+    "scripts/verify_live_dashboard.py": "75d18b034f429bb17f54e033df04709c9729bd0d2ba850c9a3a93142564dcf4d"
+  },
+  "executedUnityProject": "D:\\obsd\\Projects\\hackerton\\MAEK\\unity\\MAEKInspection",
+  "executedRuntimeMatchesCheckout": true,
+  "httpSourceHashes": {
+    "/dashboard": "03ff786a17920a1128de9bfd2b8a7a573f0284dce3bdc1f5097d3bf9a5bf4f97",
+    "/dashboard/operations.js": "5dc1140131c24485deb235f19c9239d72e005206cf2387c10a2982a701f99427",
+    "/dashboard/operations.css": "7a673143aaf2a2cd8ac67f466916a2c59e4d9773125a22faf51646466131831e",
+    "/dashboard/operations-data.js": "76bc0f0ce0d02f0f1999b931dc2e0197b2b9fdb6ba16d8613d3bd5b751a2950e",
+    "/dashboard/inspection-evidence.js": "32cd2a0bf5d1ebdd7d7a145200bac14b43a92628b84ea7a64100b5eef46f3eec",
+    "/api/existing-dashboard-adapter.css": "345e0976b30a86863b161638c7595999a81222e9d75dd83ae8876586ab74c032",
+    "/api/existing-dashboard-adapter.js": "646f49f1da890c6b07cf9f5683569abff7e2db70566d7ec441626a1fe7e8d784"
+  },
+  "initial": {
+    "sessionId": "20261109-175022-060",
+    "connected": true,
+    "ageSeconds": 0.2948906421661377,
+    "phase": "inspection",
+    "active": true,
+    "paused": false,
+    "scenarioId": "catalogue",
+    "activePipe": "BF1-W002",
+    "analysedPipes": 9,
+    "plannedPipes": 247,
+    "captures": 20,
+    "expectedCaptures": 664
+  },
+  "coverage": {
+    "totalPipes": 247,
+    "scheduledPipes": 237,
+    "observedPipes": 8,
+    "deferredPipes": 238,
+    "partialPipes": 1,
+    "requiredCaptures": 771,
+    "scheduledCaptures": 664,
+    "deferredCaptures": 107
+  },
+  "mapping": [
+    {
+      "pipeId": "BF1-W002",
+      "requestId": "2250df325a7f427b9683bf3a08845e9a",
+      "kind": "surface_corrosion_candidate",
+      "model": "maek.camera.segment.segment_rust / HSV baseline",
+      "imageSha256": "453bf0d446f582bc62a0431d964e08b9d56a7f6d72db8016720fea7c2328ee3f",
+      "position": {
+        "x": -71.86815643310547,
+        "y": 6.33793830871582,
+        "z": -12.168254852294922
+      },
+      "normal": {
+        "x": 5.26577196069411e-07,
+        "y": -0.6343873143196106,
+        "z": -0.7730153203010559
+      },
+      "pixelCount": 94907,
+      "mappedSamples": 64,
+      "recommendation": "접근·운전 조건 확인 후 UT 두께 검사 · 작업 허가 미판정"
+    },
+    {
+      "pipeId": "BF1-W002",
+      "requestId": "2250df325a7f427b9683bf3a08845e9a",
+      "kind": "surface_corrosion_candidate",
+      "model": "maek.camera.segment.segment_rust / HSV baseline",
+      "imageSha256": "453bf0d446f582bc62a0431d964e08b9d56a7f6d72db8016720fea7c2328ee3f",
+      "position": {
+        "x": -72.24739837646484,
+        "y": 6.521827697753906,
+        "z": -12.231849670410156
+      },
+      "normal": {
+        "x": 0.0,
+        "y": 0.09802363067865372,
+        "z": -0.9951841235160828
+      },
+      "pixelCount": 696,
+      "mappedSamples": 64,
+      "recommendation": "접근·운전 조건 확인 후 UT 두께 검사 · 작업 허가 미판정"
+    },
+    {
+      "pipeId": "BF1-W002",
+      "requestId": "2250df325a7f427b9683bf3a08845e9a",
+      "kind": "surface_corrosion_candidate",
+      "model": "maek.camera.segment.segment_rust / HSV baseline",
+      "imageSha256": "453bf0d446f582bc62a0431d964e08b9d56a7f6d72db8016720fea7c2328ee3f",
+      "position": {
+        "x": -71.56678009033203,
+        "y": 6.539905548095703,
+        "z": -12.230070114135742
+      },
+      "normal": {
+        "x": 3.3387138387297455e-08,
+        "y": 0.0980246365070343,
+        "z": -0.9951839447021484
+      },
+      "pixelCount": 208,
+      "mappedSamples": 64,
+      "recommendation": "접근·운전 조건 확인 후 UT 두께 검사 · 작업 허가 미판정"
+    }
+  ],
+  "access": {
+    "rows": 247,
+    "zeroScheduled": 10
+  },
+  "positionUpdated": true,
+  "motion": {
+    "before": {
+      "x": -34.0,
+      "y": 13.460659980773926,
+      "z": 10.939339637756348
+    },
+    "after": {
+      "x": -28.0,
+      "y": 13.460659980773926,
+      "z": 10.939339637756348
+    }
+  },
+  "headlessBrowserClosed": true,
+  "sourcesUnchanged": true,
+  "status": "PASS"
+}
