@@ -117,7 +117,7 @@ try {
   );
   assert.match(
     await p.$eval(".ndt-pending", (e) => e.textContent),
-    /아직 없습니다/,
+    /검사 결과 미접수/,
   );
   assert.ok((await p.$$eval(".rgb-region", (e) => e.length)) > 0);
   checks.push(

@@ -8,7 +8,8 @@
     "serve": "python -m http.server 8877 --bind 127.0.0.1",
     "test:problem": "node verify-problem.mjs",
     "test:map": "node verify-map-zoom.mjs",
-    "test": "npm run test:problem && npm run test:map"
+    "test": "npm run test:problem && npm run test:map && npm run test:height",
+    "test:height": "node verify-height.mjs"
   },
   "devDependencies": {
     "puppeteer-core": "25.16.0"
