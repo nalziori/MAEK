@@ -206,24 +206,30 @@ let mapCamera = {
     y: mapExtent.y + mapExtent.h / 2,
     zoom: 1,
   },
-  mapDragged = false;
-function cameraBox() {
-  const w = mapExtent.w / mapCamera.zoom,
-    h = mapExtent.h / mapCamera.zoom;
+  mapDragged = false,
+  focusedPipe = null;
+function cameraBox(svg = null) {
+  const rect = svg?.getBoundingClientRect(),
+    aspect =
+      rect?.width && rect?.height
+        ? rect.width / rect.height
+        : mapExtent.w / mapExtent.h,
+    h = Math.max(mapExtent.h, mapExtent.w / aspect) / mapCamera.zoom,
+    w = h * aspect;
   mapCamera.x = Math.max(
-    mapExtent.x + w / 2,
-    Math.min(mapExtent.x + mapExtent.w - w / 2, mapCamera.x),
+    mapExtent.x,
+    Math.min(mapExtent.x + mapExtent.w, mapCamera.x),
   );
   mapCamera.y = Math.max(
-    mapExtent.y + h / 2,
-    Math.min(mapExtent.y + mapExtent.h - h / 2, mapCamera.y),
+    mapExtent.y,
+    Math.min(mapExtent.y + mapExtent.h, mapCamera.y),
   );
   return [mapCamera.x - w / 2, mapCamera.y - h / 2, w, h].map(coord).join(" ");
 }
 function updateMaps() {
   document
     .querySelectorAll("[data-map] > svg")
-    .forEach((svg) => svg.setAttribute("viewBox", cameraBox()));
+    .forEach((svg) => svg.setAttribute("viewBox", cameraBox(svg)));
   document
     .querySelectorAll("[data-map-zoom-label]")
     .forEach((el) => (el.textContent = Math.round(mapCamera.zoom * 100) + "%"));
@@ -329,7 +335,7 @@ function mapMarkup(compact = false) {
       py = xy[1] + Math.sin((tries + i) * 1.8) * (22 + tries * 5);
     }
     placed.push([px, py]);
-    svg += `<g class="map-spot" data-map-pipe="${escapeHTML(p.id)}" role="button" tabindex="0" aria-label="의심 배관 ${i + 1}: ${escapeHTML(p.id)}"><circle cx="${coord(px)}" cy="${coord(py)}" r="28" fill="transparent"/><path d="M${coord(xy[0])} ${coord(xy[1])}L${coord(px)} ${coord(py)}" stroke="#a3631a"/><circle class="spot-disc" cx="${coord(px)}" cy="${coord(py)}" r="12"/><text class="spot-number" x="${coord(px)}" y="${coord(py)}">${i + 1}</text></g>`;
+    svg += `<g class="map-spot${p === selected ? " is-selected" : ""}" data-map-pipe="${escapeHTML(p.id)}" role="button" tabindex="0" aria-label="의심 배관 ${i + 1}: ${escapeHTML(p.id)}"><circle cx="${coord(px)}" cy="${coord(py)}" r="28" fill="transparent"/><path d="M${coord(xy[0])} ${coord(xy[1])}L${coord(px)} ${coord(py)}" stroke="#a3631a"/><circle class="spot-disc" cx="${coord(px)}" cy="${coord(py)}" r="12"/><text class="spot-number" x="${coord(px)}" y="${coord(py)}">${i + 1}</text></g>`;
   });
   const now = current();
   if (now) {
@@ -541,6 +547,11 @@ function bind() {
     $("expand-map").onclick = (e) => openMedia("map", e.currentTarget);
 }
 function render() {
+  if (focusedPipe !== selected.id) {
+    const [x, y] = project(center(selected));
+    mapCamera = { x, y, zoom: 2.2 };
+    focusedPipe = selected.id;
+  }
   const text = titles[tab];
   $("page-title").textContent =
     tab === "home"
@@ -808,7 +819,10 @@ $("ndt-file").onchange = async (e) => {
     render();
   }
 };
-window.addEventListener("resize", fitMedia);
+window.addEventListener("resize", () => {
+  fitMedia();
+  updateMaps();
+});
 window.addEventListener("pagehide", pause);
 window.addEventListener("popstate", () => {
   pause();

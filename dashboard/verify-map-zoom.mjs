@@ -27,6 +27,52 @@ try {
       e.getAttribute("viewBox").split(" ").map(Number),
     );
   const initial = await box();
+  for (const [width, height] of [
+    [1024, 768],
+    [1194, 834],
+    [768, 1024],
+  ]) {
+    await p.setViewport({ width, height, hasTouch: true });
+    for (const id of ["BF1-G200", "BF1-G004"]) {
+      await p.click(`[data-problem="${id}"]`);
+      const focus = await p.$eval(".map-panel .pipe-line.selected", (line) => {
+        const svg = line.ownerSVGElement,
+          r = svg.getBoundingClientRect();
+        const points = Array.from(line.points);
+        const middle = new DOMPoint(
+          points.reduce((n, v) => n + v.x, 0) / points.length,
+          points.reduce((n, v) => n + v.y, 0) / points.length,
+        ).matrixTransform(svg.getScreenCTM());
+        const view = svg.viewBox.baseVal;
+        return {
+          dx: Math.abs(middle.x - r.x - r.width / 2),
+          dy: Math.abs(middle.y - r.y - r.height / 2),
+          aspect: view.width / view.height,
+          viewport: r.width / r.height,
+        };
+      });
+      assert.ok(
+        focus.dx < 2 && focus.dy < 2,
+        `${id} centered at ${width}x${height}`,
+      );
+      assert.ok(
+        Math.abs(focus.aspect - focus.viewport) < 0.01,
+        "Camera fills map viewport without letterboxing",
+      );
+      assert.equal(
+        await p.$eval("[data-map-zoom-label]", (e) => e.textContent),
+        "220%",
+      );
+    }
+  }
+  await p.setViewport({ width: 1024, height: 768, hasTouch: true });
+  await p.screenshot({
+    path: ".hallmark/map-zoom/focused-home.png",
+    fullPage: true,
+  });
+  checks.push(
+    "Initial 220% camera and newly selected pipes center in an aspect-matched map at three tablet sizes",
+  );
   await p.click(".map-panel [data-map-action=in]");
   assert.ok((await box())[2] < initial[2]);
   await p.click(".map-panel [data-map-action=out]");
@@ -51,7 +97,12 @@ try {
     /BF1-G004/,
   );
   await p.click(".map-panel [data-map-action=fit]");
-  assert.ok(Math.abs((await box())[2] - initial[2]) < 1);
+  const overview = await box();
+  assert.ok(overview[2] > initial[2] * 2);
+  assert.equal(
+    await p.$eval("[data-map-zoom-label]", (e) => e.textContent),
+    "100%",
+  );
   checks.push(
     "Plus/minus/fit and drag pan change view without changing selected pipe",
   );
@@ -84,7 +135,7 @@ try {
     type: "touchEnd",
     touchPoints: [],
   });
-  assert.ok((await box())[2] < initial[2]);
+  assert.ok((await box())[2] < overview[2]);
   checks.push("Two-finger pinch zoom");
   await p.click(".map-panel [data-map-action=fit]");
   assert.ok((await p.$$eval(".drone-trail", (es) => es.length)) > 0);

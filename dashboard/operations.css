@@ -2048,6 +2048,14 @@ main {
   opacity: 1;
   stroke-width: 5;
 }
+.map-spot.is-selected .spot-disc {
+  fill: #744008;
+  stroke: #fff;
+  stroke-width: 2;
+}
+.map-spot.is-selected .spot-number {
+  fill: #fff;
+}
 .unified-layout .legend-line.done {
   background: #b9c5bf;
 }
