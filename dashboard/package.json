@@ -1,0 +1,19 @@
+{
+  "name": "maek-inspection-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Tablet inspection dashboard with saved synthetic RGB evidence",
+  "scripts": {
+    "serve": "python -m http.server 8877 --bind 127.0.0.1",
+    "test:problem": "node verify-problem.mjs",
+    "test:map": "node verify-map-zoom.mjs",
+    "test": "npm run test:problem && npm run test:map"
+  },
+  "devDependencies": {
+    "puppeteer-core": "25.16.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
