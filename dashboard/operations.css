@@ -1973,15 +1973,15 @@ main {
   padding: 12px;
   text-align: left;
   background: #fff;
-  border: 1px solid #d7b785;
+  border: 1px solid var(--line);
 }
 .problem-card:hover {
   background: #fff7e9;
 }
 .problem-card[aria-pressed="true"] {
-  border-color: #8f510d;
-  background: #fff0d6;
-  box-shadow: inset 0 0 0 1px #8f510d;
+  border-color: var(--ink);
+  background: #f2f5f6;
+  box-shadow: none;
 }
 .problem-number {
   font-size: 0.875rem;
@@ -2707,7 +2707,7 @@ button.sensor-image:hover {
 }
 @media (min-width: 700px) {
   .lookup-layout {
-    grid-template-columns: minmax(0, 1fr) minmax(290px, 360px);
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   }
   .lookup-layout aside {
     overflow: auto;
@@ -2722,4 +2722,57 @@ button.sensor-image:hover {
   .lookup-layout aside {
     max-height: 100%;
   }
+}
+
+/* One inspection workspace; color identifies observations, not every container. */
+.data-mode {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.problem-card[aria-pressed="true"] .problem-number {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.inspection-flow {
+  background: #fff;
+  border-radius: 4px;
+  gap: 0;
+  overflow: hidden;
+}
+.inspection-flow .problem-context {
+  background: transparent;
+  border-radius: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 12px 16px;
+}
+.problem-context .selected-issue { color: var(--muted); }
+.problem-context[data-has-issue="true"] .selected-issue { color: var(--amber); }
+.inspection-flow .drone-evidence { gap: 0; }
+.inspection-flow .sensor-panel { background: transparent; border-radius: 0; }
+.sensor-panel + .sensor-panel { border-left: 1px solid var(--line); }
+.inspection-flow .sensor-empty {
+  background: #edf1f2;
+  color: var(--muted);
+}
+.inspection-flow .sensor-empty svg { stroke: var(--muted); }
+.inspection-flow .sensor-analysis { min-height: 0; padding: 12px; gap: 4px; }
+.sensor-panel[data-connected="false"] .sensor-analysis { display: none; }
+.inspection-flow .ndt-panel {
+  border-radius: 0;
+  border-top: 1px solid var(--line);
+  background: transparent;
+}
+.ndt-heading h2 { font-size: 1rem; }
+.inspection-flow .ndt-pending {
+  justify-content: flex-start;
+  padding-top: 16px;
+}
+.ndt-pending strong { font-size: 0.875rem; font-weight: 400; }
+.pipe-row[data-selected="true"] {
+  background: #f0f4f5;
+  outline-color: #81959e;
 }
