@@ -1,9 +1,17 @@
-import base64,hashlib,io,json,sys,tempfile,unittest
+import base64
+import hashlib
+import io
+import sys
+import tempfile
+import unittest
 from pathlib import Path
+
 import numpy as np
 from PIL import Image
+
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
 from thermal_scene import ThermalStore, analyse_temperature, synthesize, validate_capture
+
 
 def request(case='wet',identity='1'*32):
     g=np.zeros((256,320,3),dtype='<f4'); yy,xx=np.mgrid[:256,:320]
@@ -11,11 +19,11 @@ def request(case='wet',identity='1'*32):
     g[:,:,0]=(xx-160)/135;g[:,:,1]=(128-yy)/22;g[:,:,2]=roi
     rgb=io.BytesIO();Image.new('RGB',(320,256),(90,90,90)).save(rgb,format='PNG')
     binary=g.tobytes();png=rgb.getvalue()
-    return dict(requestId=identity,sessionId='2'*32,runId=identity,assetId='THERMAL-DEMO-01',
-        startedAt='2026-11-09T12:00:00Z',capturedAt='2026-11-09T12:00:10Z',sequence=4,condition=case,
-        width=320,height=256,geometryBase64=base64.b64encode(binary).decode(),geometrySha256=hashlib.sha256(binary).hexdigest(),
-        rgbBase64=base64.b64encode(png).decode(),rgbSha256=hashlib.sha256(png).hexdigest(),
-        position=dict(x=0,y=2,z=-5),rotation=dict(x=0,y=0,z=0,w=1),fieldOfView=45)
+    return {'requestId': identity,'sessionId': '2'*32,'runId': identity,'assetId': 'THERMAL-DEMO-01',
+        'startedAt': '2026-11-09T12:00:00Z','capturedAt': '2026-11-09T12:00:10Z','sequence': 4,'condition': case,
+        'width': 320,'height': 256,'geometryBase64': base64.b64encode(binary).decode(),'geometrySha256': hashlib.sha256(binary).hexdigest(),
+        'rgbBase64': base64.b64encode(png).decode(),'rgbSha256': hashlib.sha256(png).hexdigest(),
+        'position': {'x': 0,'y': 2,'z': -5},'rotation': {'x': 0,'y': 0,'z': 0,'w': 1},'fieldOfView': 45}
 
 class ThermalContract(unittest.TestCase):
     def test_real_temperature_detector_and_quality_cases(self):
@@ -29,7 +37,7 @@ class ThermalContract(unittest.TestCase):
         self.assertEqual(results[2]['status'],'indeterminate')
 
     def test_identity_hash_dimensions_and_no_defect_truth_input(self):
-        for update in [dict(assetId='UNKNOWN-PIPE'),dict(geometrySha256='0'*64),dict(width=640),dict(rgbSha256='0'*64),dict(expectedMask=[1])]:
+        for update in [{'assetId': 'UNKNOWN-PIPE'},{'geometrySha256': '0'*64},{'width': 640},{'rgbSha256': '0'*64},{'expectedMask': [1]}]:
             r=request();r.update(update)
             with self.assertRaises(ValueError):validate_capture(r)
 
@@ -58,7 +66,7 @@ class ThermalContract(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             store=ThermalStore(Path(d));r=request('normal');r['assetId']='BF1-H200'
             e={k:r[k] for k in ['requestId','sessionId','runId','assetId','startedAt']}
-            store.event(dict(e,sequence=0,stage='Launching'));store.event(dict(e,sequence=4,stage='Analysing'));result=store.capture(r)
+            store.event(dict(e,sequence=0,stage='Launching'));store.event(dict(e,sequence=4,stage='Analysing'));store.capture(r)
             t=np.load(Path(d)/r['requestId']/'temperature.npy')
             png=np.asarray(Image.open(Path(d)/r['requestId']/'temperature16.png')).astype(float)
             np.testing.assert_allclose(png/10-100,t,atol=.051)

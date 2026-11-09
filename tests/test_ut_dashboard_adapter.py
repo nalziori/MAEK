@@ -2,9 +2,9 @@
 import importlib.util
 import json
 import os
-from pathlib import Path
 import tempfile
 import unittest
+from pathlib import Path
 
 MODULE = Path(__file__).resolve().parents[1] / 'scripts/serve_ut_dashboard.py'
 spec = importlib.util.spec_from_file_location('ut_dashboard', MODULE)
@@ -23,16 +23,16 @@ class LogContract(unittest.TestCase):
         self.event('REFERENCE_START', 'ReferenceCheck', 0)
 
     def event(self, kind, stage, second):
-        self.events.append(dict(utc=f'2026-11-09T12:00:{second:02d}Z',kind=kind,
-                                stage=stage,pipeId='BF1-Q005',status='test',workPermissionStatus='not_assessed'))
+        self.events.append({'utc': f'2026-11-09T12:00:{second:02d}Z','kind': kind,
+                                'stage': stage,'pipeId': 'BF1-Q005','status': 'test','workPermissionStatus': 'not_assessed'})
         (self.session/'events.jsonl').write_text(''.join(json.dumps(e)+'\n' for e in self.events))
 
     def result(self, identity='request1', **changes):
-        r = dict(requestId=identity,pipeId='BF1-Q005',sample=0,synthetic=True,
-                 sourceSha256=adapter.SOURCE_SHA,workPermissionStatus='not_assessed',
-                 source='UT/examples/ascan.npz',model='frozen pitting MLP ensemble D',
-                 pitScore=.7,threshold=.5,pitAlarm=True,wallValid=True,mainWallMm=5.1,
-                 wave=[.1]*4096)
+        r = {'requestId': identity,'pipeId': 'BF1-Q005','sample': 0,'synthetic': True,
+                 'sourceSha256': adapter.SOURCE_SHA,'workPermissionStatus': 'not_assessed',
+                 'source': 'UT/examples/ascan.npz','model': 'frozen pitting MLP ensemble D',
+                 'pitScore': .7,'threshold': .5,'pitAlarm': True,'wallValid': True,'mainWallMm': 5.1,
+                 'wave': [.1]*4096}
         r.update(changes)
         f=self.session/(identity+'.json');f.write_text(json.dumps(r))
         stamp=adapter.utc_seconds('2026-11-09T12:00:10.1Z');os.utime(f,(stamp,stamp))
@@ -64,7 +64,7 @@ class LogContract(unittest.TestCase):
 
     def test_wrong_pipe_or_forged_source_or_nonfinite_wave_rejected(self):
         self.event('RESULT','Complete',10)
-        for update in [dict(pipeId='BF1-G004'),dict(sourceSha256='0'*64),dict(wave=[float('nan')]*4096),dict(pitAlarm=False),dict(wallValid=True,mainWallMm=-1)]:
+        for update in [{'pipeId': 'BF1-G004'},{'sourceSha256': '0'*64},{'wave': [float('nan')]*4096},{'pitAlarm': False},{'wallValid': True,'mainWallMm': -1}]:
             self.result(**update)
             self.assertIsNone(self.snapshot()['pipes']['BF1-Q005']['result'])
 

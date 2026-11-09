@@ -1,11 +1,20 @@
 """Scene-registered synthetic thermal observation, separate from ground-truth evaluation."""
-import base64, hashlib, io, json, math, re, sys, threading
-from datetime import datetime,timezone
+import base64
+import hashlib
+import io
+import json
+import math
+import re
+import sys
+import threading
+from datetime import UTC, datetime
 from pathlib import Path
+
 import numpy as np
 from PIL import Image
+
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from maek import params,thermal,thermal_render
+from maek import params, thermal, thermal_render
 from maek.camera.composite2d import label_components
 
 ASSET='THERMAL-DEMO-01'
@@ -14,9 +23,9 @@ CFG=params.load_config()
 W,H=320,256
 
 def sha(data):return hashlib.sha256(data).hexdigest()
-def now():return datetime.now(timezone.utc).isoformat()
+def now():return datetime.now(UTC).isoformat()
 def timestamp(s):
-    t=datetime.fromisoformat(s.replace('Z','+00:00'))
+    t=datetime.fromisoformat(s)
     if t.tzinfo is None:raise ValueError('timezone required')
     return t.timestamp()
 def identity(r):
@@ -48,7 +57,7 @@ def validate_capture(r):
 def synthesize(g,condition,asset=ASSET):
     """Generator reads scenario assumptions; the detector below does not receive them."""
     roi=g[:,:,2].astype(bool);axis=np.linspace(-1,1,512)
-    seg=dict(temp_c=180.,od_mm=114.3,insulation_mm=50.,insulated=True)
+    seg={'temp_c': 180.,'od_mm': 114.3,'insulation_mm': 50.,'insulated': True}
     moisture=np.zeros_like(axis) if condition=='normal' else .8*np.exp(-.5*(axis/.15)**2)
     surface=np.array([thermal.jacket_temp_c(CFG,seg,1.,float(m),False,15.) for m in moisture])
     true_temp=np.interp(g[:,:,0],axis,surface)
@@ -62,8 +71,8 @@ def synthesize(g,condition,asset=ASSET):
     apparent=thermal.apparent_temp_c(true_temp,eps,reflected,.85,15.)
     rng=np.random.default_rng(2401)
     t=np.where(roi,apparent,15.)+rng.normal(0,.05,(H,W))
-    quality=dict(canInfer=eps>=.2,code='low_emissivity_assumed' if eps<.2 else 'usable',emissivity=eps,
-        message='저방사율·반사 조건 가정: 판독 보류' if eps<.2 else '모의 촬영 품질 조건 통과')
+    quality={'canInfer': eps>=.2,'code': 'low_emissivity_assumed' if eps<.2 else 'usable','emissivity': eps,
+        'message': '저방사율·반사 조건 가정: 판독 보류' if eps<.2 else '모의 촬영 품질 조건 통과'}
     return t.astype(np.float32),quality
 
 def analyse_temperature(t,roi,quality,mode="jacket"):
@@ -76,10 +85,10 @@ def analyse_temperature(t,roi,quality,mode="jacket"):
         for k in range(1,count+1):
             yy,xx=np.nonzero(labels==k)
             if len(xx)<12:continue
-            findings.append(dict(kind='surface_temperature_anomaly',bbox=[int(xx.min()),int(yy.min()),int(xx.max()+1),int(yy.max()+1)],pixelCount=len(xx)))
-    return dict(status='indeterminate' if not quality['canInfer'] else 'anomaly_observed' if findings else 'no_anomaly_observed',
-        minC=float(values.min()),maxC=float(values.max()),meanC=float(values.mean()),referenceC=reference,
-        deltaC=float(values.max()-reference),roiPixels=int(roi.sum()),findings=findings)
+            findings.append({'kind': 'surface_temperature_anomaly','bbox': [int(xx.min()),int(yy.min()),int(xx.max()+1),int(yy.max()+1)],'pixelCount': len(xx)})
+    return {'status': 'indeterminate' if not quality['canInfer'] else 'anomaly_observed' if findings else 'no_anomaly_observed',
+        'minC': float(values.min()),'maxC': float(values.max()),'meanC': float(values.mean()),'referenceC': reference,
+        'deltaC': float(values.max()-reference),'roiPixels': int(roi.sum()),'findings': findings}
 
 def palette(t):
     # Fixed, documented 10..100 C display range; never used as detector input.
@@ -108,9 +117,9 @@ class ThermalStore:
             elif not c or any(c[k]!=e[k] for k in ('sessionId','runId','requestId','assetId')) or e['sequence']<=c['sequence']:raise ValueError('stale event')
             self.current={k:e[k] for k in ('sessionId','runId','requestId','assetId','startedAt','sequence','stage')}
             self.current.update(updatedAt=now(),result=None,source='unity_scene_thermal',producerLiveness='unknown');self.save()
-        return dict(ok=True)
+        return {'ok': True}
     def snapshot(self):
-        with self.lock:return dict(schemaVersion=1,observation=json.loads(json.dumps(self.current)) if self.current else None,pipes=json.loads(json.dumps(self.pipes)))
+        with self.lock:return {'schemaVersion': 1,'observation': json.loads(json.dumps(self.current)) if self.current else None,'pipes': json.loads(json.dumps(self.pipes))}
     def active(self,r):
         c=self.current
         return bool(c) and all(c[k]==r[k] for k in ('sessionId','runId','requestId','assetId','sequence')) and c['stage']=='Analysing'
@@ -130,7 +139,7 @@ class ThermalStore:
             prefix='/api/thermal/file/'+r['requestId']+'/'
             result={k:r[k] for k in ('requestId','sessionId','runId','assetId','capturedAt','rgbSha256','geometrySha256','width','height')}
             result.update(a,quality=q,synthetic=True,workPermissionStatus='not_assessed',temperatureUnit='apparent_surface_C',
-                temperature16Encoding=dict(offsetC=100,unitsPerC=10),temperatureSha256=sha((folder/'temperature.npy').read_bytes()),thermalSha256=sha((folder/'thermal.png').read_bytes()),
+                temperature16Encoding={'offsetC': 100,'unitsPerC': 10},temperatureSha256=sha((folder/'temperature.npy').read_bytes()),thermalSha256=sha((folder/'thermal.png').read_bytes()),
                 thermalUrl=prefix+'thermal.png',rgbUrl=prefix+'rgb.png',temperatureUrl=prefix+'temperature.npy',
                 thermalPngBase64=base64.b64encode((folder/'thermal.png').read_bytes()).decode(),paletteMinC=10,paletteMaxC=100,
                 scope='훈련용 보온배관 · 180C/50mm 가정' if r['assetId']==ASSET else '기존 가상 공정 배관 · 무보온 형상/내벽저항 생략 · 운전온도/방사율 가정 · 현장 실측 아님',profile=PROFILES.get(r['assetId'],{}),model='MAEK thermal.detect_ir / jacket-rule baseline' if r['assetId']==ASSET else 'MAEK ROI delta-temperature rule baseline')

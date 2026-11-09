@@ -5,13 +5,13 @@ lack request IDs; a result is accepted only when one same-pipe, hash-verified fi
 was written immediately after its RESULT event. Ambiguity remains unmeasured.
 """
 import argparse
-from datetime import datetime, timezone
-from functools import partial
-from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
 import math
-from pathlib import Path
 import re
+from datetime import UTC, datetime
+from functools import partial
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 from urllib.parse import urlsplit
 
 SOURCE_SHA = 'be4be1f82633378c803ff3112d43738ad89b928778c1ba69033c738a624d1e6d'
@@ -19,7 +19,7 @@ STAGES = {'Waiting','ReferenceCheck','Walking','SurfacePreparation','Couplant','
 
 
 def utc_seconds(value):
-    stamp=datetime.fromisoformat(value.replace('Z','+00:00'))
+    stamp=datetime.fromisoformat(value)
     if stamp.tzinfo is None:raise ValueError('timezone required')
     return stamp.timestamp()
 
@@ -52,8 +52,8 @@ def verified_result(path, pipe):
 def snapshot(log_root, known_pipes):
     if isinstance(log_root,(list,tuple)):
         return max((snapshot(p,known_pipes) for p in log_root),key=lambda r:r.get('sessionId') or '')
-    response=dict(schemaVersion=1,source='unity_v5_log_follow',producerLiveness='unknown',
-                  observedAt=datetime.now(timezone.utc).isoformat(),sessionId=None,pipes={})
+    response={'schemaVersion': 1,'source': 'unity_v5_log_follow','producerLiveness': 'unknown',
+                  'observedAt': datetime.now(UTC).isoformat(),'sessionId': None,'pipes': {}}
     if not log_root.is_dir():return response
     # Timestamped V5 sessions, not editor/build directories or arbitrary files.
     sessions=sorted((p for p in log_root.iterdir() if p.is_dir() and not p.is_symlink()
@@ -76,26 +76,26 @@ def snapshot(log_root, known_pipes):
         for pipe in {e['pipeId'] for e in events}:
             rows=[e for e in events if e['pipeId']==pipe];last=rows[-1]
             start=max((i for i,e in enumerate(rows) if e['kind']=='REFERENCE_START'),default=0)
-            row=dict(pipeId=pipe,pointId='UT-01 (시연 지점)',stage=last['stage'],
-                     status=last.get('status',''),updatedAt=last['utc'],result=None,previous=None,
-                     resultStatus='not_measured',steps=[e['kind'] for e in rows[start:]],
-                     workPermissionStatus='not_assessed')
+            row={'pipeId': pipe,'pointId': 'UT-01 (시연 지점)','stage': last['stage'],
+                     'status': last.get('status',''),'updatedAt': last['utc'],'result': None,'previous': None,
+                     'resultStatus': 'not_measured','steps': [e['kind'] for e in rows[start:]],
+                     'workPermissionStatus': 'not_assessed'}
             results=[]
             for path in directory.glob('*.json'):
                 if path.is_symlink():continue
                 r=verified_result(path,pipe)
                 if r:results.append((path.stat().st_mtime,r))
-            def match(event):
+            def match(event, results):
                 when=utc_seconds(event['utc'])
                 candidates=[r for stamp,r in results if 0<=stamp-when<=2]
                 if len(candidates)!=1:return None
                 r=dict(candidates[0]);r['recordedAt']=event['utc'];return r
             if last['kind']=='RESULT' and last['stage']=='Complete':
-                row['result']=match(last)
+                row['result']=match(last, results)
                 row['resultStatus']='verified' if row['result'] else 'unverified_or_pending'
             for event in reversed(rows[:-1]):
                 if event['kind']=='RESULT':
-                    row['previous']=match(event)
+                    row['previous']=match(event, results)
                     if row['previous']:break
             response['pipes'][pipe]=row
         return response
@@ -117,7 +117,7 @@ class Handler(SimpleHTTPRequestHandler):
             result=self.server.thermal.event(body) if self.path.endswith('/event') else self.server.thermal.capture(body)
             self.json_reply(200,result)
         except (ValueError,KeyError,TypeError,OSError) as error:
-            self.json_reply(400,dict(error=type(error).__name__,message=str(error)[:200]))
+            self.json_reply(400,{'error': type(error).__name__,'message': str(error)[:200]})
     def do_GET(self):
         if self.headers.get('Host') not in {f'127.0.0.1:{self.server.server_port}',f'localhost:{self.server.server_port}'}:
             return self.send_error(403)
@@ -131,7 +131,7 @@ class Handler(SimpleHTTPRequestHandler):
             self.send_header('Content-Length',str(len(data)));self.send_header('Cache-Control','no-store');self.end_headers();self.wfile.write(data);return
         if urlsplit(self.path).path=='/api/ut':
             try:body=snapshot(self.server.ut_log_root,self.server.known_pipes)
-            except OSError:body=dict(schemaVersion=1,error='log_read_failed',pipes={})
+            except OSError:body={'schemaVersion': 1,'error': 'log_read_failed','pipes': {}}
             data=json.dumps(body,ensure_ascii=False,allow_nan=False).encode('utf-8')
             self.send_response(200);self.send_header('Content-Type','application/json; charset=utf-8')
             self.send_header('Cache-Control','no-store');self.send_header('X-Content-Type-Options','nosniff')
