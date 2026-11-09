@@ -129,6 +129,10 @@ OMP_NUM_THREADS=1 python scripts/produce_data.py
 
 ## 데이터 받기
 
+학습한 카메라 모델은 [E4 Release](https://github.com/nalziori/MAEK/releases/tag/e4-20261109)에서
+가중치·SHA256·평가 결과를 받을 수 있습니다. [모델 재현 안내](docs/model-reproducibility.md)에
+고정 패키지 설치, 공식 가중치 평가, 재학습 한계와 실제 사진 데이터 version 3 다운로드 방법을 정리했습니다.
+
 합성 데이터 v3(약 600MB)는 이 저장소의 `data-v3` 브랜치에 있습니다. 받는 방법과 조각 합치는 방법은 [data-v3 브랜치 README](https://github.com/nalziori/MAEK/tree/data-v3)에 있습니다. `data`(v1)와 `data-v2` 브랜치는 이전 모델의 데이터라 쓰지 마세요.
 
 | 묶음 | 규모 |
