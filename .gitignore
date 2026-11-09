@@ -56,3 +56,6 @@ graphify-out/
 /visualization/process_suitability/preview-*/
 /visualization/cfd/*/
 /visualization/hydraulics/hearth_*/
+
+# Evidence seals contain machine-local paths and must be regenerated per checkout.
+/visualization/inspection_demo/evidence_seal.json
