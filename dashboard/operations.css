@@ -239,7 +239,7 @@ p {
   min-height: 440px;
   overflow: hidden;
 }
-.site-map svg {
+.site-map > svg {
   display: block;
   width: 100%;
   height: auto;
@@ -572,7 +572,7 @@ p {
   min-height: 260px;
   margin: 20px 0;
 }
-.visit-detail .site-map svg {
+.visit-detail .site-map > svg {
   min-height: 260px;
 }
 .location-details {
@@ -652,7 +652,7 @@ html {
   scrollbar-color: #9aa9a1 var(--bg);
 }
 @media (min-width: 1700px) {
-  .site-map svg {
+  .site-map > svg {
     max-height: 650px;
   }
 }
@@ -674,7 +674,7 @@ html {
     grid-template-columns: 260px minmax(0, 1fr);
   }
   .site-map,
-  .site-map svg {
+  .site-map > svg {
     min-height: 380px;
   }
   .summary-box {
@@ -720,7 +720,7 @@ html {
     margin-top: 4px;
   }
   .site-map,
-  .site-map svg {
+  .site-map > svg {
     min-height: 300px;
   }
 }
@@ -815,7 +815,7 @@ html {
     min-height: 260px;
     overflow-x: auto;
   }
-  .site-map svg {
+  .site-map > svg {
     width: 700px;
     min-width: 700px;
     min-height: 350px;
@@ -887,7 +887,7 @@ html {
 .visit-detail .compact-map {
   min-height: 0;
 }
-.visit-detail .compact-map svg {
+.visit-detail .compact-map > svg {
   height: 300px;
   min-height: 0;
   width: 100%;
@@ -899,17 +899,17 @@ html {
     align-items: center;
     margin-top: 12px;
   }
-  .site-map svg {
+  .site-map > svg {
     width: 100%;
     min-width: 0;
     min-height: 260px;
   }
-  .zoomed-map svg {
+  .zoomed-map > svg {
     width: 700px;
     min-width: 700px;
     min-height: 350px;
   }
-  .visit-detail .compact-map svg {
+  .visit-detail .compact-map > svg {
     height: 240px;
     min-height: 0;
     width: 100%;
@@ -1025,10 +1025,10 @@ main {
 .map-spot {
   opacity: 1;
 }
-.site-map svg {
+.site-map > svg {
   min-height: 440px;
 }
-.visit-detail .compact-map svg {
+.visit-detail .compact-map > svg {
   min-height: 0;
 }
 @media (max-width: 900px) {
@@ -1107,13 +1107,13 @@ main {
   .playback-controls .last-record {
     margin-left: auto;
   }
-  .site-map svg {
+  .site-map > svg {
     min-height: 260px;
   }
-  .zoomed-map svg {
+  .zoomed-map > svg {
     min-height: 350px;
   }
-  .visit-detail .compact-map svg {
+  .visit-detail .compact-map > svg {
     height: 220px;
     min-height: 0;
   }
@@ -1274,7 +1274,7 @@ body[data-tab] .page-title p {
     display: flex;
     align-items: stretch;
   }
-  .site-map svg {
+  .site-map > svg {
     min-height: 0;
     width: 100%;
     height: 100%;
@@ -1408,7 +1408,7 @@ body[data-tab] .page-title p {
     min-height: 150px;
     margin: 16px 0;
   }
-  .visit-detail .compact-map svg {
+  .visit-detail .compact-map > svg {
     width: 100%;
     height: 100%;
     min-height: 0;
@@ -1846,7 +1846,7 @@ main {
   .unified-layout .site-map {
     min-height: 0;
   }
-  .unified-layout .site-map svg {
+  .unified-layout .site-map > svg {
     height: 100%;
     width: 100%;
     min-height: 0;
@@ -2320,7 +2320,7 @@ button.sensor-image:hover {
   height: 100%;
   min-height: 0;
 }
-#media-content > .site-map svg {
+#media-content > .site-map > svg {
   width: 100%;
   height: 100%;
   min-height: 0;
@@ -2361,7 +2361,7 @@ button.sensor-image:hover {
   .map-controls > span {
     min-width: 36px;
   }
-  #media-content .site-map svg {
+  #media-content .site-map > svg {
     min-width: 0;
   }
   .media-header h2 {
@@ -2563,4 +2563,35 @@ button.sensor-image:hover {
   min-width: 18px;
   min-height: 18px;
   flex: none;
+}
+
+/* Map actions belong to the map, leaving its full height for spatial context. */
+.map-expand {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;
+  background: #fff;
+}
+.pipe-row[data-selected="true"] {
+  background: #edf4f1;
+  outline: 1px solid #087e6a;
+  outline-offset: -1px;
+  border-radius: 4px;
+}
+.pipe-row {
+  padding-inline: 12px;
+}
+[tabindex]:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+.map-spot:focus-visible .spot-disc {
+  stroke: var(--blue);
+  stroke-width: 3;
+}
+[data-map-zoom-label],
+.height-copy > strong,
+.rows-footer {
+  font-variant-numeric: tabular-nums;
 }

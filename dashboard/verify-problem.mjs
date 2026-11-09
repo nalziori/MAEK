@@ -215,7 +215,36 @@ try {
   await p.goto(base + "?tab=visits", { waitUntil: "networkidle0" });
   assert.match(
     await p.$eval("#page-title", (e) => e.textContent),
-    /확인이 필요한 배관/,
+    /조치 필요 배관/,
+  );
+  await p.click('.side-nav [data-tab="areas"]');
+  await p.select("#status-filter", "candidate");
+  assert.match(await p.$eval(".rows-footer", (e) => e.textContent), /16개 중/);
+  const filteredIDs = await p.$$eval("[data-pipe]", (es) =>
+    es.map((e) => e.dataset.pipe),
+  );
+  assert.ok(filteredIDs.every((id) => issueIDs.includes(id)));
+  await p.click('.side-nav [data-tab="records"]');
+  await p.click('[data-pipe="BF1-G001"]');
+  assert.equal(
+    await p.$eval(
+      '.pipe-row[data-selected="true"] [data-pipe]',
+      (e) => e.dataset.pipe,
+    ),
+    "BF1-G001",
+  );
+  assert.equal(
+    await p.evaluate(() => document.activeElement.dataset.pipe),
+    "BF1-G001",
+  );
+  assert.equal(
+    await p.$eval('[data-pipe="BF1-G001"]', (e) =>
+      e.getAttribute("aria-current"),
+    ),
+    "true",
+  );
+  checks.push(
+    "Action filter returns only candidate pipes; record selection and keyboard focus remain tied to the detail",
   );
   assert.deepEqual(errors, []);
   writeFileSync(

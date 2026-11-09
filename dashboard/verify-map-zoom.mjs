@@ -103,6 +103,13 @@ try {
     await p.$eval("[data-map-zoom-label]", (e) => e.textContent),
     "100%",
   );
+  await p.click('.map-panel [data-map-action="selected"]');
+  assert.deepEqual(
+    await box(),
+    initial,
+    "Selected-pipe action restores the initial focus after overview",
+  );
+  await p.click('.map-panel [data-map-action="fit"]');
   checks.push(
     "Plus/minus/fit and drag pan change view without changing selected pipe",
   );
@@ -162,6 +169,31 @@ try {
     /방문 구역 지도/,
   );
   await p.click("#media-content [data-map-action=in]");
+  const fitControl = await p.$eval(
+    '#media-content [data-map-action="fit"]',
+    (button) => {
+      const icon = button.querySelector("svg").getBoundingClientRect();
+      const target = button.getBoundingClientRect();
+      return {
+        iconWidth: icon.width,
+        iconHeight: icon.height,
+        width: target.width,
+        height: target.height,
+      };
+    },
+  );
+  assert.equal(
+    fitControl.iconWidth,
+    18,
+    "Large-map fit icon keeps its fixed width",
+  );
+  assert.equal(
+    fitControl.iconHeight,
+    18,
+    "Large-map fit icon keeps its fixed height",
+  );
+  assert.ok(fitControl.width >= 44 && fitControl.width <= 54);
+  assert.ok(fitControl.height >= 44 && fitControl.height <= 54);
   assert.notEqual(
     await p.$eval("#media-content [data-map-zoom-label]", (e) => e.textContent),
     "100%",

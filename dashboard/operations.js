@@ -185,7 +185,7 @@ function problemStrip() {
     0,
     Math.min(problemPage, Math.ceil(list.length / size) - 1),
   );
-  return `<section class="problem-strip" aria-label="확인이 필요한 배관 목록"><button type="button" id="problem-prev" aria-label="이전 의심 배관" title="이전 의심 배관" ${problemPage === 0 ? "disabled" : ""}>${uiIcon("left")}</button><div class="problem-cards">${list
+  return `<section class="problem-strip" aria-label="조치 필요 배관 목록"><button type="button" id="problem-prev" aria-label="이전 의심 배관" title="이전 의심 배관" ${problemPage === 0 ? "disabled" : ""}>${uiIcon("left")}</button><div class="problem-cards">${list
     .slice(problemPage * size, (problemPage + 1) * size)
     .map(
       (p, i) =>
@@ -255,7 +255,7 @@ function zoomMap(value, svg = null, client = null) {
   }
 }
 function mapControls() {
-  return `<div class="map-controls" aria-label="지도 조작"><button type="button" data-map-action="out" aria-label="지도 축소">−</button><span data-map-zoom-label aria-live="polite">${Math.round(mapCamera.zoom * 100)}%</span><button type="button" data-map-action="in" aria-label="지도 확대">+</button><button type="button" data-map-action="fit" aria-label="지도 전체 맞춤" title="지도 전체 맞춤">${uiIcon("fit")}</button></div>`;
+  return `<div class="map-controls" aria-label="지도 조작"><button type="button" data-map-action="out" aria-label="지도 축소">−</button><span data-map-zoom-label aria-live="polite">${Math.round(mapCamera.zoom * 100)}%</span><button type="button" data-map-action="in" aria-label="지도 확대">+</button><button type="button" data-map-action="fit" aria-label="지도 전체 맞춤" title="지도 전체 맞춤">${uiIcon("fit")}</button><button type="button" data-map-action="selected" aria-label="선택 배관 위치 맞춤" title="선택 배관 위치 맞춤">${uiIcon("locate")}</button></div>`;
 }
 function routeMarkup() {
   let out = "";
@@ -282,7 +282,7 @@ function routeMarkup() {
   }
   return out;
 }
-function mapMarkup(compact = false) {
+function mapMarkup(compact = false, expandable = false) {
   const spots = tab === "home" ? problemPipes() : visited(),
     viewBox = cameraBox();
   let svg = `<svg viewBox="${viewBox}" role="group" aria-label="MAEK 가상 제철소 모델 평면도. 배관 위치는 모델 좌표이며 실제 제철소 지도와 다릅니다."><title>모델 배관 지도</title>${routeMarkup()}`;
@@ -344,7 +344,7 @@ function mapMarkup(compact = false) {
     svg += `<g aria-label="현재 위치, 저장 경로 기준 ${escapeHTML(now.id)}"><circle class="drone-mark" cx="${coord(xy[0])}" cy="${coord(xy[1])}" r="13"/><path d="m${coord(xy[0] - 6)} ${coord(xy[1])}h12m-6-6v12" stroke="white" stroke-width="2"/><text class="drone-caption" x="${coord(xy[0] + 18)}" y="${coord(xy[1] - 16)}">현재 위치</text></g>`;
   }
   svg += "</svg>";
-  return `<div class="site-map interactive-map${compact ? " compact-map" : ""}" data-map tabindex="0" aria-label="방문 구역 지도. 확대 후 끌어서 이동할 수 있습니다.">${svg}${mapControls()}<span class="map-source">저장 경로 재구성</span></div>`;
+  return `<div class="site-map interactive-map${compact ? " compact-map" : ""}" data-map tabindex="0" aria-label="방문 구역 지도. 확대 후 끌어서 이동할 수 있습니다.">${svg}${expandable ? `<button type="button" id="expand-map" class="map-expand icon-button" aria-label="지도 크게 보기" title="지도 크게 보기">${uiIcon("expand")}</button>` : ""}${mapControls()}<span class="map-source">저장 경로 재구성</span></div>`;
 }
 function selectionCard() {
   const candidate = done(selected) && selected.result === "candidate";
@@ -398,12 +398,12 @@ function ndtPanel() {
 function home() {
   const rgb = window.MAEK_EVIDENCE.byPipe[selected.id]?.rgb,
     thermal = window.MAEK_EVIDENCE.byPipe[selected.id]?.thermal;
-  return `${problemStrip()}<div class="unified-layout"><section class="map-panel"><div class="map-heading"><h2>배관 위치</h2><button type="button" id="expand-map" class="map-focus icon-button" aria-label="지도 크게 보기" title="지도 크게 보기">${uiIcon("expand")}</button></div>${mapMarkup()}<div class="drone-location"><p class="visited-summary">방문 구역 <strong>${[...new Set(pipes.slice(0, step).map((p) => (p.id.startsWith("BF1") ? "1고로" : p.id.startsWith("BF2") ? "2고로" : "기타 구역")))].join(" · ") || "방문 전"}</strong></p><span>현재 위치 <small>저장 기준</small><strong>${current() ? escapeHTML(current().id) : "종료"}</strong></span>${current() ? `<button id="follow-drone" type="button" class="icon-button" aria-label="드론 현재 배관 보기" title="드론 현재 배관 보기">${uiIcon("locate")}</button>` : ""}</div><div class="map-legend"><span class="legend-item"><i class="legend-line route"></i>방문 구역</span><span class="legend-item"><i class="legend-line current"></i>현재 위치</span><span class="legend-item"><i class="legend-line visit"></i>조치 필요</span></div></section><section class="inspection-flow" aria-label="선택 배관의 연속 검사"><div class="pipe-context problem-context"><div class="pipe-main"><h2>${escapeHTML(selected.id)}<span class="selected-issue">${escapeHTML(problemReason(selected))}</span></h2><p>${escapeHTML(selected.service)}</p></div>${heightSummary()}</div><div class="drone-evidence"><section class="sensor-panel"><div class="sensor-heading"><h3>RGB · 부식 관측</h3><span>저장 촬영</span></div>${droneImage("rgb")}<div class="sensor-analysis"><strong>${rgb?.regions.length ? "부식 후보 " + rgb.regions.length + "건" : rgb ? "의심 표시 없음" : "분석 결과 없음"}</strong><span>${rgb ? "색상 규칙 분석" : ""}</span></div></section><section class="sensor-panel"><div class="sensor-heading"><h3>열화상 · 열 관측</h3><span>${thermal ? "연결 촬영" : ""}</span></div>${droneImage("thermal")}<div class="sensor-analysis"><strong>${thermal ? escapeHTML(thermal.analysis_summary || "판독 결과 확인 필요") : "분석 결과 없음"}</strong><span>${thermal ? escapeHTML(thermal.quality_status || "품질 확인 필요") : ""}</span></div></section></div>${ndtPanel()}</section></div>`;
+  return `${problemStrip()}<div class="unified-layout"><section class="map-panel" aria-label="배관 지도와 드론 위치">${mapMarkup(false, true)}<div class="drone-location"><p class="visited-summary">방문 구역 <strong>${[...new Set(pipes.slice(0, step).map((p) => (p.id.startsWith("BF1") ? "1고로" : p.id.startsWith("BF2") ? "2고로" : "기타 구역")))].join(" · ") || "방문 전"}</strong></p><span>현재 위치 <small>저장 기준</small><strong>${current() ? escapeHTML(current().id) : "종료"}</strong></span>${current() ? `<button id="follow-drone" type="button" class="icon-button" aria-label="드론 현재 배관 보기" title="드론 현재 배관 보기">${uiIcon("locate")}</button>` : ""}</div><div class="map-legend"><span class="legend-item"><i class="legend-line route"></i>방문 구역</span><span class="legend-item"><i class="legend-line current"></i>현재 위치</span><span class="legend-item"><i class="legend-line visit"></i>조치 필요</span></div></section><section class="inspection-flow" aria-label="선택 배관의 연속 검사"><div class="pipe-context problem-context"><div class="pipe-main"><h2>${escapeHTML(selected.id)}<span class="selected-issue">${escapeHTML(problemReason(selected))}</span></h2><p>${escapeHTML(selected.service)}</p></div>${heightSummary()}</div><div class="drone-evidence"><section class="sensor-panel"><div class="sensor-heading"><h3>RGB · 부식 관측</h3><span>저장 촬영</span></div>${droneImage("rgb")}<div class="sensor-analysis"><strong>${rgb?.regions.length ? "부식 후보 " + rgb.regions.length + "건" : rgb ? "의심 표시 없음" : "분석 결과 없음"}</strong><span>${rgb ? "색상 규칙 분석" : ""}</span></div></section><section class="sensor-panel"><div class="sensor-heading"><h3>열화상 · 열 관측</h3><span>${thermal ? "연결 촬영" : ""}</span></div>${droneImage("thermal")}<div class="sensor-analysis"><strong>${thermal ? escapeHTML(thermal.analysis_summary || "판독 결과 확인 필요") : "분석 결과 없음"}</strong><span>${thermal ? escapeHTML(thermal.quality_status || "품질 확인 필요") : ""}</span></div></section></div>${ndtPanel()}</section></div>`;
 }
 
 function rows(filtered, record = false) {
   const slice = filtered.slice(page * pageSize, (page + 1) * pageSize);
-  return `<ul class="row-list">${slice.map((p) => `<li class="pipe-row"><div><strong>${escapeHTML(p.id)}</strong><p>${escapeHTML(p.service)}</p><div class="row-status state ${record ? (p.result === "candidate" ? "visit" : "done") : statusClass(p)}">${record ? `${p.analysed}/${p.planned}장 분석 · ${p.result === "candidate" ? "RGB 후보 " + p.findings + "건" : "RGB 후보 미관찰"}` : state(p)}</div></div><button type="button" data-pipe="${escapeHTML(p.id)}" data-destination="${record ? "record-detail" : "home"}">${record ? "기록 보기" : "위치 보기"}</button></li>`).join("")}</ul>${filtered.length === 0 ? '<div class="empty"><h2>조건에 맞는 배관이 없습니다.</h2><p>배관 ID를 확인하거나 필터를 전체로 바꿔 주세요.</p></div>' : ""}<div class="rows-footer"><span class="muted">${filtered.length}개 중 ${filtered.length ? page * pageSize + 1 : 0}–${Math.min((page + 1) * pageSize, filtered.length)}</span><div class="page-buttons"><button id="previous-page" ${page === 0 ? "disabled" : ""}>이전</button><button id="next-page" ${(page + 1) * pageSize >= filtered.length ? "disabled" : ""}>다음</button></div></div>`;
+  return `<ul class="row-list">${slice.map((p) => `<li class="pipe-row" data-selected="${p === selected}"><div><strong>${escapeHTML(p.id)}</strong><p>${escapeHTML(p.service)}</p><div class="row-status state ${record ? (p.result === "candidate" ? "visit" : "done") : statusClass(p)}">${record ? `${p.analysed}/${p.planned}장 분석 · ${p.result === "candidate" ? "RGB 후보 " + p.findings + "건" : "RGB 후보 미관찰"}` : state(p)}</div></div><button type="button" data-pipe="${escapeHTML(p.id)}" aria-current="${p === selected ? "true" : "false"}" data-destination="${record ? "record-detail" : "home"}">${record ? "기록 보기" : "위치 보기"}</button></li>`).join("")}</ul>${filtered.length === 0 ? '<div class="empty"><h2>조건에 맞는 배관이 없습니다.</h2><p>배관 ID를 확인하거나 필터를 전체로 바꿔 주세요.</p></div>' : ""}<div class="rows-footer"><span class="muted">${filtered.length}개 중 ${filtered.length ? page * pageSize + 1 : 0}–${Math.min((page + 1) * pageSize, filtered.length)}</span><div class="page-buttons"><button id="previous-page" ${page === 0 ? "disabled" : ""}>이전</button><button id="next-page" ${(page + 1) * pageSize >= filtered.length ? "disabled" : ""}>다음</button></div></div>`;
 }
 function filteredPipes(record = false) {
   return pipes.filter(
@@ -420,7 +420,7 @@ function recordDetail() {
   return `<section class="summary-box"><h2>${escapeHTML(selected.id)}</h2><p class="selected-service">${escapeHTML(selected.service)}</p><dl class="location-details"><dt>계획 촬영</dt><dd>${selected.planned}장</dd><dt>분석 기록</dt><dd>${selected.analysed}장</dd><dt>관측</dt><dd>${selected.result === "candidate" ? "RGB 후보 " + selected.findings + "건" : "RGB 후보 미관찰"}</dd><dt>현장 검사</dt><dd>${readNdt().filter((r) => r.pipe_id === selected.id).length ? "결과 " + readNdt().filter((r) => r.pipe_id === selected.id).length + "건 · 검토 대기" : "결과 미접수"}</dd></dl><p class="muted">저장 시연 기록입니다. 후보 미관찰은 배관 건전성이나 작업 가능 판정이 아닙니다.</p><details class="evidence-ids"><summary>촬영 근거 ID ${selected.evidenceIds.length}개</summary><ul>${selected.evidenceIds.map((id) => "<li>" + escapeHTML(id) + "</li>").join("")}</ul></details><a class="secondary-link" href="${url("home")}" data-route="home">지도에서 위치 보기</a></section>`;
 }
 function listing(record = false) {
-  return `<div class="filters"><label for="pipe-search">배관 찾기</label><input type="search" id="pipe-search" placeholder="배관 ID 또는 계통" value="${escapeHTML(search)}"><label class="sr-only" for="status-filter">표시 범위</label><select id="status-filter"><option value="all">전체 배관</option>${record ? '<option value="candidate">RGB 후보 기록</option>' : '<option value="done">기록 확인</option><option value="waiting">재생 대기</option>'}<option value="primary">주 검사 대상</option></select></div><div class="list-layout"><section class="list-panel"><div id="list-results">${rows(filteredPipes(record), record)}</div></section><aside>${record ? recordDetail() : selectionCard()}</aside></div>`;
+  return `<div class="filters"><label for="pipe-search">배관 찾기</label><input type="search" id="pipe-search" placeholder="배관 ID 또는 계통" value="${escapeHTML(search)}"><label class="sr-only" for="status-filter">표시 범위</label><select id="status-filter"><option value="all">전체 배관</option>${record ? '<option value="candidate">RGB 후보 기록</option>' : '<option value="candidate">조치 필요</option><option value="done">방문 완료</option><option value="waiting">방문 예정</option>'}<option value="primary">주 검사 대상</option></select></div><div class="list-layout"><section class="list-panel"><div id="list-results">${rows(filteredPipes(record), record)}</div></section><aside>${record ? recordDetail() : selectionCard()}</aside></div>`;
 }
 
 function updateList() {
@@ -435,8 +435,12 @@ function bindRows() {
     (b) =>
       (b.onclick = () => {
         selected = pipes.find((p) => p.id === b.dataset.pipe);
-        if (b.dataset.destination === "record-detail") render();
-        else navigate("home");
+        if (b.dataset.destination === "record-detail") {
+          render();
+          document
+            .querySelector(`[data-pipe="${selected.id}"]`)
+            ?.focus({ preventScroll: true });
+        } else navigate("home");
       }),
   );
   if ($("previous-page"))
@@ -554,9 +558,7 @@ function render() {
   }
   const text = titles[tab];
   $("page-title").textContent =
-    tab === "home"
-      ? "확인이 필요한 배관 " + problemPipes().length + "곳"
-      : text[0];
+    tab === "home" ? "조치 필요 배관 " + problemPipes().length + "곳" : text[0];
   $("page-description").textContent = text[1];
   $("progress").value = step;
   $("progress-label").textContent = step + " / " + pipes.length;
@@ -673,7 +675,11 @@ function bindMapInteractions() {
         e.stopPropagation();
         if (b.dataset.mapAction === "in") zoomMap(mapCamera.zoom * 1.4);
         else if (b.dataset.mapAction === "out") zoomMap(mapCamera.zoom / 1.4);
-        else {
+        else if (b.dataset.mapAction === "selected") {
+          const [x, y] = project(center(selected));
+          mapCamera = { x, y, zoom: 2.2 };
+          updateMaps();
+        } else {
           mapCamera = {
             x: mapExtent.x + mapExtent.w / 2,
             y: mapExtent.y + mapExtent.h / 2,
