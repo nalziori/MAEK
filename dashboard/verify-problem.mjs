@@ -33,7 +33,7 @@ try {
     [768, 1024],
   ]) {
     await p.setViewport({ width, height });
-    for (const tab of ["home", "areas", "records"]) {
+    for (const tab of ["home", "pipes"]) {
       await p.goto(base + "?tab=" + tab + "&pipe=BF1-G004", {
         waitUntil: "networkidle0",
       });
@@ -55,7 +55,7 @@ try {
         false,
         JSON.stringify({ width, height, tab, m }),
       );
-      assert.equal(m.navCount, 3);
+      assert.equal(m.navCount, 2);
       if (width === 1024)
         await p.screenshot({
           path: ".hallmark/problem/" + tab + ".png",
@@ -64,7 +64,7 @@ try {
     }
   }
   checks.push(
-    "Problem-first workspace, three primary destinations on three tablet sizes fit without document scrolling",
+    "Problem-first workspace, two primary destinations on three tablet sizes fit without document scrolling",
   );
   await p.setViewport({ width: 1024, height: 768 });
   await p.goto(base + "?pipe=BF1-G004", { waitUntil: "networkidle0" });
@@ -200,31 +200,92 @@ try {
   checks.push(
     "Conflicting result ID rejected without overwriting original report",
   );
-  await p.click("[data-tab=areas]");
-  await p.click("[data-tab=records]");
-  await p.goBack();
-  await p.waitForFunction(() => document.body.dataset.tab === "areas");
-  assert.equal(new URL(p.url()).searchParams.get("pipe"), "BF1-G004");
-  checks.push("Cross-screen navigation and browser back retain pipe");
-  await p.click(".side-nav [data-tab=records]");
+  await p.click('[data-tab="pipes"]');
+  assert.equal(await p.$eval("#page-title", (e) => e.textContent), "배관 조회");
   assert.match(
-    await p.$eval(".list-layout aside .location-details", (e) => e.textContent),
+    await p.$eval(".lookup-overview", (e) => e.textContent),
     /현장 검사결과 1건/,
   );
-  await p.evaluate(() => localStorage.removeItem("maek.ndt.linked.v1"));
-  await p.goto(base + "?tab=visits", { waitUntil: "networkidle0" });
-  assert.match(
-    await p.$eval("#page-title", (e) => e.textContent),
-    /조치 필요 배관/,
+  await p.click('.pipe-detail [data-route="home"]');
+  assert.equal(new URL(p.url()).searchParams.get("pipe"), "BF1-G004");
+  assert.equal(
+    await p.$eval(".pipe-context h2", (e) => e.firstChild.textContent.trim()),
+    "BF1-G004",
   );
-  await p.click('.side-nav [data-tab="areas"]');
+  await p.goBack();
+  await p.waitForFunction(() => document.body.dataset.tab === "pipes");
+  assert.equal(new URL(p.url()).searchParams.get("pipe"), "BF1-G004");
+  checks.push(
+    "Unified lookup shows the latest result and opens the same pipe on the map; back retains selection",
+  );
+
   await p.select("#status-filter", "candidate");
   assert.match(await p.$eval(".rows-footer", (e) => e.textContent), /16개 중/);
   const filteredIDs = await p.$$eval("[data-pipe]", (es) =>
     es.map((e) => e.dataset.pipe),
   );
   assert.ok(filteredIDs.every((id) => issueIDs.includes(id)));
-  await p.click('.side-nav [data-tab="records"]');
+  await p.type("#pipe-search", "BF1-G004");
+  await p.click('[data-pipe="BF1-G004"]');
+  await p.click('.pipe-detail [data-route="home"]');
+  const older = {
+    ...record,
+    result_id: "UI-TEST-ONLY-OLDER",
+    performed_at: "2026-11-08T13:00:00+09:00",
+    result_summary: "과거 검사 UI 시험 자료",
+  };
+  writeFileSync(".hallmark/problem/ndt-older.json", JSON.stringify(older));
+  await importResult(".hallmark/problem/ndt-older.json");
+  await p.waitForFunction(() =>
+    document
+      .querySelector(".ndt-feedback")
+      ?.textContent.includes("저장했습니다"),
+  );
+  assert.match(
+    await p.$eval(".ndt-measurement", (e) => e.textContent),
+    /실제 측정값이 아닙니다/,
+  );
+  await p.click('[data-tab="pipes"]');
+  assert.equal(await p.$eval("#pipe-search", (e) => e.value), "BF1-G004");
+  assert.equal(await p.$eval("#status-filter", (e) => e.value), "candidate");
+  assert.equal(
+    await p.$eval(".latest-inspection time", (e) => e.getAttribute("datetime")),
+    record.performed_at,
+  );
+  assert.match(
+    await p.$eval(".lookup-history summary", (e) => e.textContent),
+    /2건/,
+  );
+  assert.equal(await p.$eval(".lookup-history", (e) => e.open), false);
+  await p.click(".lookup-history summary");
+  assert.deepEqual(
+    await p.$$eval(".inspection-history > li", (es) =>
+      es.map((e) => e.dataset.resultId),
+    ),
+    [record.result_id, older.result_id],
+  );
+  for (const [width, height] of [
+    [1024, 768],
+    [1194, 834],
+    [768, 1024],
+  ]) {
+    await p.setViewport({ width, height });
+    assert.equal(
+      await p.evaluate(
+        () => document.documentElement.scrollHeight > innerHeight + 1,
+      ),
+      false,
+    );
+  }
+  checks.push(
+    "Lookup retains search/filter; latest and expanded history sort by inspection time rather than import order and stay within tablet viewport",
+  );
+
+  await p.select("#status-filter", "all");
+  await p.$eval("#pipe-search", (e) => {
+    e.value = "";
+    e.dispatchEvent(new Event("input", { bubbles: true }));
+  });
   await p.click('[data-pipe="BF1-G001"]');
   assert.equal(
     await p.$eval(
@@ -243,8 +304,27 @@ try {
     ),
     "true",
   );
+  assert.match(
+    await p.$eval(".lookup-overview", (e) => e.textContent),
+    /결과 미접수/,
+  );
   checks.push(
-    "Action filter returns only candidate pipes; record selection and keyboard focus remain tied to the detail",
+    "Lookup selection updates the detail and focus without exposing another pipe’s reports",
+  );
+  await p.evaluate(() => localStorage.removeItem("maek.ndt.linked.v1"));
+  for (const alias of ["areas", "records"]) {
+    await p.goto(base + "?tab=" + alias + "&pipe=BF2-G101", {
+      waitUntil: "networkidle0",
+    });
+    assert.equal(new URL(p.url()).searchParams.get("tab"), "pipes");
+    assert.equal(
+      await p.$eval(".pipe-detail h2", (e) => e.textContent),
+      "BF2-G101",
+    );
+    assert.equal(await p.$$eval(".side-nav [data-tab]", (es) => es.length), 2);
+  }
+  checks.push(
+    "Legacy list/history links resolve to the same unified lookup without losing pipe identity",
   );
   assert.deepEqual(errors, []);
   writeFileSync(

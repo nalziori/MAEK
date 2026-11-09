@@ -2595,3 +2595,131 @@ button.sensor-image:hover {
 .rows-footer {
   font-variant-numeric: tabular-nums;
 }
+
+/* One search context for location, latest results and inspection history. */
+.lookup-layout aside {
+  min-width: 0;
+  min-height: 0;
+}
+.lookup-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.lookup-heading .icon-button {
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  text-decoration: none;
+}
+.lookup-overview {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 12px;
+  margin: 0 0 16px;
+  font-size: 0.875rem;
+}
+.lookup-overview dt {
+  color: var(--muted);
+}
+.lookup-overview dd {
+  margin: 0;
+}
+.lookup-overview small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.latest-inspection {
+  padding-block: 12px;
+  border-top: 1px solid var(--line);
+}
+.latest-inspection h3,
+.inspection-history h3 {
+  font-size: 0.875rem;
+  margin: 0 0 8px;
+}
+.latest-inspection strong {
+  font-size: 0.875rem;
+}
+.latest-inspection time,
+.inspection-history time {
+  display: block;
+  color: var(--muted);
+  font-size: 0.75rem;
+  margin: 4px 0 8px;
+}
+.latest-inspection p,
+.inspection-history p {
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+.lookup-history,
+.pipe-detail .evidence-ids {
+  border-top: 1px solid var(--line);
+  margin: 0;
+  padding: 0;
+}
+.lookup-history summary,
+.pipe-detail .evidence-ids summary {
+  min-height: 44px;
+  align-content: center;
+  font-size: 0.875rem;
+}
+.lookup-history > p {
+  font-size: 0.875rem;
+  margin-bottom: 12px;
+  color: var(--muted);
+}
+.inspection-history {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.inspection-history > li {
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+.inspection-history dl {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 8px;
+  font-size: 0.8125rem;
+  margin-block: 12px;
+}
+.inspection-history dt {
+  color: var(--muted);
+}
+.inspection-history dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.inspection-history small {
+  color: var(--amber);
+}
+.lookup-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 12px 0 0;
+}
+@media (min-width: 700px) {
+  .lookup-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(290px, 360px);
+  }
+  .lookup-layout aside {
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+@media (min-width: 700px) {
+  .lookup-layout {
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .lookup-layout aside {
+    max-height: 100%;
+  }
+}
