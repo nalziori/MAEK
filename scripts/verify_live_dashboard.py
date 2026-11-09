@@ -187,6 +187,8 @@ try:
                 {'url': r.url, 'status': r.status}) if r.status >= 400 else None)
             page.goto(BASE + '/dashboard', wait_until='domcontentloaded', timeout=30000)
             page.locator('#maek-bridge').wait_for(timeout=15000)
+            if page.locator('#maek-bridge > summary').count():
+                page.locator('#maek-bridge > summary').click()
             page.get_by_role('button', name='일시 정지', exact=True).wait_for(timeout=15000)
             page.wait_for_function("[...document.querySelectorAll('#maek-bridge button')].some(b=>b.textContent==='일시 정지'&&!b.disabled)", timeout=15000)
             before = state()

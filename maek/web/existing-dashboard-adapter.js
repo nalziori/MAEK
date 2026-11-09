@@ -23,17 +23,22 @@
   let lastLayout = null,storedTitle = '';
   const buttons = new Map();
   const labels = {pause:'일시 정지',resume:'재개',stop:'중지',record_toggle:'녹화 켜기',view_toggle:'Unity 시점 전환'};
-  const root = make('section','','maek-bridge');root.id = 'maek-bridge';root.setAttribute('aria-label','Unity 실시간 연결');
+  const root = make('details','','maek-bridge');root.id = 'maek-bridge';root.setAttribute('aria-label','Unity 실시간 연결');
+  const toggle = make('summary','','maek-bridge-toggle'),compactStatus = make('span','미연결','maek-bridge-compact-status');
+  toggle.append(make('span','드론 제어'),compactStatus);toggle.setAttribute('aria-controls','maek-bridge-panel');root.append(toggle);
+  const panel = make('div','','maek-bridge-panel');panel.id = 'maek-bridge-panel';root.append(panel);
+  root.addEventListener('keydown',event => {if(event.key === 'Escape' && root.open){root.open = false;toggle.focus();event.preventDefault();event.stopPropagation();}});
+  document.addEventListener('pointerdown',event => {if(root.open && !root.contains(event.target)) root.open = false;});
   const modeRow = make('div','','maek-bridge-row'),savedButton = make('button','저장 자료'),liveButton = make('button','실시간 RGB');
   const connection = make('span','로컬 브리지 연결 대기','maek-bridge-status');connection.setAttribute('role','status');
-  modeRow.append(savedButton,liveButton,connection);root.append(modeRow);
+  modeRow.append(savedButton,liveButton,connection);panel.append(modeRow);
   const controls = make('div','','maek-bridge-row');
   for(const command of ['pause','resume','stop']) {const button = make('button',labels[command]);button.type = 'button';button.onclick = () => send(command);buttons.set(command,button);controls.append(button);}
-  root.append(controls);
+  panel.append(controls);
   const more = make('details'),moreTitle = make('summary','녹화 · Unity 화면');more.append(moreTitle);const extra = make('div','','maek-bridge-row');
   for(const command of ['record_toggle','view_toggle']) {const button = make('button',labels[command]);button.type = 'button';button.onclick = () => send(command);buttons.set(command,button);extra.append(button);}more.append(extra);
-  const capability = make('p','현재 검출: RGB 부식 색상 후보 · HSV 기준선','maek-bridge-help'),viewStatus = make('p','Unity 화면 시점: 미수신','maek-bridge-help');more.append(capability,viewStatus);root.append(more);
-  const commandStatus = make('p','명령 없음 · 실제 Unity 응답으로 적용 여부를 확인합니다.','maek-bridge-command');commandStatus.setAttribute('role','status');root.append(commandStatus);screen.before(root);
+  const capability = make('p','현재 검출: RGB 부식 색상 후보 · HSV 기준선','maek-bridge-help'),viewStatus = make('p','Unity 화면 시점: 미수신','maek-bridge-help');more.append(capability,viewStatus);panel.append(more);
+  const commandStatus = make('p','명령 없음 · 실제 Unity 응답으로 적용 여부를 확인합니다.','maek-bridge-command');commandStatus.setAttribute('role','status');panel.append(commandStatus);screen.before(root);
   const flow = make('section','','inspection-flow maek-live-flow');flow.setAttribute('aria-label','실시간 가상 드론 관측, 저장 자료와 별도');
   const context = make('div','','pipe-context'),contextBody = make('div'),pipeTitle = make('h2','실시간 대상 대기'),flight = make('p','Unity 가상 드론 · 저장 배관 선택과 별도');contextBody.append(pipeTitle,flight);context.append(contextBody);flow.append(context);
   const coverageBox = make('div','','maek-live-coverage'),coverageSummary = make('strong','실시간 검사 범위 미수신'),coveragePlan = make('p'),coverageInspection = make('p');coverageBox.append(coverageSummary,coveragePlan,coverageInspection);contextBody.append(coverageBox);
@@ -80,6 +85,8 @@
   }
   function enableControls() {buttons.forEach((button,command) => button.disabled = !enabled(command));}
   function mount() {
+   const header = document.querySelector('.page-title');
+   if(header && root.parentElement !== header){header.classList.add('maek-bridge-host');header.append(root);}
    const layout = screen.querySelector('.unified-layout');
    if(layout !== lastLayout) {lastLayout = layout;storedTitle = document.getElementById('page-title')?.textContent || '';}
    if(layout && !layout.contains(flow)) layout.append(flow);
@@ -102,6 +109,7 @@
   function renderTelemetry() {
    const t = online ? state.telemetry || {} : {};
    set(connection,online ? 'Unity 연결됨 · '+state.ageSeconds.toFixed(1)+'초 전 수신' : 'Unity 연결 없음 · 실시간 상태 미수신');
+   set(compactStatus,online ? '연결됨' : '미연결');root.dataset.online = String(online);toggle.title = connection.textContent;
    set(pipeTitle,online ? '실시간 대상 · '+(t.activePipe || '미지정') : '실시간 대상 미수신');
    const stopped = t.phase === 'scenario_stopped';
    const unfinished = finite(t.coverage?.totalPipes) && finite(t.coverage?.observedPipes) ? Math.max(0,t.coverage.totalPipes-t.coverage.observedPipes) : null;

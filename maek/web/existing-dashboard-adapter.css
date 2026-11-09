@@ -1,13 +1,28 @@
 /* Optional same-origin bridge adapter; the repository dashboard owns its design. */
-.maek-bridge{flex-shrink:0;margin-bottom:12px;padding:12px 16px;background:#fff;border-radius:4px;font-size:.875rem}
+.page-title.maek-bridge-host{flex-direction:row;align-items:center;gap:12px;min-height:44px;height:auto}
+.page-title.maek-bridge-host>div:first-child{min-width:0}
+.page-title.maek-bridge-host>.data-mode{display:none}
+.maek-bridge{position:relative;flex:0 0 auto;margin:0 0 0 auto;padding:0;font-size:.8125rem;z-index:20}
+.maek-bridge>.maek-bridge-toggle{display:flex;align-items:center;gap:7px;min-height:32px;padding:4px 8px;border:1px solid var(--line);border-radius:4px;background:#fff;list-style:none;cursor:pointer;white-space:nowrap;font-size:.75rem}
+.maek-bridge-toggle::-webkit-details-marker{display:none}
+.maek-bridge-toggle::before{content:'';width:6px;height:6px;flex-shrink:0;border-radius:50%;background:var(--muted)}
+.maek-bridge[data-online=true]>.maek-bridge-toggle::before{background:var(--blue)}
+.maek-bridge-toggle::after{content:'';width:5px;height:5px;margin-left:2px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:translateY(-2px) rotate(45deg)}
+.maek-bridge[open]>.maek-bridge-toggle::after{transform:translateY(1px) rotate(225deg)}
+.maek-bridge-toggle:hover{background:var(--bg)}
+.maek-bridge-toggle:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.maek-bridge-compact-status{color:var(--muted)}
+.maek-bridge-panel{position:absolute;top:calc(100% + 6px);right:0;width:300px;max-width:calc(100vw - 32px);max-height:min(70dvh,440px);overflow:auto;padding:12px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)}
+.maek-bridge:not([open])>.maek-bridge-panel{display:none}
 .maek-bridge-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px}
 .maek-bridge-row+.maek-bridge-row{margin-top:8px}
-.maek-bridge button{min-height:40px;font-size:.8125rem;padding:6px 10px}
+.maek-bridge button{min-height:32px;font-size:.75rem;padding:4px 8px}
 .maek-bridge button[aria-pressed=true]{border-color:var(--blue);color:var(--blue);background:#eef5fc}
 .maek-bridge-status{color:var(--muted);overflow-wrap:anywhere}
 .maek-bridge-command{margin-top:8px;color:var(--muted);font-size:.8125rem;overflow-wrap:anywhere}
 .maek-bridge details{margin-top:8px}.maek-bridge summary{min-height:32px;align-content:center}
 .maek-bridge-help{color:var(--muted);font-size:.8125rem;margin-top:6px;overflow-wrap:anywhere}
+@media(max-width:699px){.page-title.maek-bridge-host{gap:8px}.maek-bridge>.maek-bridge-toggle{min-height:40px;padding:4px 7px;gap:5px}.maek-bridge button{min-height:40px}}
 .maek-live-flow{display:none}
 body[data-maek-view=live] #screen .unified-layout>.inspection-flow:not(.maek-live-flow),
 body[data-maek-view=live] #screen .problem-strip,
@@ -50,4 +65,4 @@ body[data-maek-view=live] .maek-live-location{display:flex}
 .maek-live-meta{font-family:Consolas,"Courier New",monospace;overflow-wrap:anywhere}
 .maek-live-warning{color:var(--amber)!important}
 body[data-maek-view=saved] .maek-live-marker,body[data-maek-view=saved] .maek-live-pipe,body[data-maek-view=saved] .maek-access-pipe{display:none}
-@media(max-width:699px){.maek-bridge{padding:12px}.maek-bridge-row{gap:8px}.maek-bridge-status{flex-basis:100%}.maek-live-flow .ndt-panel{max-height:none}.maek-live-records{max-height:300px}body[data-maek-view=live] #screen .unified-layout{min-height:0}}
+@media(max-width:699px){.maek-bridge-row{gap:8px}.maek-bridge-status{flex-basis:100%}.maek-live-flow .ndt-panel{max-height:none}.maek-live-records{max-height:300px}body[data-maek-view=live] #screen .unified-layout{min-height:0}}
