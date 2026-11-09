@@ -149,7 +149,7 @@ try {
   assert.equal(await p.$$eval(".visited-zone", (es) => es.length), 2);
   assert.match(await p.$eval(".map-panel", (e) => e.textContent), /방문 구역/);
   assert.match(await p.$eval(".map-panel", (e) => e.textContent), /현재 위치/);
-  assert.match(await p.$eval(".map-panel", (e) => e.textContent), /조치 필요/);
+  assert.match(await p.$eval(".map-panel", (e) => e.textContent), /점검 필요/);
   assert.match(
     await p.$eval(".map-source", (e) => e.textContent),
     /저장 경로 재구성/,

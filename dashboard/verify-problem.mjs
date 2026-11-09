@@ -119,7 +119,7 @@ try {
   );
   assert.match(
     await p.$eval(".ndt-pending", (e) => e.textContent),
-    /검사 결과 미접수/,
+    /검사 결과 미등록/,
   );
   assert.ok((await p.$$eval(".rgb-region", (e) => e.length)) > 0);
   checks.push(
@@ -160,7 +160,7 @@ try {
   await p.waitForSelector(".ndt-measurement");
   assert.match(
     await p.$eval(".ndt-result-row", (e) => e.textContent),
-    /검토 대기/,
+    /검토 필요/,
   );
   await p.reload({ waitUntil: "networkidle0" });
   assert.match(
@@ -204,7 +204,7 @@ try {
   assert.equal(await p.$eval("#page-title", (e) => e.textContent), "배관 조회");
   assert.match(
     await p.$eval(".lookup-overview", (e) => e.textContent),
-    /현장 검사결과 1건/,
+    /비파괴검사등록 1건/,
   );
   await p.click('.pipe-detail [data-route="home"]');
   assert.equal(new URL(p.url()).searchParams.get("pipe"), "BF1-G004");
@@ -306,7 +306,7 @@ try {
   );
   assert.match(
     await p.$eval(".lookup-overview", (e) => e.textContent),
-    /결과 미접수/,
+    /결과 미등록/,
   );
   checks.push(
     "Lookup selection updates the detail and focus without exposing another pipe’s reports",
