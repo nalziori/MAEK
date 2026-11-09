@@ -12,3 +12,8 @@ for(const stage of ['Launching','Approaching','Settling','Analysing','Interrupte
 assert(!thermalHtml(o,'disconnected').includes('<img'));
 assert(thermalHtml(null,'connected').includes('촬영 기록 없음'));
 console.log('Thermal UI: ID/hash/domain, malformed result, phase separation and unavailable-image checks passed');
+
+const pipe='BF1-Q005',actual={...o,assetId:pipe,result:{...r,assetId:pipe}};
+assert(validThermal(actual,pipe));assert(!validThermal(actual,'BF1-G004'));
+const compact=thermalHtml(actual,'connected',pipe,true);assert(compact.includes('BF1-Q005'));assert(!compact.includes('Unity 촬영 RGB 크게 보기'));assert(compact.includes('합성 열화상 크게 보기'));
+assert(!thermalHtml(o,'connected',pipe,true).includes('<img'));

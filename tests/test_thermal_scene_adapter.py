@@ -29,9 +29,39 @@ class ThermalContract(unittest.TestCase):
         self.assertEqual(results[2]['status'],'indeterminate')
 
     def test_identity_hash_dimensions_and_no_defect_truth_input(self):
-        for update in [dict(assetId='BF1-Q005'),dict(geometrySha256='0'*64),dict(width=640),dict(rgbSha256='0'*64),dict(expectedMask=[1])]:
+        for update in [dict(assetId='UNKNOWN-PIPE'),dict(geometrySha256='0'*64),dict(width=640),dict(rgbSha256='0'*64),dict(expectedMask=[1])]:
             r=request();r.update(update)
             with self.assertRaises(ValueError):validate_capture(r)
+
+    def test_existing_pipe_profile_and_isolated_snapshot(self):
+        from thermal_scene import PROFILES
+        self.assertEqual(len(PROFILES),247)
+        r=request();r['assetId']='BF1-Q005'
+        g,_=validate_capture(r)
+        t,q=synthesize(g,'normal',r['assetId'])
+        self.assertLess(float(t[g[:,:,2]>0].max()),100)
+        self.assertEqual(analyse_temperature(t,g[:,:,2]>0,q,'surface_delta')['status'],'no_anomaly_observed')
+        hot,q=synthesize(g,'wet',r['assetId'])
+        self.assertEqual(analyse_temperature(hot,g[:,:,2]>0,q,'surface_delta')['status'],'anomaly_observed')
+        with tempfile.TemporaryDirectory() as d:
+            store=ThermalStore(Path(d));e={k:r[k] for k in ['requestId','sessionId','runId','assetId','startedAt']}
+            store.event(dict(e,sequence=0,stage='Launching'));store.event(dict(e,sequence=4,stage='Analysing'))
+            store.capture(r)
+            other=dict(e,assetId='BF1-G004',requestId='4'*32,runId='4'*32,startedAt='2026-11-09T13:00:00Z')
+            store.event(dict(other,sequence=0,stage='Launching'))
+            state=store.snapshot()['pipes']
+            self.assertEqual(state['BF1-Q005']['result']['assetId'],'BF1-Q005')
+            self.assertIsNone(state['BF1-G004']['result'])
+            self.assertEqual(ThermalStore(Path(d)).snapshot()['pipes']['BF1-Q005']['stage'],'Complete')
+
+    def test_hot_process_pipe_temperature_png_does_not_wrap(self):
+        with tempfile.TemporaryDirectory() as d:
+            store=ThermalStore(Path(d));r=request('normal');r['assetId']='BF1-H200'
+            e={k:r[k] for k in ['requestId','sessionId','runId','assetId','startedAt']}
+            store.event(dict(e,sequence=0,stage='Launching'));store.event(dict(e,sequence=4,stage='Analysing'));result=store.capture(r)
+            t=np.load(Path(d)/r['requestId']/'temperature.npy')
+            png=np.asarray(Image.open(Path(d)/r['requestId']/'temperature16.png')).astype(float)
+            np.testing.assert_allclose(png/10-100,t,atol=.051)
 
     def test_stats_ignore_hot_background(self):
         r=request();g,_=validate_capture(r);t,q=synthesize(g,'normal');roi=g[:,:,2].astype(bool)
