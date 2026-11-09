@@ -397,5 +397,73 @@ python scripts/train_yolo_seg.py benchmark --weights runs/segment/maek/weights/b
 
 Colab에서는 런타임 유형을 GPU로 바꾸고 저장소를 `git clone`한 뒤 `pip install pyyaml pillow pandas numpy ultralytics`
 후 위 명령을 실행하면 됩니다. shifted 조건 성능은 `make_jobs(..., condition="shifted")`로 별도 데이터셋을 렌더링해 `val --data`에
-넘겨 측정합니다. 클래스는 0 corrosion, 1 cui_sign, 2 leak_stain입니다. 이 환경에서는 학습을 실행하지 못했으므로 학습 모델 수치는 없습니다.
+넘겨 측정합니다. 클래스는 0 corrosion, 1 cui_sign, 2 leak_stain입니다. 해커톤에서 학습한 결과는 아래 「해커톤 결과」에 있습니다.
 탑재 자원 측정은 [onboard-resources.md](onboard-resources.md)를 참고하세요.
+
+### 해커톤 결과 (2026-11-09, ① 카메라 YOLO-seg)
+
+평가 기준은 결함 단위 hit입니다. 결함 영역의 30% 이상을 같은 클래스로 예측하면 hit로 세며, `scripts/eval_camera_seg.py`로 쟀습니다.
+모델 선택은 DR 검증셋(seed 12, 600장)으로만 했고, data-v3 `shifted` 400장은 최종 모델에 한 번만 썼습니다.
+
+**최종: data-v3 `shifted` 400장 (1회 평가)**
+
+| 클래스 (결함 수) | HSV 규칙 | E0 | **E4 (최종)** | 95% 구간 (Wilson) | 오탐 | a90 (cm2) |
+|---|---|---|---|---|---|---|
+| corrosion (155) | 0.297 | 0.381 | **0.987** | 0.95 ~ 1.00 | 0.000 | 4.9 |
+| cui_sign (73) | - | 0.096 | **0.836** | 0.73 ~ 0.90 | 0.043 | 86.2 |
+| leak_stain (12) | - | 0.000 | **0.417** | 0.19 ~ 0.68 | 0.000 | 산출 불가 |
+
+**실험 비교: DR 검증셋 600장** (hit, corrosion / cui_sign / leak_stain)
+
+| 실험 | 설정 | hit | 판단 |
+|---|---|---|---|
+| E0 | YOLOv8n-seg, data-v3 train, 증강 없음, 20 epoch | 0.752 / 0.366 / 0.328 | 기준. shifted에서 부식 이미지의 43%를 cui로 예측(클래스 혼동) |
+| E2 | E0 + `hsv_v=0.7 hsv_s=0.8 degrees=10`, 50 epoch | 0.908 / 0.496 / 0.373 | 채택 |
+| E5 | E2 + 추론 전처리 (`--pre clahe` / `gamma`) | 0.772 / 0.481 / 0.343 · 0.888 / 0.489 / 0.388 | 폐기 |
+| **E4** | **DR train(seed 11, 3,000장, 밝기 0.2~1.2, cui 3배·leak 4배) + E2 증강, 50 epoch** | **0.995 / 0.908 / 0.866** | **최종** |
+| E5s | E4 설정, yolov8s-seg | 0.995 / 0.893 / 0.821 | 개선 없음 |
+| E6 | E4 설정, imgsz 960 | 0.990 / 0.908 / 0.776 | 개선 없음 |
+
+가장 어두운 밝기 구간(0.2~0.46)에서 E2 → E4가 가장 크게 올랐습니다(corrosion 0.65 → 0.98, cui_sign 0.21 → 0.74, leak_stain 0.07 → 0.47).
+모델 크기와 해상도는 효과가 없었고, 개선은 데이터(DR·오버샘플링)에서 나왔습니다.
+
+**실제 사진 (공개 데이터셋, `scripts/eval_real_photos.py`)**
+
+| 데이터셋 | 사진 (결함) | 사진 단위 검출 E4 / HSV | 결함 단위 hit E4 / HSV |
+|---|---|---|---|
+| [Corrosion Instance Segmentation](https://universe.roboflow.com/failure-sjoo6/corrosion-instance-segmentation-sfcpc-1yuxj) (CC BY 4.0) train | 1,442 (21,446) | 0.40 / 0.996 | 0.07 / 0.38 |
+| [SE - Spill Data](https://universe.roboflow.com/ucf-hbgtt/se-spill-data) `spill-leak-stain` | 126 (203) | 0.13 / - | 0.00 / - |
+| [pipe leak](https://universe.roboflow.com/pipe-leak/pipe-leak-yshqq) | 2,970 (2,529) | 0.07 / - | 0.01 / - |
+| [pipe segmentation](https://universe.roboflow.com/pnu/pipe-segmentation) (결함 없음) | 980 | 오탐 corrosion 0.001, leak_stain 0.41 | - |
+
+합성 데이터만으로 학습한 모델은 실제 사진에서 크게 떨어집니다(sim-to-real). 실제 누설은 흐르는 물이라서 렌더러가 그리는 얼룩과 모습이 다릅니다.
+
+**실제 사진 미세조정**
+
+평가는 같은 corrosion 데이터셋의 test 205장(결함 2,140개)으로 했고, 이 사진들은 학습과 모델 선택에 쓰지 않았습니다. 학습은 80 epoch이고, 조건마다 1회 실행했습니다.
+
+| 실제 학습 사진 | E4에서 시작 | COCO(yolov8n-seg)에서 시작 |
+|---|---|---|
+| 0 | 0.095 | - |
+| 50 | **0.402** | 0.310 |
+| 200 | 0.512 | **0.614** |
+| 1,442 | 0.676 | 0.697 |
+
+같은 test에서 HSV 규칙은 0.400입니다. 미세조정한 모델의 사진 단위 검출은 0.90~0.99입니다.
+현장 사진이 50장일 때는 합성 사전학습이 0.09 앞서고, 200장부터는 일반 사전학습이 따라잡거나 앞섭니다. 조건당 1회 실행이라 이 차이는 잠정값입니다.
+
+재현:
+
+```bash
+python scripts/make_dr_camera.py --out dr_train --n 3000 --seed 11 --set brightness=0.2,1.2
+python scripts/make_dr_camera.py --out dr_val   --n 600  --seed 12 --set brightness=0.2,1.2
+python scripts/train_yolo_seg.py train --data dr_train/dataset.yaml --epochs 50 --name e4_dr_aug --opt hsv_v=0.7 --opt hsv_s=0.8 --opt degrees=10
+python scripts/eval_camera_seg.py --data dr_val --seed 12 --method yolo --weights runs/segment/e4_dr_aug/weights/best.pt --out out/e4_drval
+python scripts/eval_camera_seg.py --data release/camera/shifted --seed 101 --method yolo --weights runs/segment/e4_dr_aug/weights/best.pt --out out/final_shifted
+# 실제 사진 미세조정: Roboflow YOLOv8 내보내기를 클래스 0 하나로 바꾸고 50 / 200 / 전체 학습 목록 생성
+python scripts/prep_real_finetune.py --src Corrosion-Instance-Segmentation-3 --out rc
+python scripts/train_yolo_seg.py train --weights e4_best.pt --data rc/ds_50.yaml --epochs 80 --name r1_50
+python scripts/eval_real_photos.py --images rc/test/images --map 0=corrosion --method yolo --weights runs/segment/r1_50/weights/best.pt --out out/r1_50
+```
+
+학습 환경은 Colab T4(E0~E4)와 RTX 4090(E5s, E6, 미세조정)입니다. 가중치와 평가 결과는 팀 공유 드라이브 `MAEK/colab/`에 있습니다.
