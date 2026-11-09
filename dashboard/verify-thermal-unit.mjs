@@ -17,3 +17,12 @@ const pipe='BF1-Q005',actual={...o,assetId:pipe,result:{...r,assetId:pipe}};
 assert(validThermal(actual,pipe));assert(!validThermal(actual,'BF1-G004'));
 const compact=thermalHtml(actual,'connected',pipe,true);assert(compact.includes('BF1-Q005'));assert(!compact.includes('Unity 촬영 RGB 크게 보기'));assert(compact.includes('합성 열화상 크게 보기'));
 assert(!thermalHtml(o,'connected',pipe,true).includes('<img'));
+
+const {thermalPhotoHtml}=await import('./thermal-view.mjs');
+const photo=thermalPhotoHtml(actual,'connected',pipe);
+assert(photo.includes('class="sensor-image"'));assert(photo.includes('/'+id+'/thermal.png'));
+for(const marker of ['thermal-stats','thermal-legend','thermal-verdict','thermal-details','<rect','50.0'])assert(!photo.includes(marker));
+assert(!thermalPhotoHtml(actual,'connected','BF1-G004').includes('<img'));
+assert(!thermalPhotoHtml({...actual,stage:'Analysing',result:null},'connected',pipe).includes('<img'));
+assert(!thermalPhotoHtml(actual,'disconnected',pipe).includes('<img'));
+console.log('Main thermal photo: original image class, photo-only content and identity guards passed');
