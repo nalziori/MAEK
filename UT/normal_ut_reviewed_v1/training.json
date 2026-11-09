@@ -1,0 +1,22 @@
+{
+  "models": [
+    {
+      "seed": 1601,
+      "loss": 0.09286285936832428
+    },
+    {
+      "seed": 1602,
+      "loss": 0.08946290612220764
+    },
+    {
+      "seed": 1603,
+      "loss": 0.09054277837276459
+    }
+  ],
+  "device": "NVIDIA GeForce RTX 4090",
+  "torch": "2.14.1+cu132",
+  "peak_allocated_bytes": 68013568,
+  "train_groups": 2000,
+  "train_rows": 4000,
+  "parameters": 145
+}

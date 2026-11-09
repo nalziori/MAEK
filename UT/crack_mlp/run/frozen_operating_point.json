@@ -1,0 +1,96 @@
+{
+  "selected_seed": 5101,
+  "weight_sha256": "acc51c5aee72b1b4ee576a67ecb87ae36a6f8c4c8fc8f056309b603a4c8e0075",
+  "angle_thresholds": {
+    "45.0": -4.247056007385254,
+    "60.0": 3.1076440811157227,
+    "70.0": 1.4629830121994019
+  },
+  "strata": [
+    {
+      "angle": 45.0,
+      "source": "general",
+      "n": 1000,
+      "zero_based_rank": 998,
+      "threshold": -4.315528392791748
+    },
+    {
+      "angle": 45.0,
+      "source": "shifted",
+      "n": 1000,
+      "zero_based_rank": 998,
+      "threshold": -4.741009712219238
+    },
+    {
+      "angle": 45.0,
+      "source": "geometry",
+      "n": 1000,
+      "zero_based_rank": 998,
+      "threshold": -4.770054340362549
+    },
+    {
+      "angle": 45.0,
+      "source": "thermal_geometry",
+      "n": 1000,
+      "zero_based_rank": 998,
+      "threshold": -4.247056007385254
+    },
+    {
+      "angle": 60.0,
+      "source": "general",
+      "n": 1000,
+      "zero_based_rank": 998,
+      "threshold": -4.337037086486816
+    },
+    {
+      "angle": 60.0,
+      "source": "shifted",
+      "n": 1000,
+      "zero_based_rank": 998,
+      "threshold": -3.3437042236328125
+    },
+    {
+      "angle": 60.0,
+      "source": "geometry",
+      "n": 1000,
+      "zero_based_rank": 998,
+      "threshold": -0.22557872533798218
+    },
+    {
+      "angle": 60.0,
+      "source": "thermal_geometry",
+      "n": 1000,
+      "zero_based_rank": 998,
+      "threshold": 3.1076440811157227
+    },
+    {
+      "angle": 70.0,
+      "source": "general",
+      "n": 1000,
+      "zero_based_rank": 998,
+      "threshold": -3.505988359451294
+    },
+    {
+      "angle": 70.0,
+      "source": "shifted",
+      "n": 1000,
+      "zero_based_rank": 998,
+      "threshold": -0.5741304755210876
+    },
+    {
+      "angle": 70.0,
+      "source": "geometry",
+      "n": 1000,
+      "zero_based_rank": 998,
+      "threshold": 0.20271003246307373
+    },
+    {
+      "angle": 70.0,
+      "source": "thermal_geometry",
+      "n": 1000,
+      "zero_based_rank": 998,
+      "threshold": 1.4629830121994019
+    }
+  ],
+  "delta_each": 0.0020833333333333333
+}

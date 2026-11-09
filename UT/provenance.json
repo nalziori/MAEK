@@ -1,0 +1,127 @@
+{
+  "copied_files": {
+    "runtime/maek/__init__.py": {
+      "source": "find_info/github_ut_v2_artifacts_20261109/maek/__init__.py",
+      "sha256": "95a3406f55f2d6fb2ab91b45107c052307091fe352bb496f6fc37c3847f73be6",
+      "packaged_sha256": "95a3406f55f2d6fb2ab91b45107c052307091fe352bb496f6fc37c3847f73be6"
+    },
+    "runtime/maek/ut.py": {
+      "source": "find_info/github_ut_v2_artifacts_20261109/maek/ut.py",
+      "sha256": "7751bf0c9e6fad2acaf7f583598cef033b87387890aa6934dbfb0c7fd6a9e0fb",
+      "packaged_sha256": "7751bf0c9e6fad2acaf7f583598cef033b87387890aa6934dbfb0c7fd6a9e0fb"
+    },
+    "runtime/maek/pit.py": {
+      "source": "find_info/github_ut_v2_artifacts_20261109/maek/pit.py",
+      "sha256": "18cec1e75aa4e9b77012328dd123a426e55e7335c45ff2ac9aebcdb71cf2d49d",
+      "packaged_sha256": "18cec1e75aa4e9b77012328dd123a426e55e7335c45ff2ac9aebcdb71cf2d49d"
+    },
+    "runtime/maek/params.py": {
+      "source": "find_info/github_ut_v2_artifacts_20261109/maek/params.py",
+      "sha256": "77a45d5ce0dcf281110e5e25a5d03b45d8d6787a89a6728e234877d3106c87f9",
+      "packaged_sha256": "77a45d5ce0dcf281110e5e25a5d03b45d8d6787a89a6728e234877d3106c87f9"
+    },
+    "runtime/maek/pit_model.json": {
+      "source": "find_info/github_ut_v2_artifacts_20261109/maek/pit_model.json",
+      "sha256": "d7e3c1184299b48b1772cc093e4a910cc3669d4fe378efd61e7be5a64a1d5fe8",
+      "packaged_sha256": "d7e3c1184299b48b1772cc093e4a910cc3669d4fe378efd61e7be5a64a1d5fe8"
+    },
+    "runtime/config/default.yaml": {
+      "source": "find_info/github_ut_v2_artifacts_20261109/config/default.yaml",
+      "sha256": "93654f027753ce84c5dcece112b57a5b9dffe4846e7ff35f975c558172c7281e",
+      "packaged_sha256": "93654f027753ce84c5dcece112b57a5b9dffe4846e7ff35f975c558172c7281e"
+    },
+    "normal_ut_reviewed_v1/protocol.json": {
+      "source": "find_info/B_UT_root_cause_20261109/normal_ut_comparison/download_v2/normal_ut_reviewed_v1/protocol.json",
+      "sha256": "89f466c678326d8ae36aee1bd5c6e2c10ea64ad3cb1d39d9023b546abe638ba1",
+      "packaged_sha256": "89f466c678326d8ae36aee1bd5c6e2c10ea64ad3cb1d39d9023b546abe638ba1"
+    },
+    "normal_ut_reviewed_v1/reference_calibration.json": {
+      "source": "find_info/B_UT_root_cause_20261109/normal_ut_comparison/download_v2/normal_ut_reviewed_v1/reference_calibration.json",
+      "sha256": "2974ef8b4da4e6b5b3abd56633fc5fa9c2a1013a7c17922a790c3da62e4cbde8",
+      "packaged_sha256": "2974ef8b4da4e6b5b3abd56633fc5fa9c2a1013a7c17922a790c3da62e4cbde8"
+    },
+    "normal_ut_reviewed_v1/training.json": {
+      "source": "find_info/B_UT_root_cause_20261109/normal_ut_comparison/download_v2/normal_ut_reviewed_v1/training.json",
+      "sha256": "fcca9299d13e069db8420a1b2c57dc754fd87b199a1737752aec99f1fd8897cd",
+      "packaged_sha256": "fcca9299d13e069db8420a1b2c57dc754fd87b199a1737752aec99f1fd8897cd"
+    },
+    "reports/pitting_final_results.json": {
+      "source": "find_info/B_UT_root_cause_20261109/normal_ut_comparison/download_v2/normal_ut_repair_v2/final_results.json",
+      "sha256": "1d298dd9819cbbc9ef0d1b1eda9f4a54796273a4e2da5dcdc44a269fc6192bfa",
+      "packaged_sha256": "1d298dd9819cbbc9ef0d1b1eda9f4a54796273a4e2da5dcdc44a269fc6192bfa"
+    },
+    "reports/pitting_previous_replay_verification.json": {
+      "source": "find_info/github_ut_v2_artifacts_20261109/verification.json",
+      "sha256": "4799bb8775e4a66965f908706f58adbccffe3b48d30868b636caf447438ab75a",
+      "packaged_sha256": "4799bb8775e4a66965f908706f58adbccffe3b48d30868b636caf447438ab75a"
+    },
+    "crack_cnn/ut_design_v2.py": {
+      "source": "find_info/B_UT_AI_design_20261109/ut_design_v2.py",
+      "sha256": "1ecc7dd55961f3b568283a56f28f33ccc6c621593de166c374d696b6988e9fd1",
+      "packaged_sha256": "9e13732c19569d09a6b706cf360836e0724c9f33e85c52c3dda50db79467fdf2"
+    },
+    "crack_cnn/crack_training_v1/crack_cnn_seed1110.pt": {
+      "source": "find_info/B_UT_AI_design_20261109/crack_training_v1/crack_cnn_seed1110.pt",
+      "sha256": "384f85dfdd1ec6ec62f90ccdc956b865eb612c60ab948ac1c4345ed5c3665ad7",
+      "packaged_sha256": "384f85dfdd1ec6ec62f90ccdc956b865eb612c60ab948ac1c4345ed5c3665ad7"
+    },
+    "crack_cnn/crack_training_v1/config_snapshot.json": {
+      "source": "find_info/B_UT_AI_design_20261109/crack_training_v1/config_snapshot.json",
+      "sha256": "dffa55df550460a846e1d799587a6d6f5dc3892d1f229e722e5cec53b69553f1",
+      "packaged_sha256": "dffa55df550460a846e1d799587a6d6f5dc3892d1f229e722e5cec53b69553f1"
+    },
+    "crack_cnn/crack_training_v1/protocol.json": {
+      "source": "find_info/B_UT_AI_design_20261109/crack_training_v1/protocol.json",
+      "sha256": "e4cdfe5f01c2677ee45b6baa30f54670c45a0e6cbae19da120faadca6612d56e",
+      "packaged_sha256": "e4cdfe5f01c2677ee45b6baa30f54670c45a0e6cbae19da120faadca6612d56e"
+    },
+    "crack_cnn/crack_profile_v3/frozen_operating_point.json": {
+      "source": "find_info/B_UT_AI_design_20261109/crack_profile_v3/frozen_operating_point.json",
+      "sha256": "2e2190639efd500e35487b820fa4baf36e05ee9b2ee5cfb7ab7a0d5451486ff3",
+      "packaged_sha256": "2e2190639efd500e35487b820fa4baf36e05ee9b2ee5cfb7ab7a0d5451486ff3"
+    },
+    "crack_cnn/crack_profile_v3/protocol.json": {
+      "source": "find_info/B_UT_AI_design_20261109/crack_profile_v3/protocol.json",
+      "sha256": "4b46cfa820fc37391b2bf33a85d7f802a57b85f8ef70172828a71af40e29c175",
+      "packaged_sha256": "4b46cfa820fc37391b2bf33a85d7f802a57b85f8ef70172828a71af40e29c175"
+    },
+    "crack_cnn/crack_profile_v3/results.json": {
+      "source": "find_info/B_UT_AI_design_20261109/crack_profile_v3/results.json",
+      "sha256": "6edf5cb1806133c622a5841b8e589e8087916534e69fce33f44321b4db32e260",
+      "packaged_sha256": "6edf5cb1806133c622a5841b8e589e8087916534e69fce33f44321b4db32e260"
+    },
+    "crack_cnn/crack_profile_v3/independent_recount.json": {
+      "source": "find_info/B_UT_AI_design_20261109/crack_profile_v3/independent_recount.json",
+      "sha256": "b6e47bbf722d5f89f3434159baa63da6b68b7267d1513f121d98bb6bd30eaf32",
+      "packaged_sha256": "b6e47bbf722d5f89f3434159baa63da6b68b7267d1513f121d98bb6bd30eaf32"
+    },
+    "crack_cnn/crack_profile_v3/seed_and_gate_ablation.json": {
+      "source": "find_info/B_UT_AI_design_20261109/crack_profile_v3/seed_and_gate_ablation.json",
+      "sha256": "6623048ddda208439a1204fa4cbe9fab409ac2fa443dfab1ad17c03122f88b81",
+      "packaged_sha256": "6623048ddda208439a1204fa4cbe9fab409ac2fa443dfab1ad17c03122f88b81"
+    },
+    "crack_cnn/crack_profile_v3/calibrated_scalar_baseline.json": {
+      "source": "find_info/B_UT_AI_design_20261109/crack_profile_v3/calibrated_scalar_baseline.json",
+      "sha256": "b8201cfffeb94d1fc43d5d5a3b8fff40e6871cb8ea11cabeca261eb83e64d742",
+      "packaged_sha256": "b8201cfffeb94d1fc43d5d5a3b8fff40e6871cb8ea11cabeca261eb83e64d742"
+    },
+    "crack_cnn/geometry_stress_v1/protocol.json": {
+      "source": "find_info/B_UT_AI_design_20261109/geometry_stress_v1/protocol.json",
+      "sha256": "ebc7bef21773d5dd25f64279f869d36be66716dea766d2a9a2a36cabd62352d0",
+      "packaged_sha256": "ebc7bef21773d5dd25f64279f869d36be66716dea766d2a9a2a36cabd62352d0"
+    },
+    "crack_cnn/geometry_stress_v1/results.json": {
+      "source": "find_info/B_UT_AI_design_20261109/geometry_stress_v1/results.json",
+      "sha256": "ecd3b3cda5135a6f6870363b6d76e57c0af789dd79e53b5d8c6299ef9ecfa0a9",
+      "packaged_sha256": "ecd3b3cda5135a6f6870363b6d76e57c0af789dd79e53b5d8c6299ef9ecfa0a9"
+    }
+  },
+  "portability_edits": [
+    "normal_ut_comparison selects UT/runtime when present",
+    "crack runtime imports the bundled maek and two exact legacy helper functions",
+    "Ruff import ordering and dict literal formatting in bundled copies"
+  ],
+  "unchanged_science": "weights, feature equations, model architecture, thresholds and wall estimator",
+  "examples": "selected saved final traces for portability checks, not a new performance test",
+  "original_server_paths": "frozen_decisions hashes are preserved provenance; manifest.json verifies this handoff"
+}

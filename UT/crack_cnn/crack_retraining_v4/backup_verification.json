@@ -1,0 +1,10 @@
+{
+  "status": "verified",
+  "server_archive_sha256": "909c0f0b222b030b0c1865342ccdbe23effc8a330d1d0c0807f02fe50eba7cbe",
+  "server_archive_bytes": 656435200,
+  "original_run_files_verified": 46,
+  "frozen_source_files_verified": 8,
+  "extracted_files": 118,
+  "path": "C:\\MAEK\\UT\\crack_cnn\\crack_retraining_v4",
+  "note": "Original upload_hashes.json predates smoke correction; run/protocol source hashes and this download_manifest describe executed files."
+}

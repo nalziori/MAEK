@@ -1,0 +1,20 @@
+{
+  "checkpoints": 3,
+  "parameters": [
+    145,
+    145,
+    145
+  ],
+  "normalization_lengths": [
+    7,
+    7,
+    7
+  ],
+  "probabilities_checked": 16000,
+  "max_probability_difference": 1.7881393432617188e-07,
+  "decision_rows": 24,
+  "wall_predictions": 128,
+  "max_wall_difference_mm": 4.760636329592671e-13,
+  "hashes_match_downloaded_training_archive": true,
+  "new_training": false
+}

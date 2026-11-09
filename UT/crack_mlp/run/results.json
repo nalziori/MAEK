@@ -1,0 +1,389 @@
+{
+  "status": "completed",
+  "selected_seed": 5101,
+  "scope": "synthetic same-generator held-out, no physical acquisition needed",
+  "results": {
+    "general": {
+      "mlp": {
+        "tp": 1200,
+        "positive_units": 1200,
+        "fp": 3,
+        "normal_units": 1200,
+        "recall": 1.0,
+        "far": 0.0025,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "angles": {
+          "45.0": {
+            "tp": 402,
+            "positive_units": 402,
+            "fp": 3,
+            "normal_units": 398,
+            "recall": 1.0,
+            "far": 0.007537688442211055,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 398,
+            "positive_units": 398,
+            "fp": 0,
+            "normal_units": 402,
+            "recall": 1.0,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 400,
+            "positive_units": 400,
+            "fp": 0,
+            "normal_units": 400,
+            "recall": 1.0,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      },
+      "cnn": {
+        "tp": 1200,
+        "positive_units": 1200,
+        "fp": 1,
+        "normal_units": 1200,
+        "recall": 1.0,
+        "far": 0.0008333333333333334,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "angles": {
+          "45.0": {
+            "tp": 402,
+            "positive_units": 402,
+            "fp": 1,
+            "normal_units": 398,
+            "recall": 1.0,
+            "far": 0.002512562814070352,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 398,
+            "positive_units": 398,
+            "fp": 0,
+            "normal_units": 402,
+            "recall": 1.0,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 400,
+            "positive_units": 400,
+            "fp": 0,
+            "normal_units": 400,
+            "recall": 1.0,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      }
+    },
+    "shifted": {
+      "mlp": {
+        "tp": 1195,
+        "positive_units": 1200,
+        "fp": 0,
+        "normal_units": 1200,
+        "recall": 0.9958333333333333,
+        "far": 0.0,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "angles": {
+          "45.0": {
+            "tp": 379,
+            "positive_units": 379,
+            "fp": 0,
+            "normal_units": 421,
+            "recall": 1.0,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 399,
+            "positive_units": 401,
+            "fp": 0,
+            "normal_units": 399,
+            "recall": 0.9950124688279302,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 417,
+            "positive_units": 420,
+            "fp": 0,
+            "normal_units": 380,
+            "recall": 0.9928571428571429,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      },
+      "cnn": {
+        "tp": 1184,
+        "positive_units": 1200,
+        "fp": 0,
+        "normal_units": 1200,
+        "recall": 0.9866666666666667,
+        "far": 0.0,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "angles": {
+          "45.0": {
+            "tp": 375,
+            "positive_units": 379,
+            "fp": 0,
+            "normal_units": 421,
+            "recall": 0.9894459102902374,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 395,
+            "positive_units": 401,
+            "fp": 0,
+            "normal_units": 399,
+            "recall": 0.9850374064837906,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 414,
+            "positive_units": 420,
+            "fp": 0,
+            "normal_units": 380,
+            "recall": 0.9857142857142858,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      }
+    },
+    "geometry": {
+      "mlp": {
+        "tp": 1194,
+        "positive_units": 1200,
+        "fp": 0,
+        "normal_units": 1200,
+        "recall": 0.995,
+        "far": 0.0,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "angles": {
+          "45.0": {
+            "tp": 409,
+            "positive_units": 409,
+            "fp": 0,
+            "normal_units": 391,
+            "recall": 1.0,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 389,
+            "positive_units": 394,
+            "fp": 0,
+            "normal_units": 406,
+            "recall": 0.9873096446700508,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 396,
+            "positive_units": 397,
+            "fp": 0,
+            "normal_units": 403,
+            "recall": 0.9974811083123426,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      },
+      "cnn": {
+        "tp": 1188,
+        "positive_units": 1200,
+        "fp": 0,
+        "normal_units": 1200,
+        "recall": 0.99,
+        "far": 0.0,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "angles": {
+          "45.0": {
+            "tp": 407,
+            "positive_units": 409,
+            "fp": 0,
+            "normal_units": 391,
+            "recall": 0.9951100244498777,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 389,
+            "positive_units": 394,
+            "fp": 0,
+            "normal_units": 406,
+            "recall": 0.9873096446700508,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 392,
+            "positive_units": 397,
+            "fp": 0,
+            "normal_units": 403,
+            "recall": 0.9874055415617129,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      }
+    },
+    "thermal_geometry": {
+      "mlp": {
+        "tp": 1191,
+        "positive_units": 1200,
+        "fp": 1,
+        "normal_units": 1200,
+        "recall": 0.9925,
+        "far": 0.0008333333333333334,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "angles": {
+          "45.0": {
+            "tp": 389,
+            "positive_units": 390,
+            "fp": 1,
+            "normal_units": 410,
+            "recall": 0.9974358974358974,
+            "far": 0.0024390243902439024,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 393,
+            "positive_units": 397,
+            "fp": 0,
+            "normal_units": 403,
+            "recall": 0.9899244332493703,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 409,
+            "positive_units": 413,
+            "fp": 0,
+            "normal_units": 387,
+            "recall": 0.9903147699757869,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      },
+      "cnn": {
+        "tp": 1180,
+        "positive_units": 1200,
+        "fp": 0,
+        "normal_units": 1200,
+        "recall": 0.9833333333333333,
+        "far": 0.0,
+        "invalid_count": 0,
+        "partial_window_count": 0,
+        "followup_required_count": 0,
+        "angles": {
+          "45.0": {
+            "tp": 386,
+            "positive_units": 390,
+            "fp": 0,
+            "normal_units": 410,
+            "recall": 0.9897435897435898,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "60.0": {
+            "tp": 390,
+            "positive_units": 397,
+            "fp": 0,
+            "normal_units": 403,
+            "recall": 0.982367758186398,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          },
+          "70.0": {
+            "tp": 404,
+            "positive_units": 413,
+            "fp": 0,
+            "normal_units": 387,
+            "recall": 0.9782082324455206,
+            "far": 0.0,
+            "invalid_count": 0,
+            "partial_window_count": 0,
+            "followup_required_count": 0
+          }
+        }
+      }
+    }
+  },
+  "parameter_count": 1601,
+  "cnn_parameter_count": 12313,
+  "fresh_units": 9600,
+  "fresh_vs_previous_rf_duplicates": 0,
+  "peak_torch_allocated_bytes": 72969728,
+  "peak_torch_reserved_bytes": 92274688
+}

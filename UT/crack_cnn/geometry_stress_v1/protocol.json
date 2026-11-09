@@ -1,0 +1,37 @@
+{
+  "origin": "synthetic diagnostic ray model only",
+  "n_per_source": 1500,
+  "sources": {
+    "reference_shift": [
+      2026110971,
+      false,
+      false
+    ],
+    "geometry_error": [
+      2026110972,
+      false,
+      true
+    ],
+    "thermal_refraction": [
+      2026110973,
+      true,
+      true
+    ]
+  },
+  "nominal_wall_first": true,
+  "wall_error_sd_mm": 0.25,
+  "angle_error_sd_deg": 0.5,
+  "snell_residual_angle_sd_deg": 0.1,
+  "wedge_error_sd_ns": 25,
+  "temperature_true_range_c": [
+    100,
+    175
+  ],
+  "temperature_measurement_sd_c": 15,
+  "snell_assumption": "fixed incident wedge angle, constant wedge speed; steel Vs changes with temperature; no curved-ray, weld anisotropy or mode-conversion amplitude physics",
+  "inference_inputs": "nominal wall and nominal probe profile, measured temperature only; no true geometry",
+  "paired_correction": "thermal source tested with fixed nominal angle and measured-temperature Snell angle, both predeclared; no recalibration",
+  "thickness_scope": "GT known ID-corner-positive evaluation cohort only; detector misses count tolerance misses; normals are no-path",
+  "stopping_rule": "diagnostic only, no tuning or release selection from these outcomes",
+  "weight_sha256": "384f85dfdd1ec6ec62f90ccdc956b865eb612c60ab948ac1c4345ed5c3665ad7"
+}

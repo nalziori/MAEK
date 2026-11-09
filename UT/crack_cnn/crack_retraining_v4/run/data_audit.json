@@ -1,0 +1,6 @@
+{
+  "unique_unit_ids": 27600,
+  "unique_rf_sha256": 27600,
+  "split_rf_duplicates": 0,
+  "caveat": "RF hash uniqueness does not prove independent real specimens; all scenes synthetic"
+}

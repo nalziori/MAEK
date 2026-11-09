@@ -1,0 +1,18 @@
+extend = "../pyproject.toml"
+extend-exclude = ["notebooks/UT.ipynb"]
+
+# Byte-exact experiment snapshots are hash-referenced by frozen protocols.
+# Keep style-only findings visible in the provenance, without rewriting their bytes.
+[lint.per-file-ignores]
+"crack_cnn/angle_crack_runtime.py" = ["I001"]
+"crack_cnn/crack_helpers.py" = ["I001"]
+"crack_cnn/crack_retraining_v4/crack_cnn/angle_crack_runtime.py" = ["I001"]
+"crack_cnn/crack_retraining_v4/crack_cnn/crack_helpers.py" = ["I001"]
+"crack_cnn/crack_retraining_v4/train_crack_gpu_v4.py" = ["I001", "C408"]
+"crack_cnn/crack_retraining_v4/audit_gpu_v4.py" = ["I001", "C408"]
+"crack_cnn/crack_retraining_v4/pod_metrics_snapshot.py" = ["I001"]
+"crack_mlp/crack_mlp.py" = ["I001"]
+"crack_mlp/train_mlp_gpu.py" = ["I001"]
+"crack_mlp/predict_mlp.py" = ["I001"]
+"predict_ascan.py" = ["I001"]
+"verify_examples.py" = ["I001"]

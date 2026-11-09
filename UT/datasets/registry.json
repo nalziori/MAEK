@@ -1,0 +1,511 @@
+{
+  "schema_version": 1,
+  "count": 63,
+  "total_bytes": 1028651755,
+  "files": [
+    {
+      "path": "data/crack/geometry_stress_v1/geometry_error_truth.csv",
+      "bytes": 240103,
+      "sha256": "83c6c9d15668de38cb591bf0793609794838814f38dcde65e4b9f74ae91fcf06",
+      "source": "find_info/data/crack/geometry_stress_v1/geometry_error_truth.csv",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/geometry_stress_v1/predictions.csv",
+      "bytes": 848914,
+      "sha256": "b1d883dd69fffeb2c654a640e5b0dd7364007364ec0de97fcaf97fdea0fb2a86",
+      "source": "find_info/data/crack/geometry_stress_v1/predictions.csv",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/geometry_stress_v1/protocol.json",
+      "bytes": 1346,
+      "sha256": "ebc7bef21773d5dd25f64279f869d36be66716dea766d2a9a2a36cabd62352d0",
+      "source": "find_info/data/crack/geometry_stress_v1/protocol.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/geometry_stress_v1/reference_shift_truth.csv",
+      "bytes": 191948,
+      "sha256": "754ad89094ce1cf1a551699e84e0bd56fd4bc3e4893dd9298f042c8a77bddabe",
+      "source": "find_info/data/crack/geometry_stress_v1/reference_shift_truth.csv",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/geometry_stress_v1/results.json",
+      "bytes": 8517,
+      "sha256": "ecd3b3cda5135a6f6870363b6d76e57c0af789dd79e53b5d8c6299ef9ecfa0a9",
+      "source": "find_info/data/crack/geometry_stress_v1/results.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/geometry_stress_v1/thermal_refraction_truth.csv",
+      "bytes": 240070,
+      "sha256": "30dc79377996760e034cf782358b6799345ca6e27939b5b9a98c6f650fa30169",
+      "source": "find_info/data/crack/geometry_stress_v1/thermal_refraction_truth.csv",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/measured_auxiliary/previous_groupcv_v2/protocol.json",
+      "bytes": 2096,
+      "sha256": "45d01497365bf54a506343d043fcca7b305feb700c56bf27c5e9650b9a60f737",
+      "source": "find_info/data/crack/measured_auxiliary/previous_groupcv_v2/protocol.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/measured_auxiliary/previous_groupcv_v2/results.json",
+      "bytes": 9873,
+      "sha256": "fe15a857ce26b3a82a6ab3b64a81f32609b8a0b393c9f55ddd5a78a967863e5c",
+      "source": "find_info/data/crack/measured_auxiliary/previous_groupcv_v2/results.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/measured_auxiliary/temporal_followup/recovery_protocol.json",
+      "bytes": 603,
+      "sha256": "bfd4b682ce07bde4bd4db1d69f65ac6342e8135c11fab23bb8736b3d6369ce81",
+      "source": "find_info/data/crack/measured_auxiliary/temporal_followup/recovery_protocol.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/measured_auxiliary/temporal_followup/results.json",
+      "bytes": 135815,
+      "sha256": "0d9cbdb24f29111b3627c197fa202543a6fe8d904cf93d82af021438685e6243",
+      "source": "find_info/data/crack/measured_auxiliary/temporal_followup/results.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/measured_auxiliary/temporal_followup/training_protocol.json",
+      "bytes": 4033,
+      "sha256": "4bbba5b33802ae4b847546b2f349fc2c54e0a71cc0d54107171af55cfd2b780a",
+      "source": "find_info/data/crack/measured_auxiliary/temporal_followup/training_protocol.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/artifact_hashes.json",
+      "bytes": 1088,
+      "sha256": "15670602c0f264110b6c40c88e75bcfc81fae3c7998127335ae92f578d64a7d6",
+      "source": "find_info/data/crack/synthetic_angle_v3/artifact_hashes.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/calibrated_scalar_baseline.json",
+      "bytes": 4590,
+      "sha256": "b8201cfffeb94d1fc43d5d5a3b8fff40e6871cb8ea11cabeca261eb83e64d742",
+      "source": "find_info/data/crack/synthetic_angle_v3/calibrated_scalar_baseline.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/calibration_dr_normal_labels.csv",
+      "bytes": 1061155,
+      "sha256": "e983014d95d155af9af4097d4a19869aac30fbee8c4dc4ec067f586b404b4406",
+      "source": "find_info/data/crack/synthetic_angle_v3/calibration_dr_normal_labels.csv",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/calibration_general_normal_labels.csv",
+      "bytes": 1018354,
+      "sha256": "8b6422e2ac44209cc2b6f7e5eebfa7cd31d2b5ae793801e5cca5d05faa302b20",
+      "source": "find_info/data/crack/synthetic_angle_v3/calibration_general_normal_labels.csv",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/calibration_logits_all_seeds.csv",
+      "bytes": 3728364,
+      "sha256": "dd3f206a0657e33b79f5a2ccbb847c5b3e7acd3b024acf0d8dbc82182e802eb2",
+      "source": "find_info/data/crack/synthetic_angle_v3/calibration_logits_all_seeds.csv",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/calibration_predictions.csv",
+      "bytes": 1182772,
+      "sha256": "7ca3663c7e5cf5c349d9c0c1df17d3b70253a94779b977801ffc9778c15278dd",
+      "source": "find_info/data/crack/synthetic_angle_v3/calibration_predictions.csv",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/frozen_operating_point.json",
+      "bytes": 1137,
+      "sha256": "2e2190639efd500e35487b820fa4baf36e05ee9b2ee5cfb7ab7a0d5451486ff3",
+      "source": "find_info/data/crack/synthetic_angle_v3/frozen_operating_point.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/independent_recount.json",
+      "bytes": 2296,
+      "sha256": "b6e47bbf722d5f89f3434159baa63da6b68b7267d1513f121d98bb6bd30eaf32",
+      "source": "find_info/data/crack/synthetic_angle_v3/independent_recount.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/protocol.json",
+      "bytes": 1711,
+      "sha256": "4b46cfa820fc37391b2bf33a85d7f802a57b85f8ef70172828a71af40e29c175",
+      "source": "find_info/data/crack/synthetic_angle_v3/protocol.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/results.json",
+      "bytes": 13116,
+      "sha256": "6edf5cb1806133c622a5841b8e589e8087916534e69fce33f44321b4db32e260",
+      "source": "find_info/data/crack/synthetic_angle_v3/results.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/seed_and_gate_ablation.csv",
+      "bytes": 2095,
+      "sha256": "ed9fea14c8e4b56465e5a8578c765865659c8022612c0710c91a68264d2094da",
+      "source": "find_info/data/crack/synthetic_angle_v3/seed_and_gate_ablation.csv",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/seed_and_gate_ablation.json",
+      "bytes": 6867,
+      "sha256": "6623048ddda208439a1204fa4cbe9fab409ac2fa443dfab1ad17c03122f88b81",
+      "source": "find_info/data/crack/synthetic_angle_v3/seed_and_gate_ablation.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/test_general_inputs.npz",
+      "bytes": 136453839,
+      "sha256": "a514681b4be085b0571c7bfc0f81aedc0743a5a0ae4830b1ac7255a6b451f89d",
+      "source": "find_info/data/crack/synthetic_angle_v3/test_general_inputs.npz",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/test_general_labels.csv",
+      "bytes": 959188,
+      "sha256": "37630d27d415a4c8ba71add4058faf24351ff174011801fa02c0a4cab9a70448",
+      "source": "find_info/data/crack/synthetic_angle_v3/test_general_labels.csv",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/test_predictions.csv",
+      "bytes": 1805692,
+      "sha256": "d7ccc50e29d52e2853dd4fb6b51a837f072c4f1f57ce6ab35994907c230460e6",
+      "source": "find_info/data/crack/synthetic_angle_v3/test_predictions.csv",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/test_shifted_inputs.npz",
+      "bytes": 204670189,
+      "sha256": "7fc6fa2f6ce7afa807d387c044f11a8865b88816cda45e86102dd03bc3fc43c1",
+      "source": "find_info/data/crack/synthetic_angle_v3/test_shifted_inputs.npz",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/crack/synthetic_angle_v3/test_shifted_labels.csv",
+      "bytes": 1463954,
+      "sha256": "627925e0de7a7093104e315c06494220bcaf920c1c8d7e0308a34942a1f93097",
+      "source": "find_info/data/crack/synthetic_angle_v3/test_shifted_labels.csv",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/pit/synthetic_normal_v2/calibration_normals.npz",
+      "bytes": 367794689,
+      "sha256": "2ee497f2ecab97da17419aa32a55baca5ae8b21d083073aac16375f39f229a01",
+      "source": "find_info/data/pit/synthetic_normal_v2/calibration_normals.npz",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/pit/synthetic_normal_v2/edge_normals.npz",
+      "bytes": 30655934,
+      "sha256": "5066b03e35c333b210fb7edaa6280d661e0c9b314e0b998c11b2f767f5d06d54",
+      "source": "find_info/data/pit/synthetic_normal_v2/edge_normals.npz",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/pit/synthetic_normal_v2/evaluation_recovery.json",
+      "bytes": 236,
+      "sha256": "7cee3b52563a08905436e3b817043cd6705ec784ae1e804bd5bf02f54efac1c1",
+      "source": "find_info/data/pit/synthetic_normal_v2/evaluation_recovery.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/pit/synthetic_normal_v2/final_results.json",
+      "bytes": 14617,
+      "sha256": "1d298dd9819cbbc9ef0d1b1eda9f4a54796273a4e2da5dcdc44a269fc6192bfa",
+      "source": "find_info/data/pit/synthetic_normal_v2/final_results.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/pit/synthetic_normal_v2/frozen_decisions.json",
+      "bytes": 14023,
+      "sha256": "f25b01fefbe813360493a0a7497b5feb961d7d5f477b367e52dcbc3bc3ab46c8",
+      "source": "find_info/data/pit/synthetic_normal_v2/frozen_decisions.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/pit/synthetic_normal_v2/protocol.json",
+      "bytes": 1524,
+      "sha256": "68e08b788fc6795bed332d6f5f5d0f901447f03b6b50f5bebc5abf213293f7eb",
+      "source": "find_info/data/pit/synthetic_normal_v2/protocol.json",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/pit/synthetic_normal_v2/test_ordinary.npz",
+      "bytes": 122830941,
+      "sha256": "a583875be96d924a4edaea4ccf5722dbf144385afe3cb9475c453e9bc1d91990",
+      "source": "find_info/data/pit/synthetic_normal_v2/test_ordinary.npz",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/pit/synthetic_normal_v2/test_ordinary_predictions.npz",
+      "bytes": 212899,
+      "sha256": "3e37f69b12dd07f3f34f04b99936b491e9e35b1af02348d97a0ea94b593d6374",
+      "source": "find_info/data/pit/synthetic_normal_v2/test_ordinary_predictions.npz",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/pit/synthetic_normal_v2/test_shifted.npz",
+      "bytes": 122367308,
+      "sha256": "473494d541c5734784e0cc998c93571d96060270b001cf17ae86847fc2c4caf3",
+      "source": "find_info/data/pit/synthetic_normal_v2/test_shifted.npz",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/pit/synthetic_normal_v2/test_shifted_predictions.npz",
+      "bytes": 216924,
+      "sha256": "545fe6a6d28cc2b1b53835b14414f9985174fcffc1a41548fee2678fe3d89715",
+      "source": "find_info/data/pit/synthetic_normal_v2/test_shifted_predictions.npz",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/pit/synthetic_normal_v2/validation_wall_profile.npz",
+      "bytes": 30360,
+      "sha256": "41b9b7699929bb9c0fcf1b084877b4f5bb9cc76ffecc19c713c03812a254505e",
+      "source": "find_info/data/pit/synthetic_normal_v2/validation_wall_profile.npz",
+      "distribution": "local_only",
+      "role": "historical_experiment_not_latest_crack_MLP"
+    },
+    {
+      "path": "data/public_candidates/audit/dataset_download_audit.json",
+      "bytes": 20365,
+      "sha256": "a5e921585d1130f9395ea19ed1e9fcd42a17bb776ff4af8189d354ad9a3f7bae",
+      "source": "find_info/data/public_candidates/audit/dataset_download_audit.json",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/audit/ndt_github_tree.json",
+      "bytes": 11239,
+      "sha256": "8bf5eb76f4f25d07cd219f224e49f926a084a7da4fd4c107cd3ddd7a516f3043",
+      "source": "find_info/data/public_candidates/audit/ndt_github_tree.json",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/audit/ndt_sample_inspection.json",
+      "bytes": 13985,
+      "sha256": "2f44173b508d60a2087deb863231818bd6d2b49720d5c303524a7d8ff48f957e",
+      "source": "find_info/data/public_candidates/audit/ndt_sample_inspection.json",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_013.txt",
+      "bytes": 42183,
+      "sha256": "aabb5da39061ebb9c39230453f765b713ce630e64be57edae9ee146bc124c1c1",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_013.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_013.xz",
+      "bytes": 19155536,
+      "sha256": "3a1a58458bcf63b4b3ba5957a5f5cab60e87bba4e762d2b84fb46b97e0e4807a",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_013.xz",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_014.txt",
+      "bytes": 42659,
+      "sha256": "4b1e1d3a143f3cbf96bdb742efc4931fe91b3b04717201a0b6a10b4e33ae7f28",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_014.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_015.txt",
+      "bytes": 42661,
+      "sha256": "9ed78ecf7b6eef4b73f81f710d4e065ae0d39418fce0dc162f7ef53aaa76b0cb",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_015.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_016.txt",
+      "bytes": 42699,
+      "sha256": "dd4b4550bbf392eaa7466922ddcb2019706e1a7c82547482d062dc44fc49004e",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_016.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_017.txt",
+      "bytes": 42202,
+      "sha256": "6e4720b4cb3faae49ab06487cbf35e229c560e58e8ec44472c0f2602c5ebbbb2",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_017.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_018.txt",
+      "bytes": 42613,
+      "sha256": "8d4bc308e89a9fbd7873e264aba2a975ae49e80b72c1211aaf99f46d08529b53",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_018.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_019.txt",
+      "bytes": 42312,
+      "sha256": "3d64dc607d480caaa94227144fe6508f91ceb27564dd323d09d4bb0bcb65f589",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_019.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_201.lzma",
+      "bytes": 9445684,
+      "sha256": "3f31ca9c535d836d490c7af4bd53df665bbdd3866a25798008b3411a4f0722cd",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_201.lzma",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_201.txt",
+      "bytes": 150000,
+      "sha256": "7e8666c0a03414eab191f9decf67d67a7d8e6f34bd05edeedccaa2a4a1078a46",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_201.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_202.txt",
+      "bytes": 150000,
+      "sha256": "310b2fd9441e2a26f3888b0ae81a7115910d034273a3c6fd78df3723ee14b422",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_202.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_203.txt",
+      "bytes": 150000,
+      "sha256": "46c3f40fa4dcbab35471ad21245cd2a80a6896eb1c1f96f1ac8794091f59ec2e",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_203.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_204.txt",
+      "bytes": 150000,
+      "sha256": "d7e26ec17909c6bcabda049e5d1a103b047dbf65b0df006b85ef966be3e4a1c7",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_204.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_205.txt",
+      "bytes": 150000,
+      "sha256": "cab06dedd17e3b695bcc4370501f449cbdc8e9fbc66e5acbc543942e176c5306",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_205.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_206.txt",
+      "bytes": 150000,
+      "sha256": "62f34a73a51c4e2e225aea686dbff3d01bd70a2ba4806581efd8ee588ee9d766",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_206.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_207.txt",
+      "bytes": 150000,
+      "sha256": "bd5d6831335b0bf471b29d5bbc92509e8596d868276460b9e2cc61765c953a70",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_207.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_208.txt",
+      "bytes": 150000,
+      "sha256": "6b4cba100768773b5096704bb882f4af75a99fa1d808998e192062608e6183b9",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_208.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_209.txt",
+      "bytes": 150000,
+      "sha256": "4e7f18e848bf6e96835059db3ef0c71d7e46a6df16e4a4578b527e34f1cd0af5",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_209.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/datasets/batch_210.txt",
+      "bytes": 150000,
+      "sha256": "37bc802f75d21511c3fe90d190506a3d39d254347587777f1dc2e9953d3c9d2b",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/datasets/batch_210.txt",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/LICENSE",
+      "bytes": 7652,
+      "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/LICENSE",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    },
+    {
+      "path": "data/public_candidates/NDT_ML_Flaw/README.md",
+      "bytes": 785,
+      "sha256": "cdfc77b3974395c715abd0901992788c1febf4a102abc23fafb20999267677c6",
+      "source": "find_info/data/public_candidates/NDT_ML_Flaw/README.md",
+      "distribution": "local_only",
+      "role": "public_candidate_not_used_for_final_MLP"
+    }
+  ]
+}

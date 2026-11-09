@@ -1,0 +1,2708 @@
+{
+  "network": {
+    "total_km": {
+      "value": 100,
+      "unit": "km",
+      "assumption": true,
+      "note": "가상 제철소 배관망 총 길이"
+    },
+    "segment_m": {
+      "value": 50,
+      "unit": "m",
+      "assumption": true,
+      "note": "세그먼트 길이"
+    },
+    "media_mix": {
+      "cooling_water": {
+        "value": 0.25,
+        "assumption": true,
+        "note": "냉각수 비율"
+      },
+      "steam": {
+        "value": 0.2,
+        "assumption": true,
+        "note": "증기"
+      },
+      "byproduct_gas_co": {
+        "value": 0.15,
+        "assumption": true,
+        "note": "부생가스(CO)"
+      },
+      "oxygen": {
+        "value": 0.08,
+        "assumption": true,
+        "note": "산소"
+      },
+      "nitrogen": {
+        "value": 0.1,
+        "assumption": true,
+        "note": "질소"
+      },
+      "pickling_acid_hf": {
+        "value": 0.07,
+        "assumption": true,
+        "note": "산세액(불산)"
+      },
+      "compressed_air": {
+        "value": 0.15,
+        "assumption": true,
+        "note": "압축공기"
+      },
+      "condensate": {
+        "value": 0.0,
+        "assumption": true,
+        "note": "응축수 회수관(기본망에는 없음, 증기 시나리오에서 사용)"
+      },
+      "traced_process": {
+        "value": 0.0,
+        "assumption": true,
+        "note": "스팀 트레이싱 공정 배관(타르·연료유·동결 방지; 기본망에는 없음)"
+      }
+    },
+    "install_year_min": {
+      "value": 1975,
+      "unit": "year",
+      "assumption": true
+    },
+    "install_year_max": {
+      "value": 2020,
+      "unit": "year",
+      "assumption": true
+    },
+    "insulated_fraction": {
+      "value": 0.45,
+      "assumption": true,
+      "note": "보온 배관 비율"
+    },
+    "elevated_fraction": {
+      "value": 0.6,
+      "assumption": true,
+      "note": "가공(파이프랙) 배관 비율"
+    },
+    "reference_year": {
+      "value": 2026,
+      "unit": "year",
+      "assumption": true,
+      "note": "경년 계산 기준 연도"
+    },
+    "insulated_prob_by_medium": {
+      "steam": {
+        "value": 0.95,
+        "assumption": true,
+        "note": "증기 배관 보온 확률(목록에 없는 매질은 insulated_fraction, PVC는 보온 없음)"
+      },
+      "condensate": {
+        "value": 0.8,
+        "assumption": true,
+        "note": "응축수관 보온 확률"
+      },
+      "traced_process": {
+        "value": 1.0,
+        "assumption": true,
+        "note": "트레이싱 배관은 보온 필수"
+      }
+    },
+    "insulation_mm_by_nps": {
+      "nps_2": {
+        "value": 40,
+        "unit": "mm",
+        "assumption": true,
+        "note": "보온 두께"
+      },
+      "nps_4": {
+        "value": 50,
+        "unit": "mm",
+        "assumption": true
+      },
+      "nps_8": {
+        "value": 65,
+        "unit": "mm",
+        "assumption": true
+      },
+      "nps_12": {
+        "value": 75,
+        "unit": "mm",
+        "assumption": true
+      }
+    },
+    "jacket_mix": {
+      "aluminium": {
+        "value": 0.7,
+        "assumption": true,
+        "note": "보온 외장 재질 비율"
+      },
+      "galvanized": {
+        "value": 0.2,
+        "assumption": true
+      },
+      "stainless": {
+        "value": 0.1,
+        "assumption": true
+      }
+    },
+    "tracer_pressure_barg": {
+      "value": [
+        3,
+        10
+      ],
+      "unit": "barg",
+      "assumption": true,
+      "note": "트레이서용 증기 압력 범위"
+    },
+    "condensate_pressure_barg": {
+      "value": [
+        0.5,
+        3.0
+      ],
+      "unit": "barg",
+      "assumption": true,
+      "note": "응축수관 압력 범위"
+    },
+    "t_min_frac": {
+      "value": 0.5,
+      "assumption": true,
+      "note": "최소 허용 두께 = 공칭 두께 × 비율 (B31.3 계산 대신 단순화)"
+    },
+    "traffic_levels": {
+      "value": [
+        0,
+        1,
+        2
+      ],
+      "assumption": true,
+      "note": "주변 통행량 등급 0~2 (균등 선택)"
+    },
+    "nps_weights": {
+      "nps_2": {
+        "value": 0.3,
+        "assumption": true
+      },
+      "nps_4": {
+        "value": 0.3,
+        "assumption": true
+      },
+      "nps_8": {
+        "value": 0.25,
+        "assumption": true
+      },
+      "nps_12": {
+        "value": 0.15,
+        "assumption": true
+      }
+    },
+    "material": {
+      "acid_pvc": {
+        "value": 0.6,
+        "assumption": true,
+        "note": "산세액 배관 PVC 비율(나머지 스테인리스)"
+      },
+      "oxygen_stainless": {
+        "value": 0.3,
+        "assumption": true,
+        "note": "산소 배관 스테인리스 비율"
+      },
+      "other_stainless": {
+        "value": 0.05,
+        "assumption": true,
+        "note": "그 외 매질 스테인리스 비율(나머지 탄소강)"
+      }
+    },
+    "area_by_medium": {
+      "cooling_water": {
+        "value": [
+          "제선",
+          "제강",
+          "압연",
+          "발전"
+        ],
+        "assumption": true
+      },
+      "steam": {
+        "value": [
+          "발전",
+          "압연",
+          "제강"
+        ],
+        "assumption": true
+      },
+      "byproduct_gas_co": {
+        "value": [
+          "제선",
+          "제강",
+          "발전"
+        ],
+        "assumption": true
+      },
+      "oxygen": {
+        "value": [
+          "산소공장",
+          "제강",
+          "제선"
+        ],
+        "assumption": true
+      },
+      "nitrogen": {
+        "value": [
+          "산소공장",
+          "제강",
+          "압연"
+        ],
+        "assumption": true
+      },
+      "pickling_acid_hf": {
+        "value": [
+          "산세"
+        ],
+        "assumption": true
+      },
+      "compressed_air": {
+        "value": [
+          "제선",
+          "제강",
+          "압연",
+          "산세"
+        ],
+        "assumption": true
+      },
+      "condensate": {
+        "value": [
+          "발전",
+          "압연",
+          "제강"
+        ],
+        "assumption": true
+      },
+      "traced_process": {
+        "value": [
+          "화성",
+          "제선",
+          "압연"
+        ],
+        "assumption": true
+      }
+    },
+    "temp_c_by_medium": {
+      "cooling_water": {
+        "value": [
+          25,
+          60
+        ],
+        "unit": "C",
+        "assumption": true
+      },
+      "steam": {
+        "value": [
+          100,
+          220
+        ],
+        "unit": "C",
+        "assumption": true
+      },
+      "byproduct_gas_co": {
+        "value": [
+          30,
+          90
+        ],
+        "unit": "C",
+        "assumption": true
+      },
+      "oxygen": {
+        "value": [
+          -10,
+          40
+        ],
+        "unit": "C",
+        "assumption": true
+      },
+      "nitrogen": {
+        "value": [
+          -10,
+          40
+        ],
+        "unit": "C",
+        "assumption": true
+      },
+      "pickling_acid_hf": {
+        "value": [
+          40,
+          85
+        ],
+        "unit": "C",
+        "assumption": true
+      },
+      "compressed_air": {
+        "value": [
+          20,
+          60
+        ],
+        "unit": "C",
+        "assumption": true
+      },
+      "condensate": {
+        "value": [
+          60,
+          100
+        ],
+        "unit": "C",
+        "assumption": true
+      },
+      "traced_process": {
+        "value": [
+          40,
+          90
+        ],
+        "unit": "C",
+        "assumption": true,
+        "note": "공정 유체 유지 온도"
+      }
+    },
+    "features_per_km": {
+      "weld": {
+        "value": 85,
+        "unit": "1/km",
+        "assumption": true,
+        "note": "약 12m 스풀마다 원주 용접"
+      },
+      "support": {
+        "value": 125,
+        "unit": "1/km",
+        "assumption": true,
+        "note": "약 8m 간격 지지대"
+      },
+      "elbow": {
+        "value": 15,
+        "unit": "1/km",
+        "assumption": true
+      },
+      "tee": {
+        "value": 6,
+        "unit": "1/km",
+        "assumption": true
+      },
+      "flange": {
+        "value": 10,
+        "unit": "1/km",
+        "assumption": true
+      },
+      "valve_downstream": {
+        "value": 4,
+        "unit": "1/km",
+        "assumption": true
+      },
+      "orifice_downstream": {
+        "value": 1,
+        "unit": "1/km",
+        "assumption": true
+      },
+      "nozzle": {
+        "value": 3,
+        "unit": "1/km",
+        "assumption": true
+      },
+      "dead_leg": {
+        "value": 0.5,
+        "unit": "1/km",
+        "assumption": true
+      }
+    },
+    "medium_features_per_km": {
+      "steam": {
+        "steam_trap": {
+          "value": 20,
+          "unit": "1/km",
+          "assumption": true,
+          "note": "증기 트랩"
+        },
+        "low_point": {
+          "value": 2,
+          "unit": "1/km",
+          "assumption": true,
+          "note": "저점(드레인 포인트)"
+        }
+      },
+      "traced_process": {
+        "steam_trap": {
+          "value": 25,
+          "unit": "1/km",
+          "assumption": true,
+          "note": "트레이서 응축수 트랩"
+        },
+        "low_point": {
+          "value": 2,
+          "unit": "1/km",
+          "assumption": true
+        }
+      },
+      "condensate": {
+        "low_point": {
+          "value": 4,
+          "unit": "1/km",
+          "assumption": true
+        }
+      },
+      "cooling_water": {
+        "low_point": {
+          "value": 2,
+          "unit": "1/km",
+          "assumption": true
+        }
+      },
+      "byproduct_gas_co": {
+        "low_point": {
+          "value": 2,
+          "unit": "1/km",
+          "assumption": true,
+          "note": "드레인 포트"
+        }
+      }
+    },
+    "pipe_sizes": {
+      "nps_2": {
+        "od_mm": {
+          "value": 60.3,
+          "unit": "mm",
+          "source": "https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html",
+          "note": "ASME B36.10, NPS 2 외경"
+        },
+        "wall_mm": {
+          "value": 3.91,
+          "unit": "mm",
+          "source": "https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html",
+          "note": "ASME B36.10 SCH 40"
+        }
+      },
+      "nps_4": {
+        "od_mm": {
+          "value": 114.3,
+          "unit": "mm",
+          "source": "https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html",
+          "note": "ASME B36.10, NPS 4 외경"
+        },
+        "wall_mm": {
+          "value": 6.02,
+          "unit": "mm",
+          "source": "https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html",
+          "note": "ASME B36.10 SCH 40"
+        }
+      },
+      "nps_8": {
+        "od_mm": {
+          "value": 219.1,
+          "unit": "mm",
+          "source": "https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html",
+          "note": "ASME B36.10, NPS 8 외경"
+        },
+        "wall_mm": {
+          "value": 8.18,
+          "unit": "mm",
+          "source": "https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html",
+          "note": "ASME B36.10 SCH 40"
+        }
+      },
+      "nps_12": {
+        "od_mm": {
+          "value": 323.9,
+          "unit": "mm",
+          "source": "https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html",
+          "note": "ASME B36.10, NPS 12 외경"
+        },
+        "wall_mm": {
+          "value": 10.31,
+          "unit": "mm",
+          "source": "https://www.engineeringtoolbox.com/steel-pipes-dimensions-d_43.html",
+          "note": "ASME B36.10 SCH 40 (표준 STD 9.53 mm 아님)"
+        }
+      }
+    }
+  },
+  "defects": {
+    "age_ref_years": {
+      "value": 30,
+      "unit": "year",
+      "assumption": true,
+      "note": "경년 배율 = (경년/기준)^지수"
+    },
+    "age_exponent": {
+      "value": 1.0,
+      "assumption": true
+    },
+    "exposure_frac_range": {
+      "value": [
+        0.1,
+        0.6
+      ],
+      "assumption": true,
+      "note": "감육 진행 기간 = 경년 × U(범위) (부식 개시 지연 반영)"
+    },
+    "consequence_gain": {
+      "value": 0.5,
+      "assumption": true,
+      "note": "결함 확률 배율 = 1 + gain × (피해등급-1)/4"
+    },
+    "external_corrosion": {
+      "rate_per_km": {
+        "value": 6,
+        "unit": "1/km",
+        "assumption": true,
+        "note": "비보온 탄소강, 기준 경년에서 기대 개수"
+      }
+    },
+    "internal_pitting": {
+      "rate_per_km": {
+        "value": 2,
+        "unit": "1/km",
+        "assumption": true,
+        "note": "습식 매질 금속 배관"
+      },
+      "media": {
+        "value": [
+          "cooling_water",
+          "steam",
+          "byproduct_gas_co",
+          "pickling_acid_hf",
+          "condensate"
+        ],
+        "assumption": true
+      },
+      "rate_factor_by_medium": {
+        "condensate": {
+          "value": 3.0,
+          "assumption": true,
+          "note": "탄산 부식으로 응축수관 피팅 가속(목록에 없는 매질은 1.0)"
+        }
+      },
+      "wet_spot_share": {
+        "value": 0.6,
+        "assumption": true,
+        "note": "저점·트랩 상류·데드레그에 생기는 피트 비율"
+      },
+      "wet_spot_window_m": {
+        "value": 2.0,
+        "unit": "m",
+        "assumption": true,
+        "note": "습윤 지점 주변 피트 분포 폭"
+      }
+    },
+    "flange_leak": {
+      "p_per_flange": {
+        "value": 0.03,
+        "assumption": true,
+        "note": "기준 경년에서 플랜지당 누설 확률"
+      }
+    },
+    "cui": {
+      "temp_min_c": {
+        "value": -12,
+        "unit": "C",
+        "source": "https://www.fabrico.io/blog/corrosion-under-insulation/",
+        "note": "CUI 발생 온도 하한"
+      },
+      "temp_max_c": {
+        "value": 175,
+        "unit": "C",
+        "source": "https://www.fabrico.io/blog/corrosion-under-insulation/",
+        "note": "CUI 발생 온도 상한"
+      },
+      "peak_min_c": {
+        "value": 60,
+        "unit": "C",
+        "source": "https://www.fabrico.io/blog/corrosion-under-insulation/",
+        "note": "피크 구간 하한"
+      },
+      "peak_max_c": {
+        "value": 120,
+        "unit": "C",
+        "source": "https://www.fabrico.io/blog/corrosion-under-insulation/",
+        "note": "피크 구간 상한"
+      },
+      "location_weight": {
+        "support": {
+          "value": 0.35,
+          "source": "https://inspectioneering.com/blog/2014-12-08/4286/what-is-corrosion-under-insulation-cui",
+          "note": "지지대; 가중치 수치는 정성 서술 기반 정규화"
+        },
+        "nozzle": {
+          "value": 0.25,
+          "source": "https://inspectioneering.com/blog/2014-12-08/4286/what-is-corrosion-under-insulation-cui",
+          "note": "노즐"
+        },
+        "dead_leg": {
+          "value": 0.25,
+          "source": "https://inspectioneering.com/blog/2014-12-08/4286/what-is-corrosion-under-insulation-cui",
+          "note": "데드레그"
+        },
+        "straight": {
+          "value": 0.15,
+          "assumption": true,
+          "note": "직관부 기본 확률"
+        }
+      },
+      "rate_per_km": {
+        "value": 4,
+        "unit": "1/km",
+        "assumption": true,
+        "note": "보온 탄소강, CUI 온도대, 기준 경년"
+      },
+      "peak_factor": {
+        "value": 2.0,
+        "assumption": true,
+        "note": "60~120C 피크 구간 발생 배율"
+      },
+      "external_sign_prob": {
+        "value": 0.4,
+        "assumption": true,
+        "note": "보온 외장에 얼룩/변형 징후가 보일 확률"
+      },
+      "in_wet_zone_prob": {
+        "value": 0.6,
+        "source": "https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm",
+        "assumption": true,
+        "note": "API RP 583 - CUI는 물이 있어야 발생(물 유입 경로에 스팀 트레이싱 누설 포함). CUI 자리가 지금도 젖어 있을 확률(수치는 가정): 같은 세그먼트의 젖은 구간 안으로 옮기고, 없으면 CUI 주변에 젖은 구간을 추가"
+      }
+    },
+    "fac": {
+      "location_weight": {
+        "elbow": {
+          "value": 0.4,
+          "source": "https://www.intechopen.com/chapters/39784",
+          "note": "엘보 하류"
+        },
+        "tee": {
+          "value": 0.25,
+          "source": "https://www.intechopen.com/chapters/39784",
+          "note": "티 하류"
+        },
+        "orifice": {
+          "value": 0.2,
+          "source": "https://www.intechopen.com/chapters/39784",
+          "note": "오리피스 하류"
+        },
+        "valve": {
+          "value": 0.15,
+          "source": "https://www.intechopen.com/chapters/39784",
+          "note": "밸브 하류"
+        },
+        "straight": {
+          "value": 0.05,
+          "assumption": true,
+          "note": "직관부(정규화 전)"
+        }
+      },
+      "rate_per_km": {
+        "value": 3,
+        "unit": "1/km",
+        "assumption": true,
+        "note": "수/증기 탄소강, 기준 경년"
+      },
+      "media": {
+        "value": [
+          "cooling_water",
+          "steam",
+          "condensate"
+        ],
+        "assumption": true
+      },
+      "rate_factor": {
+        "value": 2.0,
+        "assumption": true,
+        "note": "감육 속도 배율(부식속도 분포 대비)"
+      }
+    },
+    "corrosion_rate": {
+      "mean_mm_per_year": {
+        "value": 0.15,
+        "unit": "mm/yr",
+        "assumption": true,
+        "note": "로그정규 평균"
+      },
+      "sigma_log": {
+        "value": 0.6,
+        "assumption": true,
+        "note": "로그정규 시그마"
+      },
+      "max_mm_per_year": {
+        "value": 1.5,
+        "unit": "mm/yr",
+        "assumption": true
+      }
+    },
+    "crack": {
+      "length_mean_mm": {
+        "value": 8.0,
+        "unit": "mm",
+        "assumption": true
+      },
+      "length_sigma_log": {
+        "value": 0.5,
+        "assumption": true
+      },
+      "depth_frac_mean": {
+        "value": 0.25,
+        "assumption": true,
+        "note": "두께 대비 깊이 비율 평균"
+      },
+      "depth_frac_max": {
+        "value": 0.8,
+        "assumption": true
+      },
+      "rate_per_km": {
+        "value": 1,
+        "unit": "1/km",
+        "assumption": true,
+        "note": "금속 배관, 기준 경년"
+      },
+      "critical_height_frac": {
+        "value": 0.4,
+        "assumption": true,
+        "note": "두께 대비 균열 높이가 이 값 초과면 critical"
+      },
+      "growth_mm_per_year": {
+        "value": 0.05,
+        "unit": "mm/yr",
+        "assumption": true
+      },
+      "location_weight": {
+        "weld": {
+          "value": 0.6,
+          "assumption": true
+        },
+        "elbow": {
+          "value": 0.3,
+          "assumption": true
+        },
+        "straight": {
+          "value": 0.1,
+          "assumption": true
+        }
+      }
+    },
+    "insulation_damage": {
+      "rate_per_km": {
+        "value": 3,
+        "unit": "1/km",
+        "assumption": true,
+        "note": "보온 손상(외장 탈락·찢김), 고온 보온 배관, 기준 경년"
+      },
+      "hot_min_c": {
+        "value": 50,
+        "unit": "C",
+        "assumption": true,
+        "note": "이 온도 이상 보온 배관만 해당"
+      },
+      "length_median_m": {
+        "value": 0.5,
+        "unit": "m",
+        "assumption": true
+      },
+      "length_sigma_log": {
+        "value": 0.8,
+        "assumption": true
+      },
+      "length_max_m": {
+        "value": 5.0,
+        "unit": "m",
+        "assumption": true
+      },
+      "circ_frac_range": {
+        "value": [
+          0.25,
+          1.0
+        ],
+        "assumption": true,
+        "note": "손상이 원주를 차지하는 비율"
+      },
+      "visible_prob": {
+        "value": 0.7,
+        "assumption": true,
+        "note": "카메라로 보이는 손상 비율"
+      }
+    },
+    "wet_insulation": {
+      "rate_per_km": {
+        "value": 2,
+        "unit": "1/km",
+        "assumption": true,
+        "note": "젖은 보온 구간, 보온 배관, 기준 경년"
+      },
+      "traced_factor": {
+        "value": 2.0,
+        "assumption": true,
+        "note": "트레이싱 배관 발생 배율(트레이서 관통부·누설)"
+      },
+      "location_weight": {
+        "support": {
+          "value": 0.3,
+          "source": "https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm",
+          "note": "API RP 583 - 지지대 관통부; 가중치는 정규화 가정"
+        },
+        "nozzle": {
+          "value": 0.15,
+          "source": "https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm",
+          "note": "노즐 관통부"
+        },
+        "dead_leg": {
+          "value": 0.1,
+          "source": "https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm",
+          "note": "데드레그"
+        },
+        "steam_trap": {
+          "value": 0.15,
+          "source": "https://corrosionclinic.com/corrosion_courses/API_583_Corrosion%20Under%20Insulation%20and%20Fireproofing_CUI_Detection_Mitigation_Prevention.htm",
+          "note": "트레이서·트랩 관통부"
+        },
+        "straight": {
+          "value": 0.3,
+          "assumption": true,
+          "note": "직관부"
+        }
+      },
+      "length_median_m": {
+        "value": 1.5,
+        "unit": "m",
+        "assumption": true
+      },
+      "length_sigma_log": {
+        "value": 0.6,
+        "assumption": true
+      },
+      "length_max_m": {
+        "value": 10,
+        "unit": "m",
+        "assumption": true
+      },
+      "moisture_range": {
+        "value": [
+          0.2,
+          1.0
+        ],
+        "assumption": true,
+        "note": "보온재 함수율(0 건조 ~ 1 포화)"
+      },
+      "external_sign_prob": {
+        "value": 0.2,
+        "assumption": true,
+        "note": "외장에 젖음 징후가 보일 확률"
+      }
+    },
+    "steam_leak": {
+      "rate_per_km": {
+        "value": 1.0,
+        "unit": "1/km",
+        "assumption": true,
+        "note": "증기 배관 누설, 기준 경년"
+      },
+      "location_weight": {
+        "flange": {
+          "value": 0.4,
+          "assumption": true
+        },
+        "valve": {
+          "value": 0.2,
+          "assumption": true
+        },
+        "weld": {
+          "value": 0.1,
+          "assumption": true
+        },
+        "straight": {
+          "value": 0.3,
+          "assumption": true
+        }
+      },
+      "orifice_median_mm": {
+        "value": 1.2,
+        "unit": "mm",
+        "assumption": true,
+        "note": "등가 누설 오리피스 직경"
+      },
+      "orifice_sigma_log": {
+        "value": 0.6,
+        "assumption": true
+      },
+      "orifice_max_mm": {
+        "value": 6.0,
+        "unit": "mm",
+        "assumption": true
+      },
+      "visible_plume_mm": {
+        "value": 2.0,
+        "unit": "mm",
+        "assumption": true,
+        "note": "이 직경 이상이면 증기 기둥이 눈에 보임"
+      }
+    },
+    "tracer_leak": {
+      "rate_per_km": {
+        "value": 1.5,
+        "unit": "1/km",
+        "assumption": true,
+        "note": "트레이싱 배관 트레이서 누설, 기준 경년"
+      },
+      "orifice_median_mm": {
+        "value": 0.8,
+        "unit": "mm",
+        "assumption": true
+      },
+      "orifice_sigma_log": {
+        "value": 0.5,
+        "assumption": true
+      },
+      "orifice_max_mm": {
+        "value": 3.0,
+        "unit": "mm",
+        "assumption": true
+      },
+      "wet_zone_prob": {
+        "value": 0.8,
+        "assumption": true,
+        "note": "누설이 보온재를 적시는 확률"
+      },
+      "moisture_range": {
+        "value": [
+          0.5,
+          1.0
+        ],
+        "assumption": true
+      },
+      "length_median_m": {
+        "value": 2.0,
+        "unit": "m",
+        "assumption": true,
+        "note": "누설로 젖은 구간 길이 중앙값"
+      }
+    },
+    "steam_trap": {
+      "fail_prob": {
+        "value": 0.15,
+        "source": "https://www.nrel.gov/docs/fy06osti/39305.pdf",
+        "note": "DOE Steam Tip Sheet #1 - 3~5년 정비하지 않은 계통 15~30% 고장, 정비 계통 5% 미만"
+      },
+      "fail_open_share": {
+        "value": 0.6,
+        "assumption": true,
+        "note": "고장 중 열림(증기 누출) 비율, 나머지는 닫힘(응축수 정체)"
+      },
+      "open_orifice_mm_range": {
+        "value": [
+          1.5,
+          4.0
+        ],
+        "unit": "mm",
+        "assumption": true
+      }
+    }
+  },
+  "risk": {
+    "consequence": {
+      "oxygen": {
+        "value": 5,
+        "assumption": true,
+        "note": "피해등급 1~5, 화재·폭발"
+      },
+      "pickling_acid_hf": {
+        "value": 5,
+        "assumption": true,
+        "note": "불산 독성"
+      },
+      "byproduct_gas_co": {
+        "value": 5,
+        "assumption": true,
+        "note": "CO 중독·폭발"
+      },
+      "steam": {
+        "value": 3,
+        "assumption": true,
+        "note": "화상"
+      },
+      "nitrogen": {
+        "value": 2,
+        "assumption": true,
+        "note": "질식"
+      },
+      "compressed_air": {
+        "value": 1,
+        "assumption": true
+      },
+      "cooling_water": {
+        "value": 1,
+        "assumption": true
+      },
+      "condensate": {
+        "value": 2,
+        "assumption": true,
+        "note": "고온수 화상"
+      },
+      "traced_process": {
+        "value": 4,
+        "assumption": true,
+        "note": "타르·벤젠류 가연·독성"
+      }
+    }
+  },
+  "energy": {
+    "hours_per_year": {
+      "value": 8000,
+      "unit": "h/yr",
+      "assumption": true,
+      "note": "연속 조업 가정(연 8,760시간 중 정지 제외)"
+    },
+    "ambient_c": {
+      "value": 15,
+      "unit": "C",
+      "assumption": true,
+      "note": "포항·광양 연평균 기온 수준"
+    },
+    "k_insulation_w_mk": {
+      "value": 0.045,
+      "unit": "W/m/K",
+      "source": "https://www.engineeringtoolbox.com/thermal-conductivity-d_429.html",
+      "note": "미네랄울 보온재(평균 온도 약 100 C 기준 값으로 가정)"
+    },
+    "wet_k_multiplier": {
+      "value": 8,
+      "assumption": true,
+      "note": "완전히 젖은 보온재의 열전도율 배수(물 약 0.6 W/m/K). k_wet = k x (1 + (배수-1) x 함수율)"
+    },
+    "h_jacket_w_m2k": {
+      "value": 10,
+      "unit": "W/m2/K",
+      "assumption": true,
+      "note": "보온 외장 표면 열전달계수(대류 위주, 약한 바람)"
+    },
+    "h_bare_w_m2k": {
+      "value": 20,
+      "unit": "W/m2/K",
+      "assumption": true,
+      "note": "맨 강관 표면 열전달계수(대류 + 복사, 도장면 방사율 약 0.9)"
+    },
+    "napier_const": {
+      "value": 24.24,
+      "source": "https://cecas.clemson.edu/iac/wp-content/uploads/2020/07/Repair-and-Eliminate-Steam-Leaks.pdf",
+      "note": "lb/h = 24.24 x P(psia) x D(in)^2, 유출계수 약 0.6 포함"
+    },
+    "steam_enthalpy_kj_kg": {
+      "value": 2650,
+      "unit": "kJ/kg",
+      "assumption": true,
+      "note": "포화증기 약 2,770 - 보충수 약 105 kJ/kg"
+    },
+    "boiler_eff": {
+      "value": 0.85,
+      "assumption": true,
+      "note": "보일러 효율"
+    },
+    "steam_cost_krw_per_t": {
+      "value": 35000,
+      "unit": "KRW/t",
+      "assumption": true,
+      "note": "LNG 기준 약 7~8만 원/t, 부생가스 연료는 더 낮다고 보고 중간값 가정; 포스코 내부 단가는 모름"
+    },
+    "fuel_mix": {
+      "bfg": {
+        "value": 0.5,
+        "assumption": true,
+        "note": "고로가스 비율"
+      },
+      "cog": {
+        "value": 0.3,
+        "assumption": true,
+        "note": "코크스로가스 비율"
+      },
+      "natural_gas": {
+        "value": 0.2,
+        "assumption": true
+      }
+    },
+    "ef_t_per_tj": {
+      "bfg": {
+        "value": 260,
+        "unit": "tCO2/TJ",
+        "source": "https://www.legislation.gov.uk/eur/2018/2066/annex/VI/data.pdf",
+        "note": "IPCC 2006 기본값"
+      },
+      "cog": {
+        "value": 44.4,
+        "unit": "tCO2/TJ",
+        "source": "https://www.legislation.gov.uk/eur/2018/2066/annex/VI/data.pdf",
+        "note": "IPCC 2006 기본값"
+      },
+      "natural_gas": {
+        "value": 56.1,
+        "unit": "tCO2/TJ",
+        "source": "https://www.legislation.gov.uk/eur/2018/2066/annex/VI/data.pdf",
+        "note": "IPCC 2006 기본값"
+      }
+    }
+  },
+  "pec": {
+    "footprint_base_mm": {
+      "value": 20,
+      "unit": "mm",
+      "assumption": true,
+      "note": "탐촉자 크기"
+    },
+    "footprint_per_liftoff": {
+      "value": 1.0,
+      "source": "https://origin.tuv.com/content-media-files/master-content/global-landingpages/pdfs/e3/energie-efficiency/tuv-rheinland-pulsed_eddy_current_pec_tuv-e3.pdf",
+      "note": "풋프린트 = 기본 + 계수 x 보온 두께; TUV: 최소 검출 결함 약 보온 두께의 50%"
+    },
+    "noise_rel": {
+      "value": 0.025,
+      "source": "https://mfe-is.com/wp-content/uploads/2026/04/MFE_PulsePro_Footprint.pdf",
+      "note": "반복성 약 +-2%"
+    },
+    "galvanized_noise_factor": {
+      "value": 2.0,
+      "assumption": true,
+      "note": "아연도 외장은 와전류 신호 잡음 증가"
+    },
+    "threshold_rel": {
+      "value": 0.1,
+      "source": "https://www.qualitymag.com/articles/97354-how-pulsed-eddy-current-technology-helps-uncover-corrosion",
+      "note": "정확도 약 +-10%"
+    },
+    "grid_spacing_mm": {
+      "value": 50,
+      "unit": "mm",
+      "assumption": true,
+      "note": "측정점 격자 간격"
+    },
+    "scan_m_per_min": {
+      "value": 1.0,
+      "unit": "m/min",
+      "assumption": true
+    },
+    "lines": {
+      "value": 4,
+      "assumption": true,
+      "note": "6시 방향 띠를 스캔하는 줄 수"
+    },
+    "band_deg": {
+      "value": 90,
+      "unit": "deg",
+      "assumption": true,
+      "note": "6시 방향 +-각도 범위"
+    },
+    "setup_min": {
+      "value": 5,
+      "unit": "min",
+      "assumption": true,
+      "note": "배관당 준비 시간"
+    }
+  },
+  "ut": {
+    "v_long": {
+      "value": 5920,
+      "unit": "m/s",
+      "source": "https://materialwelding.com/ultrasonic-velocity-chart/",
+      "note": "강 종파 속도"
+    },
+    "v_shear": {
+      "value": 3240,
+      "unit": "m/s",
+      "source": "https://materialwelding.com/ultrasonic-velocity-chart/",
+      "note": "강 횡파 속도"
+    },
+    "temp_coeff_mps_per_c": {
+      "value": -0.7,
+      "unit": "m/s/C",
+      "source": "https://tractian.com/en/glossary/speed-of-sound",
+      "note": "온도 계수(약)"
+    },
+    "probe_freq_mhz": {
+      "value": 5,
+      "unit": "MHz",
+      "assumption": true
+    },
+    "sampling_mhz": {
+      "value": 100,
+      "unit": "MHz",
+      "assumption": true
+    },
+    "angle_beam_angles_deg": {
+      "value": [
+        45,
+        60,
+        70
+      ],
+      "unit": "deg",
+      "assumption": true
+    },
+    "noise_std": {
+      "value": 0.02,
+      "assumption": true,
+      "note": "가우시안 노이즈 표준편차(정규화 진폭)"
+    },
+    "grain_noise_std": {
+      "value": 0.01,
+      "assumption": true,
+      "note": "결정립 산란 노이즈"
+    },
+    "n_samples": {
+      "value": 4096,
+      "assumption": true,
+      "note": "A-scan 샘플 수 (100 MHz에서 40.96 us)"
+    },
+    "interface_delay_us": {
+      "value": 1.0,
+      "unit": "us",
+      "assumption": true,
+      "note": "탐촉자 지연재/계면 에코 시각"
+    },
+    "pulse_sigma_us": {
+      "value": 0.08,
+      "unit": "us",
+      "assumption": true,
+      "note": "가우시안 포락선 표준편차(광대역 탐촉자)"
+    },
+    "interface_amp": {
+      "value": 1.5,
+      "assumption": true,
+      "note": "계면(초기) 에코 진폭"
+    },
+    "backwall_amp": {
+      "value": 1.0,
+      "assumption": true,
+      "note": "첫 저면 에코 진폭(정규화)"
+    },
+    "backwall_decay": {
+      "value": 0.6,
+      "assumption": true,
+      "note": "왕복당 저면 다중 에코 감쇠비"
+    },
+    "atten_db_per_mm": {
+      "value": 0.02,
+      "unit": "dB/mm",
+      "assumption": true,
+      "note": "5 MHz 강 감쇠(경로 길이 기준)"
+    },
+    "temp_coeff_shear_mps_per_c": {
+      "value": -0.5,
+      "unit": "m/s/C",
+      "assumption": true,
+      "note": "횡파 온도 계수"
+    },
+    "crack_amp_max": {
+      "value": 1.0,
+      "assumption": true,
+      "note": "코너 트랩 에코 포화 진폭"
+    },
+    "crack_h0_mm": {
+      "value": 1.0,
+      "unit": "mm",
+      "assumption": true,
+      "note": "진폭 포화 상수: A = A_max(1-exp(-h/h0))"
+    },
+    "crack_threshold": {
+      "value": 0.15,
+      "assumption": true,
+      "note": "게이트 내 포락선 검출 임계값"
+    },
+    "crack_snr": {
+      "value": 5.0,
+      "assumption": true,
+      "note": "게이트 밖 잡음 RMS 대비 검출 배수"
+    },
+    "clutter_amp": {
+      "value": 0.05,
+      "assumption": true,
+      "note": "형상 클러터 최대 진폭"
+    },
+    "gate_halfwidth_us": {
+      "value": 0.5,
+      "unit": "us",
+      "assumption": true,
+      "note": "코너 트랩 게이트 반폭(+경로시간 3%)"
+    },
+    "temp_compensation": {
+      "value": "measured",
+      "assumption": true,
+      "note": "음속 온도 보정 입력: measured=측정 온도(진짜+오차), none=20 C 가정(보정 없음)"
+    },
+    "max_inspection_interval_yr": {
+      "value": 10,
+      "unit": "yr",
+      "assumption": true,
+      "note": "API 570 Class 2 두께측정 최대 주기 10년을 상한으로 가정"
+    },
+    "n_avg": {
+      "value": 16,
+      "assumption": true,
+      "note": "make_dataset의 양 빔 측정점당 코히어런트 평균 A-scan 수 (전자 노이즈만 1/sqrt(N), 결정립 산란·접촉은 공유)"
+    },
+    "angle_n_avg": {
+      "value": null,
+      "assumption": true,
+      "note": "사각빔 평균 횟수. null은 n_avg를 따름. 1은 기존 data-v3의 사각빔 단일 취득 재현"
+    },
+    "prf_hz": {
+      "value": 100,
+      "unit": "Hz",
+      "assumption": true,
+      "note": "평균용 A-scan 반복률(휴대/드론 탑재 장비의 디지타이즈·전송 포함 실효값, 보수적 가정)"
+    },
+    "avg_extra_time_s": {
+      "value": 0.15,
+      "unit": "s",
+      "assumption": true,
+      "note": "평균 때문에 늘어나는 측정점당 시간 = (n_avg-1)/prf_hz. n_avg나 prf_hz를 바꾸면 같이 수정(테스트가 일치 확인)"
+    },
+    "pit": {
+      "method": {
+        "value": "learned",
+        "assumption": true,
+        "note": "기본 피트 검출기(maek.pit.METHODS): baseline, mf, cfar, mf_cfar, rel_amp, shadow, learned, learned_shadow"
+      },
+      "cfar_pfa": {
+        "value": 0.002,
+        "assumption": true,
+        "note": "CFAR 설계 오경보 확률(A-scan당, 레일리 포락선 가정)"
+      },
+      "cfar_k_margin": {
+        "value": 0.75,
+        "assumption": true,
+        "note": "잡음 시그마 추정 오차 여유(임계 배수에 더함)"
+      },
+      "dead_zone_us": {
+        "value": 0.4,
+        "unit": "us",
+        "assumption": true,
+        "note": "계면 에코 뒤 불감대(이보다 얕은 잔여 두께는 못 봄)"
+      },
+      "min_depth_mm": {
+        "value": 0.3,
+        "unit": "mm",
+        "assumption": true,
+        "note": "보고할 최소 피트 깊이(저면 에코 직전 이 깊이까지만 탐색)"
+      },
+      "wall_tol_frac": {
+        "value": 0.1,
+        "assumption": true,
+        "note": "에코 간격 두께가 공칭과 이 비율 넘게 다르면 공칭 두께로 저면 시각 대체"
+      },
+      "gate_k_margin": {
+        "value": 0.0,
+        "assumption": true,
+        "note": "learned 판정은 피트 창 최대 에코가 CFAR 설계 임계(+이 여유)를 넘을 때만 인정. DR 범위 밖 조건에서 오경보 상한"
+      },
+      "rel_amp_min": {
+        "value": 0.1,
+        "assumption": true,
+        "note": "rel_amp 규칙: 피트 에코/첫 저면 에코 최소 비(피트 면적 비율 하한 0.1에 해당)"
+      },
+      "shadow_min_drop": {
+        "value": 0.05,
+        "assumption": true,
+        "note": "shadow 규칙: 저면/계면 에코 비가 기대값보다 이 비율 이상 작아야 함"
+      },
+      "shadow_z": {
+        "value": 3.1,
+        "assumption": true,
+        "note": "shadow 규칙: 감소량/잡음 최소 배수(정규 근사 단측 0.1 %)"
+      },
+      "dr_seed": {
+        "value": 2026,
+        "assumption": true,
+        "note": "DR 학습 데이터 시드(평가 시드와 별개)"
+      },
+      "dr_n_train": {
+        "value": 4000,
+        "assumption": true,
+        "note": "DR 학습 A-scan 수"
+      },
+      "dr_n_calib": {
+        "value": 6000,
+        "assumption": true,
+        "note": "DR 임계값 보정용 무결함 A-scan 수(별도 시드)"
+      },
+      "mlp_hidden": {
+        "value": 16,
+        "assumption": true,
+        "note": "소형 MLP 은닉 유닛 수(0이면 로지스틱 회귀)"
+      },
+      "mlp_l2": {
+        "value": 0.001,
+        "assumption": true,
+        "note": "MLP L2 가중치 감쇠"
+      },
+      "mlp_iters": {
+        "value": 1500,
+        "assumption": true,
+        "note": "MLP 전체 배치 Adam 반복 수"
+      },
+      "target_fa": {
+        "value": 0.005,
+        "assumption": true,
+        "note": "학습 분류기 목표 오경보율(DR 무결함 보정 세트, 대역별)"
+      },
+      "calib_strata": {
+        "value": 2,
+        "assumption": true,
+        "note": "임계값 보정: 평균 횟수별로 나눈 뒤 저면 에코 SNR 등분위 대역 수"
+      },
+      "dr_pit_prob": {
+        "value": 0.5,
+        "assumption": true,
+        "note": "도메인 랜덤화(DR) 학습 데이터의 피트 비율"
+      },
+      "dr_noise_scale_range": {
+        "value": [
+          0.5,
+          4.0
+        ],
+        "assumption": true,
+        "note": "DR 노이즈 배율(로그 균등). 현장 장비·전기 잡음 폭을 넓게 잡은 가정, shifted 3배 포함"
+      },
+      "dr_coupling_range": {
+        "value": [
+          0.2,
+          1.0
+        ],
+        "assumption": true,
+        "note": "DR 접촉 계수(건조~양호 접촉)"
+      },
+      "dr_temp_range_c": {
+        "value": [
+          -10,
+          220
+        ],
+        "unit": "C",
+        "assumption": true,
+        "note": "DR 배관 온도 = 망 매질 온도 전체 범위(network.temp_c_by_medium)"
+      },
+      "dr_temp_meas_error_max_c": {
+        "value": 20.0,
+        "unit": "C",
+        "assumption": true,
+        "note": "DR 측정 온도 오차 표준편차 상한(샘플마다 0~상한 균등)"
+      },
+      "dr_n_avg_choices": {
+        "value": [
+          1,
+          4,
+          16
+        ],
+        "assumption": true,
+        "note": "DR 평균 횟수 후보(균등 선택)"
+      }
+    },
+    "dataset": {
+      "wall_range_mm": {
+        "value": [
+          3.0,
+          12.0
+        ],
+        "unit": "mm",
+        "assumption": true,
+        "note": "일반 배관 두께 범위"
+      },
+      "pit_prob": {
+        "value": 0.3,
+        "assumption": true
+      },
+      "pit_depth_frac_range": {
+        "value": [
+          0.1,
+          0.6
+        ],
+        "assumption": true,
+        "note": "두께 대비 피트 깊이"
+      },
+      "pit_fraction_range": {
+        "value": [
+          0.1,
+          0.5
+        ],
+        "assumption": true,
+        "note": "빔 내 피트 면적 비율"
+      },
+      "crack_prob": {
+        "value": 0.3,
+        "assumption": true
+      },
+      "crack_height_frac_range": {
+        "value": [
+          0.05,
+          0.8
+        ],
+        "assumption": true,
+        "note": "두께 대비 균열 높이"
+      },
+      "train_temp_range_c": {
+        "value": [
+          10,
+          60
+        ],
+        "unit": "C",
+        "assumption": true
+      },
+      "train_coupling_range": {
+        "value": [
+          0.8,
+          1.0
+        ],
+        "assumption": true
+      },
+      "shifted_temp_range_c": {
+        "value": [
+          100,
+          175
+        ],
+        "unit": "C",
+        "assumption": true,
+        "note": "고온 배관(보정 미흡 상황 포함)"
+      },
+      "shifted_coupling_range": {
+        "value": [
+          0.3,
+          0.7
+        ],
+        "assumption": true,
+        "note": "불량 접촉"
+      },
+      "shifted_noise_scale": {
+        "value": 3.0,
+        "assumption": true,
+        "note": "노이즈 배율"
+      },
+      "train_temp_meas_error_c": {
+        "value": 2.0,
+        "unit": "C",
+        "assumption": true,
+        "note": "해석에 쓰는 측정 온도의 표준편차(진짜 온도 + 오차)"
+      },
+      "shifted_temp_meas_error_c": {
+        "value": 15.0,
+        "unit": "C",
+        "assumption": true,
+        "note": "고온 배관 표면 온도 측정 오차(비접촉/단열 영향)"
+      }
+    }
+  },
+  "camera": {
+    "image_size": {
+      "value": 640,
+      "unit": "px",
+      "assumption": true
+    },
+    "brightness_range": {
+      "value": [
+        0.5,
+        1.5
+      ],
+      "assumption": true,
+      "note": "조명 배율"
+    },
+    "dust_opacity_range": {
+      "value": [
+        0.0,
+        0.4
+      ],
+      "assumption": true,
+      "note": "분진"
+    },
+    "steam_opacity_range": {
+      "value": [
+        0.0,
+        0.5
+      ],
+      "assumption": true,
+      "note": "증기"
+    },
+    "negative_frac": {
+      "value": 0.4,
+      "assumption": true,
+      "note": "결함 없는 음성 이미지 비율"
+    },
+    "pipe_width_frac_range": {
+      "value": [
+        0.35,
+        0.7
+      ],
+      "assumption": true,
+      "note": "이미지 높이 대비 배관 외경 폭"
+    },
+    "tilt_deg_range": {
+      "value": [
+        -15,
+        15
+      ],
+      "unit": "deg",
+      "assumption": true,
+      "note": "배관 기울기(시점)"
+    },
+    "blur_sigma_range": {
+      "value": [
+        0.0,
+        2.0
+      ],
+      "unit": "px",
+      "assumption": true,
+      "note": "초점/모션 블러"
+    },
+    "noise_sigma_range": {
+      "value": [
+        0.0,
+        0.04
+      ],
+      "assumption": true,
+      "note": "센서 노이즈(0-1 스케일)"
+    },
+    "view_window_pad": {
+      "value": 1.0,
+      "assumption": true,
+      "note": "시야 안 결함 포함 여지(이미지 폭 배수)"
+    },
+    "shifted_brightness_range": {
+      "value": [
+        0.25,
+        0.6
+      ],
+      "assumption": true,
+      "note": "분포 이동(shifted): 어두운 조명(역광/야간)"
+    },
+    "shifted_dust_opacity_range": {
+      "value": [
+        0.3,
+        0.7
+      ],
+      "assumption": true,
+      "note": "shifted 분진"
+    },
+    "shifted_steam_opacity_range": {
+      "value": [
+        0.3,
+        0.8
+      ],
+      "assumption": true,
+      "note": "shifted 증기"
+    },
+    "shifted_blur_sigma_range": {
+      "value": [
+        1.5,
+        3.5
+      ],
+      "unit": "px",
+      "assumption": true,
+      "note": "shifted 블러(드론 진동)"
+    },
+    "shifted_noise_sigma_range": {
+      "value": [
+        0.03,
+        0.08
+      ],
+      "assumption": true,
+      "note": "shifted 센서 노이즈"
+    },
+    "min_defect_px": {
+      "value": 6,
+      "unit": "px",
+      "assumption": true,
+      "note": "렌더 결함 최소 크기"
+    }
+  },
+  "thermal": {
+    "image_w": {
+      "value": 320,
+      "unit": "px",
+      "assumption": true,
+      "note": "열화상 이미지 폭(소형 마이크로볼로미터 급)"
+    },
+    "image_h": {
+      "value": 256,
+      "unit": "px",
+      "assumption": true,
+      "note": "열화상 이미지 높이"
+    },
+    "netd_k": {
+      "value": 0.05,
+      "unit": "K",
+      "assumption": true,
+      "note": "카메라 NETD(잡음등가온도차). 복사휘도 잡음으로 환산해 적용"
+    },
+    "fpn_k": {
+      "value": 0.15,
+      "unit": "K",
+      "assumption": true,
+      "note": "보정 후 잔여 고정패턴잡음(화소별 정적) 표준편차"
+    },
+    "blur_sigma_range": {
+      "value": [
+        0.5,
+        1.5
+      ],
+      "unit": "px",
+      "assumption": true,
+      "note": "광학 블러"
+    },
+    "emissivity_by_jacket": {
+      "aluminium": {
+        "value": [
+          0.05,
+          0.3
+        ],
+        "source": "https://www.engineeringtoolbox.com/emissivity-coefficients-d_447.html",
+        "note": "연마면 약 0.04-0.06, 풍화·산화될수록 높음"
+      },
+      "galvanized": {
+        "value": [
+          0.2,
+          0.35
+        ],
+        "source": "https://www.engineeringtoolbox.com/emissivity-coefficients-d_447.html",
+        "note": "아연도금 강판(신품-풍화)"
+      },
+      "stainless": {
+        "value": [
+          0.1,
+          0.3
+        ],
+        "source": "https://www.engineeringtoolbox.com/emissivity-coefficients-d_447.html",
+        "note": "스테인리스 외장(연마-산화)"
+      }
+    },
+    "bare_metal_emissivity": {
+      "value": [
+        0.6,
+        0.9
+      ],
+      "assumption": true,
+      "note": "외장이 벗겨져 노출된 도장·산화 강관 표면"
+    },
+    "emissivity_variation": {
+      "value": 0.03,
+      "assumption": true,
+      "note": "외장 방사율의 공간 표준편차(오염·찍힘·이음매)"
+    },
+    "eps_set_error": {
+      "train": {
+        "value": 0.02,
+        "assumption": true,
+        "note": "카메라 방사율 설정 상대 오차(AI가 외장 종류별 대푯값을 설정)"
+      },
+      "shifted": {
+        "value": 0.08,
+        "assumption": true,
+        "note": "shifted 상대 오차"
+      }
+    },
+    "ambient_c": {
+      "value": [
+        -5,
+        30
+      ],
+      "unit": "C",
+      "assumption": true,
+      "note": "촬영 시 대기 온도 범위"
+    },
+    "h_wind_a": {
+      "value": 5.7,
+      "unit": "W/m2/K",
+      "assumption": true,
+      "note": "표면 열전달계수 h = a + b v (McAdams 풍속 상관식의 흔한 형태; 대류+복사 합산 근사)"
+    },
+    "h_wind_b": {
+      "value": 3.8,
+      "unit": "W/m2/K/(m/s)",
+      "assumption": true,
+      "note": "h = a + b v 의 풍속 계수"
+    },
+    "conditions": {
+      "train": {
+        "sky_offset_k": {
+          "value": [
+            -8,
+            -2
+          ],
+          "unit": "K",
+          "assumption": true,
+          "note": "흐림/야간 하늘 반사 온도 = 대기 + 오프셋"
+        },
+        "wind_mps": {
+          "value": [
+            0,
+            3
+          ],
+          "unit": "m/s",
+          "assumption": true
+        },
+        "sun_k": {
+          "value": [
+            0,
+            0
+          ],
+          "unit": "K",
+          "assumption": true,
+          "note": "일사 가열 없음"
+        }
+      },
+      "shifted": {
+        "sky_offset_k": {
+          "value": [
+            -40,
+            -20
+          ],
+          "unit": "K",
+          "assumption": true,
+          "note": "맑은 낮 하늘 반사 온도(대기 + 오프셋)"
+        },
+        "wind_mps": {
+          "value": [
+            3,
+            8
+          ],
+          "unit": "m/s",
+          "assumption": true
+        },
+        "sun_k": {
+          "value": [
+            2,
+            10
+          ],
+          "unit": "K",
+          "assumption": true,
+          "note": "상반부 일사 가열(흡수율 ~ 방사율 배율)"
+        }
+      }
+    },
+    "scene": {
+      "steam_temp_c": {
+        "value": [
+          120,
+          220
+        ],
+        "unit": "C",
+        "assumption": true
+      },
+      "condensate_temp_c": {
+        "value": [
+          60,
+          100
+        ],
+        "unit": "C",
+        "assumption": true
+      },
+      "traced_temp_c": {
+        "value": [
+          40,
+          90
+        ],
+        "unit": "C",
+        "assumption": true
+      },
+      "insulation_mm": {
+        "value": [
+          40,
+          75
+        ],
+        "unit": "mm",
+        "assumption": true
+      },
+      "od_mm": {
+        "value": [
+          60.3,
+          114.3,
+          219.1,
+          323.9
+        ],
+        "unit": "mm",
+        "assumption": true,
+        "note": "호칭경 선택지"
+      },
+      "negative_frac": {
+        "value": 0.35,
+        "assumption": true,
+        "note": "결함 없는 이미지 비율(어려운 음성 포함)"
+      },
+      "pipe_halfwidth_px": {
+        "value": [
+          24,
+          46
+        ],
+        "unit": "px",
+        "assumption": true,
+        "note": "이미지 속 배관 반폭"
+      },
+      "tilt_deg_range": {
+        "value": [
+          -10,
+          10
+        ],
+        "unit": "deg",
+        "assumption": true
+      },
+      "defect_length_px": {
+        "value": [
+          8,
+          34
+        ],
+        "unit": "px",
+        "assumption": true,
+        "note": "젖음/훼손 영역의 이미지 상 길이(배경 중앙값 창보다 짧게)"
+      },
+      "orifice_mm": {
+        "value": [
+          1.0,
+          25.0
+        ],
+        "unit": "mm",
+        "assumption": true,
+        "note": "증기 누설 오리피스 직경 범위(로그 균등)"
+      }
+    },
+    "detector": {
+      "z_thr": {
+        "value": 3.5,
+        "assumption": true,
+        "note": "로버스트 z 점수 임계"
+      },
+      "min_dt_k": {
+        "value": 0.5,
+        "unit": "K",
+        "assumption": true,
+        "note": "잔차 최소값"
+      },
+      "min_area_px": {
+        "value": 12,
+        "unit": "px",
+        "assumption": true,
+        "note": "검출 성분 최소 면적"
+      },
+      "peak_z": {
+        "value": 5.5,
+        "assumption": true,
+        "note": "히스테리시스: 성분 내 최대 z 점수가 이 값 이상이어야 검출(z_thr는 윤곽용)"
+      },
+      "min_extent_px": {
+        "value": 7,
+        "unit": "px",
+        "assumption": true,
+        "note": "성분의 최소 폭(이음매·클램프 같은 얇은 띠 제거)"
+      },
+      "bg_window_px": {
+        "value": 61,
+        "unit": "px",
+        "assumption": true,
+        "note": "배관 축 방향 배경 중앙값 창 길이"
+      },
+      "damage_edge_px": {
+        "value": 5.0,
+        "unit": "px",
+        "assumption": true,
+        "note": "분류용 가장자리 폭(피크/최대 기울기)의 상한: 노출 금속은 경계가 뚜렷, 젖은 영역은 완만"
+      },
+      "damage_dt_k": {
+        "value": 12.0,
+        "unit": "K",
+        "assumption": true,
+        "note": "잔차 피크가 이 값 이상이면 외장 훼손(노출 금속)으로 분류"
+      }
+    },
+    "human_review_factor": {
+      "value": 0.6,
+      "assumption": true,
+      "note": "사람이 열화상 영상을 판독할 때 저대비 반점을 놓치는 정도(AI 대비 POD 배율)"
+    },
+    "pod": {
+      "wet_insulation": {
+        "b0": {
+          "value": -1.83,
+          "assumption": true,
+          "note": "시뮬레이터 hit/miss 로지스틱 적합값 (train, 600장, python -m maek thermal-pod), a=|표면 온도차| K"
+        },
+        "b1": {
+          "value": 1.29,
+          "assumption": true
+        }
+      },
+      "insulation_damage": {
+        "b0": {
+          "value": -0.29,
+          "assumption": true,
+          "note": "시뮬레이터 hit/miss 로지스틱 적합값 (train, 600장, python -m maek thermal-pod), a=|표면 온도차| K"
+        },
+        "b1": {
+          "value": 0.5,
+          "assumption": true
+        }
+      },
+      "steam_leak": {
+        "b0": {
+          "value": -5.89,
+          "assumption": true,
+          "note": "시뮬레이터 hit/miss 로지스틱 적합값 (train, 600장, python -m maek thermal-pod), a=오리피스 mm"
+        },
+        "b1": {
+          "value": 4.08,
+          "assumption": true
+        }
+      }
+    },
+    "pod_shifted": {
+      "wet_insulation": {
+        "b0": {
+          "value": -1.55,
+          "assumption": true,
+          "note": "시뮬레이터 hit/miss 로지스틱 적합값 (shifted, 600장, python -m maek thermal-pod), a=|표면 온도차| K"
+        },
+        "b1": {
+          "value": 0.63,
+          "assumption": true
+        }
+      },
+      "insulation_damage": {
+        "b0": {
+          "value": 1.94,
+          "assumption": true,
+          "note": "시뮬레이터 hit/miss 로지스틱 적합값 (shifted, 600장, python -m maek thermal-pod), a=|표면 온도차| K"
+        },
+        "b1": {
+          "value": 0.0,
+          "assumption": true
+        }
+      },
+      "steam_leak": {
+        "b0": {
+          "value": -4.18,
+          "assumption": true,
+          "note": "시뮬레이터 hit/miss 로지스틱 적합값 (shifted, 600장, python -m maek thermal-pod), a=오리피스 mm"
+        },
+        "b1": {
+          "value": 2.52,
+          "assumption": true
+        }
+      }
+    },
+    "trap": {
+      "train": {
+        "pod_open": {
+          "value": 0.68,
+          "assumption": true,
+          "note": "트랩 규칙(출구 겉보기 온도 > 입구 - 10 K) 몬테카를로 적합값, 방사율 0.6-0.9, 2-10 barg"
+        },
+        "pod_closed": {
+          "value": 0.88,
+          "assumption": true,
+          "note": "입구 겉보기 온도 < 포화온도 - 30 K 규칙 몬테카를로 값"
+        },
+        "false_alarm": {
+          "value": 0.001,
+          "assumption": true,
+          "note": "정상 트랩 오경보 확률(몬테카를로)"
+        }
+      },
+      "shifted": {
+        "pod_open": {
+          "value": 0.61,
+          "assumption": true,
+          "note": "shifted(맑은 날 낮, 방사율 설정 오차 8%) 몬테카를로 값"
+        },
+        "pod_closed": {
+          "value": 0.85,
+          "assumption": true
+        },
+        "false_alarm": {
+          "value": 0.02,
+          "assumption": true
+        }
+      }
+    }
+  },
+  "strategy": {
+    "cost_ut_point_krw": {
+      "value": 50000,
+      "unit": "KRW",
+      "assumption": true,
+      "note": "장비·자료 처리 등 인건비를 뺀 1점 비용. 인건비는 측정 시간 × 시간당 인건비로 따로 계산(이전 15만 원은 인건비와 중복)"
+    },
+    "cost_scaffold_krw": {
+      "value": 2000000,
+      "unit": "KRW",
+      "assumption": true,
+      "note": "비계 설치. 비계공 281,939원/일(2026.1) 기준 설치·해체 인력 + 자재 임차를 넉넉히 잡은 가정, 과대일 수 있음"
+    },
+    "cost_drone_per_km_krw": {
+      "value": 500000,
+      "unit": "KRW/km",
+      "assumption": true,
+      "note": "드론 촬영"
+    },
+    "cost_labor_hour_krw": {
+      "value": 50000,
+      "unit": "KRW/h",
+      "assumption": true,
+      "note": "2026.1 건설업 시중노임단가 비파괴시험공 214,553원/일(약 2.7만 원/시간)에 간접비·이윤을 더한 수준으로 가정"
+    },
+    "cost_drone_contact_ut_extra_krw": {
+      "value": 100000,
+      "unit": "KRW",
+      "assumption": true,
+      "note": "가공 배관 드론 접촉 UT 1점 추가 비용(비계 대체)"
+    },
+    "cost_insulation_opening_krw": {
+      "value": 200000,
+      "unit": "KRW",
+      "assumption": true,
+      "note": "보온재 부분 해체·복구 1개소(자재·외장 보수 포함, 인건비는 시간으로 따로 계산)"
+    },
+    "insulation_opening_min": {
+      "value": 30,
+      "unit": "min",
+      "assumption": true,
+      "note": "보온재 부분 해체·복구 1개소 작업 시간(사람)"
+    },
+    "human_elevated_access": {
+      "value": "scaffold",
+      "assumption": true,
+      "note": "가공 배관 사람 접근 방식: scaffold(작업이 있는 가공 구간마다 비계 1회) 또는 lift(고소작업차, 비계 없음). 트랩 점검은 접근 가능으로 가정"
+    },
+    "lift_min_per_point": {
+      "value": 20,
+      "unit": "min",
+      "assumption": true,
+      "note": "lift 모드에서 가공 배관 사람 작업 지점당 추가 시간(이동·위치 잡기)"
+    },
+    "cost_lift_day_krw": {
+      "value": 500000,
+      "unit": "KRW/day",
+      "assumption": true,
+      "note": "고소작업차 1일 임차(운전원 포함) 가정. 일수 = 올림(총 고소 작업 시간 / 하루 작업 시간)"
+    },
+    "trap_test_min": {
+      "value": 5,
+      "unit": "min",
+      "assumption": true,
+      "note": "사람의 트랩 점검(초음파·온도) 1개 소요 시간"
+    },
+    "trap_test_pod": {
+      "value": 0.9,
+      "assumption": true,
+      "note": "사람이 점검한 고장 트랩을 찾아낼 확률"
+    },
+    "ai_trap_mode": {
+      "value": "full",
+      "assumption": true,
+      "note": "AI 전략 트랩 점검: full(사람이 전수 초음파 점검, 100 km에 약 35시간이라 줄일 이유가 작음) 또는 ir_flagged(열화상이 표시한 트랩 + 표본만)"
+    },
+    "trap_sample_frac": {
+      "value": 0.2,
+      "assumption": true,
+      "note": "열화상이 표시하지 않은 트랩 중 무작위로 사람이 확인하는 비율"
+    },
+    "ir_review_min_per_km": {
+      "value": 30,
+      "unit": "min/km",
+      "assumption": true,
+      "note": "사람이 열화상 영상을 판독하는 시간(영상 1 km당)"
+    },
+    "ir_condition": {
+      "value": "train",
+      "assumption": true,
+      "note": "열화상 촬영 조건: train(흐린 날·야간 촬영 일정) 또는 shifted(맑은 낮, 민감도 확인용)"
+    },
+    "pec_wall_roles": {
+      "value": [
+        "cui"
+      ],
+      "assumption": true,
+      "note": "보온 탄소강 위험 지점 중 PEC로 대신 재는 역할: cui(지지대·노즐·데드레그). thin(엘보 등 FAC 지점)은 감육 면적이 PEC 풋프린트보다 작아 기본은 보온재를 열고 UT. 저점과 열화상이 찾은 젖은 구간은 항상 PEC"
+    },
+    "pec_feature_zone_m": {
+      "value": 1.0,
+      "unit": "m",
+      "assumption": true,
+      "note": "보온 탄소강 위험 지점(FAC·CUI·저점)에서 PEC로 스캔하는 구간 길이(지점 중심)"
+    },
+    "pec_false_call_prob": {
+      "value": 0.05,
+      "assumption": true,
+      "note": "PEC 구간에서 결함이 없는데 UT 확인을 부르는 확률(구간당)"
+    },
+    "pec_false_call_galvanized_factor": {
+      "value": 3.0,
+      "assumption": true,
+      "note": "아연도 외장에서 PEC 오호출 확률 배율(신호 잡음 증가)"
+    },
+    "cost_pec_hour_krw": {
+      "value": 30000,
+      "unit": "KRW/h",
+      "assumption": true,
+      "note": "PEC 장비 사용 비용(시간당, 인건비 제외)"
+    },
+    "pit_scan_target": {
+      "value": "wet_spot",
+      "assumption": true,
+      "note": "내부 피팅 면적 스캔 위치: wet_spot(저점·데드레그·트랩 상류 중심) 또는 random(구간 내 무작위)"
+    },
+    "elevated_ut_mode": {
+      "value": "drone",
+      "assumption": true,
+      "note": "AI 전략의 가공 배관 UT 방식: drone(드론 접촉 UT, 비계 없음) 또는 scaffold"
+    },
+    "cml_per_segment": {
+      "value": 2,
+      "assumption": true,
+      "note": "기준 전략 세그먼트당 고정 두께측정점(CML) 수, 세그먼트 길이 균등 분할 중앙"
+    },
+    "probe_footprint_m": {
+      "value": 0.3,
+      "unit": "m",
+      "assumption": true,
+      "note": "고정 UT점이 결함을 측정할 수 있는 축방향 반경"
+    },
+    "walk_km_per_h": {
+      "value": 1.0,
+      "unit": "km/h",
+      "assumption": true,
+      "note": "작업자 육안 순찰 속도"
+    },
+    "drone_km_per_h": {
+      "value": 5.0,
+      "unit": "km/h",
+      "assumption": true,
+      "note": "드론/로봇 촬영 속도"
+    },
+    "ut_manual_min_per_point": {
+      "value": 30,
+      "unit": "min",
+      "assumption": true,
+      "note": "사람 UT 1점 측정 시간(접근·접촉매질 포함)"
+    },
+    "ut_drone_min_per_point": {
+      "value": 45,
+      "unit": "min",
+      "assumption": true,
+      "note": "드론 접촉 UT 1점 측정 시간(접근·안정화 포함, 사람보다 느림)"
+    },
+    "drone_setup_h_per_batch": {
+      "value": 0.5,
+      "unit": "h",
+      "assumption": true,
+      "note": "드론 비행 묶음(세그먼트 배치)당 준비·이동 시간"
+    },
+    "drone_batch_segments": {
+      "value": 10,
+      "assumption": true,
+      "note": "한 번 준비로 비행하는 세그먼트 수"
+    },
+    "video_review_min_per_km": {
+      "value": 30,
+      "unit": "min/km",
+      "assumption": true,
+      "note": "사람이 드론 영상을 판독하는 시간(영상 1 km당)"
+    },
+    "ai_verify_min_per_flag": {
+      "value": 5,
+      "unit": "min",
+      "assumption": true,
+      "note": "AI가 표시한 위치를 사람이 확인하는 시간"
+    },
+    "cost_ai_processing_per_km_krw": {
+      "value": 20000,
+      "unit": "KRW/km",
+      "assumption": true,
+      "note": "AI 영상 처리 비용(연산·소프트웨어)"
+    },
+    "crews": {
+      "value": 4,
+      "assumption": true,
+      "note": "사람 현장팀 수(순찰·비계·사람 UT)"
+    },
+    "drones": {
+      "value": 2,
+      "assumption": true,
+      "note": "드론 운용 팀 수(비행·드론 접촉 UT)"
+    },
+    "reviewers": {
+      "value": 2,
+      "assumption": true,
+      "note": "영상 판독·AI 확인 인원 수"
+    },
+    "work_hours_per_day": {
+      "value": 8,
+      "unit": "h",
+      "assumption": true,
+      "note": "팀당 하루 작업 시간"
+    },
+    "pit_scan_budget_frac": {
+      "value": 0.15,
+      "assumption": true,
+      "note": "AI 전략 내부 피팅 면적 스캔 점 수 = 이 비율 x 기준 전략 고정 UT 점 수 (총 UT 점 수는 기준 이하로 제한)"
+    },
+    "pit_scan_k": {
+      "value": 5,
+      "assumption": true,
+      "note": "면적 스캔 1회당 직진 UT 격자 점 수"
+    },
+    "pit_scan_footprint_m": {
+      "value": 5.0,
+      "unit": "m",
+      "assumption": true,
+      "note": "면적 스캔 1회가 덮는 축방향 길이"
+    },
+    "scaffold_hours": {
+      "value": 8,
+      "unit": "h",
+      "assumption": true,
+      "note": "비계 설치·해체 작업 시간"
+    },
+    "camera_false_flag_prob": {
+      "value": 0.03,
+      "assumption": true,
+      "note": "결함 없는 세그먼트를 카메라가 오검출하여 UT 확인하는 확률"
+    },
+    "high_consequence_min": {
+      "value": 4,
+      "assumption": true,
+      "note": "고피해 등급 기준(이상)"
+    },
+    "risk_ut_consequence_min": {
+      "value": 4,
+      "assumption": true,
+      "note": "AI 전략이 위험 형상 UT를 수행하는 최소 피해등급"
+    },
+    "weld_sample_frac": {
+      "value": 0.05,
+      "assumption": true,
+      "note": "AI 전략의 용접부 균열 UT 샘플 비율"
+    },
+    "crack_ut_mode": {
+      "value": "risk_ranked",
+      "assumption": true,
+      "note": "AI 전략 균열 사각 UT 표본: risk_ranked(경년x피해등급x형상 순위 상위) 또는 random(용접부 무작위 + 고피해 엘보)"
+    },
+    "crack_ut_budget_frac": {
+      "value": 0.3,
+      "assumption": true,
+      "note": "risk_ranked 모드의 균열 UT 점 수 = 이 비율 x 기준 전략 고정 UT 점 수"
+    },
+    "support_sample_frac": {
+      "value": 0.05,
+      "assumption": true,
+      "note": "AI 전략의 지지대 CUI UT 샘플 비율"
+    },
+    "human_elevated_factor": {
+      "value": 0.4,
+      "assumption": true,
+      "note": "가공 배관에서 육안 검출 확률 배율"
+    },
+    "pod": {
+      "human": {
+        "b0": {
+          "value": -2.0,
+          "assumption": true,
+          "note": "육안 POD 로지스틱 절편, a=면적 cm2"
+        },
+        "b1": {
+          "value": 1.2,
+          "assumption": true
+        }
+      },
+      "human_video": {
+        "b0": {
+          "value": -2.5,
+          "assumption": true,
+          "note": "사람이 드론 영상을 판독할 때의 POD 절편, a=면적 cm2 (현장 육안보다 다소 낮다고 가정)"
+        },
+        "b1": {
+          "value": 1.2,
+          "assumption": true
+        }
+      },
+      "camera": {
+        "b0": {
+          "value": -1.0,
+          "assumption": true,
+          "note": "카메라 POD 절편, a=면적 cm2 (외부 가시 결함/CUI 징후)"
+        },
+        "b1": {
+          "value": 1.2,
+          "assumption": true
+        }
+      },
+      "ut_straight": {
+        "b0": {
+          "value": 0.5,
+          "assumption": true,
+          "note": "직진 UT POD 절편, a=감육 깊이 mm"
+        },
+        "b1": {
+          "value": 2.5,
+          "assumption": true
+        }
+      },
+      "ut_angle": {
+        "b0": {
+          "value": 0.0,
+          "assumption": true,
+          "note": "사각 UT POD 절편, a=균열 깊이 mm"
+        },
+        "b1": {
+          "value": 2.5,
+          "assumption": true
+        }
+      },
+      "ut_straight_drone": {
+        "b0": {
+          "value": 0.2,
+          "assumption": true,
+          "note": "드론 접촉 직진 UT POD 절편, a=감육 깊이 mm (결합 상태가 나쁘다고 가정)"
+        },
+        "b1": {
+          "value": 2.5,
+          "assumption": true
+        }
+      },
+      "ut_angle_drone": {
+        "b0": {
+          "value": -0.5,
+          "assumption": true,
+          "note": "드론 접촉 사각 UT POD 절편, a=균열 깊이 mm"
+        },
+        "b1": {
+          "value": 2.5,
+          "assumption": true
+        }
+      },
+      "ut_pit_manual": {
+        "b0": {
+          "value": 6.27,
+          "assumption": true,
+          "note": "사람 직진 UT의 내부 피팅 POD 절편, a=피트 깊이 mm. 시뮬레이터 train 조건에서 ut.detect_pit(16회 평균+MLP+CFAR) hit/miss를 Firth 보정 로지스틱으로 적합한 값"
+        },
+        "b1": {
+          "value": 0.87,
+          "assumption": true
+        }
+      },
+      "ut_pit_drone": {
+        "b0": {
+          "value": 2.07,
+          "assumption": true,
+          "note": "드론 접촉 직진 UT의 내부 피팅 POD 절편. 접촉 불량·잡음이 큰 shifted 조건 적합값(깊이와 무관하게 약 0.89)"
+        },
+        "b1": {
+          "value": 0.0,
+          "assumption": true
+        }
+      }
+    }
+  },
+  "onboard": {
+    "target_fps": {
+      "value": 5,
+      "unit": "fps",
+      "assumption": true
+    },
+    "memory_limit_gb": {
+      "value": 2,
+      "unit": "GB",
+      "assumption": true
+    },
+    "bench_image_sizes": {
+      "value": [
+        640,
+        320
+      ],
+      "unit": "px",
+      "assumption": true,
+      "note": "온보드 지연 측정 입력 해상도"
+    },
+    "bench_threads": {
+      "value": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "assumption": true,
+      "note": "소형 보드 근사: 사용 코어/스레드 수(OMP_NUM_THREADS + CPU affinity)"
+    },
+    "bench_n_images": {
+      "value": 12,
+      "assumption": true,
+      "note": "해상도별 측정 이미지 수"
+    },
+    "bench_n_ut": {
+      "value": 60,
+      "assumption": true,
+      "note": "측정 A-scan 수(균열/두께 각각)"
+    }
+  },
+  "eval": {
+    "n_camera": {
+      "value": 300,
+      "assumption": true,
+      "note": "조건(train/shifted)별 평가 이미지 수"
+    },
+    "n_ut": {
+      "value": 3000,
+      "assumption": true,
+      "note": "조건별 UT 샘플 수"
+    },
+    "camera_image_size": {
+      "value": 640,
+      "unit": "px",
+      "assumption": true,
+      "note": "평가 렌더 해상도"
+    },
+    "seg_hue_range_deg": {
+      "value": [
+        5,
+        40
+      ],
+      "unit": "deg",
+      "assumption": true,
+      "note": "녹(주황-갈색) 색상 범위"
+    },
+    "seg_sat_min": {
+      "value": 0.35,
+      "assumption": true,
+      "note": "녹 판정 최소 채도"
+    },
+    "seg_val_min": {
+      "value": 0.12,
+      "assumption": true,
+      "note": "녹 판정 최소 명도"
+    },
+    "seg_min_pred_px": {
+      "value": 30,
+      "unit": "px",
+      "assumption": true,
+      "note": "이미지 단위 검출 판정 최소 예측 픽셀 수"
+    },
+    "seg_hit_recall": {
+      "value": 0.3,
+      "assumption": true,
+      "note": "결함 단위 hit 판정 최소 재현율(결함 영역 내 예측 비율)"
+    },
+    "thickness_tol_mm": {
+      "value": [
+        0.1,
+        0.5
+      ],
+      "unit": "mm",
+      "assumption": true,
+      "note": "두께 오차 허용 구간"
+    },
+    "n_ut_factor": {
+      "value": 1000,
+      "assumption": true,
+      "note": "피트 검출 요인 분리(노이즈/접촉/온도) 조건별 UT 샘플 수"
+    },
+    "pit_narrow_dr": {
+      "value": {
+        "dr_noise_scale_range": [
+          0.5,
+          2.0
+        ],
+        "dr_coupling_range": [
+          0.5,
+          1.0
+        ],
+        "dr_temp_range_c": [
+          -10,
+          80
+        ],
+        "dr_temp_meas_error_max_c": 5.0
+      },
+      "assumption": true,
+      "note": "학습 분류기 외삽 점검: shifted를 덮지 않는 좁은 DR 범위(ut.pit.dr_* 대체)"
+    },
+    "n_pit_dr_val": {
+      "value": 2000,
+      "assumption": true,
+      "note": "피트 검출 방법 선택용 DR 검증 A-scan 수(평균 횟수별)"
+    },
+    "pod_bootstrap": {
+      "value": 300,
+      "assumption": true,
+      "note": "a90 부트스트랩 반복 수"
+    }
+  },
+  "eva": {
+    "wetted_band_frac": {
+      "value": 0.25,
+      "assumption": true,
+      "note": "바닥 1/4 원주가 응축수·물에 젖어 피팅이 집중된다고 가정(젖음 면적 = π·내경·길이·비율)"
+    },
+    "pit_density_median_per_m2": {
+      "value": 2.0,
+      "unit": "1/m2",
+      "assumption": true,
+      "note": "젖음 면적당 피트 개수 밀도의 중앙값(회로별 로그정규)"
+    },
+    "pit_density_sigma_log": {
+      "value": 1.0,
+      "assumption": true,
+      "note": "회로 간 피트 밀도 로그정규 시그마"
+    },
+    "depth_scale_factor": {
+      "value": 0.35,
+      "assumption": true,
+      "note": "피트 깊이 지수분포 척도 = 계수 × 부식속도 × 경년 × 노출비율"
+    },
+    "scan_length_m": {
+      "value": 5.0,
+      "unit": "m",
+      "assumption": true,
+      "note": "직진빔 UT 면적 스캔 1회가 덮는 배관 길이"
+    },
+    "detect_min_mm": {
+      "value": 0.3,
+      "unit": "mm",
+      "assumption": true,
+      "note": "스캔 창 안에서 이 깊이 이상 피트만 측정됨"
+    },
+    "sizing_sd_mm": {
+      "value": 0.2,
+      "unit": "mm",
+      "assumption": true,
+      "note": "피트 깊이 측정 오차 표준편차"
+    },
+    "bootstrap": {
+      "value": 200,
+      "assumption": true,
+      "note": "상한 예측용 모수적 부트스트랩 반복 수"
+    },
+    "upper_q": {
+      "value": 0.95,
+      "assumption": true,
+      "note": "부트스트랩 분위수(예측 상한)"
+    },
+    "k_values": {
+      "value": [
+        4,
+        8,
+        16
+      ],
+      "assumption": true,
+      "note": "회로당 스캔 창 개수 후보"
+    },
+    "min_maxima": {
+      "value": 3,
+      "assumption": true,
+      "note": "Gumbel 적합에 필요한 최소 최댓값 개수(미만이면 관측 최댓값으로 대체)"
+    },
+    "circuit_keys": {
+      "value": [
+        "medium",
+        "area",
+        "material",
+        "decade"
+      ],
+      "assumption": true,
+      "note": "부식 회로 묶음 기준(decade = 설치연도 10년 단위)"
+    },
+    "fallback_margin_sd": {
+      "value": 2.0,
+      "assumption": true,
+      "note": "최댓값 부족(대체 판정) 시 관측 최댓값에 더하는 측정오차 표준편차 배수"
+    },
+    "gumbel_method": {
+      "value": "극값(Gumbel) 분포로 영역별 최대 피트 깊이를 외삽",
+      "source": "https://arxiv.org/pdf/2507.16416",
+      "note": "ASTM G46/Kowaka 극값법; GEV 일반화와 피트 군집(비독립) 한계도 논의"
+    }
+  }
+}

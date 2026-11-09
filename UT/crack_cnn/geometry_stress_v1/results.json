@@ -1,0 +1,320 @@
+{
+  "scope": "synthetic diagnostic ray model only",
+  "results": {
+    "reference_shift_nominal_angle": {
+      "tp": 747,
+      "positive_units": 752,
+      "fp": 0,
+      "normal_units": 748,
+      "recall": 0.9933510638297872,
+      "far": 0.0,
+      "recall_ci95": [
+        0.9845304003442955,
+        0.9971567679724521
+      ],
+      "far_ci95": [
+        0.0,
+        0.005109586912988054
+      ],
+      "positive_true_echo_outside_gate": 0,
+      "angle_groups": {
+        "45.0": {
+          "tp": 250,
+          "positive_units": 252,
+          "fp": 0,
+          "normal_units": 224,
+          "recall": 0.9920634920634921,
+          "far": 0.0,
+          "recall_ci95": [
+            0.971528921337268,
+            0.9978208638423121
+          ],
+          "far_ci95": [
+            0.0,
+            0.01686083665142801
+          ]
+        },
+        "60.0": {
+          "tp": 246,
+          "positive_units": 248,
+          "fp": 0,
+          "normal_units": 257,
+          "recall": 0.9919354838709677,
+          "far": 0.0,
+          "recall_ci95": [
+            0.9710772957978578,
+            0.9977856720358916
+          ],
+          "far_ci95": [
+            0.0,
+            0.014727712144075176
+          ]
+        },
+        "70.0": {
+          "tp": 251,
+          "positive_units": 252,
+          "fp": 0,
+          "normal_units": 267,
+          "recall": 0.996031746031746,
+          "far": 0.0,
+          "recall_ci95": [
+            0.9778679421784356,
+            0.9992991799783989
+          ],
+          "far_ci95": [
+            0.0,
+            0.014183936293390674
+          ]
+        }
+      },
+      "conditional_ID_corner_thickness": {
+        "total": 752,
+        "valid": 744,
+        "failed": 8,
+        "mae_valid_mm": 0.013963905562302205,
+        "within_tolerance_count": 744,
+        "within_tolerance_all": 0.9893617021276596,
+        "tolerance_mm": 0.1
+      },
+      "normal_no_path_units": 748,
+      "conditional_thickness_available_fraction_of_all_units": 0.496
+    },
+    "geometry_error_nominal_angle": {
+      "tp": 733,
+      "positive_units": 764,
+      "fp": 1,
+      "normal_units": 736,
+      "recall": 0.9594240837696335,
+      "far": 0.001358695652173913,
+      "recall_ci95": [
+        0.9429815521469794,
+        0.9712695121350287
+      ],
+      "far_ci95": [
+        0.0002398772508045788,
+        0.007655866919298859
+      ],
+      "positive_true_echo_outside_gate": 38,
+      "angle_groups": {
+        "45.0": {
+          "tp": 254,
+          "positive_units": 256,
+          "fp": 0,
+          "normal_units": 270,
+          "recall": 0.9921875,
+          "far": 0.0,
+          "recall_ci95": [
+            0.9719666598432031,
+            0.9978549545557232
+          ],
+          "far_ci95": [
+            8.673617379884035e-19,
+            0.014028547890459302
+          ]
+        },
+        "60.0": {
+          "tp": 259,
+          "positive_units": 266,
+          "fp": 0,
+          "normal_units": 253,
+          "recall": 0.9736842105263158,
+          "far": 0.0,
+          "recall_ci95": [
+            0.9466856826897817,
+            0.987195527620267
+          ],
+          "far_ci95": [
+            0.0,
+            0.014957078604089055
+          ]
+        },
+        "70.0": {
+          "tp": 220,
+          "positive_units": 242,
+          "fp": 1,
+          "normal_units": 213,
+          "recall": 0.9090909090909091,
+          "far": 0.004694835680751174,
+          "recall_ci95": [
+            0.8661976827106536,
+            0.939198962934347
+          ],
+          "far_ci95": [
+            0.0008292137381074073,
+            0.026110266509225207
+          ]
+        }
+      },
+      "conditional_ID_corner_thickness": {
+        "total": 764,
+        "valid": 723,
+        "failed": 41,
+        "mae_valid_mm": 0.09590702812931574,
+        "within_tolerance_count": 460,
+        "within_tolerance_all": 0.6020942408376964,
+        "tolerance_mm": 0.1
+      },
+      "normal_no_path_units": 736,
+      "conditional_thickness_available_fraction_of_all_units": 0.482
+    },
+    "thermal_refraction_nominal_angle": {
+      "tp": 557,
+      "positive_units": 760,
+      "fp": 0,
+      "normal_units": 740,
+      "recall": 0.7328947368421053,
+      "far": 0.0,
+      "recall_ci95": [
+        0.7003242184247738,
+        0.7631226532826587
+      ],
+      "far_ci95": [
+        0.0,
+        0.005164540407527624
+      ],
+      "positive_true_echo_outside_gate": 254,
+      "angle_groups": {
+        "45.0": {
+          "tp": 239,
+          "positive_units": 242,
+          "fp": 0,
+          "normal_units": 235,
+          "recall": 0.987603305785124,
+          "far": 0.0,
+          "recall_ci95": [
+            0.9641924291167172,
+            0.9957752899348999
+          ],
+          "far_ci95": [
+            0.0,
+            0.016084300222406814
+          ]
+        },
+        "60.0": {
+          "tp": 242,
+          "positive_units": 269,
+          "fp": 0,
+          "normal_units": 237,
+          "recall": 0.8996282527881041,
+          "far": 0.0,
+          "recall_ci95": [
+            0.8579038208642857,
+            0.93009918161041
+          ],
+          "far_ci95": [
+            0.0,
+            0.01595073276377503
+          ]
+        },
+        "70.0": {
+          "tp": 76,
+          "positive_units": 249,
+          "fp": 0,
+          "normal_units": 268,
+          "recall": 0.30522088353413657,
+          "far": 0.0,
+          "recall_ci95": [
+            0.25134060115338663,
+            0.36501999773540383
+          ],
+          "far_ci95": [
+            0.0,
+            0.014131759083230822
+          ]
+        }
+      },
+      "conditional_ID_corner_thickness": {
+        "total": 760,
+        "valid": 524,
+        "failed": 236,
+        "mae_valid_mm": 0.27035958617742073,
+        "within_tolerance_count": 81,
+        "within_tolerance_all": 0.10657894736842105,
+        "tolerance_mm": 0.1
+      },
+      "normal_no_path_units": 740,
+      "conditional_thickness_available_fraction_of_all_units": 0.34933333333333333
+    },
+    "thermal_refraction_snell_corrected": {
+      "tp": 745,
+      "positive_units": 760,
+      "fp": 1,
+      "normal_units": 740,
+      "recall": 0.9802631578947368,
+      "far": 0.0013513513513513514,
+      "recall_ci95": [
+        0.9676920853297628,
+        0.9880034410725698
+      ],
+      "far_ci95": [
+        0.0002385804004176842,
+        0.007614704492495001
+      ],
+      "positive_true_echo_outside_gate": 21,
+      "angle_groups": {
+        "45.0": {
+          "tp": 239,
+          "positive_units": 242,
+          "fp": 0,
+          "normal_units": 235,
+          "recall": 0.987603305785124,
+          "far": 0.0,
+          "recall_ci95": [
+            0.9641924291167172,
+            0.9957752899348999
+          ],
+          "far_ci95": [
+            0.0,
+            0.016084300222406814
+          ]
+        },
+        "60.0": {
+          "tp": 264,
+          "positive_units": 269,
+          "fp": 1,
+          "normal_units": 237,
+          "recall": 0.9814126394052045,
+          "far": 0.004219409282700422,
+          "recall_ci95": [
+            0.9572335082927154,
+            0.9920352249209882
+          ],
+          "far_ci95": [
+            0.0007451988786756104,
+            0.023509747110721572
+          ]
+        },
+        "70.0": {
+          "tp": 242,
+          "positive_units": 249,
+          "fp": 0,
+          "normal_units": 268,
+          "recall": 0.9718875502008032,
+          "far": 0.0,
+          "recall_ci95": [
+            0.9431185411891694,
+            0.9863171212967505
+          ],
+          "far_ci95": [
+            0.0,
+            0.014131759083230822
+          ]
+        }
+      },
+      "conditional_ID_corner_thickness": {
+        "total": 760,
+        "valid": 733,
+        "failed": 27,
+        "mae_valid_mm": 0.04257777109208957,
+        "within_tolerance_count": 673,
+        "within_tolerance_all": 0.8855263157894737,
+        "tolerance_mm": 0.1
+      },
+      "normal_no_path_units": 740,
+      "conditional_thickness_available_fraction_of_all_units": 0.4886666666666667
+    }
+  },
+  "model_retrained": false,
+  "calibrated_for_stress": false,
+  "not_generic_thickness_validation": true
+}

@@ -1,0 +1,285 @@
+{
+  "scope": "diagnostic ablation, no test-driven reselection; final selected seed remains1110",
+  "thresholds": {
+    "1109": {
+      "joint": {
+        "45.0": -1.963842749595642,
+        "60.0": -2.151505947113037,
+        "70.0": -2.7534565925598145
+      },
+      "cnn_only": {
+        "45.0": 0.6824957132339478,
+        "60.0": 0.05655825510621071,
+        "70.0": -1.4249347448349
+      }
+    },
+    "1110": {
+      "joint": {
+        "45.0": -1.6465202569961548,
+        "60.0": -2.0958850383758545,
+        "70.0": -2.606553792953491
+      },
+      "cnn_only": {
+        "45.0": 1.3070822954177856,
+        "60.0": 0.39069828391075134,
+        "70.0": -0.281624972820282
+      }
+    },
+    "1111": {
+      "joint": {
+        "45.0": -2.4353623390197754,
+        "60.0": -2.1930971145629883,
+        "70.0": -2.339175224304199
+      },
+      "cnn_only": {
+        "45.0": 0.31049293279647827,
+        "60.0": -0.37195807695388794,
+        "70.0": -0.6870306134223938
+      }
+    }
+  },
+  "results": [
+    {
+      "split": "test_general",
+      "seed": 1109,
+      "method": "joint",
+      "selected_model": false,
+      "tp": 1847,
+      "positive_units": 1847,
+      "fp": 25,
+      "normal_units": 4153,
+      "recall": 1.0,
+      "far": 0.006019744762822056,
+      "recall_ci95": [
+        0.9979244036874901,
+        1.0
+      ],
+      "far_ci95": [
+        0.004080820302404193,
+        0.008871705961767142
+      ]
+    },
+    {
+      "split": "test_general",
+      "seed": 1109,
+      "method": "cnn_only",
+      "selected_model": false,
+      "tp": 1847,
+      "positive_units": 1847,
+      "fp": 36,
+      "normal_units": 4153,
+      "recall": 1.0,
+      "far": 0.008668432458463762,
+      "recall_ci95": [
+        0.9979244036874901,
+        1.0
+      ],
+      "far_ci95": [
+        0.006268070830201386,
+        0.011976935185904687
+      ]
+    },
+    {
+      "split": "test_general",
+      "seed": 1110,
+      "method": "joint",
+      "selected_model": true,
+      "tp": 1847,
+      "positive_units": 1847,
+      "fp": 18,
+      "normal_units": 4153,
+      "recall": 1.0,
+      "far": 0.004334216229231881,
+      "recall_ci95": [
+        0.9979244036874901,
+        1.0
+      ],
+      "far_ci95": [
+        0.0027433911357893437,
+        0.0068411934680598875
+      ]
+    },
+    {
+      "split": "test_general",
+      "seed": 1110,
+      "method": "cnn_only",
+      "selected_model": true,
+      "tp": 1847,
+      "positive_units": 1847,
+      "fp": 33,
+      "normal_units": 4153,
+      "recall": 1.0,
+      "far": 0.007946063086925114,
+      "recall_ci95": [
+        0.9979244036874901,
+        1.0
+      ],
+      "far_ci95": [
+        0.005663668744739701,
+        0.011137933702656897
+      ]
+    },
+    {
+      "split": "test_general",
+      "seed": 1111,
+      "method": "joint",
+      "selected_model": false,
+      "tp": 1847,
+      "positive_units": 1847,
+      "fp": 17,
+      "normal_units": 4153,
+      "recall": 1.0,
+      "far": 0.0040934264387189985,
+      "recall_ci95": [
+        0.9979244036874901,
+        1.0
+      ],
+      "far_ci95": [
+        0.002557346379662799,
+        0.006546103701283273
+      ]
+    },
+    {
+      "split": "test_general",
+      "seed": 1111,
+      "method": "cnn_only",
+      "selected_model": false,
+      "tp": 1847,
+      "positive_units": 1847,
+      "fp": 26,
+      "normal_units": 4153,
+      "recall": 1.0,
+      "far": 0.0062605345533349385,
+      "recall_ci95": [
+        0.9979244036874901,
+        1.0
+      ],
+      "far_ci95": [
+        0.004275982269450519,
+        0.009157678517623974
+      ]
+    },
+    {
+      "split": "test_shifted",
+      "seed": 1109,
+      "method": "joint",
+      "selected_model": false,
+      "tp": 2681,
+      "positive_units": 2693,
+      "fp": 7,
+      "normal_units": 6307,
+      "recall": 0.9955440029706647,
+      "far": 0.0011098779134295228,
+      "recall_ci95": [
+        0.9922270785904302,
+        0.9974491411771674
+      ],
+      "far_ci95": [
+        0.0005377285613559804,
+        0.002289406253753307
+      ]
+    },
+    {
+      "split": "test_shifted",
+      "seed": 1109,
+      "method": "cnn_only",
+      "selected_model": false,
+      "tp": 2669,
+      "positive_units": 2693,
+      "fp": 9,
+      "normal_units": 6307,
+      "recall": 0.9910880059413294,
+      "far": 0.0014269858886951008,
+      "recall_ci95": [
+        0.9867730497054652,
+        0.9940038709709291
+      ],
+      "far_ci95": [
+        0.0007509314391074356,
+        0.0027100332601174663
+      ]
+    },
+    {
+      "split": "test_shifted",
+      "seed": 1110,
+      "method": "joint",
+      "selected_model": true,
+      "tp": 2680,
+      "positive_units": 2693,
+      "fp": 6,
+      "normal_units": 6307,
+      "recall": 0.9951726698848867,
+      "far": 0.0009513239257967338,
+      "recall_ci95": [
+        0.9917579175551055,
+        0.9971766939548921
+      ],
+      "far_ci95": [
+        0.000436064972986244,
+        0.002074154900065236
+      ]
+    },
+    {
+      "split": "test_shifted",
+      "seed": 1110,
+      "method": "cnn_only",
+      "selected_model": true,
+      "tp": 2671,
+      "positive_units": 2693,
+      "fp": 3,
+      "normal_units": 6307,
+      "recall": 0.9918306721128852,
+      "far": 0.0004756619628983669,
+      "recall_ci95": [
+        0.9876612313419262,
+        0.9945989058496685
+      ],
+      "far_ci95": [
+        0.0001617779532871685,
+        0.0013976970935908894
+      ]
+    },
+    {
+      "split": "test_shifted",
+      "seed": 1111,
+      "method": "joint",
+      "selected_model": false,
+      "tp": 2678,
+      "positive_units": 2693,
+      "fp": 3,
+      "normal_units": 6307,
+      "recall": 0.9944300037133309,
+      "far": 0.0004756619628983669,
+      "recall_ci95": [
+        0.9908298025430405,
+        0.9966215924517564
+      ],
+      "far_ci95": [
+        0.0001617779532871685,
+        0.0013976970935908894
+      ]
+    },
+    {
+      "split": "test_shifted",
+      "seed": 1111,
+      "method": "cnn_only",
+      "selected_model": false,
+      "tp": 2671,
+      "positive_units": 2693,
+      "fp": 3,
+      "normal_units": 6307,
+      "recall": 0.9918306721128852,
+      "far": 0.0004756619628983669,
+      "recall_ci95": [
+        0.9876612313419262,
+        0.9945989058496685
+      ],
+      "far_ci95": [
+        0.0001617779532871685,
+        0.0013976970935908894
+      ]
+    }
+  ],
+  "normal_calibration_rule": "same per-angle/domain order-statistic tolerance rule for every model and gate/no-gate arm",
+  "confidence_limitation": "test intervals condition on weights and calibration; no pooled population/field claim"
+}

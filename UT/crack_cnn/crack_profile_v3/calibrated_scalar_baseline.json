@@ -1,0 +1,169 @@
+{
+  "scope": "diagnostic calibrated scalar baseline on previously viewed v3 tests; no candidate reselection",
+  "score": "max matched analytic-power / local CA-CFAR threshold within same nominal inspection window",
+  "thresholds": {
+    "45.0": 2.839080923510726,
+    "60.0": 3.4162251465248854,
+    "70.0": 3.1697700769867416
+  },
+  "calibration": "same per-angle/source order-statistic tolerance as CNN, same normal units",
+  "results": {
+    "test_general": {
+      "tp": 1847,
+      "positive_units": 1847,
+      "fp": 15,
+      "normal_units": 4153,
+      "recall": 1.0,
+      "far": 0.003611846857693234,
+      "recall_ci95": [
+        0.9979244036874901,
+        1.0
+      ],
+      "far_ci95": [
+        0.0021900784724971736,
+        0.005951102562642582
+      ],
+      "pod": {
+        "n": 1847,
+        "hit_rate": 1.0,
+        "min_size": 0.2167963326507537,
+        "max_size": 9.423240673509342,
+        "status": "all_hit",
+        "b0": null,
+        "b1": null,
+        "a90": null,
+        "a90_lo": null,
+        "a90_95": null
+      },
+      "angle_groups": {
+        "45.0": {
+          "tp": 649,
+          "positive_units": 649,
+          "fp": 9,
+          "normal_units": 1376,
+          "recall": 1.0,
+          "far": 0.006540697674418605,
+          "recall_ci95": [
+            0.9941155710665496,
+            0.9999999999999999
+          ],
+          "far_ci95": [
+            0.0034448347489450656,
+            0.012384228529042786
+          ]
+        },
+        "60.0": {
+          "tp": 632,
+          "positive_units": 632,
+          "fp": 3,
+          "normal_units": 1381,
+          "recall": 1.0,
+          "far": 0.002172338884866039,
+          "recall_ci95": [
+            0.9939582436883652,
+            1.0
+          ],
+          "far_ci95": [
+            0.000739046869307868,
+            0.006367614282407968
+          ]
+        },
+        "70.0": {
+          "tp": 566,
+          "positive_units": 566,
+          "fp": 3,
+          "normal_units": 1396,
+          "recall": 1.0,
+          "far": 0.002148997134670487,
+          "recall_ci95": [
+            0.9932584774435562,
+            1.0
+          ],
+          "far_ci95": [
+            0.0007311029599508501,
+            0.006299406777722326
+          ]
+        }
+      }
+    },
+    "test_shifted": {
+      "tp": 2639,
+      "positive_units": 2693,
+      "fp": 18,
+      "normal_units": 6307,
+      "recall": 0.9799480133679911,
+      "far": 0.0028539717773902015,
+      "recall_ci95": [
+        0.973929701301043,
+        0.9845989716473423
+      ],
+      "far_ci95": [
+        0.0018060721880863322,
+        0.004507126989658836
+      ],
+      "pod": {
+        "n": 2693,
+        "hit_rate": 0.9799480133679911,
+        "min_size": 0.1847775671331809,
+        "max_size": 9.559142787522749,
+        "status": "ok",
+        "b0": 5.3938286906579105,
+        "b1": 5.35204111040927,
+        "a90": 0.5503129136743737,
+        "a90_lo": 0.5132236119464791,
+        "a90_95": 0.589741411621861
+      },
+      "angle_groups": {
+        "45.0": {
+          "tp": 890,
+          "positive_units": 902,
+          "fp": 12,
+          "normal_units": 2148,
+          "recall": 0.9866962305986696,
+          "far": 0.00558659217877095,
+          "recall_ci95": [
+            0.9768907544995105,
+            0.9923736290306784
+          ],
+          "far_ci95": [
+            0.003198638796221455,
+            0.009739860022650714
+          ]
+        },
+        "60.0": {
+          "tp": 862,
+          "positive_units": 882,
+          "fp": 1,
+          "normal_units": 2075,
+          "recall": 0.9773242630385488,
+          "far": 0.00048192771084337347,
+          "recall_ci95": [
+            0.9652346789810098,
+            0.9852738543730348
+          ],
+          "far_ci95": [
+            8.507495231810922e-05,
+            0.002724951554751982
+          ]
+        },
+        "70.0": {
+          "tp": 887,
+          "positive_units": 909,
+          "fp": 5,
+          "normal_units": 2084,
+          "recall": 0.9757975797579758,
+          "far": 0.0023992322456813818,
+          "recall_ci95": [
+            0.9636267693878413,
+            0.9839636997581747
+          ],
+          "far_ci95": [
+            0.0010252154370114018,
+            0.005604406273754395
+          ]
+        }
+      }
+    }
+  },
+  "caveat": "same calibration constraint is not identical realized test FAR; no claim of matched-test-FAR dominance"
+}

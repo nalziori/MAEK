@@ -1,0 +1,73 @@
+{
+  "status": "frozen_before_training",
+  "origin": "synthetic, not measured angle-beam UT",
+  "task": "crack vs no-crack, one independently generated synthetic scene per unit; no pit model",
+  "acquisition": "angle beam 16 coherent shots, fixed grain/clutter shared; only electronics averaged",
+  "splits": {
+    "fit_general": [
+      900,
+      2026110901
+    ],
+    "fit_dr": [
+      900,
+      2026110902
+    ],
+    "validation_dr": [
+      400,
+      2026110903
+    ],
+    "calibration_normal_dr": [
+      2000,
+      2026110904
+    ],
+    "test_general": [
+      1500,
+      2026110911
+    ],
+    "test_shifted": [
+      3000,
+      2026110912
+    ]
+  },
+  "model_seeds": [
+    1109,
+    1110,
+    1111
+  ],
+  "max_epochs": 20,
+  "early_stopping_patience": 5,
+  "selection": "minimum validation BCE, never test scores",
+  "threshold": "99th percentile of gated CNN logits on held-out normal DR units (higher); strict greater-than; gate AND CNN",
+  "cfar": {
+    "reference_each_side": 32,
+    "guard_each_side": 16,
+    "cell_pfa": 0.001,
+    "edge_policy": "full reference window only"
+  },
+  "preprocessing": "per-scan outside-window robust noise scaling + asinh/4; low-pass decimation 1:4; RF/envelope/mask",
+  "ordinary_test_is_not_fitting_data": true,
+  "assumptions": [
+    "nominal wall geometry and nominal steel refracted angle supplied to window generator",
+    "measured noisy temperature, never true temperature, used for gating",
+    "generic carbon-steel simulator, not calibrated POSCO grade",
+    "no true wedge/angle drift, rain/internal-water boundary physics, off-axis or multi-defect model"
+  ],
+  "source_sha256": {
+    "trainer": "10776134245f79540c85d065ffd0d41910a6778ac6b5e6873deb841e70b2e5c5",
+    "candidate": "1ecc7dd55961f3b568283a56f28f33ccc6c621593de166c374d696b6988e9fd1",
+    "ut": "21ad6cc728e4687e7628cde40d89561a762816867a4faf1310ca6b04960da440",
+    "config": "1b6e331e765d1e5e88de8daca85cfd16b4b00c0cafae6002e1033638c8dd6168"
+  },
+  "environment": {
+    "python": "3.10.11",
+    "numpy": "2.2.6",
+    "torch": "2.14.0+cpu",
+    "threads": 1
+  },
+  "targets": {
+    "general_recall": 1.0,
+    "shifted_recall": 0.912,
+    "far": 0.01,
+    "a90_mm": 1.22
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "origin": "synthetic angle-beam shear-wave only",
+  "selected_seed_unchanged": 1110,
+  "model_sha256": "384f85dfdd1ec6ec62f90ccdc956b865eb612c60ab948ac1c4345ed5c3665ad7",
+  "reason": "v2 aggregate FAR passed but ordinary angle45 FP8/659 exceeded1%; calibrate declared angle profiles",
+  "stopping_rule": "no further adaptation on v3 test outcomes; report failures and unsupported cases",
+  "development_only_previous_tests": [
+    "crack_training_v1",
+    "crack_calibration_v2"
+  ],
+  "angles": [
+    45.0,
+    60.0,
+    70.0
+  ],
+  "source_domains": [
+    "general",
+    "dr"
+  ],
+  "threshold_rule": "order-statistic threshold per normal source-domain and angle; max across domains for each angle",
+  "cell_pfa_is_not_scene_far": true,
+  "tolerance": {
+    "alpha": 0.01,
+    "family_delta": 0.05,
+    "strata": 6,
+    "per_stratum_delta": 0.008333333333333333,
+    "assumption": "IID normal units within each simulator source and nominal-angle profile; weights fixed before fresh calibration",
+    "limitation": "not a field confidence guarantee; unsupported angle/domain drift is not covered"
+  },
+  "splits": {
+    "calibration_general_normal": [
+      6000,
+      2026110951
+    ],
+    "calibration_dr_normal": [
+      6000,
+      2026110952
+    ],
+    "test_general": [
+      6000,
+      2026110961
+    ],
+    "test_shifted": [
+      9000,
+      2026110962
+    ]
+  },
+  "source_sha256": {
+    "calibrator": "08a1ed072b137ddd3c518a8cb12a52b598bc2bef2b8b1434c7344deca0e0da29",
+    "trainer": "10776134245f79540c85d065ffd0d41910a6778ac6b5e6873deb841e70b2e5c5",
+    "candidate": "1ecc7dd55961f3b568283a56f28f33ccc6c621593de166c374d696b6988e9fd1"
+  }
+}

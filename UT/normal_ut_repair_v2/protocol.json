@@ -1,0 +1,39 @@
+{
+  "version": "normal_ut_repair_v2",
+  "seeds": {
+    "edge": 202611091701,
+    "calibration": 202611091702,
+    "test_ordinary": 202611091703,
+    "test_shifted": 202611091704
+  },
+  "n_edge_normals": 1000,
+  "n_calibration_normals": 12000,
+  "n_test_per_condition": 4000,
+  "classes_per_test_condition": {
+    "normal": 2000,
+    "pit": 2000
+  },
+  "arms": [
+    "B_existing_MLP_no_hard_gate",
+    "C_MF_CFAR_no_extra_gate",
+    "D_new_MLP_no_hard_gate"
+  ],
+  "changes": [
+    "same trained weights, remove prerequisite hard gate",
+    "independent edge set then fresh normal-only thresholds",
+    "observed temperature90C then observed backwallSNR median: four strata per averaging",
+    "nominal exact-binomial upper design with Bonferroni over eight strata",
+    "nominal-record constrained four-echo RF timing fit, positive nuisance amplitudes"
+  ],
+  "confidence": 0.95,
+  "operating_far": [
+    0.007,
+    0.01
+  ],
+  "model_selection": "existing validation positives, highest overall recall at each FAR and averaging; C wins ties",
+  "wall_selection": "all existing validation rows: lower overall MAE and no increase in >.1mm count",
+  "inference_scope": "same linear-pulse synthetic instrument; width/curvature and devices unvalidated",
+  "nominal_prior": "record sigma.05mm assumption, search+-max(.5mm,10%nominal); no truth input",
+  "original_test_role": "v1 now development evidence, never reused as v2 final",
+  "note": "CP nominal calibration design does not certify unseen distributions or physical FAR"
+}
