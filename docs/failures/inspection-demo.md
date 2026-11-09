@@ -142,3 +142,9 @@ telemetry 성공 응답 뒤에 전송한다. 미등록 이전 세션의 영구 �
 런타임의 실제 보류 처리는 유지하고, 드라이버는 같은 runId의 기존 평가를 재사용한다.
 해당 드라이버의 변경 시각은 새 시나리오 보고서에 연결한다. 런타임·배치·API·장면은
 계속 Editor/Play 보고서보다 앞서 있어야 하며, 해시 봉인으로 이후 변경을 검출한다.
+
+## 2026-11-10 안전·UT·열화상 소스 통합 시 검증 제한
+
+`feature/drone-thermal-dashboard`에 안전·작업자 UT·드론 열화상 런타임 및 Editor 생성 소스를 통합했다. 전체 `run_inspection_harness.ps1` 재실행은 `Get-CimInstance Win32_Process: Access denied`로 Unity 시작 전에 중단됐다. 정책 완화나 기존 증거의 날짜 변경으로 통과 처리하지 않았다.
+
+별도 컴파일에서 통합 대상 C# 런타임 31개·Editor 22개는 오류 없이 컴파일됐으나, 이는 새 체크아웃의 Editor import·Play-mode·Windows player 실행 검사를 대체하지 않는다. 기존 작업본의 시연·증거 봉인은 과거 자료로 유지한다. 팀 환경에서 원본·추가 계통 전체 하네스 및 통합 장면 검사 메뉴를 다시 실행해야 한다. 범위와 실행 명령은 `docs/unity-sensor-integration.md`, 이번 검사 집계는 `docs/reviews/unity-sensor-integration-verification.json`에 기록했다.

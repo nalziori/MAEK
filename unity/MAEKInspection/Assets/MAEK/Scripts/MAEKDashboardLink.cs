@@ -108,6 +108,12 @@ namespace MAEK {
    }
   }
   public void Execute(DashboardCommand command){
+   var safety=GetComponent<MAEKSafetyDemo>();
+   if(safety && (command.command=="scenario"||command.command=="run_all"||command.command=="start_original"||command.command=="start_extra"))
+    throw new InvalidOperationException("안전 시연에서는 원래 계통을 유지합니다. 일반 시나리오는 기존 데모 장면에서 실행하세요.");
+   if(safety && ((command.command=="resume" && !safety.CanInspect) ||
+    ((command.command=="scenario"||command.command=="run_all"||command.command=="start_original"||command.command=="start_extra")&&!safety.CanStart)))
+    throw new InvalidOperationException("안전 차단 · Unity에서 지상 확인 및 재승인 필요");
    Initialize();switch(command.command){
     case "scenario":scenarios.StartCase(command.scenarioId);break;
     case "run_all":scenarios.StartSuite();break;
@@ -126,6 +132,7 @@ namespace MAEK {
    sendingEvaluation=false;
   }
   void OnGUI(){
+   if(GetComponent<MAEKSafetyDemo>())return;
    if(!ready)return;if(label==null){font=Font.CreateDynamicFontFromOSFont(new[]{"Malgun Gothic","Arial"},14);label=new GUIStyle(GUI.skin.label){font=font,fontSize=14,wordWrap=true};button=new GUIStyle(GUI.skin.button){font=font,fontSize=14};}
    float x=Mathf.Max(12,Screen.width-320);
    if(GUI.Button(new Rect(x,Screen.height-130,148,32),"검사 시나리오",button)){showScenarios=!showScenarios;if(showScenarios)tour.HideResults();}

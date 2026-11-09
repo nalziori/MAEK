@@ -146,7 +146,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port',type=int,default=8894)
     parser.add_argument('--log-root',type=Path,default=Path.home()/'AppData/LocalLow/MAEK/MAEK Worker UT V5/MAEK-worker-ut')
-    parser.add_argument('--thermal-dir',type=Path,default=root.parent/'MAEK_Thermal_V6/evidence')
+    parser.add_argument('--thermal-dir',type=Path,default=root/'data/unity_thermal')
     args=parser.parse_args()
     dashboard=root/'dashboard'
     data=(dashboard/'operations-data.js').read_text(encoding='utf-8-sig')

@@ -1,0 +1,53 @@
+{
+  "scope": "Unity safety, worker UT, drone thermal and existing main dashboard source integration",
+  "date": "2026-11-10",
+  "branch": "feature/drone-thermal-dashboard",
+  "csharpCompilation": {
+    "runtimeSources": 31,
+    "editorSources": 22,
+    "errors": 0,
+    "warnings": [
+      "CS0414: existing unused safety field",
+      "CS0618: existing obsolete fullscreen property"
+    ],
+    "method": "Unity 6000.3.12f1 Roslyn with cached Unity reference assemblies; destination checkout source files"
+  },
+  "sourceAudit": {
+    "runtimeSourcesMatchValidatedWorktree": 31,
+    "uniqueAssetGuids": 633,
+    "requiredPrefabReferencesResolved": true,
+    "unityPackagesUnchanged": true,
+    "comparison": "text identical ignoring line endings and trailing blank lines"
+  },
+  "pythonAdapterTests": {
+    "passed": 17
+  },
+  "launcherTests": {
+    "passed": 4
+  },
+  "actualBundledUTInference": {
+    "samples": 2,
+    "normalPitAlarm": false,
+    "pitExamplePitAlarm": true,
+    "waveSamples": 4096,
+    "workPermissionStatus": "not_assessed"
+  },
+  "javascriptChecks": {
+    "thermal": "passed",
+    "ut": "passed"
+  },
+  "freshEditorPlayModeRun": false,
+  "freshNativePlayerRun": false,
+  "fullInspectionHarness": {
+    "status": "blocked",
+    "reason": "Get-CimInstance Win32_Process: Access denied before Unity execution"
+  },
+  "historicalEvidence": "Earlier worktree Editor/native results are not recertified as current checkout results.",
+  "excluded": [
+    "Unity caches",
+    "generated demo scenes",
+    "player binaries",
+    "local recordings",
+    "duplicated model weights"
+  ]
+}

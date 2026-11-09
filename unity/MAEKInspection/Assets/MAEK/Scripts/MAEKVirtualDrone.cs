@@ -226,7 +226,7 @@ namespace MAEK {
   void OnEnable() { EnsureRig(); }
   void Update() {
    if (Application.isPlaying && Input.GetKeyDown(KeyCode.V)) ToggleView();
-   if (!Application.isPlaying || !tour || !tour.Active) return;
+   if (!Application.isPlaying || !tour || !tour.Active || (tour.Safety && tour.Safety.Grounded)) return;
    for (int i=0; i<rotors.Count; i++)
     rotors[i].Rotate(Vector3.up, (i == 0 || i == 3 ? 1 : -1)*1800*Time.deltaTime, Space.Self);
   }

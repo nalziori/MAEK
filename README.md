@@ -175,3 +175,7 @@ OMP_NUM_THREADS=1 python scripts/produce_data.py
 기존 247개 배관과 산소 공급·소결 2차 집진 17스팬의 가상 검사 환경은
 [Unity 실행·검증·Windows 패키징 안내](docs/unity-checkout.md)를 참고하세요.
 라이브 분석은 합성 장면의 RGB 부식 색상 기준선이며 현장 안전 판정이나 균열 예측이 아닙니다.
+
+### 안전·작업자 초음파·드론 열화상 통합
+
+Unity 소스, 로컬 분석 서비스, 메인 대시보드 연결의 실행 순서는 [통합 안내](docs/unity-sensor-integration.md)를 참고하세요. 기존 모델을 사용하는 별도 통합 장면을 생성하며, 빌드·캐시·실행 기록은 저장소에 포함하지 않습니다.

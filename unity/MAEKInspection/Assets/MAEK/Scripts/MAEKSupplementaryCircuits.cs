@@ -25,10 +25,11 @@ namespace MAEK {
   }
   public SupplementaryLine Line(string id){Initialize();return Data.lines.FirstOrDefault(l=>l.id==id);}
   public SupplementaryCircuit Circuit(string id){var line=Line(id);return line==null?null:Data.circuits.Single(c=>c.id==line.circuit);}
-  public void Select(bool supplementary,bool begin=true){Initialize();if(tour.Active)tour.End();Selected=supplementary;tour.SetRoute(supplementary?inspectionRoute:originalRoute);if(begin)tour.Begin();}
+  public void Select(bool supplementary,bool begin=true){if(GetComponent<MAEKSafetyDemo>())return;Initialize();if(tour.Active)tour.End();Selected=supplementary;tour.SetRoute(supplementary?inspectionRoute:originalRoute);if(begin)tour.Begin();}
   void Start(){Initialize();}
   void Update(){if(Input.GetKeyDown(KeyCode.E))Select(true);if(Selected&&Input.GetKeyDown(KeyCode.T))Select(false,false);}
   void OnGUI(){
+   if(GetComponent<MAEKSafetyDemo>())return;
    if(Data==null)return;if(label==null){font=Font.CreateDynamicFontFromOSFont(new[]{"Malgun Gothic","Arial"},14);label=new GUIStyle(GUI.skin.label){font=font,fontSize=14,wordWrap=true};button=new GUIStyle(GUI.skin.button){font=font,fontSize=14};}
    if(GUI.Button(new Rect(Screen.width-320,12,308,34),Selected?"247개 원래 계통으로 돌아가기 (T)":"산소·소결 추가 17구간 검사 (E)",button)){Select(!Selected);}
    if(!Selected)return;var c=Circuit(tour.CurrentPipe);

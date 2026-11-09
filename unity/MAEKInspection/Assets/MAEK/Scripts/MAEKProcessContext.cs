@@ -64,6 +64,7 @@ namespace MAEK {
   public void WriteFollowUps(string directory){if(string.IsNullOrEmpty(directory))return;File.WriteAllText(Path.Combine(directory,"follow_up.json"),JsonUtility.ToJson(FollowUps(),true));}
   public void Validate(){Initialize();if(byPipe.Count!=247||CountRole("primary_inspection")!=138||CountRole("process_context")!=98||CountRole("training_only")!=4||CountRole("standalone_utility_demo")!=7)throw new Exception("Process role coverage mismatch");if(ForPipe("UTIL-N002").role!="standalone_utility_demo"||ForPipe("BF1-H200").role!="process_context")throw new Exception("Misleading process role");}
   void OnGUI(){
+   if(tour&&tour.Safety)return;
    if(Data==null)return;if(label==null){font=Font.CreateDynamicFontFromOSFont(new[]{"Malgun Gothic","Arial"},14);label=new GUIStyle(GUI.skin.label){font=font,fontSize=14,wordWrap=true};button=new GUIStyle(GUI.skin.button){font=font,fontSize=14};}
    float y=tour&&tour.Active?200:170;float width=Mathf.Min(700,Screen.width*.58f);
    if(GUI.Button(new Rect(12,y,width,30),(showDetails?"접기":"펼치기")+" (P) | "+Data.processName,button))showDetails=!showDetails;

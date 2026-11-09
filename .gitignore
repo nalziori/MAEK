@@ -68,3 +68,11 @@ graphify-out/
 /docs/references/**/previews/
 *.exe
 *.dll
+
+# Local sensor demo scenes, builds and verification output
+**/SafetyOutput/
+**/WorkerUTOutput/
+**/ThermalOutput/
+/unity/MAEKInspection/Assets/MAEK/Scenes/MAEKSafetyDemo.unity*
+/unity/MAEKInspection/Assets/MAEK/Scenes/MAEKWorkerUTDemo.unity*
+/unity/MAEKInspection/Assets/MAEK/Scenes/MAEKThermalDemo.unity*
