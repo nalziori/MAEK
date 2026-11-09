@@ -72,11 +72,11 @@ flowchart LR
 
 ## 실행·인계
 
-이번 생성본은 [데이터 카드](../../outputs/maek-c/thermal-evidence-v2-20261108/DATA_CARD.md)와 [독립 검증 결과](../../outputs/maek-c/thermal-evidence-v2-20261108/validation.json)에서 확인한다. 840개 관측 쌍과336개 품질 fixture의 검증, 관련146개 테스트, CPU 학습 입력·역전파1회 확인을 통과했다. 본학습·모델 성능 평가는 실행하지 않았다.
+이번 생성본은 데이터 카드 (로컬 생성 자료: `../../outputs/maek-c/thermal-evidence-v2-20261108/DATA_CARD.md`)와 독립 검증 결과 (로컬 생성 자료: `../../outputs/maek-c/thermal-evidence-v2-20261108/validation.json`)에서 확인한다. 840개 관측 쌍과336개 품질 fixture의 검증, 관련146개 테스트, CPU 학습 입력·역전파1회 확인을 통과했다. 본학습·모델 성능 평가는 실행하지 않았다.
 
 감육168쌍 중 양성 관측 픽셀이 있는 쌍은2개였으며 모두 train에 있다. dev/test/stress의 감육 양성 관측 지원은0이다. 이 분할로 **감육 양성 검출 성능을 평가할 수 없고**, 수치를 만들기 위해 감육 hotspot을 강제로 추가하지 않는다. 이는 현재 설정의 지원 범위이며 실측 감육 검출률이나 모든 수동 열화상의 한계 수치가 아니다. 관측 과제 전체에는 반사·코팅·대류 변화 양성이 존재한다.
 
-[공식 원자료 보관 목록](../../outputs/maek-c/thermal-evidence-source-snapshots-20261108/source-manifest.json)에 NIST2개·NASA1개 PDF의 URL·취득시각·SHA256을 기록했다. [독립 복사 수치 검사](../../outputs/maek-c/thermal-evidence-source-snapshots-20261108/numerics-verified.json)는69개 온도점에서 이상 대역 모델의 역변환 차이 최대0.000134°C를 확인했다. 이 값은 카메라 정확도가 아니다.
+공식 원자료 보관 목록 (로컬 생성 자료: `../../outputs/maek-c/thermal-evidence-source-snapshots-20261108/source-manifest.json`)에 NIST2개·NASA1개 PDF의 URL·취득시각·SHA256을 기록했다. 독립 복사 수치 검사 (로컬 생성 자료: `../../outputs/maek-c/thermal-evidence-source-snapshots-20261108/numerics-verified.json`)는69개 온도점에서 이상 대역 모델의 역변환 차이 최대0.000134°C를 확인했다. 이 값은 카메라 정확도가 아니다.
 
 저장소 루트에서 실행하며, 생성 경로는 매번 새 경로여야 한다.
 

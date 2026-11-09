@@ -33,4 +33,4 @@ Copy-Item '../outputs/maek-c/fp-followup-20261107-verified/protocol.md' "$result
 & ./.venv/Scripts/python.exe -m pytest tests/test_thermal_filter.py tests/test_thermal_validation.py tests/test_thermal_dataset.py tests/test_thermal_rules.py -q
 ```
 
-관련 18개 테스트 통과. 정확한 분모·95% 구간·한계는 [실험 보고서](../../outputs/maek-c/fp-followup-20261107-verified/report.md), [성능표](../../outputs/maek-c/fp-followup-20261107-verified/performance.csv)에 있다. 로컬 CPU로 실행하며 코랩은 필요하지 않다.
+관련 18개 테스트 통과. 정확한 분모·95% 구간·한계는 실험 보고서 (로컬 생성 자료: `../../outputs/maek-c/fp-followup-20261107-verified/report.md`), 성능표 (로컬 생성 자료: `../../outputs/maek-c/fp-followup-20261107-verified/performance.csv`)에 있다. 로컬 CPU로 실행하며 코랩은 필요하지 않다.

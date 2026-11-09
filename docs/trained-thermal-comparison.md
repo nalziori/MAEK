@@ -34,4 +34,4 @@ Copy-Item '../outputs/maek-c/trained-comparison-20261107-verified/protocol.md' "
 
 현재 Ultralytics의 AutoBackend는 원래 모델과 별도의 융합된 모델을 만들 수 있다. 모델 계산만 측정할 때도 실제 `predictor.model.backend.model`을 사용하고 객체 일치·FP32·스레드를 검사한다. 초기 융합 전 모델 측정은 최종 표에서 제외했다.
 
-[2026-11-07 결과 보고서](../../outputs/maek-c/trained-comparison-20261107-verified/report.md)
+2026-11-07 결과 보고서 (로컬 생성 자료: `../../outputs/maek-c/trained-comparison-20261107-verified/report.md`)

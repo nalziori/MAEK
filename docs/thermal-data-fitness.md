@@ -20,7 +20,7 @@
 
 새 생성기는 기존 폴더 덮어쓰기를 거절한다. seed/입력 가정·그룹 ID·원시 float 온도·소스/데이터 해시를 보존한다. 같은 대조군을 학습/검증에 나누지 않는다.
 
-상세 결과: [감사·개선 보고서](../../outputs/maek-c/data-fit-audit-20261108/report.md), [모델 처리 판정](../../outputs/maek-c/data-fit-audit-20261108/model-disposition.json), [최종 대조 데이터](../../outputs/maek-c/thermal-feasibility-20261108-verified/DATA_CARD.md).
+상세 결과: 감사·개선 보고서 (로컬 생성 자료: `../../outputs/maek-c/data-fit-audit-20261108/report.md`), 모델 처리 판정 (로컬 생성 자료: `../../outputs/maek-c/data-fit-audit-20261108/model-disposition.json`), 최종 대조 데이터 (로컬 생성 자료: `../../outputs/maek-c/thermal-feasibility-20261108-verified/DATA_CARD.md`).
 
 가스 배관 결함 판정용 학습은 [역할 계약](thermal-role-contract.md)의 정답·관측·위치 연결과 실제 조건 검증을 먼저 충족해야 한다. 사용자는 대응 실측 자료가 없으며 데이터/생성기 개선부터 진행하도록 답했다.
 

@@ -109,8 +109,8 @@ A와 B 차이는 양자화와 압축 함수를 함께 바꾸는 표현 패키지
 - [현재 추론 입력과 클래스](../maek/thermal_learned.py)
 - [합성 장면·결함 생성](../maek/thermal_render.py)
 - [열화상에서 후속 검사 구간을 고르는 시뮬레이터](../maek/strategy.py)
-- [기존 27조합 보고서](../../outputs/maek-c/threshold-loop-20261107/report.md)
-- [기존 30epoch 결과](../../outputs/maek-c/trained-comparison-20261107-verified/report.md)
-- [기존 100epoch 결과](../../outputs/maek-c/colab-retrain-20261107/report.md)
+- 기존 27조합 보고서 (로컬 생성 자료: `../../outputs/maek-c/threshold-loop-20261107/report.md`)
+- 기존 30epoch 결과 (로컬 생성 자료: `../../outputs/maek-c/trained-comparison-20261107-verified/report.md`)
+- 기존 100epoch 결과 (로컬 생성 자료: `../../outputs/maek-c/colab-retrain-20261107/report.md`)
 
 검증 범위: 관련 소스와 저장된 실험·학습 설정의 읽기 전용 확인, 설계 문서의 로컬 링크 확인. 제안한 B/C 표현·증강 분포·fixed-update 학습·현장 검사 연결은 아직 구현하거나 성능 검증하지 않았다.
