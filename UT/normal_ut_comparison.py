@@ -4,10 +4,10 @@ Dependencies: repository requirements plus scipy and torch. Training requires CU
 inference and reference calibration can run on CPU with OMP_NUM_THREADS=1.
 Run from a repository checkout, using an output directory outside the source folder:
 
-    python experiments/ut_normal_v2/normal_ut_comparison.py prepare \
+    python UT/normal_ut_comparison.py prepare \
         --out <run-directory>/normal_ut_reviewed_v1
-    python experiments/ut_normal_v2/normal_ut_repair.py prepare --work-dir <run-directory>
-    python experiments/ut_normal_v2/normal_ut_repair.py evaluate --work-dir <run-directory>
+    python UT/normal_ut_repair.py prepare --work-dir <run-directory>
+    python UT/normal_ut_repair.py evaluate --work-dir <run-directory>
 
 The first command trains three 7->16->1 MLPs and prepares calibration/validation.
 The second freezes v2 thresholds and estimator selection; the third evaluates.
@@ -31,7 +31,7 @@ os.environ.setdefault("OMP_NUM_THREADS", "1")
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent
-REPO_ROOT = ROOT.parents[1]
+REPO_ROOT = ROOT.parent
 sys.path.insert(0, str(REPO_ROOT))
 from maek import params, pit, ut
 
