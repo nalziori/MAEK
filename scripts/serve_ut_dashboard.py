@@ -50,6 +50,8 @@ def verified_result(path, pipe):
 
 
 def snapshot(log_root, known_pipes):
+    if isinstance(log_root,(list,tuple)):
+        return max((snapshot(p,known_pipes) for p in log_root),key=lambda r:r.get('sessionId') or '')
     response=dict(schemaVersion=1,source='unity_v5_log_follow',producerLiveness='unknown',
                   observedAt=datetime.now(timezone.utc).isoformat(),sessionId=None,pipes={})
     if not log_root.is_dir():return response
@@ -101,9 +103,32 @@ def snapshot(log_root, known_pipes):
 
 
 class Handler(SimpleHTTPRequestHandler):
+    def json_reply(self,code,body):
+        data=json.dumps(body,ensure_ascii=False,allow_nan=False).encode('utf-8')
+        self.send_response(code);self.send_header('Content-Type','application/json; charset=utf-8');self.send_header('Cache-Control','no-store')
+        self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data)
+    def do_POST(self):
+        if self.headers.get('Host') not in {f'127.0.0.1:{self.server.server_port}',f'localhost:{self.server.server_port}'}:return self.send_error(403)
+        if self.path not in ('/api/thermal/event','/api/thermal/capture'):return self.send_error(404)
+        try:
+            length=int(self.headers.get('Content-Length','0'))
+            if not 0<length<4_000_000:raise ValueError('invalid request size')
+            body=json.loads(self.rfile.read(length))
+            result=self.server.thermal.event(body) if self.path.endswith('/event') else self.server.thermal.capture(body)
+            self.json_reply(200,result)
+        except (ValueError,KeyError,TypeError,OSError) as error:
+            self.json_reply(400,dict(error=type(error).__name__,message=str(error)[:200]))
     def do_GET(self):
         if self.headers.get('Host') not in {f'127.0.0.1:{self.server.server_port}',f'localhost:{self.server.server_port}'}:
             return self.send_error(403)
+        path_=urlsplit(self.path).path
+        if path_=='/api/thermal':return self.json_reply(200,self.server.thermal.snapshot())
+        match=re.fullmatch(r'/api/thermal/file/([a-f0-9]{32})/(thermal\.png|rgb\.png|roi\.png|temperature16\.png|temperature\.npy|capture\.json|response\.json|geometry\.bin)',path_)
+        if match:
+            file=self.server.thermal.root/match[1]/match[2]
+            if not file.is_file() or file.is_symlink():return self.send_error(404)
+            data=file.read_bytes();self.send_response(200);self.send_header('Content-Type','image/png' if file.suffix=='.png' else 'application/json' if file.suffix=='.json' else 'application/octet-stream')
+            self.send_header('Content-Length',str(len(data)));self.send_header('Cache-Control','no-store');self.end_headers();self.wfile.write(data);return
         if urlsplit(self.path).path=='/api/ut':
             try:body=snapshot(self.server.ut_log_root,self.server.known_pipes)
             except OSError:body=dict(schemaVersion=1,error='log_read_failed',pipes={})
@@ -121,13 +146,16 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port',type=int,default=8894)
     parser.add_argument('--log-root',type=Path,default=Path.home()/'AppData/LocalLow/MAEK/MAEK Worker UT V5/MAEK-worker-ut')
+    parser.add_argument('--thermal-dir',type=Path,default=root.parent/'MAEK_Thermal_V6/evidence')
     args=parser.parse_args()
     dashboard=root/'dashboard'
     data=(dashboard/'operations-data.js').read_text(encoding='utf-8-sig')
     known=set(re.findall(r'"id"\s*:\s*"([A-Za-z0-9_.-]+)"',data))
     if not known:raise RuntimeError('No catalogue pipe IDs found')
     server=ThreadingHTTPServer(('127.0.0.1',args.port),partial(Handler,directory=str(dashboard)))
-    server.ut_log_root=args.log_root;server.known_pipes=known
+    server.ut_log_root=[args.log_root,Path.home()/'AppData/LocalLow/MAEK/MAEK Thermal and UT V6/MAEK-worker-ut'];server.known_pipes=known
+    from thermal_scene import ThermalStore
+    server.thermal=ThermalStore(args.thermal_dir)
     print(f'UT dashboard: http://127.0.0.1:{args.port}/index.html?tab=home&pipe=BF1-Q005',flush=True)
     server.serve_forever()
 

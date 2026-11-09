@@ -17,6 +17,8 @@
     <script src="inspection-evidence.js" defer></script>
     <script src="operations.js" defer></script>
     <script src="ut-live.mjs" type="module"></script>
+    <script src="thermal-live.mjs" type="module"></script>
+    <link rel="stylesheet" href="thermal-live.css" />
   </head>
   <body>
     <nav class="side-nav" aria-label="주요 화면">
@@ -38,6 +40,7 @@
           <path d="M5 3h14v18H5zM8 7h8M8 12h8M8 17h5" /></svg
         ><span>배관 조회</span></a
       >
+      <a href="?tab=thermal" data-tab="thermal" aria-label="드론 열화상 훈련" title="드론 열화상 훈련"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4a2 2 0 0 1 4 0v10a4 4 0 1 1-4 0V4zM12 9v8"/></svg><span>열화상 훈련</span></a>
       <p class="connection">실시간 드론<br />미연결</p>
     </nav>
     <main>

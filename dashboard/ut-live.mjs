@@ -5,7 +5,7 @@ dialog.innerHTML='<header><h2>초음파 A-scan</h2><button type="button" aria-la
 document.body.append(dialog);dialog.querySelector('button').onclick=()=>dialog.close();
 dialog.addEventListener('close',()=>{lastModalId=null;if(returnFocus?.isConnected)returnFocus.focus();returnFocus=null;});
 function mount(){
- const mode=document.querySelector('.data-mode');if(mode)mode.textContent=connection==='connected'?'RGB 저장 자료 · UT 기록 연동':connection==='connecting'?'RGB 저장 자료 · UT 연결 확인 중':'RGB 저장 자료 · UT 연결 끊김';
+ const mode=document.querySelector('.data-mode');if(mode&&!document.getElementById('thermal-workspace'))mode.textContent=connection==='connected'?'RGB 저장 자료 · UT 기록 연동':connection==='connecting'?'RGB 저장 자료 · UT 연결 확인 중':'RGB 저장 자료 · UT 연결 끊김';
  document.querySelectorAll('[data-ut-pipe]').forEach(slot=>{
   const row=state.pipes?.[slot.dataset.utPipe],safe=validRow(row,slot.dataset.utPipe)?row:null;
   const version=JSON.stringify([safe,connection,!!row&&!safe]);if(slot.utVersion===version)return;

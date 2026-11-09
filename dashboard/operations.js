@@ -12,7 +12,7 @@ const escapeHTML = (s) =>
       ],
   );
 const normalizeTab = (value) =>
-  ["pipes", "areas", "records"].includes(value) ? "pipes" : "home";
+  value === "thermal" ? "thermal" : ["pipes", "areas", "records"].includes(value) ? "pipes" : "home";
 let tab = normalizeTab(query.get("tab"));
 let step =
   query.has("step") && /^\d+$/.test(query.get("step"))
@@ -32,6 +32,7 @@ let selected =
   filter = "all",
   page = 0;
 const titles = {
+  thermal: ["드론 열화상 훈련", "별도 훈련 자산 · 공정 배관 247개와 구분"],
   home: ["현장 점검", "배관 위치 → 드론 관측 → 현장 비파괴검사"],
   pipes: ["배관 조회", "배관 검색 · 최신 검사 결과 · 검사 기록"],
 };
@@ -564,7 +565,7 @@ function render() {
     ? "드론 재생 위치 · " + current().id
     : "저장 기록의 마지막 단계";
   document.body.dataset.tab = tab;
-  $("screen").innerHTML = tab === "home" ? home() : listing();
+  $("screen").innerHTML = tab === "thermal" ? '<section id="thermal-workspace" aria-label="훈련용 보온배관 열화상"><p>열화상 기록 연결 확인 중</p></section>' : tab === "home" ? home() : listing();
   sync();
   document.dispatchEvent(new CustomEvent("maek:render"));
   if (viewerMode) refreshMedia();
