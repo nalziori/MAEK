@@ -116,10 +116,12 @@ const scale = Math.min(
   450 / (bounds.maxY - bounds.minY),
 );
 const project = (p) => [
-  (1000 - (bounds.maxX - bounds.minX) * scale) / 2 +
-    (p[0] - bounds.minX) * scale,
-  (560 - (bounds.maxY - bounds.minY) * scale) / 2 +
-    (bounds.maxY - p[1]) * scale,
+  500 +
+    (p[0] - (bounds.minX + bounds.maxX) / 2) * scale +
+    (p[1] - (bounds.minY + bounds.maxY) / 2) * scale * 0.18,
+  300 -
+    (p[1] - (bounds.minY + bounds.maxY) / 2) * scale * 0.68 -
+    (p[2] || 0) * scale * 0.72,
 ];
 const coord = (n) => Number(n.toFixed(1));
 function path(p) {
@@ -160,12 +162,22 @@ function problemStrip() {
       "",
     )}${!list.length ? "<p>저장 자료에서 의심 관측이 없습니다. 미연결 검사는 별도 확인이 필요합니다.</p>" : ""}</div><button type="button" id="problem-next" aria-label="다음 의심 배관" ${(problemPage + 1) * size >= list.length ? "disabled" : ""}>다음</button></section>`;
 }
+const scenePoints = [
+  ...allPoints,
+  ...[...footprints, ...O.devices].flatMap(window.MAEK_PLANT_MAP.solidCorners),
+  ...pipes.flatMap((p) =>
+    p.route.map((r) => [r.position[0], r.position[2], r.position[1]]),
+  ),
+].map(project);
+const sceneX = scenePoints.map((p) => p[0]),
+  sceneY = scenePoints.map((p) => p[1]);
 const mapExtent = {
-  x: (1000 - (bounds.maxX - bounds.minX) * scale) / 2,
-  y: (560 - (bounds.maxY - bounds.minY) * scale) / 2,
-  w: (bounds.maxX - bounds.minX) * scale,
-  h: (bounds.maxY - bounds.minY) * scale,
+  x: Math.min(...sceneX) - 28,
+  y: Math.min(...sceneY) - 28,
+  w: Math.max(...sceneX) - Math.min(...sceneX) + 56,
+  h: Math.max(...sceneY) - Math.min(...sceneY) + 56,
 };
+let mapRenderId = 0;
 let mapCamera = {
     x: mapExtent.x + mapExtent.w / 2,
     y: mapExtent.y + mapExtent.h / 2,
@@ -243,32 +255,18 @@ function routeMarkup() {
 }
 function mapMarkup(compact = false) {
   const spots = tab === "home" ? problemPipes() : visited(),
-    viewBox = cameraBox();
-  let svg = `<svg viewBox="${viewBox}" role="group" aria-label="MAEK 가상 제철소 모델 평면도. 배관 위치는 모델 좌표이며 실제 제철소 지도와 다릅니다."><title>모델 배관 지도</title>${routeMarkup()}`;
-  for (const b of footprints) {
-    const xy = project(b.center),
-      w = b.dimensions[0] * scale,
-      h = b.dimensions[1] * scale;
-    svg += `<g class="map-building" data-building="${escapeHTML(b.id)}"><rect x="${coord(xy[0] - w / 2)}" y="${coord(xy[1] - h / 2)}" width="${coord(w)}" height="${coord(h)}" rx="3"/><text class="building-label" x="${coord(xy[0])}" y="${coord(xy[1] + 4)}">${escapeHTML(b.label)}</text></g>`;
-  }
-  for (const d of O.devices) {
-    const xy = project(d.center),
-      w = Math.max(7, d.dimensions[0] * scale),
-      h = Math.max(7, d.dimensions[1] * scale),
-      round = [
-        "furnace",
-        "stove",
-        "dust_catcher",
-        "scrubber",
-        "clarifier",
-        "makeup_tank",
-      ].includes(d.kind);
-    svg += round
-      ? `<ellipse class="map-device ${d.kind}" cx="${coord(xy[0])}" cy="${coord(xy[1])}" rx="${coord(w / 2)}" ry="${coord(h / 2)}"/>`
-      : `<rect class="map-device" x="${coord(xy[0] - w / 2)}" y="${coord(xy[1] - h / 2)}" width="${coord(w)}" height="${coord(h)}" rx="2"/>`;
-    if (d.kind === "furnace")
-      svg += `<text class="map-label" x="${coord(xy[0])}" y="${coord(xy[1] + h / 2 + 18)}" text-anchor="middle">${d.id.startsWith("BF1") ? "1고로" : "2고로"}</text>`;
-  }
+    viewBox = cameraBox(),
+    metal = "map-metal-" + ++mapRenderId;
+  let svg = `<svg viewBox="${viewBox}" role="group" aria-label="MAEK 가상 제철소 입체 배치도. 모델 좌표와 높이를 사용하며 실제 제철소 지도와 다릅니다."><title>MAEK 설비·배관 입체 지도</title>${window.MAEK_PLANT_MAP.defs(metal)}${routeMarkup()}`;
+  svg += window.MAEK_PLANT_MAP.drawScene(
+    footprints,
+    O.devices,
+    project,
+    scale,
+    escapeHTML,
+    coord,
+    metal,
+  );
 
   for (const p of pipes) {
     const cls = [
@@ -277,7 +275,7 @@ function mapMarkup(compact = false) {
       p === current() ? "current" : "",
       p.role === "primary_inspection" ? "main-pipe" : "context-pipe",
     ].join(" ");
-    svg += `<polyline class="pipe-line ${cls}" points="${path(p)}"/><polyline class="pipe-hit" data-map-pipe="${escapeHTML(p.id)}" points="${path(p)}"><title>${escapeHTML(p.id + " / " + p.service + " / " + state(p))}</title></polyline>`;
+    svg += `<polyline class="pipe-line ${cls}" style="--pipe-color:${window.MAEK_PLANT_MAP.pipeColor(p)}" points="${path(p)}"/><polyline class="pipe-hit" data-map-pipe="${escapeHTML(p.id)}" points="${path(p)}"><title>${escapeHTML(p.id + " / " + p.service + " / " + state(p))}</title></polyline>`;
   }
   svg += `<polyline class="selected-underlay" points="${path(selected)}"/><polyline class="pipe-line selected" points="${path(selected)}"/>`;
   const placed = [];
@@ -303,7 +301,7 @@ function mapMarkup(compact = false) {
     svg += `<g aria-label="현재 위치, 저장 경로 기준 ${escapeHTML(now.id)}"><circle class="drone-mark" cx="${coord(xy[0])}" cy="${coord(xy[1])}" r="13"/><path d="m${coord(xy[0] - 6)} ${coord(xy[1])}h12m-6-6v12" stroke="white" stroke-width="2"/><text class="drone-caption" x="${coord(xy[0] + 18)}" y="${coord(xy[1] - 16)}">현재 위치</text></g>`;
   }
   svg += "</svg>";
-  return `<div class="site-map interactive-map${compact ? " compact-map" : ""}" data-map tabindex="0" aria-label="방문 구역 지도. 확대 후 끌어서 이동할 수 있습니다.">${svg}${mapControls()}<span class="map-source">저장 경로 재구성</span></div>`;
+  return `<div class="site-map interactive-map industrial-map${compact ? " compact-map" : ""}" data-map tabindex="0" aria-label="방문 구역 지도. 확대 후 끌어서 이동할 수 있습니다.">${svg}${mapControls()}<span class="map-source">저장 경로 재구성</span></div>`;
 }
 function selectionCard() {
   const candidate = done(selected) && selected.result === "candidate";

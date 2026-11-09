@@ -61,3 +61,7 @@ npm test
 ## 글꼴
 
 Pretendard Variable v1.3.9를 로컬에서 제공합니다. 라이선스와 공식 배포 출처는 `assets/fonts/OFL.txt`, `assets/fonts/source.json`에 포함되어 있습니다.
+
+## 입체 설비 지도
+
+`plant-map.js`가 MAEK 스냅샷의 건물·설비 치수와 배관의 X/Y/Z 좌표로 2.5D SVG 지도를 그립니다. 높이를 포함한 같은 투영을 지도 표식과 드론 경로에도 적용합니다. 확대·이동·배관 선택을 유지합니다. 계통별 색은 시연용 구분이며 현장 배관 식별 표준이나 운전값이 아닙니다.

@@ -2397,3 +2397,162 @@ button.sensor-image:hover {
     margin-right: 0;
   }
 }
+
+/* Equipment shading follows the reference's industrial map treatment. */
+.industrial-map {
+  background: #102b38;
+  background-image: radial-gradient(
+    ellipse at 50% 25%,
+    #1b3b49 0%,
+    #102b38 70%
+  );
+}
+.industrial-map .visited-zone rect {
+  fill: #274e61;
+  fill-opacity: 0.16;
+  stroke: #477084;
+  stroke-width: 1;
+  stroke-dasharray: 5 5;
+}
+.industrial-map .visited-zone text {
+  fill: #9cbac8;
+  stroke: #102b38;
+  stroke-width: 4;
+  font-size: 13px;
+}
+.industrial-map .drone-trail {
+  stroke: #54c6e2;
+  opacity: 0.6;
+  stroke-width: 1.6;
+}
+.industrial-map .equipment-pad {
+  fill: #071b26;
+  stroke: #294652;
+  stroke-width: 1;
+}
+.industrial-map .solid-front {
+  fill: #687d88;
+  stroke: #334d59;
+  stroke-width: 0.8;
+}
+.industrial-map .solid-side {
+  fill: #425d6b;
+  stroke: #2b4754;
+  stroke-width: 0.8;
+}
+.industrial-map .solid-top {
+  fill: #b9c8ce;
+  stroke: #d1dce0;
+  stroke-width: 0.8;
+}
+.industrial-map .roof-seam {
+  stroke: #879ea8;
+  stroke-width: 0.8;
+  fill: none;
+}
+.industrial-map .building-label {
+  fill: #163747;
+  font-size: 12px;
+  font-weight: 700;
+}
+.industrial-map .map-device {
+  stroke: none;
+  fill: none;
+}
+.industrial-map .cylinder-wall {
+  stroke: #a2b5bf;
+  stroke-width: 0.7;
+}
+.industrial-map .cylinder-cap {
+  fill: #d6e0e2;
+  stroke: #8fa6b0;
+  stroke-width: 0.8;
+}
+.industrial-map .cylinder-band {
+  fill: none;
+  stroke: #486674;
+  stroke-width: 0.8;
+}
+.industrial-map .vessel-nozzle {
+  stroke: #c7d6da;
+  stroke-width: 2;
+}
+.industrial-map .map-label {
+  fill: #d9e8ed;
+  stroke: #102b38;
+  stroke-width: 4;
+  font-size: 14px;
+}
+.industrial-map .pipe-line:not(.visit):not(.current):not(.selected) {
+  stroke: var(--pipe-color, #6a9fab);
+  opacity: 0.76;
+  stroke-width: 2.2;
+}
+.industrial-map
+  .pipe-line.context-pipe:not(.visit):not(.current):not(.selected) {
+  opacity: 0.42;
+}
+.industrial-map .pipe-line.visit {
+  stroke: #ffbd57;
+  stroke-width: 3.5;
+  opacity: 1;
+}
+.industrial-map .pipe-line.current {
+  stroke: #50c7ff;
+  stroke-width: 4;
+  opacity: 1;
+}
+.industrial-map .pipe-line.selected {
+  stroke: #ffdf75;
+  stroke-width: 5;
+  opacity: 1;
+}
+.industrial-map .selected-underlay {
+  stroke: #142b35;
+  stroke-width: 8;
+}
+.industrial-map .spot-disc {
+  fill: #6f3f0c;
+  stroke: #ffd18a;
+  stroke-width: 1.5;
+}
+.industrial-map .spot-number {
+  fill: #fff3dc;
+  font-size: 12px;
+}
+.industrial-map .drone-mark {
+  fill: #168ed6;
+  stroke: #e3faff;
+}
+.industrial-map .drone-caption {
+  fill: #b2e8ff;
+  stroke: #102b38;
+  stroke-width: 4;
+}
+.industrial-map .map-source {
+  background: #102b38e8;
+  color: #b8d1dc;
+}
+.industrial-map .map-controls {
+  background: #163b4a;
+  border-color: #416677;
+  color: #dbeaf0;
+}
+.industrial-map .map-controls button {
+  background: #163b4a;
+  color: #dbeaf0;
+}
+.industrial-map .map-controls button:hover {
+  background: #285367;
+}
+
+.industrial-map .equipment-tag {
+  fill: #153a4a;
+  stroke: #497080;
+  stroke-width: 0.7;
+}
+.industrial-map .building-label {
+  fill: #d3e8ef;
+  font-size: 11px;
+  font-weight: 500;
+}

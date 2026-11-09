@@ -27,6 +27,26 @@ try {
       e.getAttribute("viewBox").split(" ").map(Number),
     );
   const initial = await box();
+  const geometry = await p.evaluate(() => ({
+    buildings: document.querySelectorAll(".solid-building[data-building]")
+      .length,
+    devices: document.querySelectorAll(".solid-device[data-device]").length,
+    expectedBuildings: MAEK_OPERATIONS.buildings.length,
+    expectedDevices: MAEK_OPERATIONS.devices.length,
+    pipeIds: [...document.querySelectorAll(".pipe-hit")].map(
+      (e) => e.dataset.mapPipe,
+    ),
+    expectedPipeIds: MAEK_OPERATIONS.pipes.map((e) => e.id),
+    heightProjectsUpward: project([0, 0, 10])[1] < project([0, 0, 0])[1],
+  }));
+  assert.equal(geometry.buildings, geometry.expectedBuildings);
+  assert.equal(geometry.devices, geometry.expectedDevices);
+  assert.deepEqual(geometry.pipeIds, geometry.expectedPipeIds);
+  assert.equal(geometry.heightProjectsUpward, true);
+  checks.push(
+    "Industrial renderer preserves model equipment, all 247 pipe IDs and vertical projection",
+  );
+
   await p.click(".map-panel [data-map-action=in]");
   assert.ok((await box())[2] < initial[2]);
   await p.click(".map-panel [data-map-action=out]");
@@ -111,6 +131,11 @@ try {
     /방문 구역 지도/,
   );
   await p.click("#media-content [data-map-action=in]");
+  const gradientIds = await p.$$eval("linearGradient[id]", (es) =>
+    es.map((e) => e.id),
+  );
+  assert.equal(new Set(gradientIds).size, gradientIds.length);
+
   assert.notEqual(
     await p.$eval("#media-content [data-map-zoom-label]", (e) => e.textContent),
     "100%",
