@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="operations.css" />
     <script src="operations-data.js" defer></script>
     <script src="inspection-evidence.js" defer></script>
-    <script src="plant-map.js" defer></script>
     <script src="operations.js" defer></script>
   </head>
   <body>
@@ -78,7 +77,17 @@
     <dialog id="media-viewer" aria-labelledby="media-title">
       <header class="media-header">
         <h2 id="media-title">크게 보기</h2>
-        <button type="button" id="close-media">닫기</button>
+        <button
+          type="button"
+          id="close-media"
+          class="icon-button"
+          aria-label="크게 보기 닫기"
+          title="닫기"
+        >
+          <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m6 6 12 12M18 6 6 18" />
+          </svg>
+        </button>
       </header>
       <div id="media-content"></div>
     </dialog>

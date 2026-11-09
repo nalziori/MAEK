@@ -27,26 +27,52 @@ try {
       e.getAttribute("viewBox").split(" ").map(Number),
     );
   const initial = await box();
-  const geometry = await p.evaluate(() => ({
-    buildings: document.querySelectorAll(".solid-building[data-building]")
-      .length,
-    devices: document.querySelectorAll(".solid-device[data-device]").length,
-    expectedBuildings: MAEK_OPERATIONS.buildings.length,
-    expectedDevices: MAEK_OPERATIONS.devices.length,
-    pipeIds: [...document.querySelectorAll(".pipe-hit")].map(
-      (e) => e.dataset.mapPipe,
-    ),
-    expectedPipeIds: MAEK_OPERATIONS.pipes.map((e) => e.id),
-    heightProjectsUpward: project([0, 0, 10])[1] < project([0, 0, 0])[1],
-  }));
-  assert.equal(geometry.buildings, geometry.expectedBuildings);
-  assert.equal(geometry.devices, geometry.expectedDevices);
-  assert.deepEqual(geometry.pipeIds, geometry.expectedPipeIds);
-  assert.equal(geometry.heightProjectsUpward, true);
+  for (const [width, height] of [
+    [1024, 768],
+    [1194, 834],
+    [768, 1024],
+  ]) {
+    await p.setViewport({ width, height, hasTouch: true });
+    for (const id of ["BF1-G200", "BF1-G004"]) {
+      await p.click(`[data-problem="${id}"]`);
+      const focus = await p.$eval(".map-panel .pipe-line.selected", (line) => {
+        const svg = line.ownerSVGElement,
+          r = svg.getBoundingClientRect();
+        const points = Array.from(line.points);
+        const middle = new DOMPoint(
+          points.reduce((n, v) => n + v.x, 0) / points.length,
+          points.reduce((n, v) => n + v.y, 0) / points.length,
+        ).matrixTransform(svg.getScreenCTM());
+        const view = svg.viewBox.baseVal;
+        return {
+          dx: Math.abs(middle.x - r.x - r.width / 2),
+          dy: Math.abs(middle.y - r.y - r.height / 2),
+          aspect: view.width / view.height,
+          viewport: r.width / r.height,
+        };
+      });
+      assert.ok(
+        focus.dx < 2 && focus.dy < 2,
+        `${id} centered at ${width}x${height}`,
+      );
+      assert.ok(
+        Math.abs(focus.aspect - focus.viewport) < 0.01,
+        "Camera fills map viewport without letterboxing",
+      );
+      assert.equal(
+        await p.$eval("[data-map-zoom-label]", (e) => e.textContent),
+        "220%",
+      );
+    }
+  }
+  await p.setViewport({ width: 1024, height: 768, hasTouch: true });
+  await p.screenshot({
+    path: ".hallmark/map-zoom/focused-home.png",
+    fullPage: true,
+  });
   checks.push(
-    "Industrial renderer preserves model equipment, all 247 pipe IDs and vertical projection",
+    "Initial 220% camera and newly selected pipes center in an aspect-matched map at three tablet sizes",
   );
-
   await p.click(".map-panel [data-map-action=in]");
   assert.ok((await box())[2] < initial[2]);
   await p.click(".map-panel [data-map-action=out]");
@@ -71,7 +97,12 @@ try {
     /BF1-G004/,
   );
   await p.click(".map-panel [data-map-action=fit]");
-  assert.ok(Math.abs((await box())[2] - initial[2]) < 1);
+  const overview = await box();
+  assert.ok(overview[2] > initial[2] * 2);
+  assert.equal(
+    await p.$eval("[data-map-zoom-label]", (e) => e.textContent),
+    "100%",
+  );
   checks.push(
     "Plus/minus/fit and drag pan change view without changing selected pipe",
   );
@@ -104,7 +135,7 @@ try {
     type: "touchEnd",
     touchPoints: [],
   });
-  assert.ok((await box())[2] < initial[2]);
+  assert.ok((await box())[2] < overview[2]);
   checks.push("Two-finger pinch zoom");
   await p.click(".map-panel [data-map-action=fit]");
   assert.ok((await p.$$eval(".drone-trail", (es) => es.length)) > 0);
@@ -131,11 +162,6 @@ try {
     /방문 구역 지도/,
   );
   await p.click("#media-content [data-map-action=in]");
-  const gradientIds = await p.$$eval("linearGradient[id]", (es) =>
-    es.map((e) => e.id),
-  );
-  assert.equal(new Set(gradientIds).size, gradientIds.length);
-
   assert.notEqual(
     await p.$eval("#media-content [data-map-zoom-label]", (e) => e.textContent),
     "100%",

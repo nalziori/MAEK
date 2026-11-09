@@ -84,11 +84,13 @@ try {
     if (n < 3) await p.click("#problem-next");
   }
   assert.deepEqual(reached, issueIDs);
+  await p.click('.map-panel [data-map-action="fit"]');
   await p.click('.map-spot[data-map-pipe="' + issueIDs[0] + '"]');
   assert.equal(
     await p.$eval(".problem-card[aria-pressed=true]", (e) => e.dataset.problem),
     issueIDs[0],
   );
+  await p.click('.map-panel [data-map-action="fit"]');
   await p.click('.map-spot[data-map-pipe="' + issueIDs[15] + '"]');
   assert.equal(
     await p.$eval(".problem-card[aria-pressed=true]", (e) => e.dataset.problem),
@@ -117,7 +119,7 @@ try {
   );
   assert.match(
     await p.$eval(".ndt-pending", (e) => e.textContent),
-    /아직 없습니다/,
+    /검사 결과 미접수/,
   );
   assert.ok((await p.$$eval(".rgb-region", (e) => e.length)) > 0);
   checks.push(
@@ -132,6 +134,7 @@ try {
     await p.$eval(".sensor-image img", (e) => e.alt),
     new RegExp(active),
   );
+  await p.click('.map-panel [data-map-action="fit"]');
   await p.click('.map-spot[data-map-pipe="BF1-G004"]');
   assert.equal(
     await p.$eval(".pipe-context h2", (e) => e.firstChild.textContent.trim()),

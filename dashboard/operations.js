@@ -116,12 +116,10 @@ const scale = Math.min(
   450 / (bounds.maxY - bounds.minY),
 );
 const project = (p) => [
-  500 +
-    (p[0] - (bounds.minX + bounds.maxX) / 2) * scale +
-    (p[1] - (bounds.minY + bounds.maxY) / 2) * scale * 0.18,
-  300 -
-    (p[1] - (bounds.minY + bounds.maxY) / 2) * scale * 0.68 -
-    (p[2] || 0) * scale * 0.72,
+  (1000 - (bounds.maxX - bounds.minX) * scale) / 2 +
+    (p[0] - bounds.minX) * scale,
+  (560 - (bounds.maxY - bounds.minY) * scale) / 2 +
+    (bounds.maxY - p[1]) * scale,
 ];
 const coord = (n) => Number(n.toFixed(1));
 function path(p) {
@@ -145,6 +143,41 @@ function problemReason(p) {
     reasons.push("열 이상 관측");
   return reasons.join(" · ") || "이상 여부 미확인";
 }
+function uiIcon(name) {
+  const shapes = {
+    left: '<path d="m15 6-6 6 6 6"/>',
+    right: '<path d="m9 6 6 6-6 6"/>',
+    expand:
+      '<path d="M8 3H3v5m0-5 6 6M16 3h5v5m0-5-6 6M3 16v5h5m-5 0 6-6m7 6h5v-5m0 5-6-6"/>',
+    fit: '<path d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5M9 9h6v6H9z"/>',
+    locate:
+      '<circle cx="12" cy="12" r="6"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/>',
+    close: '<path d="m6 6 12 12M18 6 6 18"/>',
+  };
+  return `<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${shapes[name] || ""}</svg>`;
+}
+const heightCeiling = Math.max(
+  10,
+  Math.ceil(
+    Math.max(
+      ...pipes.flatMap((p) =>
+        p.points.map((v) => v[2]).filter(Number.isFinite),
+      ),
+    ) / 10,
+  ) * 10,
+);
+function heightSummary() {
+  const values = selected.points.map((p) => p[2]).filter(Number.isFinite);
+  if (!values.length)
+    return '<section class="height-summary" aria-label="배관 높이"><strong>높이 미확인</strong></section>';
+  const low = Math.min(...values),
+    high = Math.max(...values),
+    fmt = (v) => Number(v.toFixed(1)).toString(),
+    range = low === high ? fmt(low) : fmt(low) + "–" + fmt(high),
+    top = 54 - (high / heightCeiling) * 44,
+    bottom = 54 - (low / heightCeiling) * 44;
+  return `<section class="height-summary" aria-label="모델 지면 기준 배관 경로 높이 ${range}미터, 정확한 확인 지점 높이 미연결" title="모델 지면 0m 기준 배관 경로(중심선)의 높이입니다. 외곽 치수나 실제 발판 높이가 아닙니다."><div class="height-copy"><span>배관 경로 · 모델 지면</span><strong>${range} m</strong><span class="point-height-missing">확인 지점 미연결</span></div><svg class="height-gauge" viewBox="0 0 54 64" aria-hidden="true"><text x="0" y="12">${heightCeiling}m</text><text x="5" y="60">0m</text><path class="height-axis" d="M38 10v44M30 10h16M33 32h10M28 54h20"/><rect class="height-band" x="32" y="${top.toFixed(2)}" width="12" height="${Math.max(3, bottom - top).toFixed(2)}" rx="2" data-min-height="${low}" data-max-height="${high}"/></svg></section>`;
+}
 function problemStrip() {
   const list = problemPipes(),
     size = 4;
@@ -152,7 +185,7 @@ function problemStrip() {
     0,
     Math.min(problemPage, Math.ceil(list.length / size) - 1),
   );
-  return `<section class="problem-strip" aria-label="확인이 필요한 배관 목록"><button type="button" id="problem-prev" aria-label="이전 의심 배관" ${problemPage === 0 ? "disabled" : ""}>이전</button><div class="problem-cards">${list
+  return `<section class="problem-strip" aria-label="확인이 필요한 배관 목록"><button type="button" id="problem-prev" aria-label="이전 의심 배관" title="이전 의심 배관" ${problemPage === 0 ? "disabled" : ""}>${uiIcon("left")}</button><div class="problem-cards">${list
     .slice(problemPage * size, (problemPage + 1) * size)
     .map(
       (p, i) =>
@@ -160,47 +193,43 @@ function problemStrip() {
     )
     .join(
       "",
-    )}${!list.length ? "<p>저장 자료에서 의심 관측이 없습니다. 미연결 검사는 별도 확인이 필요합니다.</p>" : ""}</div><button type="button" id="problem-next" aria-label="다음 의심 배관" ${(problemPage + 1) * size >= list.length ? "disabled" : ""}>다음</button></section>`;
+    )}${!list.length ? "<p>저장 자료에서 의심 관측이 없습니다. 미연결 검사는 별도 확인이 필요합니다.</p>" : ""}</div><button type="button" id="problem-next" aria-label="다음 의심 배관" title="다음 의심 배관" ${(problemPage + 1) * size >= list.length ? "disabled" : ""}>${uiIcon("right")}</button></section>`;
 }
-const scenePoints = [
-  ...allPoints,
-  ...[...footprints, ...O.devices].flatMap(window.MAEK_PLANT_MAP.solidCorners),
-  ...pipes.flatMap((p) =>
-    p.route.map((r) => [r.position[0], r.position[2], r.position[1]]),
-  ),
-].map(project);
-const sceneX = scenePoints.map((p) => p[0]),
-  sceneY = scenePoints.map((p) => p[1]);
 const mapExtent = {
-  x: Math.min(...sceneX) - 28,
-  y: Math.min(...sceneY) - 28,
-  w: Math.max(...sceneX) - Math.min(...sceneX) + 56,
-  h: Math.max(...sceneY) - Math.min(...sceneY) + 56,
+  x: (1000 - (bounds.maxX - bounds.minX) * scale) / 2,
+  y: (560 - (bounds.maxY - bounds.minY) * scale) / 2,
+  w: (bounds.maxX - bounds.minX) * scale,
+  h: (bounds.maxY - bounds.minY) * scale,
 };
-let mapRenderId = 0;
 let mapCamera = {
     x: mapExtent.x + mapExtent.w / 2,
     y: mapExtent.y + mapExtent.h / 2,
     zoom: 1,
   },
-  mapDragged = false;
-function cameraBox() {
-  const w = mapExtent.w / mapCamera.zoom,
-    h = mapExtent.h / mapCamera.zoom;
+  mapDragged = false,
+  focusedPipe = null;
+function cameraBox(svg = null) {
+  const rect = svg?.getBoundingClientRect(),
+    aspect =
+      rect?.width && rect?.height
+        ? rect.width / rect.height
+        : mapExtent.w / mapExtent.h,
+    h = Math.max(mapExtent.h, mapExtent.w / aspect) / mapCamera.zoom,
+    w = h * aspect;
   mapCamera.x = Math.max(
-    mapExtent.x + w / 2,
-    Math.min(mapExtent.x + mapExtent.w - w / 2, mapCamera.x),
+    mapExtent.x,
+    Math.min(mapExtent.x + mapExtent.w, mapCamera.x),
   );
   mapCamera.y = Math.max(
-    mapExtent.y + h / 2,
-    Math.min(mapExtent.y + mapExtent.h - h / 2, mapCamera.y),
+    mapExtent.y,
+    Math.min(mapExtent.y + mapExtent.h, mapCamera.y),
   );
   return [mapCamera.x - w / 2, mapCamera.y - h / 2, w, h].map(coord).join(" ");
 }
 function updateMaps() {
   document
-    .querySelectorAll("[data-map] svg")
-    .forEach((svg) => svg.setAttribute("viewBox", cameraBox()));
+    .querySelectorAll("[data-map] > svg")
+    .forEach((svg) => svg.setAttribute("viewBox", cameraBox(svg)));
   document
     .querySelectorAll("[data-map-zoom-label]")
     .forEach((el) => (el.textContent = Math.round(mapCamera.zoom * 100) + "%"));
@@ -226,7 +255,7 @@ function zoomMap(value, svg = null, client = null) {
   }
 }
 function mapControls() {
-  return `<div class="map-controls" aria-label="지도 조작"><button type="button" data-map-action="out" aria-label="지도 축소">−</button><span data-map-zoom-label aria-live="polite">${Math.round(mapCamera.zoom * 100)}%</span><button type="button" data-map-action="in" aria-label="지도 확대">+</button><button type="button" data-map-action="fit">전체</button></div>`;
+  return `<div class="map-controls" aria-label="지도 조작"><button type="button" data-map-action="out" aria-label="지도 축소">−</button><span data-map-zoom-label aria-live="polite">${Math.round(mapCamera.zoom * 100)}%</span><button type="button" data-map-action="in" aria-label="지도 확대">+</button><button type="button" data-map-action="fit" aria-label="지도 전체 맞춤" title="지도 전체 맞춤">${uiIcon("fit")}</button></div>`;
 }
 function routeMarkup() {
   let out = "";
@@ -255,18 +284,32 @@ function routeMarkup() {
 }
 function mapMarkup(compact = false) {
   const spots = tab === "home" ? problemPipes() : visited(),
-    viewBox = cameraBox(),
-    metal = "map-metal-" + ++mapRenderId;
-  let svg = `<svg viewBox="${viewBox}" role="group" aria-label="MAEK 가상 제철소 입체 배치도. 모델 좌표와 높이를 사용하며 실제 제철소 지도와 다릅니다."><title>MAEK 설비·배관 입체 지도</title>${window.MAEK_PLANT_MAP.defs(metal)}${routeMarkup()}`;
-  svg += window.MAEK_PLANT_MAP.drawScene(
-    footprints,
-    O.devices,
-    project,
-    scale,
-    escapeHTML,
-    coord,
-    metal,
-  );
+    viewBox = cameraBox();
+  let svg = `<svg viewBox="${viewBox}" role="group" aria-label="MAEK 가상 제철소 모델 평면도. 배관 위치는 모델 좌표이며 실제 제철소 지도와 다릅니다."><title>모델 배관 지도</title>${routeMarkup()}`;
+  for (const b of footprints) {
+    const xy = project(b.center),
+      w = b.dimensions[0] * scale,
+      h = b.dimensions[1] * scale;
+    svg += `<g class="map-building" data-building="${escapeHTML(b.id)}"><rect x="${coord(xy[0] - w / 2)}" y="${coord(xy[1] - h / 2)}" width="${coord(w)}" height="${coord(h)}" rx="3"/><text class="building-label" x="${coord(xy[0])}" y="${coord(xy[1] + 4)}">${escapeHTML(b.label)}</text></g>`;
+  }
+  for (const d of O.devices) {
+    const xy = project(d.center),
+      w = Math.max(7, d.dimensions[0] * scale),
+      h = Math.max(7, d.dimensions[1] * scale),
+      round = [
+        "furnace",
+        "stove",
+        "dust_catcher",
+        "scrubber",
+        "clarifier",
+        "makeup_tank",
+      ].includes(d.kind);
+    svg += round
+      ? `<ellipse class="map-device ${d.kind}" cx="${coord(xy[0])}" cy="${coord(xy[1])}" rx="${coord(w / 2)}" ry="${coord(h / 2)}"/>`
+      : `<rect class="map-device" x="${coord(xy[0] - w / 2)}" y="${coord(xy[1] - h / 2)}" width="${coord(w)}" height="${coord(h)}" rx="2"/>`;
+    if (d.kind === "furnace")
+      svg += `<text class="map-label" x="${coord(xy[0])}" y="${coord(xy[1] + h / 2 + 18)}" text-anchor="middle">${d.id.startsWith("BF1") ? "1고로" : "2고로"}</text>`;
+  }
 
   for (const p of pipes) {
     const cls = [
@@ -275,7 +318,7 @@ function mapMarkup(compact = false) {
       p === current() ? "current" : "",
       p.role === "primary_inspection" ? "main-pipe" : "context-pipe",
     ].join(" ");
-    svg += `<polyline class="pipe-line ${cls}" style="--pipe-color:${window.MAEK_PLANT_MAP.pipeColor(p)}" points="${path(p)}"/><polyline class="pipe-hit" data-map-pipe="${escapeHTML(p.id)}" points="${path(p)}"><title>${escapeHTML(p.id + " / " + p.service + " / " + state(p))}</title></polyline>`;
+    svg += `<polyline class="pipe-line ${cls}" points="${path(p)}"/><polyline class="pipe-hit" data-map-pipe="${escapeHTML(p.id)}" points="${path(p)}"><title>${escapeHTML(p.id + " / " + p.service + " / " + state(p))}</title></polyline>`;
   }
   svg += `<polyline class="selected-underlay" points="${path(selected)}"/><polyline class="pipe-line selected" points="${path(selected)}"/>`;
   const placed = [];
@@ -292,7 +335,7 @@ function mapMarkup(compact = false) {
       py = xy[1] + Math.sin((tries + i) * 1.8) * (22 + tries * 5);
     }
     placed.push([px, py]);
-    svg += `<g class="map-spot" data-map-pipe="${escapeHTML(p.id)}" role="button" tabindex="0" aria-label="의심 배관 ${i + 1}: ${escapeHTML(p.id)}"><circle cx="${coord(px)}" cy="${coord(py)}" r="28" fill="transparent"/><path d="M${coord(xy[0])} ${coord(xy[1])}L${coord(px)} ${coord(py)}" stroke="#a3631a"/><circle class="spot-disc" cx="${coord(px)}" cy="${coord(py)}" r="12"/><text class="spot-number" x="${coord(px)}" y="${coord(py)}">${i + 1}</text></g>`;
+    svg += `<g class="map-spot${p === selected ? " is-selected" : ""}" data-map-pipe="${escapeHTML(p.id)}" role="button" tabindex="0" aria-label="의심 배관 ${i + 1}: ${escapeHTML(p.id)}"><circle cx="${coord(px)}" cy="${coord(py)}" r="28" fill="transparent"/><path d="M${coord(xy[0])} ${coord(xy[1])}L${coord(px)} ${coord(py)}" stroke="#a3631a"/><circle class="spot-disc" cx="${coord(px)}" cy="${coord(py)}" r="12"/><text class="spot-number" x="${coord(px)}" y="${coord(py)}">${i + 1}</text></g>`;
   });
   const now = current();
   if (now) {
@@ -301,7 +344,7 @@ function mapMarkup(compact = false) {
     svg += `<g aria-label="현재 위치, 저장 경로 기준 ${escapeHTML(now.id)}"><circle class="drone-mark" cx="${coord(xy[0])}" cy="${coord(xy[1])}" r="13"/><path d="m${coord(xy[0] - 6)} ${coord(xy[1])}h12m-6-6v12" stroke="white" stroke-width="2"/><text class="drone-caption" x="${coord(xy[0] + 18)}" y="${coord(xy[1] - 16)}">현재 위치</text></g>`;
   }
   svg += "</svg>";
-  return `<div class="site-map interactive-map industrial-map${compact ? " compact-map" : ""}" data-map tabindex="0" aria-label="방문 구역 지도. 확대 후 끌어서 이동할 수 있습니다.">${svg}${mapControls()}<span class="map-source">저장 경로 재구성</span></div>`;
+  return `<div class="site-map interactive-map${compact ? " compact-map" : ""}" data-map tabindex="0" aria-label="방문 구역 지도. 확대 후 끌어서 이동할 수 있습니다.">${svg}${mapControls()}<span class="map-source">저장 경로 재구성</span></div>`;
 }
 function selectionCard() {
   const candidate = done(selected) && selected.result === "candidate";
@@ -338,24 +381,24 @@ function readNdt() {
 function droneImage(kind, large = false) {
   const e = window.MAEK_EVIDENCE.byPipe[selected.id]?.[kind];
   if (!e)
-    return `<div class="sensor-empty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM8 15l3-3 3 2 3-5"/></svg><strong>${kind === "thermal" ? "열화상 영상 미연결" : "RGB 영상 미연결"}</strong><span>같은 배관의 촬영 자료가 필요합니다.</span></div>`;
+    return `<div class="sensor-empty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM8 15l3-3 3 2 3-5"/></svg><strong>${kind === "thermal" ? "열화상 영상 미연결" : "RGB 영상 미연결"}</strong></div>`;
   const boxes = (e.regions || [])
     .map((r) => {
       const [x, y, x2, y2] = r.bbox;
       return `<span class="rgb-region" style="left:${(x / e.width) * 100}%;top:${(y / e.height) * 100}%;width:${((x2 - x) / e.width) * 100}%;height:${((y2 - y) / e.height) * 100}%"></span>`;
     })
     .join("");
-  return `<${large ? "div" : "button"} class="sensor-image" ${large ? "" : `type="button" data-open-image="${kind}" aria-label="${escapeHTML(selected.id)} ${kind === "rgb" ? "RGB" : "열화상"} 영상 크게 보기"`}><img src="${escapeHTML(e.src)}" width="${e.width}" height="${e.height}" alt="${escapeHTML(selected.id)} ${kind === "rgb" ? "저장 RGB 촬영" : "열화상 촬영"}">${boxes}${large ? "" : '<span class="image-expand">크게 보기</span>'}</${large ? "div" : "button"}>`;
+  return `<${large ? "div" : "button"} class="sensor-image" ${large ? "" : `type="button" data-open-image="${kind}" aria-label="${escapeHTML(selected.id)} ${kind === "rgb" ? "RGB" : "열화상"} 영상 크게 보기"`}><img src="${escapeHTML(e.src)}" width="${e.width}" height="${e.height}" alt="${escapeHTML(selected.id)} ${kind === "rgb" ? "저장 RGB 촬영" : "열화상 촬영"}">${boxes}${large ? "" : `<span class="image-expand">${uiIcon("expand")}</span>`}</${large ? "div" : "button"}>`;
 }
 function ndtPanel() {
   const all = readNdt().filter((r) => r.pipe_id === selected.id),
     r = all[all.length - 1];
-  return `<section class="ndt-panel" aria-label="같은 배관의 비파괴검사"><div class="ndt-heading"><h2>현장 비파괴검사</h2><button type="button" id="import-ndt">검사 결과 연결</button></div>${r ? `<div class="ndt-result-row"><strong>${escapeHTML(r.method)}</strong><span class="state visit">기기 저장 · 검토 대기</span></div><p class="ndt-measurement">${escapeHTML(r.result_summary.length > 100 ? r.result_summary.slice(0, 100) + "…" : r.result_summary)}</p><p class="ndt-meta">부위 ${escapeHTML(r.inspection_point)} · ${escapeHTML(r.inspector)} · ${escapeHTML(new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", dateStyle: "short", timeStyle: "short" }).format(new Date(r.performed_at)))}</p><details class="ndt-details"><summary>전체 결과·검사 범위</summary><dl><dt>결과</dt><dd>${escapeHTML(r.result_summary)}</dd><dt>절차</dt><dd>${escapeHTML(r.procedure_ref)}</dd><dt>검사 범위</dt><dd>${escapeHTML(r.coverage_ref)}</dd><dt>보고서</dt><dd>${escapeHTML(r.report_ref)}</dd></dl><p>배관 ID로 연결한 보고서이며 영상의 정확한 부위 정합은 별도 확인합니다.</p></details>` : `<div class="ndt-pending"><strong>이 배관의 검사 결과가 아직 없습니다.</strong><span>작업자가 검사한 결과를 같은 배관에 연결합니다.</span></div>`}${ndtNotice ? '<p class="ndt-feedback" role="status">' + escapeHTML(ndtNotice) + "</p>" : ""}</section>`;
+  return `<section class="ndt-panel" aria-label="같은 배관의 비파괴검사"><div class="ndt-heading"><h2>현장 비파괴검사</h2><button type="button" id="import-ndt">결과 연결</button></div>${r ? `<div class="ndt-result-row"><strong>${escapeHTML(r.method)}</strong><span class="state visit">기기 저장 · 검토 대기</span></div><p class="ndt-measurement">${escapeHTML(r.result_summary.length > 100 ? r.result_summary.slice(0, 100) + "…" : r.result_summary)}</p><p class="ndt-meta">부위 ${escapeHTML(r.inspection_point)} · ${escapeHTML(r.inspector)} · ${escapeHTML(new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", dateStyle: "short", timeStyle: "short" }).format(new Date(r.performed_at)))}</p><details class="ndt-details"><summary>전체 결과·검사 범위</summary><dl><dt>결과</dt><dd>${escapeHTML(r.result_summary)}</dd><dt>절차</dt><dd>${escapeHTML(r.procedure_ref)}</dd><dt>검사 범위</dt><dd>${escapeHTML(r.coverage_ref)}</dd><dt>보고서</dt><dd>${escapeHTML(r.report_ref)}</dd></dl><p>배관 ID로 연결한 보고서이며 영상의 정확한 부위 정합은 별도 확인합니다.</p></details>` : `<div class="ndt-pending"><strong>검사 결과 미접수</strong></div>`}${ndtNotice ? '<p class="ndt-feedback" role="status">' + escapeHTML(ndtNotice) + "</p>" : ""}</section>`;
 }
 function home() {
   const rgb = window.MAEK_EVIDENCE.byPipe[selected.id]?.rgb,
     thermal = window.MAEK_EVIDENCE.byPipe[selected.id]?.thermal;
-  return `${problemStrip()}<div class="unified-layout"><section class="map-panel"><div class="map-heading"><h2>배관 위치</h2><button type="button" id="expand-map" class="map-focus">지도 크게</button></div>${mapMarkup()}<div class="drone-location"><p class="visited-summary">방문 구역 <strong>${[...new Set(pipes.slice(0, step).map((p) => (p.id.startsWith("BF1") ? "1고로" : p.id.startsWith("BF2") ? "2고로" : "기타 구역")))].join(" · ") || "방문 전"}</strong></p><span>현재 위치 <small>저장 기준</small><strong>${current() ? escapeHTML(current().id) : "종료"}</strong></span>${current() ? '<button id="follow-drone" type="button">현재 배관 보기</button>' : ""}</div><div class="map-legend"><span class="legend-item"><i class="legend-line route"></i>방문 구역</span><span class="legend-item"><i class="legend-line current"></i>현재 위치</span><span class="legend-item"><i class="legend-line visit"></i>조치 필요</span></div></section><section class="inspection-flow" aria-label="선택 배관의 연속 검사"><div class="pipe-context problem-context"><div><h2>${escapeHTML(selected.id)}<span class="selected-issue">${escapeHTML(problemReason(selected))}</span></h2><p>${escapeHTML(selected.service)}</p></div></div><div class="drone-evidence"><section class="sensor-panel"><div class="sensor-heading"><h3>RGB · 부식 관측</h3><span>저장 촬영</span></div>${droneImage("rgb")}<div class="sensor-analysis"><strong>${rgb?.regions.length ? "대상 배관에 부식 후보 표시" : rgb ? "선택 촬영의 배관 후보 표시 없음" : "분석 결과 없음"}</strong><span>${rgb ? "RGB 색상 규칙 분석 · 결함 확정 아님" : "연결된 촬영이 필요합니다."}</span></div></section><section class="sensor-panel"><div class="sensor-heading"><h3>열화상 · 열 관측</h3><span>${thermal ? "연결 촬영" : "미연결"}</span></div>${droneImage("thermal")}<div class="sensor-analysis"><strong>${thermal ? escapeHTML(thermal.analysis_summary || "판독 결과 확인 필요") : "열 관측 결과 없음"}</strong><span>${thermal ? escapeHTML(thermal.quality_status || "품질 확인 필요") : "미연결을 정상으로 판단하지 않습니다."}</span></div></section></div>${ndtPanel()}</section></div>`;
+  return `${problemStrip()}<div class="unified-layout"><section class="map-panel"><div class="map-heading"><h2>배관 위치</h2><button type="button" id="expand-map" class="map-focus icon-button" aria-label="지도 크게 보기" title="지도 크게 보기">${uiIcon("expand")}</button></div>${mapMarkup()}<div class="drone-location"><p class="visited-summary">방문 구역 <strong>${[...new Set(pipes.slice(0, step).map((p) => (p.id.startsWith("BF1") ? "1고로" : p.id.startsWith("BF2") ? "2고로" : "기타 구역")))].join(" · ") || "방문 전"}</strong></p><span>현재 위치 <small>저장 기준</small><strong>${current() ? escapeHTML(current().id) : "종료"}</strong></span>${current() ? `<button id="follow-drone" type="button" class="icon-button" aria-label="드론 현재 배관 보기" title="드론 현재 배관 보기">${uiIcon("locate")}</button>` : ""}</div><div class="map-legend"><span class="legend-item"><i class="legend-line route"></i>방문 구역</span><span class="legend-item"><i class="legend-line current"></i>현재 위치</span><span class="legend-item"><i class="legend-line visit"></i>조치 필요</span></div></section><section class="inspection-flow" aria-label="선택 배관의 연속 검사"><div class="pipe-context problem-context"><div class="pipe-main"><h2>${escapeHTML(selected.id)}<span class="selected-issue">${escapeHTML(problemReason(selected))}</span></h2><p>${escapeHTML(selected.service)}</p></div>${heightSummary()}</div><div class="drone-evidence"><section class="sensor-panel"><div class="sensor-heading"><h3>RGB · 부식 관측</h3><span>저장 촬영</span></div>${droneImage("rgb")}<div class="sensor-analysis"><strong>${rgb?.regions.length ? "부식 후보 " + rgb.regions.length + "건" : rgb ? "의심 표시 없음" : "분석 결과 없음"}</strong><span>${rgb ? "색상 규칙 분석" : ""}</span></div></section><section class="sensor-panel"><div class="sensor-heading"><h3>열화상 · 열 관측</h3><span>${thermal ? "연결 촬영" : ""}</span></div>${droneImage("thermal")}<div class="sensor-analysis"><strong>${thermal ? escapeHTML(thermal.analysis_summary || "판독 결과 확인 필요") : "분석 결과 없음"}</strong><span>${thermal ? escapeHTML(thermal.quality_status || "품질 확인 필요") : ""}</span></div></section></div>${ndtPanel()}</section></div>`;
 }
 
 function rows(filtered, record = false) {
@@ -504,6 +547,11 @@ function bind() {
     $("expand-map").onclick = (e) => openMedia("map", e.currentTarget);
 }
 function render() {
+  if (focusedPipe !== selected.id) {
+    const [x, y] = project(center(selected));
+    mapCamera = { x, y, zoom: 2.2 };
+    focusedPipe = selected.id;
+  }
   const text = titles[tab];
   $("page-title").textContent =
     tab === "home"
@@ -771,7 +819,10 @@ $("ndt-file").onchange = async (e) => {
     render();
   }
 };
-window.addEventListener("resize", fitMedia);
+window.addEventListener("resize", () => {
+  fitMedia();
+  updateMaps();
+});
 window.addEventListener("pagehide", pause);
 window.addEventListener("popstate", () => {
   pause();

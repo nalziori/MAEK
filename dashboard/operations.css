@@ -2048,6 +2048,14 @@ main {
   opacity: 1;
   stroke-width: 5;
 }
+.map-spot.is-selected .spot-disc {
+  fill: #744008;
+  stroke: #fff;
+  stroke-width: 2;
+}
+.map-spot.is-selected .spot-number {
+  fill: #fff;
+}
 .unified-layout .legend-line.done {
   background: #b9c5bf;
 }
@@ -2398,161 +2406,141 @@ button.sensor-image:hover {
   }
 }
 
-/* Equipment shading follows the reference's industrial map treatment. */
-.industrial-map {
-  background: #102b38;
-  background-image: radial-gradient(
-    ellipse at 50% 25%,
-    #1b3b49 0%,
-    #102b38 70%
-  );
-}
-.industrial-map .visited-zone rect {
-  fill: #274e61;
-  fill-opacity: 0.16;
-  stroke: #477084;
-  stroke-width: 1;
-  stroke-dasharray: 5 5;
-}
-.industrial-map .visited-zone text {
-  fill: #9cbac8;
-  stroke: #102b38;
-  stroke-width: 4;
-  font-size: 13px;
-}
-.industrial-map .drone-trail {
-  stroke: #54c6e2;
-  opacity: 0.6;
-  stroke-width: 1.6;
-}
-.industrial-map .equipment-pad {
-  fill: #071b26;
-  stroke: #294652;
-  stroke-width: 1;
-}
-.industrial-map .solid-front {
-  fill: #687d88;
-  stroke: #334d59;
-  stroke-width: 0.8;
-}
-.industrial-map .solid-side {
-  fill: #425d6b;
-  stroke: #2b4754;
-  stroke-width: 0.8;
-}
-.industrial-map .solid-top {
-  fill: #b9c8ce;
-  stroke: #d1dce0;
-  stroke-width: 0.8;
-}
-.industrial-map .roof-seam {
-  stroke: #879ea8;
-  stroke-width: 0.8;
+.ui-icon {
+  display: block;
+  width: 22px;
+  height: 22px;
   fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
-.industrial-map .building-label {
-  fill: #163747;
-  font-size: 12px;
-  font-weight: 700;
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px;
 }
-.industrial-map .map-device {
-  stroke: none;
+.problem-strip > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+}
+.map-controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.image-expand {
+  padding: 8px;
+}
+.image-expand .ui-icon {
+  width: 20px;
+  height: 20px;
+}
+.pipe-main {
+  min-width: 0;
+}
+.height-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  color: var(--ink);
+}
+.height-copy {
+  display: grid;
+  gap: 3px;
+}
+.height-copy > span {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.height-copy > strong {
+  font-size: 1rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.height-copy .point-height-missing {
+  font-size: 0.875rem;
+  color: #735417;
+}
+.height-gauge {
+  width: 48px;
+  height: 64px;
+  flex-shrink: 0;
+}
+.height-gauge text {
+  font: 11px var(--font-body);
+  fill: var(--muted);
+}
+.height-axis {
   fill: none;
-}
-.industrial-map .cylinder-wall {
-  stroke: #a2b5bf;
-  stroke-width: 0.7;
-}
-.industrial-map .cylinder-cap {
-  fill: #d6e0e2;
-  stroke: #8fa6b0;
-  stroke-width: 0.8;
-}
-.industrial-map .cylinder-band {
-  fill: none;
-  stroke: #486674;
-  stroke-width: 0.8;
-}
-.industrial-map .vessel-nozzle {
-  stroke: #c7d6da;
-  stroke-width: 2;
-}
-.industrial-map .map-label {
-  fill: #d9e8ed;
-  stroke: #102b38;
-  stroke-width: 4;
-  font-size: 14px;
-}
-.industrial-map .pipe-line:not(.visit):not(.current):not(.selected) {
-  stroke: var(--pipe-color, #6a9fab);
-  opacity: 0.76;
-  stroke-width: 2.2;
-}
-.industrial-map
-  .pipe-line.context-pipe:not(.visit):not(.current):not(.selected) {
-  opacity: 0.42;
-}
-.industrial-map .pipe-line.visit {
-  stroke: #ffbd57;
-  stroke-width: 3.5;
-  opacity: 1;
-}
-.industrial-map .pipe-line.current {
-  stroke: #50c7ff;
-  stroke-width: 4;
-  opacity: 1;
-}
-.industrial-map .pipe-line.selected {
-  stroke: #ffdf75;
-  stroke-width: 5;
-  opacity: 1;
-}
-.industrial-map .selected-underlay {
-  stroke: #142b35;
-  stroke-width: 8;
-}
-.industrial-map .spot-disc {
-  fill: #6f3f0c;
-  stroke: #ffd18a;
+  stroke: #9b8c71;
   stroke-width: 1.5;
 }
-.industrial-map .spot-number {
-  fill: #fff3dc;
-  font-size: 12px;
+.height-band {
+  fill: #a36518;
+  stroke: #fff1da;
+  stroke-width: 1;
 }
-.industrial-map .drone-mark {
-  fill: #168ed6;
-  stroke: #e3faff;
+.problem-context {
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
-.industrial-map .drone-caption {
-  fill: #b2e8ff;
-  stroke: #102b38;
-  stroke-width: 4;
+.ndt-pending {
+  color: var(--muted);
 }
-.industrial-map .map-source {
-  background: #102b38e8;
-  color: #b8d1dc;
+.sensor-analysis > span:empty,
+.sensor-heading > span:empty {
+  display: none;
 }
-.industrial-map .map-controls {
-  background: #163b4a;
-  border-color: #416677;
-  color: #dbeaf0;
+@media (min-width: 700px) and (max-width: 1050px) {
+  .problem-context {
+    gap: 10px;
+  }
+  .height-summary {
+    gap: 4px;
+  }
+  .height-gauge {
+    width: 38px;
+  }
+  .height-copy > span {
+    font-size: 0.75rem;
+  }
+  .height-copy > strong {
+    font-size: 1rem;
+  }
+  .problem-context .selected-issue {
+    font-size: 0.875rem;
+  }
 }
-.industrial-map .map-controls button {
-  background: #163b4a;
-  color: #dbeaf0;
-}
-.industrial-map .map-controls button:hover {
-  background: #285367;
+@media (max-width: 699px) {
+  .problem-context {
+    align-items: start;
+    flex-wrap: wrap;
+  }
+  .height-summary {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .height-copy > span,
+  .height-copy .point-height-missing {
+    font-size: 0.875rem;
+  }
 }
 
-.industrial-map .equipment-tag {
-  fill: #153a4a;
-  stroke: #497080;
-  stroke-width: 0.7;
-}
-.industrial-map .building-label {
-  fill: #d3e8ef;
-  font-size: 11px;
-  font-weight: 500;
+.map-controls .ui-icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+  flex: none;
 }
