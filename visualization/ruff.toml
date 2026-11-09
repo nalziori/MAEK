@@ -1,0 +1,3 @@
+# Legacy Blender/CFD generation scripts use separate runtimes.
+# Keep package CI lint focused on maek/, scripts/ and tests/.
+exclude = ["*"]

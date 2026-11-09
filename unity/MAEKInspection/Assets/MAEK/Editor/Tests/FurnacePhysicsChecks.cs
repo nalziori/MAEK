@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Globalization;
+using MAEK.Simulation;
+namespace MAEK.Tests {
+ [Serializable] public class PhysicsCheck {public string name,detail;public bool pass;}
+ public static class FurnacePhysicsChecks {
+  static void Assert(bool value,string message){if(!value)throw new Exception(message);}
+  static void Near(double a,double b,double tolerance,string message){Assert(Math.Abs(a-b)<=tolerance,message+": "+a+" vs "+b);}
+  static FurnaceInputs Off(){return new FurnaceInputs {OreKgPerSecond=0,CokeKgPerSecond=0,BlastKmolPerSecond=0,TapOpening=0};}
+  static void Advance(FurnaceModel m,FurnaceInputs input,double seconds,double step=.05){for(double t=0;t<seconds-1e-8;t+=step)m.Step(Math.Min(step,seconds-t),input);}
+  public static List<PhysicsCheck> Run(){var checks=new List<PhysicsCheck>();Action<string,Action> test=(name,body)=>{try{body();checks.Add(new PhysicsCheck{name=name,pass=true,detail="PASS"});}catch(Exception e){checks.Add(new PhysicsCheck{name=name,pass=false,detail=e.Message});}};
+   test("all reaction equations conserve Fe/C/O/N",()=>{foreach(var r in FurnaceModel.Reactions)for(int atom=0;atom<4;atom++){double sum=0;for(int i=0;i<r.Stoich.Length;i++)sum+=r.Stoich[i]*FurnaceModel.Atoms[i,atom];Near(sum,0,1e-12,r.Name);}});
+   test("reaction heat follows formation enthalpy",()=>{foreach(var r in FurnaceModel.Reactions){double delta=0;for(int i=0;i<r.Stoich.Length;i++)delta+=r.Stoich[i]*FurnaceModel.FormationJPerKmol[i];Near(r.HeatJPerKmol,-delta,1e-6,r.Name);}});
+   test("closed reacting vessel conserves mass and energy",()=>{var c=new FurnaceConfig();c.VentEnabled=false;c.HeatLossWPerK=0;var m=new FurnaceModel(c);Advance(m,Off(),120);Assert(m.ProducedIronKg>0,"No reaction executed");Near(m.MassResidualKg,0,1e-6,"mass");Assert(Math.Abs(m.EnergyResidualJ)<.1,"energy "+m.EnergyResidualJ);});
+   test("no reductant produces no new iron",()=>{var c=new FurnaceConfig();c.InitialCokeKg=0;c.InitialCOKg=0;c.VentEnabled=false;var m=new FurnaceModel(c);Advance(m,Off(),30);Near(m.ProducedIronKg,0,1e-12,"unavailable reactant");});
+   test("cold furnace has no reduction or liquid discharge",()=>{var c=new FurnaceConfig();c.InitialTemperatureK=350;var m=new FurnaceModel(c);var i=Off();i.TapOpening=1;Advance(m,i,20);Near(m.ProducedIronKg,0,1e-12,"cold reduction");Near(m.TappedKg,0,1e-12,"solid discharge");});
+   test("reaction exhaustion never produces negative species",()=>{var c=new FurnaceConfig();c.InitialCokeKg=.001;c.InitialCOKg=.001;var m=new FurnaceModel(c);Advance(m,Off(),300);foreach(double n in m.Kmol)Assert(n>=-1e-10,"negative species");});
+   test("closed taphole has exactly zero flow",()=>{var m=new FurnaceModel(new FurnaceConfig());Advance(m,Off(),30);Near(m.TappedKg,0,0,"closed tap");Near(m.Channel.VolumeM3,0,0,"closed runner");});
+   test("empty hearth has zero pressure-driven liquid flow",()=>{var c=new FurnaceConfig();c.InitialIronKg=0;c.InitialOreKg=0;c.InitialCokeKg=0;var m=new FurnaceModel(c);var i=Off();i.TapOpening=1;Advance(m,i,1);Near(m.TappedKg,0,0,"empty tap");});
+   test("orifice limit matches Bernoulli",()=>{double v=Hydraulics.Velocity(70000,7000,.006,.06,0,0,1);Near(v,Math.Sqrt(20),1e-8,"analytic velocity");});
+   test("pressure and diameter affect tap flow",()=>{var c=new FurnaceConfig();double a=Hydraulics.Flow(c,1.5,1,100000,1850),b=Hydraulics.Flow(c,1.5,1,200000,1850);Assert(b>a&&a>0,"pressure response");double old=c.TapDiameterM;c.TapDiameterM=old*.5;Assert(Hydraulics.Flow(c,1.5,1,100000,1850)<a*.4,"diameter response");});
+   test("level below inlet cannot drain",()=>{var c=new FurnaceConfig();Near(Hydraulics.Flow(c,c.TapHeightM-.001,1,500000,1850),0,0,"dry inlet");});
+   test("partial opening reduces flow",()=>{var c=new FurnaceConfig();Assert(Hydraulics.Flow(c,1.5,.2,150000,1850)<Hydraulics.Flow(c,1.5,1,150000,1850),"opening response");});
+   test("phase change consumes latent heat at melting point",()=>{double tm=1809,cap=1e6,mass=100,latent=247000;var a=PhaseState.Resolve(cap*(tm-298.15)+mass*latent*.4,cap,mass,298.15,tm,latent);Near(a.TemperatureK,tm,1e-9,"phase temperature");Near(a.LiquidKg,40,1e-7,"latent fraction");var b=PhaseState.Resolve(cap*(tm-298.15)-1e6,cap,mass,298.15,tm,latent);Near(b.LiquidKg,0,0,"solid");});
+   test("runner conserves inlet equals stored plus outlet",()=>{var c=new FurnaceConfig();var r=new RunnerFlow(c);for(int k=0;k<4000;k++)r.Step(.05,k<2000?.012:0);Near(r.VolumeM3+r.OutletM3,r.InletM3,1e-8,"runner volume");Assert(r.OutletM3>0,"no transport to outlet");foreach(var h in r.Depth)Assert(h>=0&&!double.IsNaN(h),"invalid depth");});
+   test("dry runner remains dry and stationary",()=>{var r=new RunnerFlow(new FurnaceConfig());r.Step(100,0);Near(r.VolumeM3,0,0,"dry volume");foreach(var q in r.DischargePerWidth)Near(q,0,0,"dry momentum");});
+   test("coupled furnace-runner conserves mass during tapping",()=>{var m=new FurnaceModel(new FurnaceConfig());var i=new FurnaceInputs();i.TapOpening=1;Advance(m,i,180);Assert(m.TappedKg>0&&m.Channel.OutletM3>0,"no connected liquid transfer");Near(m.TappedKg,m.Config.IronDensityKgM3*(m.Channel.VolumeM3+m.Channel.OutletM3),1e-5,"tap-runner continuity");Near(m.MassResidualKg,0,2e-5,"coupled mass");Assert(Math.Abs(m.EnergyResidualJ)<2,"coupled energy");});
+   test("reactor timestep convergence",()=>{var a=new FurnaceModel(new FurnaceConfig());var b=new FurnaceModel(new FurnaceConfig());var i=new FurnaceInputs();i.TapOpening=1;Advance(a,i,180,.05);Advance(b,i,180,.025);Assert(Math.Abs(a.ProducedIronKg-b.ProducedIronKg)/Math.Max(1,b.ProducedIronKg)<.01,"production convergence");Near(a.TemperatureK,b.TemperatureK,1,"temperature convergence");});
+   test("runner timestep convergence",()=>{var a=new RunnerFlow(new FurnaceConfig());var b=new RunnerFlow(new FurnaceConfig());for(int k=0;k<2400;k++)a.Step(.05,.012);for(int k=0;k<4800;k++)b.Step(.025,.012);Assert(Math.Abs(a.VolumeM3-b.VolumeM3)/Math.Max(.001,b.VolumeM3)<.03,"runner convergence");});
+   test("hotter blast increases thermal state",()=>{var a=new FurnaceModel(new FurnaceConfig());var b=new FurnaceModel(new FurnaceConfig());var ia=new FurnaceInputs();var ib=new FurnaceInputs();ia.BlastTemperatureK=1100;ib.BlastTemperatureK=1600;Advance(a,ia,300);Advance(b,ib,300);Assert(b.ThermalEnergyJ>a.ThermalEnergyJ,"blast thermal response");});
+   test("invalid timestep and input rejected before mutation",()=>{var m=new FurnaceModel(new FurnaceConfig());double mass=m.InventoryMassKg;bool rejected=false;try{m.Step(double.NaN,new FurnaceInputs());}catch(ArgumentException){rejected=true;}Assert(rejected,"NaN accepted");var i=new FurnaceInputs();i.OxygenMoleFraction=1.2;rejected=false;try{m.Step(.05,i);}catch(ArgumentException){rejected=true;}Assert(rejected,"invalid fraction accepted");Near(m.InventoryMassKg,mass,0,"invalid input mutation");});
+   test("invalid geometry rejected",()=>{var c=new FurnaceConfig();c.TapDiameterM=0;bool rejected=false;try{new FurnaceModel(c);}catch(ArgumentException){rejected=true;}Assert(rejected,"zero diameter accepted");});
+   test("one hour run remains finite and conservative",()=>{var m=new FurnaceModel(new FurnaceConfig());var i=new FurnaceInputs();for(int k=0;k<36000;k++){i.TapOpening=(k%12000)>6000?1:0;m.Step(.1,i);}Assert(!double.IsNaN(m.TemperatureK)&&m.TemperatureK>298,"invalid temperature");Near(m.MassResidualKg,0,.001,"long mass");Assert(Math.Abs(m.EnergyResidualJ)<100,"long energy");});
+   return checks;
+  }
+#if PHYSICS_CONSOLE
+  public static int Main(string[] args){CultureInfo.CurrentCulture=CultureInfo.InvariantCulture;var checks=Run();int fail=0;foreach(var c in checks){Console.WriteLine((c.pass?"PASS ":"FAIL ")+c.name+" "+c.detail);if(!c.pass)fail++;}Console.WriteLine("CHECKS "+checks.Count+" FAIL "+fail);if(fail==0&&args.Length>0)WriteTrace(args[0]);return fail==0?0:1;}
+  static void WriteTrace(string path){var m=new FurnaceModel(new FurnaceConfig());var input=new FurnaceInputs();using(var w=new StreamWriter(path)){w.Write("time_s,temperature_K,iron_liquid_kg,iron_solid_kg,produced_kg,tapped_kg,tap_kg_s,co_fraction,heat_MW,head_m,runner_m3,outlet_m3");for(int c=0;c<m.Channel.Depth.Length;c++)w.Write(",h"+c+",u"+c);w.WriteLine();for(int second=0;second<=600;second++){if(second>0){input.TapOpening=second>30&&second<=400?1:0;Advance(m,input,1);}w.Write(string.Join(",",new[]{(double)second,m.TemperatureK,m.LiquidIronKg,m.SolidIronKg,m.ProducedIronKg,m.TappedKg,m.TapKgPerSecond,m.COFraction,m.LastReactionWatts/1e6,m.HeadM,m.Channel.VolumeM3,m.Channel.OutletM3}));for(int c=0;c<m.Channel.Depth.Length;c++)w.Write(","+m.Channel.Depth[c]+","+m.Channel.Velocity(c));w.WriteLine();}}}
+#endif
+ }
+}

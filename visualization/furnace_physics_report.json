@@ -1,0 +1,1372 @@
+{
+    "status": "PASS",
+    "scope": "Reduced-order net reaction/enthalpy model; pure-iron phase proxy; Darcy taphole and 1-D Saint-Venant runner. Numerical verification, not industrial validation.",
+    "checks": [
+        {
+            "name": "all reaction equations conserve Fe/C/O/N",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "reaction heat follows formation enthalpy",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "closed reacting vessel conserves mass and energy",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "no reductant produces no new iron",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "cold furnace has no reduction or liquid discharge",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "reaction exhaustion never produces negative species",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "closed taphole has exactly zero flow",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "empty hearth has zero pressure-driven liquid flow",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "orifice limit matches Bernoulli",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "pressure and diameter affect tap flow",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "level below inlet cannot drain",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "partial opening reduces flow",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "phase change consumes latent heat at melting point",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "runner conserves inlet equals stored plus outlet",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "dry runner remains dry and stationary",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "coupled furnace-runner conserves mass during tapping",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "reactor timestep convergence",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "runner timestep convergence",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "hotter blast increases thermal state",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "invalid timestep and input rejected before mutation",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "invalid geometry rejected",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "one hour run remains finite and conservative",
+            "detail": "PASS",
+            "pass": true
+        },
+        {
+            "name": "Unity and Blender trace agree at 180 seconds",
+            "detail": "Identical solver, inputs and 30-second opening time",
+            "pass": true
+        },
+        {
+            "name": "furnace and runner fit process camera",
+            "detail": "Top, hearth and receiving end within camera frame",
+            "pass": true
+        },
+        {
+            "name": "section visual follows solved hearth level",
+            "detail": "Rendered height equals mass/(density*effective hearth area)",
+            "pass": true
+        },
+        {
+            "name": "runner visual follows all finite-volume cells",
+            "detail": "48 calculated depths per runner",
+            "pass": true
+        },
+        {
+            "name": "connected melt reaches collection vessel",
+            "detail": "Hearth -> taphole -> runner -> receiving vessel",
+            "pass": true
+        },
+        {
+            "name": "process view owns active camera",
+            "detail": "No competing walk/drone controls",
+            "pass": true
+        },
+        {
+            "name": "section hides occluding conveyors",
+            "detail": "Render-only hiding while retaining colliders",
+            "pass": true
+        },
+        {
+            "name": "section does not remove physical environment colliders",
+            "detail": "Original 323 mesh colliders retained",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G006",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G100",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G101",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G102",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G110",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-F099",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-C200",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-H200",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G200",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-A200",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-F200",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-C201",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-H201",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G201",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-A201",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-F201",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-C202",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-H202",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G202",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-A202",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-F202",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-C001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-C002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-C003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-H001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-H002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-A001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-A002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-A003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-F001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-F002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-F003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T000",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T006",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T007",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T008",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T009",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T010",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T011",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B000",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B006",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B007",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B008",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B009",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B010",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B011",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-H003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-W001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS000",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR000",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS006",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR006",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS007",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR007",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS008",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR008",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS009",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR009",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS010",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR010",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS011",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR011",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR000",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR006",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR007",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR008",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR009",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR010",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR011",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR000",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR006",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR007",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR008",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR009",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR010",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR011",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-W002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-W003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-Q001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-Q002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-Q003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-Q004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-Q005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G006",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G100",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G101",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G102",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G110",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-F099",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-C200",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-H200",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G200",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-A200",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-F200",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-C201",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-H201",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G201",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-A201",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-F201",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-C202",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-H202",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G202",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-A202",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-F202",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-C001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-C002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-C003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-H001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-H002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-A001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-A002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-A003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-F001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-F002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-F003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T000",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T006",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T007",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T008",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T009",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T010",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T011",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B000",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B006",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B007",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B008",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B009",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B010",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B011",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-H003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-W001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS000",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR000",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS006",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR006",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS007",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR007",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS008",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR008",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS009",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR009",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS010",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR010",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS011",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR011",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR000",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR006",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR007",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR008",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR009",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR010",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR011",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR000",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR006",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR007",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR008",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR009",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR010",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR011",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-W002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-W003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-Q001",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-Q002",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-Q003",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-Q004",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-Q005",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1.CASTHOUSE.TRAIN-SUP",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1.CASTHOUSE.TRAIN-RET",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2.CASTHOUSE.TRAIN-SUP",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2.CASTHOUSE.TRAIN-RET",
+            "detail": "Existing environment collision policy unchanged",
+            "pass": true
+        },
+        {
+            "name": "process view rendered",
+            "detail": "Native Unity camera at 180 simulated seconds",
+            "pass": true
+        },
+        {
+            "name": "walking and drone restored on leaving section",
+            "detail": "Camera and controls restored",
+            "pass": true
+        }
+    ],
+    "massResidualKg": -3.6088749766349794e-9,
+    "energyResidualJ": 0.31664228439331057,
+    "liquidKg": 291367.7968083403,
+    "tapKgS": 77.70240517489927,
+    "runnerM3": 0.5877065410372696,
+    "receivedM3": 1.0828153527508094
+}

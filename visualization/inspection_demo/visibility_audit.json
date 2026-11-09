@@ -1,0 +1,2017 @@
+{
+    "rows": [
+        {
+            "pipe": "BF1-G001",
+            "originalVisible": 10,
+            "midpointVisible": 9,
+            "firstHits": [
+                "BF1-G002 / BF1-G002"
+            ]
+        },
+        {
+            "pipe": "BF1-G002",
+            "originalVisible": 10,
+            "midpointVisible": 9,
+            "firstHits": [
+                "BF1-G001 / BF1-G001"
+            ]
+        },
+        {
+            "pipe": "BF1-G003",
+            "originalVisible": 27,
+            "midpointVisible": 28,
+            "firstHits": [
+                "BF1-G001 / BF1-G001",
+                "BF1.DC / BF1.DC"
+            ]
+        },
+        {
+            "pipe": "BF1-G004",
+            "originalVisible": 12,
+            "midpointVisible": 11,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-G005",
+            "originalVisible": 18,
+            "midpointVisible": 19,
+            "firstHits": [
+                "BF1.SC / BF1.SC",
+                "BF1.TRT / BF1.TRT"
+            ]
+        },
+        {
+            "pipe": "BF1-G006",
+            "originalVisible": 40,
+            "midpointVisible": 39,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-G100",
+            "originalVisible": 19,
+            "midpointVisible": 19,
+            "firstHits": [
+                "BF1-G006 / BF1-G006"
+            ]
+        },
+        {
+            "pipe": "BF1-G101",
+            "originalVisible": 5,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF1-G100 / BF1-G100",
+                "BF1-G102 / BF1-G102"
+            ]
+        },
+        {
+            "pipe": "BF1-G102",
+            "originalVisible": 7,
+            "midpointVisible": 6,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-G110",
+            "originalVisible": 15,
+            "midpointVisible": 15,
+            "firstHits": [
+                "BF1-G102 / BF1-G102"
+            ]
+        },
+        {
+            "pipe": "BF1-F099",
+            "originalVisible": 9,
+            "midpointVisible": 8,
+            "firstHits": [
+                "BF1.BS / BF1.BS"
+            ]
+        },
+        {
+            "pipe": "BF1-C200",
+            "originalVisible": 11,
+            "midpointVisible": 10,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-H200",
+            "originalVisible": 8,
+            "midpointVisible": 8,
+            "firstHits": [
+                "BF1-H002 / BF1-H002"
+            ]
+        },
+        {
+            "pipe": "BF1-G200",
+            "originalVisible": 18,
+            "midpointVisible": 18,
+            "firstHits": [
+                "BF1-G101 / BF1-G101"
+            ]
+        },
+        {
+            "pipe": "BF1-A200",
+            "originalVisible": 9,
+            "midpointVisible": 8,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-F200",
+            "originalVisible": 8,
+            "midpointVisible": 8,
+            "firstHits": [
+                "BF1-F001 / BF1-F001"
+            ]
+        },
+        {
+            "pipe": "BF1-C201",
+            "originalVisible": 9,
+            "midpointVisible": 9,
+            "firstHits": [
+                "BF1-C002 / BF1-C002",
+                "BF1-C003 / BF1-C003"
+            ]
+        },
+        {
+            "pipe": "BF1-H201",
+            "originalVisible": 8,
+            "midpointVisible": 8,
+            "firstHits": [
+                "BF1-H001 / BF1-H001"
+            ]
+        },
+        {
+            "pipe": "BF1-G201",
+            "originalVisible": 18,
+            "midpointVisible": 18,
+            "firstHits": [
+                "BF1-G102 / BF1-G102"
+            ]
+        },
+        {
+            "pipe": "BF1-A201",
+            "originalVisible": 8,
+            "midpointVisible": 8,
+            "firstHits": [
+                "BF1-A003 / BF1-A003"
+            ]
+        },
+        {
+            "pipe": "BF1-F201",
+            "originalVisible": 8,
+            "midpointVisible": 8,
+            "firstHits": [
+                "BF1-F002 / BF1-F002"
+            ]
+        },
+        {
+            "pipe": "BF1-C202",
+            "originalVisible": 10,
+            "midpointVisible": 9,
+            "firstHits": [
+                "BF1-C002 / BF1-C002"
+            ]
+        },
+        {
+            "pipe": "BF1-H202",
+            "originalVisible": 9,
+            "midpointVisible": 8,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-G202",
+            "originalVisible": 18,
+            "midpointVisible": 18,
+            "firstHits": [
+                "BF1-G102 / BF1-G102"
+            ]
+        },
+        {
+            "pipe": "BF1-A202",
+            "originalVisible": 9,
+            "midpointVisible": 8,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-F202",
+            "originalVisible": 8,
+            "midpointVisible": 8,
+            "firstHits": [
+                "BF1-F003 / BF1-F003"
+            ]
+        },
+        {
+            "pipe": "BF1-C001",
+            "originalVisible": 24,
+            "midpointVisible": 25,
+            "firstHits": [
+                "BF1.CB / BF1.CB",
+                "BF1-C202 / BF1-C202"
+            ]
+        },
+        {
+            "pipe": "BF1-C002",
+            "originalVisible": 6,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF1-C202 / BF1-C202"
+            ]
+        },
+        {
+            "pipe": "BF1-C003",
+            "originalVisible": 5,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF1-C002 / BF1-C002",
+                "BF1-C200 / BF1-C200"
+            ]
+        },
+        {
+            "pipe": "BF1-H001",
+            "originalVisible": 6,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF1-H202 / BF1-H202"
+            ]
+        },
+        {
+            "pipe": "BF1-H002",
+            "originalVisible": 6,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF1-H001 / BF1-H001"
+            ]
+        },
+        {
+            "pipe": "BF1-A001",
+            "originalVisible": 5,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF1.CA / BF1.CA",
+                "BF1-A202 / BF1-A202"
+            ]
+        },
+        {
+            "pipe": "BF1-A002",
+            "originalVisible": 5,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF1-A202 / BF1-A202",
+                "BF1-A003 / BF1-A003"
+            ]
+        },
+        {
+            "pipe": "BF1-A003",
+            "originalVisible": 6,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF1-A200 / BF1-A200"
+            ]
+        },
+        {
+            "pipe": "BF1-F001",
+            "originalVisible": 5,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF1-F200 / BF1-F200",
+                "BF1-F201 / BF1-F201"
+            ]
+        },
+        {
+            "pipe": "BF1-F002",
+            "originalVisible": 5,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF1-F201 / BF1-F201",
+                "BF1-F202 / BF1-F202"
+            ]
+        },
+        {
+            "pipe": "BF1-F003",
+            "originalVisible": 7,
+            "midpointVisible": 7,
+            "firstHits": [
+                "BF1-F202 / BF1-F202"
+            ]
+        },
+        {
+            "pipe": "BF1-T000",
+            "originalVisible": 2,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1.BF / BF1.BF"
+            ]
+        },
+        {
+            "pipe": "BF1-T001",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1-B000 / BF1-B000",
+                "BF1.BF / BF1.BF"
+            ]
+        },
+        {
+            "pipe": "BF1-T002",
+            "originalVisible": 2,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1.BF / BF1.BF"
+            ]
+        },
+        {
+            "pipe": "BF1-T003",
+            "originalVisible": 2,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1.BF / BF1.BF"
+            ]
+        },
+        {
+            "pipe": "BF1-T004",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1-B004 / BF1-B004",
+                "BF1.BF / BF1.BF"
+            ]
+        },
+        {
+            "pipe": "BF1-T005",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1-B005 / BF1-B005",
+                "BF1.BF / BF1.BF"
+            ]
+        },
+        {
+            "pipe": "BF1-T006",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1-B006 / BF1-B006",
+                "BF1.BF / BF1.BF"
+            ]
+        },
+        {
+            "pipe": "BF1-T007",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1-B007 / BF1-B007",
+                "BF1.BF / BF1.BF"
+            ]
+        },
+        {
+            "pipe": "BF1-T008",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1-B008 / BF1-B008",
+                "BF1.BF / BF1.BF"
+            ]
+        },
+        {
+            "pipe": "BF1-T009",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1-B008 / BF1-B008",
+                "BF1.BF / BF1.BF"
+            ]
+        },
+        {
+            "pipe": "BF1-T010",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1-B009 / BF1-B009",
+                "BF1.BF / BF1.BF"
+            ]
+        },
+        {
+            "pipe": "BF1-T011",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1-B010 / BF1-B010",
+                "BF1.BF / BF1.BF"
+            ]
+        },
+        {
+            "pipe": "BF1-B000",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-T000 / BF1-T000",
+                "BF1-T001 / BF1-T001"
+            ]
+        },
+        {
+            "pipe": "BF1-B001",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF1-T001 / BF1-T001",
+                "BF1-T002 / BF1-T002"
+            ]
+        },
+        {
+            "pipe": "BF1-B002",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF1-T002 / BF1-T002",
+                "BF1-T003 / BF1-T003"
+            ]
+        },
+        {
+            "pipe": "BF1-B003",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF1-T003 / BF1-T003",
+                "BF1-T004 / BF1-T004"
+            ]
+        },
+        {
+            "pipe": "BF1-B004",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF1-T004 / BF1-T004",
+                "BF1-T005 / BF1-T005"
+            ]
+        },
+        {
+            "pipe": "BF1-B005",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF1-T005 / BF1-T005",
+                "BF1-T006 / BF1-T006"
+            ]
+        },
+        {
+            "pipe": "BF1-B006",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF1-T006 / BF1-T006",
+                "BF1-T007 / BF1-T007"
+            ]
+        },
+        {
+            "pipe": "BF1-B007",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF1-T007 / BF1-T007",
+                "BF1-T008 / BF1-T008"
+            ]
+        },
+        {
+            "pipe": "BF1-B008",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF1-T008 / BF1-T008",
+                "BF1-T009 / BF1-T009"
+            ]
+        },
+        {
+            "pipe": "BF1-B009",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF1-T009 / BF1-T009",
+                "BF1-T010 / BF1-T010"
+            ]
+        },
+        {
+            "pipe": "BF1-B010",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF1-T010 / BF1-T010",
+                "BF1-T011 / BF1-T011"
+            ]
+        },
+        {
+            "pipe": "BF1-B011",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-T011 / BF1-T011",
+                "BF1-H003 / BF1-H003"
+            ]
+        },
+        {
+            "pipe": "BF1-H003",
+            "originalVisible": 14,
+            "midpointVisible": 15,
+            "firstHits": [
+                "BF1-H002 / BF1-H002",
+                "BF1-T000 / BF1-T000"
+            ]
+        },
+        {
+            "pipe": "BF1-W001",
+            "originalVisible": 20,
+            "midpointVisible": 18,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-WS000",
+            "originalVisible": 3,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1-WSR011 / BF1-WSR011"
+            ]
+        },
+        {
+            "pipe": "BF1-WR000",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WRR011 / BF1-WRR011"
+            ]
+        },
+        {
+            "pipe": "BF1-WS001",
+            "originalVisible": 3,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1-WSR000 / BF1-WSR000"
+            ]
+        },
+        {
+            "pipe": "BF1-WR001",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1.BF / BF1.BF",
+                "BF1-WRR000 / BF1-WRR000"
+            ]
+        },
+        {
+            "pipe": "BF1-WS002",
+            "originalVisible": 4,
+            "midpointVisible": 3,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-WR002",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1.BF / BF1.BF",
+                "BF1-WRR001 / BF1-WRR001"
+            ]
+        },
+        {
+            "pipe": "BF1-WS003",
+            "originalVisible": 3,
+            "midpointVisible": 3,
+            "firstHits": [
+                "BF1-WSR002 / BF1-WSR002"
+            ]
+        },
+        {
+            "pipe": "BF1-WR003",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1.BF / BF1.BF",
+                "BF1-WRR003 / BF1-WRR003"
+            ]
+        },
+        {
+            "pipe": "BF1-WS004",
+            "originalVisible": 4,
+            "midpointVisible": 3,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-WR004",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WRR004 / BF1-WRR004"
+            ]
+        },
+        {
+            "pipe": "BF1-WS005",
+            "originalVisible": 3,
+            "midpointVisible": 3,
+            "firstHits": [
+                "BF1-WSR005 / BF1-WSR005"
+            ]
+        },
+        {
+            "pipe": "BF1-WR005",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WRR005 / BF1-WRR005"
+            ]
+        },
+        {
+            "pipe": "BF1-WS006",
+            "originalVisible": 3,
+            "midpointVisible": 3,
+            "firstHits": [
+                "BF1-WSR006 / BF1-WSR006"
+            ]
+        },
+        {
+            "pipe": "BF1-WR006",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WRR006 / BF1-WRR006"
+            ]
+        },
+        {
+            "pipe": "BF1-WS007",
+            "originalVisible": 3,
+            "midpointVisible": 3,
+            "firstHits": [
+                "BF1-WSR007 / BF1-WSR007"
+            ]
+        },
+        {
+            "pipe": "BF1-WR007",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WRR007 / BF1-WRR007"
+            ]
+        },
+        {
+            "pipe": "BF1-WS008",
+            "originalVisible": 4,
+            "midpointVisible": 3,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-WR008",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WRR008 / BF1-WRR008"
+            ]
+        },
+        {
+            "pipe": "BF1-WS009",
+            "originalVisible": 3,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF1-W002 / BF1-W002"
+            ]
+        },
+        {
+            "pipe": "BF1-WR009",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WRR008 / BF1-WRR008"
+            ]
+        },
+        {
+            "pipe": "BF1-WS010",
+            "originalVisible": 4,
+            "midpointVisible": 2,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-WR010",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1.BF / BF1.BF",
+                "BF1-WRR009 / BF1-WRR009"
+            ]
+        },
+        {
+            "pipe": "BF1-WS011",
+            "originalVisible": 3,
+            "midpointVisible": 3,
+            "firstHits": [
+                "BF1-WSR010 / BF1-WSR010"
+            ]
+        },
+        {
+            "pipe": "BF1-WR011",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1.BF / BF1.BF",
+                "BF1-WRR010 / BF1-WRR010"
+            ]
+        },
+        {
+            "pipe": "BF1-WSR000",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WS000 / BF1-WS000",
+                "BF1-WS001 / BF1-WS001"
+            ]
+        },
+        {
+            "pipe": "BF1-WSR001",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WS001 / BF1-WS001",
+                "BF1-WS002 / BF1-WS002"
+            ]
+        },
+        {
+            "pipe": "BF1-WSR002",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WS002 / BF1-WS002",
+                "BF1-WS003 / BF1-WS003"
+            ]
+        },
+        {
+            "pipe": "BF1-WSR003",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WS003 / BF1-WS003",
+                "BF1-WS004 / BF1-WS004"
+            ]
+        },
+        {
+            "pipe": "BF1-WSR004",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WS004 / BF1-WS004",
+                "BF1-WS005 / BF1-WS005"
+            ]
+        },
+        {
+            "pipe": "BF1-WSR005",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WS005 / BF1-WS005",
+                "BF1-WS006 / BF1-WS006"
+            ]
+        },
+        {
+            "pipe": "BF1-WSR006",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WS006 / BF1-WS006",
+                "BF1-WS007 / BF1-WS007"
+            ]
+        },
+        {
+            "pipe": "BF1-WSR007",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WS007 / BF1-WS007",
+                "BF1-WS008 / BF1-WS008"
+            ]
+        },
+        {
+            "pipe": "BF1-WSR008",
+            "originalVisible": 4,
+            "midpointVisible": 3,
+            "firstHits": [
+                "BF1-W002 / BF1-W002"
+            ]
+        },
+        {
+            "pipe": "BF1-WSR009",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-W002 / BF1-W002"
+            ]
+        },
+        {
+            "pipe": "BF1-WSR010",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-WSR011",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WS011 / BF1-WS011",
+                "BF1-WS000 / BF1-WS000"
+            ]
+        },
+        {
+            "pipe": "BF1-WRR000",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WR000 / BF1-WR000"
+            ]
+        },
+        {
+            "pipe": "BF1-WRR001",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WR001 / BF1-WR001"
+            ]
+        },
+        {
+            "pipe": "BF1-WRR002",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WRR001 / BF1-WRR001"
+            ]
+        },
+        {
+            "pipe": "BF1-WRR003",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WRR002 / BF1-WRR002"
+            ]
+        },
+        {
+            "pipe": "BF1-WRR004",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WRR003 / BF1-WRR003"
+            ]
+        },
+        {
+            "pipe": "BF1-WRR005",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WR005 / BF1-WR005"
+            ]
+        },
+        {
+            "pipe": "BF1-WRR006",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WR006 / BF1-WR006",
+                "BF1-WR007 / BF1-WR007"
+            ]
+        },
+        {
+            "pipe": "BF1-WRR007",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WR007 / BF1-WR007",
+                "BF1-WR008 / BF1-WR008"
+            ]
+        },
+        {
+            "pipe": "BF1-WRR008",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-W003 / BF1-W003"
+            ]
+        },
+        {
+            "pipe": "BF1-WRR009",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-W003 / BF1-W003"
+            ]
+        },
+        {
+            "pipe": "BF1-WRR010",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-WRR011",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1-WR011 / BF1-WR011",
+                "BF1-WR000 / BF1-WR000"
+            ]
+        },
+        {
+            "pipe": "BF1-W002",
+            "originalVisible": 34,
+            "midpointVisible": 35,
+            "firstHits": [
+                "BF1.CP / BF1.CP",
+                "BF1-WSR008 / BF1-WSR008"
+            ]
+        },
+        {
+            "pipe": "BF1-W003",
+            "originalVisible": 27,
+            "midpointVisible": 28,
+            "firstHits": [
+                "BF1-WR009 / BF1-WR009",
+                "BF1.HX / BF1.HX"
+            ]
+        },
+        {
+            "pipe": "BF1-Q001",
+            "originalVisible": 1,
+            "midpointVisible": 1,
+            "firstHits": [
+                "BF1.WP / BF1.WP"
+            ]
+        },
+        {
+            "pipe": "BF1-Q002",
+            "originalVisible": 24,
+            "midpointVisible": 23,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-Q003",
+            "originalVisible": 8,
+            "midpointVisible": 7,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-Q004",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1-Q005",
+            "originalVisible": 3,
+            "midpointVisible": 2,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-G001",
+            "originalVisible": 10,
+            "midpointVisible": 9,
+            "firstHits": [
+                "BF2-G002 / BF2-G002"
+            ]
+        },
+        {
+            "pipe": "BF2-G002",
+            "originalVisible": 10,
+            "midpointVisible": 9,
+            "firstHits": [
+                "BF2-G001 / BF2-G001"
+            ]
+        },
+        {
+            "pipe": "BF2-G003",
+            "originalVisible": 27,
+            "midpointVisible": 28,
+            "firstHits": [
+                "BF2-G001 / BF2-G001",
+                "BF2.DC / BF2.DC"
+            ]
+        },
+        {
+            "pipe": "BF2-G004",
+            "originalVisible": 12,
+            "midpointVisible": 11,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-G005",
+            "originalVisible": 18,
+            "midpointVisible": 19,
+            "firstHits": [
+                "BF2.SC / BF2.SC",
+                "BF2.TRT / BF2.TRT"
+            ]
+        },
+        {
+            "pipe": "BF2-G006",
+            "originalVisible": 40,
+            "midpointVisible": 39,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-G100",
+            "originalVisible": 19,
+            "midpointVisible": 19,
+            "firstHits": [
+                "BF2-G006 / BF2-G006"
+            ]
+        },
+        {
+            "pipe": "BF2-G101",
+            "originalVisible": 5,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF2-G100 / BF2-G100",
+                "BF2-G102 / BF2-G102"
+            ]
+        },
+        {
+            "pipe": "BF2-G102",
+            "originalVisible": 7,
+            "midpointVisible": 6,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-G110",
+            "originalVisible": 15,
+            "midpointVisible": 15,
+            "firstHits": [
+                "BF2-G102 / BF2-G102"
+            ]
+        },
+        {
+            "pipe": "BF2-F099",
+            "originalVisible": 9,
+            "midpointVisible": 8,
+            "firstHits": [
+                "BF2.BS / BF2.BS"
+            ]
+        },
+        {
+            "pipe": "BF2-C200",
+            "originalVisible": 11,
+            "midpointVisible": 10,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-H200",
+            "originalVisible": 8,
+            "midpointVisible": 8,
+            "firstHits": [
+                "BF2-H002 / BF2-H002"
+            ]
+        },
+        {
+            "pipe": "BF2-G200",
+            "originalVisible": 18,
+            "midpointVisible": 18,
+            "firstHits": [
+                "BF2-G100 / BF2-G100"
+            ]
+        },
+        {
+            "pipe": "BF2-A200",
+            "originalVisible": 9,
+            "midpointVisible": 8,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-F200",
+            "originalVisible": 8,
+            "midpointVisible": 8,
+            "firstHits": [
+                "BF2-F001 / BF2-F001"
+            ]
+        },
+        {
+            "pipe": "BF2-C201",
+            "originalVisible": 9,
+            "midpointVisible": 9,
+            "firstHits": [
+                "BF2-C003 / BF2-C003"
+            ]
+        },
+        {
+            "pipe": "BF2-H201",
+            "originalVisible": 8,
+            "midpointVisible": 8,
+            "firstHits": [
+                "BF2-H001 / BF2-H001"
+            ]
+        },
+        {
+            "pipe": "BF2-G201",
+            "originalVisible": 18,
+            "midpointVisible": 18,
+            "firstHits": [
+                "BF2-G101 / BF2-G101"
+            ]
+        },
+        {
+            "pipe": "BF2-A201",
+            "originalVisible": 8,
+            "midpointVisible": 8,
+            "firstHits": [
+                "BF2-A002 / BF2-A002"
+            ]
+        },
+        {
+            "pipe": "BF2-F201",
+            "originalVisible": 8,
+            "midpointVisible": 8,
+            "firstHits": [
+                "BF2-F002 / BF2-F002"
+            ]
+        },
+        {
+            "pipe": "BF2-C202",
+            "originalVisible": 10,
+            "midpointVisible": 9,
+            "firstHits": [
+                "BF2-C002 / BF2-C002"
+            ]
+        },
+        {
+            "pipe": "BF2-H202",
+            "originalVisible": 9,
+            "midpointVisible": 8,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-G202",
+            "originalVisible": 18,
+            "midpointVisible": 18,
+            "firstHits": [
+                "BF2-G102 / BF2-G102"
+            ]
+        },
+        {
+            "pipe": "BF2-A202",
+            "originalVisible": 9,
+            "midpointVisible": 8,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-F202",
+            "originalVisible": 8,
+            "midpointVisible": 8,
+            "firstHits": [
+                "BF2-F003 / BF2-F003"
+            ]
+        },
+        {
+            "pipe": "BF2-C001",
+            "originalVisible": 24,
+            "midpointVisible": 25,
+            "firstHits": [
+                "BF2.CB / BF2.CB",
+                "BF2-C202 / BF2-C202"
+            ]
+        },
+        {
+            "pipe": "BF2-C002",
+            "originalVisible": 5,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF2-C202 / BF2-C202",
+                "BF2-C003 / BF2-C003"
+            ]
+        },
+        {
+            "pipe": "BF2-C003",
+            "originalVisible": 6,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF2-C200 / BF2-C200"
+            ]
+        },
+        {
+            "pipe": "BF2-H001",
+            "originalVisible": 6,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF2-H202 / BF2-H202"
+            ]
+        },
+        {
+            "pipe": "BF2-H002",
+            "originalVisible": 6,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF2-H001 / BF2-H001"
+            ]
+        },
+        {
+            "pipe": "BF2-A001",
+            "originalVisible": 5,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF2.CA / BF2.CA",
+                "BF2-A202 / BF2-A202"
+            ]
+        },
+        {
+            "pipe": "BF2-A002",
+            "originalVisible": 6,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF2-A202 / BF2-A202"
+            ]
+        },
+        {
+            "pipe": "BF2-A003",
+            "originalVisible": 5,
+            "midpointVisible": 6,
+            "firstHits": [
+                "BF2-A002 / BF2-A002",
+                "BF2-A200 / BF2-A200"
+            ]
+        },
+        {
+            "pipe": "BF2-F001",
+            "originalVisible": 5,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF2-F200 / BF2-F200",
+                "BF2-F201 / BF2-F201"
+            ]
+        },
+        {
+            "pipe": "BF2-F002",
+            "originalVisible": 5,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF2-F201 / BF2-F201",
+                "BF2-F202 / BF2-F202"
+            ]
+        },
+        {
+            "pipe": "BF2-F003",
+            "originalVisible": 7,
+            "midpointVisible": 7,
+            "firstHits": [
+                "BF2-F202 / BF2-F202"
+            ]
+        },
+        {
+            "pipe": "BF2-T000",
+            "originalVisible": 2,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2.BF / BF2.BF"
+            ]
+        },
+        {
+            "pipe": "BF2-T001",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2-B000 / BF2-B000",
+                "BF2.BF / BF2.BF"
+            ]
+        },
+        {
+            "pipe": "BF2-T002",
+            "originalVisible": 2,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2.BF / BF2.BF"
+            ]
+        },
+        {
+            "pipe": "BF2-T003",
+            "originalVisible": 2,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2.BF / BF2.BF"
+            ]
+        },
+        {
+            "pipe": "BF2-T004",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2-B004 / BF2-B004",
+                "BF2.BF / BF2.BF"
+            ]
+        },
+        {
+            "pipe": "BF2-T005",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2-B005 / BF2-B005",
+                "BF2.BF / BF2.BF"
+            ]
+        },
+        {
+            "pipe": "BF2-T006",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2-B006 / BF2-B006",
+                "BF2.BF / BF2.BF"
+            ]
+        },
+        {
+            "pipe": "BF2-T007",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2-B007 / BF2-B007",
+                "BF2.BF / BF2.BF"
+            ]
+        },
+        {
+            "pipe": "BF2-T008",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2-B008 / BF2-B008",
+                "BF2.BF / BF2.BF"
+            ]
+        },
+        {
+            "pipe": "BF2-T009",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2-B008 / BF2-B008",
+                "BF2.BF / BF2.BF"
+            ]
+        },
+        {
+            "pipe": "BF2-T010",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2-B009 / BF2-B009",
+                "BF2.BF / BF2.BF"
+            ]
+        },
+        {
+            "pipe": "BF2-T011",
+            "originalVisible": 1,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2-B010 / BF2-B010",
+                "BF2.BF / BF2.BF"
+            ]
+        },
+        {
+            "pipe": "BF2-B000",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-T000 / BF2-T000",
+                "BF2-T001 / BF2-T001"
+            ]
+        },
+        {
+            "pipe": "BF2-B001",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF2-T001 / BF2-T001",
+                "BF2-T002 / BF2-T002"
+            ]
+        },
+        {
+            "pipe": "BF2-B002",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF2-T002 / BF2-T002",
+                "BF2-T003 / BF2-T003"
+            ]
+        },
+        {
+            "pipe": "BF2-B003",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF2-T003 / BF2-T003",
+                "BF2-T004 / BF2-T004"
+            ]
+        },
+        {
+            "pipe": "BF2-B004",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF2-T004 / BF2-T004",
+                "BF2-T005 / BF2-T005"
+            ]
+        },
+        {
+            "pipe": "BF2-B005",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF2-T005 / BF2-T005",
+                "BF2-T006 / BF2-T006"
+            ]
+        },
+        {
+            "pipe": "BF2-B006",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF2-T006 / BF2-T006",
+                "BF2-T007 / BF2-T007"
+            ]
+        },
+        {
+            "pipe": "BF2-B007",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF2-T007 / BF2-T007",
+                "BF2-T008 / BF2-T008"
+            ]
+        },
+        {
+            "pipe": "BF2-B008",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF2-T008 / BF2-T008",
+                "BF2-T009 / BF2-T009"
+            ]
+        },
+        {
+            "pipe": "BF2-B009",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF2-T009 / BF2-T009",
+                "BF2-T010 / BF2-T010"
+            ]
+        },
+        {
+            "pipe": "BF2-B010",
+            "originalVisible": 4,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF2-T010 / BF2-T010",
+                "BF2-T011 / BF2-T011"
+            ]
+        },
+        {
+            "pipe": "BF2-B011",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-T011 / BF2-T011",
+                "BF2-H003 / BF2-H003"
+            ]
+        },
+        {
+            "pipe": "BF2-H003",
+            "originalVisible": 14,
+            "midpointVisible": 15,
+            "firstHits": [
+                "BF2-H002 / BF2-H002",
+                "BF2-T000 / BF2-T000"
+            ]
+        },
+        {
+            "pipe": "BF2-W001",
+            "originalVisible": 20,
+            "midpointVisible": 18,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-WS000",
+            "originalVisible": 3,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2-WSR011 / BF2-WSR011"
+            ]
+        },
+        {
+            "pipe": "BF2-WR000",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WRR011 / BF2-WRR011"
+            ]
+        },
+        {
+            "pipe": "BF2-WS001",
+            "originalVisible": 3,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2-WSR000 / BF2-WSR000"
+            ]
+        },
+        {
+            "pipe": "BF2-WR001",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2.BF / BF2.BF",
+                "BF2-WRR000 / BF2-WRR000"
+            ]
+        },
+        {
+            "pipe": "BF2-WS002",
+            "originalVisible": 4,
+            "midpointVisible": 3,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-WR002",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2.BF / BF2.BF",
+                "BF2-WRR001 / BF2-WRR001"
+            ]
+        },
+        {
+            "pipe": "BF2-WS003",
+            "originalVisible": 3,
+            "midpointVisible": 3,
+            "firstHits": [
+                "BF2-WSR003 / BF2-WSR003"
+            ]
+        },
+        {
+            "pipe": "BF2-WR003",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2.BF / BF2.BF",
+                "BF2-WRR003 / BF2-WRR003"
+            ]
+        },
+        {
+            "pipe": "BF2-WS004",
+            "originalVisible": 4,
+            "midpointVisible": 3,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-WR004",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WRR004 / BF2-WRR004"
+            ]
+        },
+        {
+            "pipe": "BF2-WS005",
+            "originalVisible": 3,
+            "midpointVisible": 3,
+            "firstHits": [
+                "BF2-WSR005 / BF2-WSR005"
+            ]
+        },
+        {
+            "pipe": "BF2-WR005",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WRR005 / BF2-WRR005"
+            ]
+        },
+        {
+            "pipe": "BF2-WS006",
+            "originalVisible": 3,
+            "midpointVisible": 3,
+            "firstHits": [
+                "BF2-WSR006 / BF2-WSR006"
+            ]
+        },
+        {
+            "pipe": "BF2-WR006",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WRR006 / BF2-WRR006"
+            ]
+        },
+        {
+            "pipe": "BF2-WS007",
+            "originalVisible": 3,
+            "midpointVisible": 3,
+            "firstHits": [
+                "BF2-WSR007 / BF2-WSR007"
+            ]
+        },
+        {
+            "pipe": "BF2-WR007",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WRR007 / BF2-WRR007"
+            ]
+        },
+        {
+            "pipe": "BF2-WS008",
+            "originalVisible": 4,
+            "midpointVisible": 3,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-WR008",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WRR008 / BF2-WRR008"
+            ]
+        },
+        {
+            "pipe": "BF2-WS009",
+            "originalVisible": 3,
+            "midpointVisible": 2,
+            "firstHits": [
+                "BF2-W002 / BF2-W002"
+            ]
+        },
+        {
+            "pipe": "BF2-WR009",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WRR008 / BF2-WRR008"
+            ]
+        },
+        {
+            "pipe": "BF2-WS010",
+            "originalVisible": 4,
+            "midpointVisible": 2,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-WR010",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2.BF / BF2.BF",
+                "BF2-WRR009 / BF2-WRR009"
+            ]
+        },
+        {
+            "pipe": "BF2-WS011",
+            "originalVisible": 3,
+            "midpointVisible": 3,
+            "firstHits": [
+                "BF2-WSR010 / BF2-WSR010"
+            ]
+        },
+        {
+            "pipe": "BF2-WR011",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2.BF / BF2.BF",
+                "BF2-WRR010 / BF2-WRR010"
+            ]
+        },
+        {
+            "pipe": "BF2-WSR000",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WS000 / BF2-WS000",
+                "BF2-WS001 / BF2-WS001"
+            ]
+        },
+        {
+            "pipe": "BF2-WSR001",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WS001 / BF2-WS001",
+                "BF2-WS002 / BF2-WS002"
+            ]
+        },
+        {
+            "pipe": "BF2-WSR002",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WS002 / BF2-WS002",
+                "BF2-WS003 / BF2-WS003"
+            ]
+        },
+        {
+            "pipe": "BF2-WSR003",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WS003 / BF2-WS003",
+                "BF2-WS004 / BF2-WS004"
+            ]
+        },
+        {
+            "pipe": "BF2-WSR004",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WS004 / BF2-WS004",
+                "BF2-WS005 / BF2-WS005"
+            ]
+        },
+        {
+            "pipe": "BF2-WSR005",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WS005 / BF2-WS005",
+                "BF2-WS006 / BF2-WS006"
+            ]
+        },
+        {
+            "pipe": "BF2-WSR006",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WS006 / BF2-WS006",
+                "BF2-WS007 / BF2-WS007"
+            ]
+        },
+        {
+            "pipe": "BF2-WSR007",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WS007 / BF2-WS007",
+                "BF2-WS008 / BF2-WS008"
+            ]
+        },
+        {
+            "pipe": "BF2-WSR008",
+            "originalVisible": 4,
+            "midpointVisible": 3,
+            "firstHits": [
+                "BF2-W002 / BF2-W002"
+            ]
+        },
+        {
+            "pipe": "BF2-WSR009",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-W002 / BF2-W002"
+            ]
+        },
+        {
+            "pipe": "BF2-WSR010",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-WSR011",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WS011 / BF2-WS011",
+                "BF2-WS000 / BF2-WS000"
+            ]
+        },
+        {
+            "pipe": "BF2-WRR000",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WR000 / BF2-WR000"
+            ]
+        },
+        {
+            "pipe": "BF2-WRR001",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WR001 / BF2-WR001"
+            ]
+        },
+        {
+            "pipe": "BF2-WRR002",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WRR001 / BF2-WRR001"
+            ]
+        },
+        {
+            "pipe": "BF2-WRR003",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WRR002 / BF2-WRR002"
+            ]
+        },
+        {
+            "pipe": "BF2-WRR004",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WRR003 / BF2-WRR003"
+            ]
+        },
+        {
+            "pipe": "BF2-WRR005",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WR005 / BF2-WR005"
+            ]
+        },
+        {
+            "pipe": "BF2-WRR006",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WR006 / BF2-WR006",
+                "BF2-WR007 / BF2-WR007"
+            ]
+        },
+        {
+            "pipe": "BF2-WRR007",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WR007 / BF2-WR007",
+                "BF2-WR008 / BF2-WR008"
+            ]
+        },
+        {
+            "pipe": "BF2-WRR008",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-W003 / BF2-W003"
+            ]
+        },
+        {
+            "pipe": "BF2-WRR009",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-W003 / BF2-W003"
+            ]
+        },
+        {
+            "pipe": "BF2-WRR010",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-WRR011",
+            "originalVisible": 3,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2-WR011 / BF2-WR011",
+                "BF2-WR000 / BF2-WR000"
+            ]
+        },
+        {
+            "pipe": "BF2-W002",
+            "originalVisible": 34,
+            "midpointVisible": 35,
+            "firstHits": [
+                "BF2.CP / BF2.CP",
+                "BF2-WSR008 / BF2-WSR008"
+            ]
+        },
+        {
+            "pipe": "BF2-W003",
+            "originalVisible": 27,
+            "midpointVisible": 28,
+            "firstHits": [
+                "BF2-WR009 / BF2-WR009",
+                "BF2.HX / BF2.HX"
+            ]
+        },
+        {
+            "pipe": "BF2-Q001",
+            "originalVisible": 1,
+            "midpointVisible": 1,
+            "firstHits": [
+                "BF2.WP / BF2.WP"
+            ]
+        },
+        {
+            "pipe": "BF2-Q002",
+            "originalVisible": 24,
+            "midpointVisible": 23,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-Q003",
+            "originalVisible": 8,
+            "midpointVisible": 7,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-Q004",
+            "originalVisible": 5,
+            "midpointVisible": 4,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF2-Q005",
+            "originalVisible": 3,
+            "midpointVisible": 2,
+            "firstHits": []
+        },
+        {
+            "pipe": "BF1.CASTHOUSE.TRAIN-SUP",
+            "originalVisible": 6,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF1.CASTHOUSE.TRAIN.PUMP / BF1.CASTHOUSE.TRAIN.PUMP",
+                "BF1.CASTHOUSE.TRAIN.COOLER / BF1.CASTHOUSE.TRAIN.COOLER"
+            ]
+        },
+        {
+            "pipe": "BF1.CASTHOUSE.TRAIN-RET",
+            "originalVisible": 6,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF1.CASTHOUSE.TRAIN.COOLER / BF1.CASTHOUSE.TRAIN.COOLER",
+                "BF1.CASTHOUSE.TRAIN.PUMP / BF1.CASTHOUSE.TRAIN.PUMP"
+            ]
+        },
+        {
+            "pipe": "BF2.CASTHOUSE.TRAIN-SUP",
+            "originalVisible": 6,
+            "midpointVisible": 4,
+            "firstHits": [
+                "BF2.CASTHOUSE.TRAIN.PUMP / BF2.CASTHOUSE.TRAIN.PUMP",
+                "BF2.CASTHOUSE.TRAIN.COOLER / BF2.CASTHOUSE.TRAIN.COOLER"
+            ]
+        },
+        {
+            "pipe": "BF2.CASTHOUSE.TRAIN-RET",
+            "originalVisible": 6,
+            "midpointVisible": 5,
+            "firstHits": [
+                "BF2.CASTHOUSE.TRAIN.COOLER / BF2.CASTHOUSE.TRAIN.COOLER",
+                "BF2.CASTHOUSE.TRAIN.PUMP / BF2.CASTHOUSE.TRAIN.PUMP"
+            ]
+        },
+        {
+            "pipe": "UTIL-N001",
+            "originalVisible": 1,
+            "midpointVisible": 1,
+            "firstHits": [
+                "UTIL.N2.REG / UTIL.N2.REG"
+            ]
+        },
+        {
+            "pipe": "UTIL-N002",
+            "originalVisible": 0,
+            "midpointVisible": 1,
+            "firstHits": [
+                "UTIL.N2.REG / UTIL.N2.REG",
+                "UTIL.N2.VALVE / UTIL.N2.VALVE"
+            ]
+        },
+        {
+            "pipe": "UTIL-N003",
+            "originalVisible": 0,
+            "midpointVisible": 1,
+            "firstHits": [
+                "UTIL.N2.VALVE / UTIL.N2.VALVE",
+                "UTIL.N2.CHAMBER / UTIL.N2.CHAMBER"
+            ]
+        },
+        {
+            "pipe": "UTIL-N004",
+            "originalVisible": 4,
+            "midpointVisible": 4,
+            "firstHits": [
+                "UTIL.N2.RECOVERY / UTIL.N2.RECOVERY"
+            ]
+        },
+        {
+            "pipe": "UTIL-I001",
+            "originalVisible": 0,
+            "midpointVisible": 1,
+            "firstHits": [
+                "UTIL.IA.SOURCE / UTIL.IA.SOURCE",
+                "UTIL.IA.DRYER / UTIL.IA.DRYER"
+            ]
+        },
+        {
+            "pipe": "UTIL-I002",
+            "originalVisible": 0,
+            "midpointVisible": 1,
+            "firstHits": [
+                "UTIL.IA.DRYER / UTIL.IA.DRYER",
+                "UTIL.IA.REG / UTIL.IA.REG"
+            ]
+        },
+        {
+            "pipe": "UTIL-I003",
+            "originalVisible": 6,
+            "midpointVisible": 6,
+            "firstHits": [
+                "UTIL.IA.REG / UTIL.IA.REG"
+            ]
+        }
+    ]
+}

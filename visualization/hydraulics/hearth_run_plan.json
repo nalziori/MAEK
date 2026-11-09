@@ -1,0 +1,62 @@
+{
+ "cases": [
+  {
+   "id": "baseline",
+   "path": "D:\\obsd\\Projects\\hackerton\\MAEK\\visualization\\hydraulics\\hearth_baseline_bbaf1f4a4f",
+   "config": {
+    "radius_m": 5.0,
+    "height_m": 4.0,
+    "cell_m": 0.25,
+    "iron_height_m": 1.75,
+    "slag_height_m": 0.75,
+    "interface_perturbation_m": 0.08,
+    "duration_s": 12.0,
+    "write_interval_s": 1.0,
+    "tap_flow_m3_s": 0.009455815562943707,
+    "iron_density": 7000.0,
+    "slag_density": 2800.0,
+    "gas_density": 1.0,
+    "iron_nu": 8.57142857e-07,
+    "slag_nu": 0.000142857143,
+    "gas_nu": 6e-05,
+    "deadman_darcy_m2_inv": 100000.0,
+    "deadman_forchheimer_m_inv": 20.0
+   },
+   "gas_pressure_pa_abs": 102734.11514457197,
+   "nozzle_resistance_pa_per_m6_s2": 1398184682.2930999,
+   "initial_liquid_head_pa": 123606.0,
+   "atmosphere_pa": 101325.0,
+   "reference_top_pressure_pa_abs": 150000,
+   "reference_tap_m3_s": 0.0111003435964142
+  },
+  {
+   "id": "reduced_blast",
+   "path": "D:\\obsd\\Projects\\hackerton\\MAEK\\visualization\\hydraulics\\hearth_reduced_blast_ec96f875a4",
+   "config": {
+    "radius_m": 5.0,
+    "height_m": 4.0,
+    "cell_m": 0.25,
+    "iron_height_m": 1.75,
+    "slag_height_m": 0.75,
+    "interface_perturbation_m": 0.08,
+    "duration_s": 12.0,
+    "write_interval_s": 1.0,
+    "tap_flow_m3_s": 0.009438773944970853,
+    "iron_density": 7000.0,
+    "slag_density": 2800.0,
+    "gas_density": 1.0,
+    "iron_nu": 8.57142857e-07,
+    "slag_nu": 0.000142857143,
+    "gas_nu": 6e-05,
+    "deadman_darcy_m2_inv": 100000.0,
+    "deadman_forchheimer_m_inv": 20.0
+   },
+   "gas_pressure_pa_abs": 102283.9075400576,
+   "nozzle_resistance_pa_per_m6_s2": 1398184682.2930999,
+   "initial_liquid_head_pa": 123606.0,
+   "atmosphere_pa": 101325.0,
+   "reference_top_pressure_pa_abs": 150000,
+   "reference_tap_m3_s": 0.0111003435964142
+  }
+ ]
+}

@@ -1,0 +1,56 @@
+
+# Preserve the byte-exact frozen geometry and route inputs across platforms.
+unity/** -text whitespace=cr-at-eol
+visualization/realism/baseline/** -text whitespace=cr-at-eol
+# Large required runtime datasets; clone with Git LFS.
+unity/MAEKInspection/Assets/MAEK/Source/maek_geometry.bytes filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Source/coupled_cfd_*.json filter=lfs diff=lfs merge=lfs -text
+visualization/hydraulics/coupled_cfd_*.json filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Generated/Meshes/*.asset filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Scenes/*.unity filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Source/cfd_playback.json filter=lfs diff=lfs merge=lfs -text
+visualization/cfd/cfd_playback.json filter=lfs diff=lfs merge=lfs -text
+visualization/cfd/shaft_result.json filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Generated/MAEKDroneEnvironment.prefab filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Generated/MAEKEnvironment.prefab filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Generated/MAEKInteriorEnvironment.prefab filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Generated/MAEKPortableUT.prefab filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Source/collision_network.json filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Source/drone_routes.json filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Source/hydraulic_results.json filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Source/inspection_tour.json filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Source/maek_manifest.json filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Source/pipe_services.json filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Source/service_drone_routes.json filter=lfs diff=lfs merge=lfs -text
+visualization/asset_overlap_after.json filter=lfs diff=lfs merge=lfs -text
+visualization/asset_overlap_before.json filter=lfs diff=lfs merge=lfs -text
+visualization/asset_overlap_final.json filter=lfs diff=lfs merge=lfs -text
+visualization/collision_network.json filter=lfs diff=lfs merge=lfs -text
+visualization/connected_network.json filter=lfs diff=lfs merge=lfs -text
+visualization/drone_endpoint_before.json filter=lfs diff=lfs merge=lfs -text
+visualization/drone_overlap_report.json filter=lfs diff=lfs merge=lfs -text
+visualization/drone_routes_blender.json filter=lfs diff=lfs merge=lfs -text
+visualization/drone_verified_network.json filter=lfs diff=lfs merge=lfs -text
+visualization/hydraulics/hydraulic_results.json filter=lfs diff=lfs merge=lfs -text
+visualization/inspection_demo/build_report.json filter=lfs diff=lfs merge=lfs -text
+visualization/inspection_demo/integration_report.json filter=lfs diff=lfs merge=lfs -text
+visualization/interior_detail/after-interior-colliders.json filter=lfs diff=lfs merge=lfs -text
+visualization/interior_detail/before-interior-colliders.json filter=lfs diff=lfs merge=lfs -text
+visualization/interior_detail/initial-collider-failures.json filter=lfs diff=lfs merge=lfs -text
+visualization/interior_network.json filter=lfs diff=lfs merge=lfs -text
+visualization/interior_overlap_report.json filter=lfs diff=lfs merge=lfs -text
+visualization/mesh_endpoints_after.json filter=lfs diff=lfs merge=lfs -text
+visualization/mesh_endpoints_before.json filter=lfs diff=lfs merge=lfs -text
+visualization/pipe_services/pipe_services.json filter=lfs diff=lfs merge=lfs -text
+visualization/pipe_services/services_network.json filter=lfs diff=lfs merge=lfs -text
+visualization/realism/baseline/collision_network.json filter=lfs diff=lfs merge=lfs -text
+visualization/realism/baseline/inspection_tour.json filter=lfs diff=lfs merge=lfs -text
+visualization/realism/baseline/maek_manifest.json filter=lfs diff=lfs merge=lfs -text
+visualization/realism/baseline/pipe_services.json filter=lfs diff=lfs merge=lfs -text
+visualization/realism/baseline/service_drone_routes.json filter=lfs diff=lfs merge=lfs -text
+visualization/saved_drone_model_verification.json filter=lfs diff=lfs merge=lfs -text
+
+# Unity serializes empty YAML fields with trailing spaces; preserve tested assets.
+unity/**/*.meta whitespace=-blank-at-eol,cr-at-eol
+unity/**/*.mat whitespace=-blank-at-eol,cr-at-eol
+unity/**/*.asset whitespace=-blank-at-eol,cr-at-eol

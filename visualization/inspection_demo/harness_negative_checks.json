@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "simulated_source_drift_rejected": true,
+  "scope": "247-pipe/771-capture harness",
+  "files_modified_for_test": false
+}

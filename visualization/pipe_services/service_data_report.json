@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "original_pipes": 240,
+  "total_pipes": 247,
+  "service_counts": {
+    "BFG_RAW": 6,
+    "BFG_DEDUST": 2,
+    "BFG_CLEAN": 18,
+    "FLUE": 14,
+    "COLD_BLAST": 12,
+    "HOT_BLAST": 60,
+    "COMB_AIR": 12,
+    "CW_SUPPLY": 52,
+    "CW_RETURN": 50,
+    "WASH": 6,
+    "SLURRY": 4,
+    "TRAIN_CW": 4,
+    "N2": 4,
+    "INSTR_AIR": 3
+  },
+  "utility_origin": [
+    -124,
+    -55,
+    0
+  ],
+  "source_sha256": "cfc365b6f56d87fd83071f3cf09f51ca131a99ff9ec86f8c9c58b2992945ad0f",
+  "original_geometry_preserved": true,
+  "service_colors_not_a_standard": true,
+  "network_hydraulics_solved": false
+}

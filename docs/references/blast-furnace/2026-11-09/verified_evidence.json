@@ -1,0 +1,55 @@
+[
+  {
+    "organisation": "worldsteel / Oyak Isdemir",
+    "title": "Water management in the steel industry",
+    "publicationYear": 2011,
+    "url": "https://worldsteel.org/media/publications/water/",
+    "localPdf": "originals/worldsteel_water_management.pdf",
+    "pdfPage": 73,
+    "printedPage": 66,
+    "figure": "2.1.1",
+    "verified": "PDF text and rendered diagram inspected",
+    "facts": {
+      "circuits": [
+        "A hearth staves",
+        "B copper staves",
+        "C tuyere"
+      ],
+      "supplyTemperatureC": 40,
+      "returnTemperatureC": {
+        "A": 45,
+        "B": 52.5,
+        "C": 47.5
+      },
+      "nitrogenPressurised": true,
+      "sharedEmergencyAndMakeupNetwork": true
+    },
+    "limits": "Historical plant-specific example; not POSCO design or real-time operating dataset. Flow labels are per heat exchanger with 2+1 arrangement; do not treat as measured aggregate loop flow."
+  },
+  {
+    "organisation": "Primetals Technologies",
+    "url": "https://www.primetals.com/en/portfolio/solutions/ironmaking/blast-furnace/copper-staves/",
+    "kind": "Supplier technical explanation",
+    "verified": "Official page",
+    "facts": "Stave bending threatens pipe connections; excessive wear can expose water channels and lead to furnace water ingress and shell damage."
+  },
+  {
+    "organisation": "Primetals Technologies / ArcelorMittal Poland",
+    "url": "https://www.primetals.com/en/news/primetals-technologies-to-supply-gas-cleaning-plant-for-blast-furnace-to-arcelormittal-poland/",
+    "kind": "2021 project announcement",
+    "facts": "Cyclone separator and wet scrubber; example plant-specific gas cleaning topology."
+  },
+  {
+    "organisation": "Danieli Corus",
+    "url": "https://www.danieli.com/en/products/products-processes-and-technologies/hot-blast-stoves_26_69.htm",
+    "kind": "Supplier technical explanation",
+    "facts": "Regenerative cycling causes thermal expansion and stress; shell, refractory and leakage control are important."
+  },
+  {
+    "organisation": "Danieli Corus / SSAB",
+    "url": "https://www.danieli-corus.com/content/uploads/2025/06/P004285-SSAB-Stove-47.pdf",
+    "localPdf": "originals/danieli_ssab_stove47.pdf",
+    "kind": "Project fact sheet",
+    "facts": "Installed hot blast stove project context and photos; not a detailed P&ID."
+  }
+]

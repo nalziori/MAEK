@@ -1,0 +1,24 @@
+[
+  {
+    "file": "originals/worldsteel_water_management.pdf",
+    "url": "https://worldsteel.org/media/publications/water/?do_download_id=e3eb7588-3805-433e-966c-0d86933a5c3d",
+    "resolvedUrl": "https://worldsteel.org/media/publications/water/?do_download_id=e3eb7588-3805-433e-966c-0d86933a5c3d",
+    "bytes": 3576333,
+    "sha256": "26e8ef4fa651e080169ccf51e1baf217d2ce69cd2838efb046380f5a05561522",
+    "status": "downloaded"
+  },
+  {
+    "file": "paul_wurth_hamborn_bf8.pdf",
+    "url": "https://www.paulwurth.com/wp-content/uploads/2020/08/Brochure-BF-Constructions-TKS-Hamborn-BF-8-en.pdf",
+    "status": "unavailable",
+    "reason": "Response is not a PDF"
+  },
+  {
+    "file": "originals/danieli_ssab_stove47.pdf",
+    "url": "https://www.danieli-corus.com/content/uploads/2025/06/P004285-SSAB-Stove-47.pdf",
+    "resolvedUrl": "https://www.danieli-corus.com/content/uploads/2025/06/P004285-SSAB-Stove-47.pdf",
+    "bytes": 1302963,
+    "sha256": "04ebd231251f9eced28d299634eef66f8dc5c3a0274ce8e8b80816ba85f822d6",
+    "status": "downloaded"
+  }
+]

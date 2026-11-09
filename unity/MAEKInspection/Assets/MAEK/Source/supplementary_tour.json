@@ -1,0 +1,935 @@
+{
+    "version": 2,
+    "radius": 0.11999999731779099,
+    "basis": "Separate public-reference annex: 17 connected spans including filter/fan equipment interiors; sampled RGB only. Original 247 tour retained independently.",
+    "points": [
+        {
+            "position": {
+                "x": 170.0,
+                "y": 42.0,
+                "z": -64.0
+            },
+            "target": {
+                "x": 210.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "speed": 12.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 182.5,
+                "y": 7.0,
+                "z": -37.0
+            },
+            "target": {
+                "x": 182.5,
+                "y": 4.0,
+                "z": -30.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "O2-L001",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 182.5,
+                "y": 7.0,
+                "z": -37.0
+            },
+            "target": {
+                "x": 182.5,
+                "y": 4.0,
+                "z": -30.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "O2-L001",
+            "routePipeId": "O2-L001",
+            "sampleId": "O2-L001/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 187.5,
+                "y": 7.0,
+                "z": -37.0
+            },
+            "target": {
+                "x": 187.5,
+                "y": 4.0,
+                "z": -30.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "O2-L002",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 187.5,
+                "y": 7.0,
+                "z": -37.0
+            },
+            "target": {
+                "x": 187.5,
+                "y": 4.0,
+                "z": -30.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "O2-L002",
+            "routePipeId": "O2-L002",
+            "sampleId": "O2-L002/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 192.0,
+                "y": 7.0,
+                "z": -37.0
+            },
+            "target": {
+                "x": 192.0,
+                "y": 4.0,
+                "z": -30.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "O2-L003",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 192.0,
+                "y": 7.0,
+                "z": -37.0
+            },
+            "target": {
+                "x": 192.0,
+                "y": 4.0,
+                "z": -30.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "O2-L003",
+            "routePipeId": "O2-L003",
+            "sampleId": "O2-L003/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 196.5,
+                "y": 7.0,
+                "z": -37.0
+            },
+            "target": {
+                "x": 196.5,
+                "y": 4.0,
+                "z": -30.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "O2-L004",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 196.5,
+                "y": 7.0,
+                "z": -37.0
+            },
+            "target": {
+                "x": 196.5,
+                "y": 4.0,
+                "z": -30.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "O2-L004",
+            "routePipeId": "O2-L004",
+            "sampleId": "O2-L004/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 201.5,
+                "y": 7.0,
+                "z": -37.0
+            },
+            "target": {
+                "x": 201.5,
+                "y": 4.0,
+                "z": -30.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "O2-L005",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 201.5,
+                "y": 7.0,
+                "z": -37.0
+            },
+            "target": {
+                "x": 201.5,
+                "y": 4.0,
+                "z": -30.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "O2-L005",
+            "routePipeId": "O2-L005",
+            "sampleId": "O2-L005/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 206.5,
+                "y": 7.0,
+                "z": -37.0
+            },
+            "target": {
+                "x": 206.5,
+                "y": 4.0,
+                "z": -30.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "O2-L006",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 206.5,
+                "y": 7.0,
+                "z": -37.0
+            },
+            "target": {
+                "x": 206.5,
+                "y": 4.0,
+                "z": -30.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "O2-L006",
+            "routePipeId": "O2-L006",
+            "sampleId": "O2-L006/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 214.5,
+                "y": 7.0,
+                "z": -37.0
+            },
+            "target": {
+                "x": 214.5,
+                "y": 4.0,
+                "z": -30.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "O2-L007",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 214.5,
+                "y": 7.0,
+                "z": -37.0
+            },
+            "target": {
+                "x": 214.5,
+                "y": 4.0,
+                "z": -30.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "O2-L007",
+            "routePipeId": "O2-L007",
+            "sampleId": "O2-L007/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 180.0,
+                "y": 15.5,
+                "z": -6.0
+            },
+            "target": {
+                "x": 180.0,
+                "y": 8.5,
+                "z": 8.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "SINTER-D001",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 180.0,
+                "y": 15.5,
+                "z": -6.0
+            },
+            "target": {
+                "x": 180.0,
+                "y": 8.5,
+                "z": 8.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "SINTER-D001",
+            "routePipeId": "SINTER-D001",
+            "sampleId": "SINTER-D001/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 188.0,
+                "y": 18.0,
+                "z": -6.0
+            },
+            "target": {
+                "x": 188.0,
+                "y": 11.0,
+                "z": 8.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "SINTER-D002",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 188.0,
+                "y": 18.0,
+                "z": -6.0
+            },
+            "target": {
+                "x": 188.0,
+                "y": 11.0,
+                "z": 8.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "SINTER-D002",
+            "routePipeId": "SINTER-D002",
+            "sampleId": "SINTER-D002/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 202.0,
+                "y": 9.0,
+                "z": 22.0
+            },
+            "target": {
+                "x": 196.0,
+                "y": 8.5,
+                "z": 22.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "SINTER-D003",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 202.0,
+                "y": 9.0,
+                "z": 22.0
+            },
+            "target": {
+                "x": 196.0,
+                "y": 8.5,
+                "z": 22.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "SINTER-D003",
+            "routePipeId": "SINTER-D003",
+            "sampleId": "SINTER-D003/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 196.0,
+                "y": 18.0,
+                "z": -6.0
+            },
+            "target": {
+                "x": 196.0,
+                "y": 11.0,
+                "z": 15.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "SINTER-D004",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 196.0,
+                "y": 18.0,
+                "z": -6.0
+            },
+            "target": {
+                "x": 196.0,
+                "y": 11.0,
+                "z": 15.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "SINTER-D004",
+            "routePipeId": "SINTER-D004",
+            "sampleId": "SINTER-D004/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 206.0,
+                "y": 18.0,
+                "z": -6.0
+            },
+            "target": {
+                "x": 206.0,
+                "y": 11.0,
+                "z": 8.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "SINTER-D005",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 206.0,
+                "y": 18.0,
+                "z": -6.0
+            },
+            "target": {
+                "x": 206.0,
+                "y": 11.0,
+                "z": 8.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "SINTER-D005",
+            "routePipeId": "SINTER-D005",
+            "sampleId": "SINTER-D005/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 222.0,
+                "y": 18.0,
+                "z": -6.0
+            },
+            "target": {
+                "x": 222.0,
+                "y": 11.0,
+                "z": 8.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "SINTER-D006",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 222.0,
+                "y": 18.0,
+                "z": -6.0
+            },
+            "target": {
+                "x": 222.0,
+                "y": 11.0,
+                "z": 8.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "SINTER-D006",
+            "routePipeId": "SINTER-D006",
+            "sampleId": "SINTER-D006/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 234.0,
+                "y": 18.0,
+                "z": -6.0
+            },
+            "target": {
+                "x": 234.0,
+                "y": 11.0,
+                "z": 8.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "SINTER-D007",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 234.0,
+                "y": 18.0,
+                "z": -6.0
+            },
+            "target": {
+                "x": 234.0,
+                "y": 11.0,
+                "z": 8.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "SINTER-D007",
+            "routePipeId": "SINTER-D007",
+            "sampleId": "SINTER-D007/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 242.0,
+                "y": 18.0,
+                "z": -6.0
+            },
+            "target": {
+                "x": 242.0,
+                "y": 11.0,
+                "z": 8.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "SINTER-D008",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 242.0,
+                "y": 18.0,
+                "z": -6.0
+            },
+            "target": {
+                "x": 242.0,
+                "y": 11.0,
+                "z": 8.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "SINTER-D008",
+            "routePipeId": "SINTER-D008",
+            "sampleId": "SINTER-D008/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 248.0,
+                "y": 18.0,
+                "z": -6.0
+            },
+            "target": {
+                "x": 248.0,
+                "y": 11.0,
+                "z": 8.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "SINTER-D009",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 248.0,
+                "y": 18.0,
+                "z": -6.0
+            },
+            "target": {
+                "x": 248.0,
+                "y": 11.0,
+                "z": 8.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "SINTER-D009",
+            "routePipeId": "SINTER-D009",
+            "sampleId": "SINTER-D009/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 252.0,
+                "y": 26.5,
+                "z": -6.0
+            },
+            "target": {
+                "x": 252.0,
+                "y": 19.5,
+                "z": 8.0
+            },
+            "speed": 8.0,
+            "dwell": 0.0,
+            "pipeId": "",
+            "routePipeId": "SINTER-D010",
+            "sampleId": "",
+            "phase": "transit",
+            "sourceIndex": -1
+        },
+        {
+            "position": {
+                "x": 252.0,
+                "y": 26.5,
+                "z": -6.0
+            },
+            "target": {
+                "x": 252.0,
+                "y": 19.5,
+                "z": 8.0
+            },
+            "speed": 3.0,
+            "dwell": 0.4000000059604645,
+            "pipeId": "SINTER-D010",
+            "routePipeId": "SINTER-D010",
+            "sampleId": "SINTER-D010/000",
+            "phase": "inspection",
+            "sourceIndex": -1
+        }
+    ],
+    "pipeIds": [
+        "O2-L001",
+        "O2-L002",
+        "O2-L003",
+        "O2-L004",
+        "O2-L005",
+        "O2-L006",
+        "O2-L007",
+        "SINTER-D001",
+        "SINTER-D002",
+        "SINTER-D003",
+        "SINTER-D004",
+        "SINTER-D005",
+        "SINTER-D006",
+        "SINTER-D007",
+        "SINTER-D008",
+        "SINTER-D009",
+        "SINTER-D010"
+    ],
+    "visits": [
+        {
+            "pipeId": "O2-L001",
+            "firstLeg": 2,
+            "lastLeg": 2,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "O2-L002",
+            "firstLeg": 4,
+            "lastLeg": 4,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "O2-L003",
+            "firstLeg": 6,
+            "lastLeg": 6,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "O2-L004",
+            "firstLeg": 8,
+            "lastLeg": 8,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "O2-L005",
+            "firstLeg": 10,
+            "lastLeg": 10,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "O2-L006",
+            "firstLeg": 12,
+            "lastLeg": 12,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "O2-L007",
+            "firstLeg": 14,
+            "lastLeg": 14,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "SINTER-D001",
+            "firstLeg": 16,
+            "lastLeg": 16,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "SINTER-D002",
+            "firstLeg": 18,
+            "lastLeg": 18,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "SINTER-D003",
+            "firstLeg": 20,
+            "lastLeg": 20,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "SINTER-D004",
+            "firstLeg": 22,
+            "lastLeg": 22,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "SINTER-D005",
+            "firstLeg": 24,
+            "lastLeg": 24,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "SINTER-D006",
+            "firstLeg": 26,
+            "lastLeg": 26,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "SINTER-D007",
+            "firstLeg": 28,
+            "lastLeg": 28,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "SINTER-D008",
+            "firstLeg": 30,
+            "lastLeg": 30,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "SINTER-D009",
+            "firstLeg": 32,
+            "lastLeg": 32,
+            "captures": 1,
+            "reversed": false
+        },
+        {
+            "pipeId": "SINTER-D010",
+            "firstLeg": 34,
+            "lastLeg": 34,
+            "captures": 1,
+            "reversed": false
+        }
+    ],
+    "transfers": [
+        {
+            "fromPipe": "ANNEX_OVERVIEW",
+            "toPipe": "O2-L001",
+            "firstLeg": 0,
+            "lastLeg": 1,
+            "length": 45.93745803833008
+        },
+        {
+            "fromPipe": "O2-L001",
+            "toPipe": "O2-L002",
+            "firstLeg": 2,
+            "lastLeg": 3,
+            "length": 5.0
+        },
+        {
+            "fromPipe": "O2-L002",
+            "toPipe": "O2-L003",
+            "firstLeg": 4,
+            "lastLeg": 5,
+            "length": 4.5
+        },
+        {
+            "fromPipe": "O2-L003",
+            "toPipe": "O2-L004",
+            "firstLeg": 6,
+            "lastLeg": 7,
+            "length": 4.5
+        },
+        {
+            "fromPipe": "O2-L004",
+            "toPipe": "O2-L005",
+            "firstLeg": 8,
+            "lastLeg": 9,
+            "length": 5.0
+        },
+        {
+            "fromPipe": "O2-L005",
+            "toPipe": "O2-L006",
+            "firstLeg": 10,
+            "lastLeg": 11,
+            "length": 5.0
+        },
+        {
+            "fromPipe": "O2-L006",
+            "toPipe": "O2-L007",
+            "firstLeg": 12,
+            "lastLeg": 13,
+            "length": 8.0
+        },
+        {
+            "fromPipe": "O2-L007",
+            "toPipe": "SINTER-D001",
+            "firstLeg": 14,
+            "lastLeg": 15,
+            "length": 47.15400314331055
+        },
+        {
+            "fromPipe": "SINTER-D001",
+            "toPipe": "SINTER-D002",
+            "firstLeg": 16,
+            "lastLeg": 17,
+            "length": 8.381526947021485
+        },
+        {
+            "fromPipe": "SINTER-D002",
+            "toPipe": "SINTER-D003",
+            "firstLeg": 18,
+            "lastLeg": 19,
+            "length": 32.572994232177737
+        },
+        {
+            "fromPipe": "SINTER-D003",
+            "toPipe": "SINTER-D004",
+            "firstLeg": 20,
+            "lastLeg": 21,
+            "length": 30.01666259765625
+        },
+        {
+            "fromPipe": "SINTER-D004",
+            "toPipe": "SINTER-D005",
+            "firstLeg": 22,
+            "lastLeg": 23,
+            "length": 10.0
+        },
+        {
+            "fromPipe": "SINTER-D005",
+            "toPipe": "SINTER-D006",
+            "firstLeg": 24,
+            "lastLeg": 25,
+            "length": 16.0
+        },
+        {
+            "fromPipe": "SINTER-D006",
+            "toPipe": "SINTER-D007",
+            "firstLeg": 26,
+            "lastLeg": 27,
+            "length": 12.0
+        },
+        {
+            "fromPipe": "SINTER-D007",
+            "toPipe": "SINTER-D008",
+            "firstLeg": 28,
+            "lastLeg": 29,
+            "length": 8.0
+        },
+        {
+            "fromPipe": "SINTER-D008",
+            "toPipe": "SINTER-D009",
+            "firstLeg": 30,
+            "lastLeg": 31,
+            "length": 6.0
+        },
+        {
+            "fromPipe": "SINTER-D009",
+            "toPipe": "SINTER-D010",
+            "firstLeg": 32,
+            "lastLeg": 33,
+            "length": 9.394146919250489
+        }
+    ],
+    "expectedCaptures": 17,
+    "distanceM": 257.456787109375
+}
