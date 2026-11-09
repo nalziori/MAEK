@@ -2544,3 +2544,23 @@ button.sensor-image:hover {
   min-height: 22px;
   flex: none;
 }
+
+/* Keep touch targets spacious while reducing the visible icon weight. */
+.side-nav a[data-tab] {
+  min-height: 52px;
+  padding: 12px 4px;
+  gap: 0;
+}
+.side-nav a[data-tab] > span {
+  display: none;
+}
+.side-nav svg,
+.ui-icon,
+.image-expand .ui-icon,
+.map-controls .ui-icon {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+  flex: none;
+}
