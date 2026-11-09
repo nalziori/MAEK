@@ -1,0 +1,2 @@
+# PyTorch CPU is installed separately by CI from the official CPU wheel index.
+opencv-python-headless

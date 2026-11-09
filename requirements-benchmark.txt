@@ -1,0 +1,7 @@
+# CPU build: install torch/torchvision from https://download.pytorch.org/whl/cpu first.
+torch==2.15.0+cpu
+torchvision==0.29.2+cpu
+ultralytics==8.4.204
+psutil==7.2.2
+# Read MAEK detector configuration for trained-model comparisons.
+PyYAML==6.0.3

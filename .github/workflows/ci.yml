@@ -18,6 +18,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install ruff pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f requirements-thermal-test.txt ]; then
+            pip install -r requirements-thermal-test.txt
+            pip install torch --index-url https://download.pytorch.org/whl/cpu
+          fi
       - name: Lint
         run: ruff check .
       - name: Test
