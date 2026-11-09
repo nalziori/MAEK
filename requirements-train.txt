@@ -1,0 +1,8 @@
+# E4 reference packages; see docs/model-reproducibility.md.
+# Ultralytics: final checkpoint. Torch: original training log.
+# Torchvision: compatible reproduction pin, not recovered historical version.
+# Select the CPU/CUDA wheel separately. Not a complete historical lockfile.
+-r requirements.txt
+ultralytics==8.4.208
+torch==2.14.1
+torchvision==0.29.1

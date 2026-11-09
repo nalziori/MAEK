@@ -402,6 +402,11 @@ Colab에서는 런타임 유형을 GPU로 바꾸고 저장소를 `git clone`한 
 
 ### 해커톤 결과 (2026-11-09, ① 카메라 YOLO-seg)
 
+공식 E4 가중치와 체크섬·평가 원본은 [E4 Release](https://github.com/nalziori/MAEK/releases/tag/e4-20261109)에 공개합니다.
+설치·재평가·외부 데이터 version 3 다운로드는 [모델 재현 안내](model-reproducibility.md)를 참고하세요.
+아래 공식 수치는 첨부 가중치 기준입니다. GPU·패키지 버전·중간 재개 이력에 따라 재학습 결과는 달라질 수 있으며,
+비트 단위 일치나 반복 실험으로 확인하지 않은 오차 범위를 보장하지 않습니다.
+
 평가 기준은 결함 단위 hit입니다. 결함 영역의 30% 이상을 같은 클래스로 예측하면 hit로 세며, `scripts/eval_camera_seg.py`로 쟀습니다.
 모델 선택은 DR 검증셋(seed 12, 600장)으로만 했고, data-v3 `shifted` 400장은 최종 모델에 한 번만 썼습니다.
 
@@ -466,4 +471,6 @@ python scripts/train_yolo_seg.py train --weights e4_best.pt --data rc/ds_50.yaml
 python scripts/eval_real_photos.py --images rc/test/images --map 0=corrosion --method yolo --weights runs/segment/r1_50/weights/best.pt --out out/r1_50
 ```
 
-학습 환경은 Colab T4(E0~E4)와 RTX 4090(E5s, E6, 미세조정)입니다. 가중치와 평가 결과는 팀 공유 드라이브 `MAEK/colab/`에 있습니다.
+학습 환경은 Colab T4(E0~E4)와 RTX 4090(E5s, E6, 미세조정)입니다. E4 시작 로그는 Ultralytics 8.4.204,
+최종 체크포인트는 8.4.208이며 last.pt에서 재개한 기록이 있습니다. [공개 E4 Release](https://github.com/nalziori/MAEK/releases/tag/e4-20261109)로
+공식 가중치·평가 결과를 받을 수 있습니다. 다른 실험 산출물은 팀 공유 드라이브 `MAEK/colab/`에 보관합니다.
