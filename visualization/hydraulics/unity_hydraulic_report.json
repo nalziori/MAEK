@@ -1,0 +1,1320 @@
+{
+    "status": "PASS",
+    "checks": [
+        {
+            "name": "all 247 hydraulic values available",
+            "detail": "Includes closed and stagnant branches",
+            "pass": true
+        },
+        {
+            "name": "closed nitrogen has no flow",
+            "detail": "Normal closed state",
+            "pass": true
+        },
+        {
+            "name": "idle instrument air has zero demand",
+            "detail": "Static pressure is retained",
+            "pass": true
+        },
+        {
+            "name": "computed moving arrows",
+            "detail": "Signed mass flow drives direction",
+            "pass": true
+        },
+        {
+            "name": "flow geometry advances with time",
+            "detail": "Motion follows the computed signed velocity",
+            "pass": true
+        },
+        {
+            "name": "no arrows in closed pipe",
+            "detail": "Zero flow never animates",
+            "pass": true
+        },
+        {
+            "name": "blast pressure change affects BF1",
+            "detail": "Reduced pressure changes solved flow",
+            "pass": true
+        },
+        {
+            "name": "BF2 remains independent",
+            "detail": "Only BF1 input changed",
+            "pass": true
+        },
+        {
+            "name": "CFD has separate furnace fields",
+            "detail": "3D fields are recomputed, not recoloured reference values",
+            "pass": true
+        },
+        {
+            "name": "hearth VOF has recomputed unit results",
+            "detail": "Gas pressure and nozzle closure feed new OpenFOAM runs",
+            "pass": true
+        },
+        {
+            "name": "coupled shaft pressure displayed",
+            "detail": "Pressure field uses absolute Pa",
+            "pass": true
+        },
+        {
+            "name": "scenario switch preserves CFD view",
+            "detail": "Results replaced while inspecting CFD",
+            "pass": true
+        },
+        {
+            "name": "open nitrogen flows",
+            "detail": "Independent regulated boundary snapshot",
+            "pass": true
+        },
+        {
+            "name": "actuator demand is calculated",
+            "detail": "Air remains separate from nitrogen",
+            "pass": true
+        },
+        {
+            "name": "case switching leaves one CFD root",
+            "detail": "No duplicate CFD meshes after swaps",
+            "pass": true
+        },
+        {
+            "name": "all original colliders preserved",
+            "detail": "Flow glyphs have no colliders",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G006",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G100",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G101",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G102",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G110",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-F099",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-C200",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-H200",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G200",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-A200",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-F200",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-C201",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-H201",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G201",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-A201",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-F201",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-C202",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-H202",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G202",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-A202",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-F202",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-C001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-C002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-C003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-H001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-H002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-A001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-A002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-A003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-F001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-F002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-F003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T000",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T006",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T007",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T008",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T009",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T010",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T011",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B000",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B006",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B007",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B008",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B009",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B010",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B011",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-H003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-W001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS000",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR000",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS006",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR006",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS007",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR007",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS008",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR008",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS009",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR009",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS010",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR010",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS011",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR011",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR000",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR006",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR007",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR008",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR009",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR010",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR011",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR000",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR006",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR007",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR008",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR009",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR010",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR011",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-W002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-W003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-Q001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-Q002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-Q003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-Q004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-Q005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G006",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G100",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G101",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G102",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G110",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-F099",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-C200",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-H200",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G200",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-A200",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-F200",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-C201",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-H201",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G201",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-A201",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-F201",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-C202",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-H202",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G202",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-A202",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-F202",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-C001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-C002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-C003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-H001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-H002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-A001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-A002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-A003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-F001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-F002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-F003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T000",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T006",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T007",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T008",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T009",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T010",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T011",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B000",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B006",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B007",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B008",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B009",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B010",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B011",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-H003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-W001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS000",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR000",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS006",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR006",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS007",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR007",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS008",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR008",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS009",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR009",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS010",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR010",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS011",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR011",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR000",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR006",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR007",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR008",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR009",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR010",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR011",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR000",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR006",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR007",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR008",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR009",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR010",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR011",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-W002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-W003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-Q001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-Q002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-Q003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-Q004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-Q005",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1.CASTHOUSE.TRAIN-SUP",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF1.CASTHOUSE.TRAIN-RET",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2.CASTHOUSE.TRAIN-SUP",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone BF2.CASTHOUSE.TRAIN-RET",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone UTIL-N001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone UTIL-N002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone UTIL-N003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone UTIL-N004",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone UTIL-I001",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone UTIL-I002",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        },
+        {
+            "name": "drone UTIL-I003",
+            "detail": "Swept-sphere route retained",
+            "pass": true
+        }
+    ]
+}

@@ -1,0 +1,1306 @@
+{
+    "status": "PASS",
+    "unityVersion": "6000.3.12f1",
+    "assets": 419,
+    "colliders": 326,
+    "meshColliders": 323,
+    "boxColliders": 3,
+    "pipeAssets": 240,
+    "checks": [
+        {
+            "name": "asset collider coverage",
+            "detail": "326 blocking assets",
+            "pass": true
+        },
+        {
+            "name": "static collider policy",
+            "detail": "Static concave geometry; no dynamic nonconvex rigidbodies or invisible envelope boxes",
+            "pass": true
+        },
+        {
+            "name": "drone coverage",
+            "detail": "One route per tagged pipe",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G001",
+            "detail": "Swept sphere clearance; 11 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G002",
+            "detail": "Swept sphere clearance; 11 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G003",
+            "detail": "Swept sphere clearance; 29 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G004",
+            "detail": "Swept sphere clearance; 12 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G005",
+            "detail": "Swept sphere clearance; 20 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G006",
+            "detail": "Swept sphere clearance; 40 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G100",
+            "detail": "Swept sphere clearance; 20 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G101",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G102",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G110",
+            "detail": "Swept sphere clearance; 16 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-F099",
+            "detail": "Swept sphere clearance; 10 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-C200",
+            "detail": "Swept sphere clearance; 11 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-H200",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G200",
+            "detail": "Swept sphere clearance; 19 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-A200",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-F200",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-C201",
+            "detail": "Swept sphere clearance; 11 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-H201",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G201",
+            "detail": "Swept sphere clearance; 19 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-A201",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-F201",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-C202",
+            "detail": "Swept sphere clearance; 11 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-H202",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-G202",
+            "detail": "Swept sphere clearance; 19 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-A202",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-F202",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-C001",
+            "detail": "Swept sphere clearance; 26 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-C002",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-C003",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-H001",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-H002",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-A001",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-A002",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-A003",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-F001",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-F002",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-F003",
+            "detail": "Swept sphere clearance; 8 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T000",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T001",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T002",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T003",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T004",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T005",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T006",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T007",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T008",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T009",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T010",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-T011",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B000",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B001",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B002",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B003",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B004",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B005",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B006",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B007",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B008",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B009",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B010",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-B011",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-H003",
+            "detail": "Swept sphere clearance; 16 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-W001",
+            "detail": "Swept sphere clearance; 20 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS000",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR000",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS001",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR001",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS002",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR002",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS003",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR003",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS004",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR004",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS005",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR005",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS006",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR006",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS007",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR007",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS008",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR008",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS009",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR009",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS010",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR010",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WS011",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WR011",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR000",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR001",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR002",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR003",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR004",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR005",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR006",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR007",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR008",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR009",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR010",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WSR011",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR000",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR001",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR002",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR003",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR004",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR005",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR006",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR007",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR008",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR009",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR010",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-WRR011",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-W002",
+            "detail": "Swept sphere clearance; 36 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-W003",
+            "detail": "Swept sphere clearance; 29 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-Q001",
+            "detail": "Swept sphere clearance; 2 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-Q002",
+            "detail": "Swept sphere clearance; 24 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-Q003",
+            "detail": "Swept sphere clearance; 8 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-Q004",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1-Q005",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G001",
+            "detail": "Swept sphere clearance; 11 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G002",
+            "detail": "Swept sphere clearance; 11 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G003",
+            "detail": "Swept sphere clearance; 29 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G004",
+            "detail": "Swept sphere clearance; 12 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G005",
+            "detail": "Swept sphere clearance; 20 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G006",
+            "detail": "Swept sphere clearance; 40 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G100",
+            "detail": "Swept sphere clearance; 20 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G101",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G102",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G110",
+            "detail": "Swept sphere clearance; 16 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-F099",
+            "detail": "Swept sphere clearance; 10 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-C200",
+            "detail": "Swept sphere clearance; 11 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-H200",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G200",
+            "detail": "Swept sphere clearance; 19 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-A200",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-F200",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-C201",
+            "detail": "Swept sphere clearance; 11 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-H201",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G201",
+            "detail": "Swept sphere clearance; 19 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-A201",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-F201",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-C202",
+            "detail": "Swept sphere clearance; 11 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-H202",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-G202",
+            "detail": "Swept sphere clearance; 19 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-A202",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-F202",
+            "detail": "Swept sphere clearance; 9 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-C001",
+            "detail": "Swept sphere clearance; 26 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-C002",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-C003",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-H001",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-H002",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-A001",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-A002",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-A003",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-F001",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-F002",
+            "detail": "Swept sphere clearance; 7 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-F003",
+            "detail": "Swept sphere clearance; 8 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T000",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T001",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T002",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T003",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T004",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T005",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T006",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T007",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T008",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T009",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T010",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-T011",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B000",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B001",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B002",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B003",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B004",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B005",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B006",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B007",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B008",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B009",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B010",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-B011",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-H003",
+            "detail": "Swept sphere clearance; 16 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-W001",
+            "detail": "Swept sphere clearance; 20 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS000",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR000",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS001",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR001",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS002",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR002",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS003",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR003",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS004",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR004",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS005",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR005",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS006",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR006",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS007",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR007",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS008",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR008",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS009",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR009",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS010",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR010",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WS011",
+            "detail": "Swept sphere clearance; 4 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WR011",
+            "detail": "Swept sphere clearance; 6 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR000",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR001",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR002",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR003",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR004",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR005",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR006",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR007",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR008",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR009",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR010",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WSR011",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR000",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR001",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR002",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR003",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR004",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR005",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR006",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR007",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR008",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR009",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR010",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-WRR011",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-W002",
+            "detail": "Swept sphere clearance; 36 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-W003",
+            "detail": "Swept sphere clearance; 29 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-Q001",
+            "detail": "Swept sphere clearance; 2 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-Q002",
+            "detail": "Swept sphere clearance; 24 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-Q003",
+            "detail": "Swept sphere clearance; 8 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-Q004",
+            "detail": "Swept sphere clearance; 5 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2-Q005",
+            "detail": "Swept sphere clearance; 3 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1.CASTHOUSE.TRAIN-SUP",
+            "detail": "Swept sphere clearance; 8 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF1.CASTHOUSE.TRAIN-RET",
+            "detail": "Swept sphere clearance; 8 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2.CASTHOUSE.TRAIN-SUP",
+            "detail": "Swept sphere clearance; 8 waypoints",
+            "pass": true
+        },
+        {
+            "name": "drone BF2.CASTHOUSE.TRAIN-RET",
+            "detail": "Swept sphere clearance; 8 waypoints",
+            "pass": true
+        },
+        {
+            "name": "metre scale",
+            "detail": "Ground width must be 330 metres",
+            "pass": true
+        },
+        {
+            "name": "ground raycast",
+            "detail": "Process yard y=-0.05000001",
+            "pass": true
+        },
+        {
+            "name": "pipe blocks moving equipment",
+            "detail": "BF1-G100",
+            "pass": true
+        },
+        {
+            "name": "walkway under overhead pipe remains open",
+            "detail": "1.8 metre inspector capsule along ground passage",
+            "pass": true
+        },
+        {
+            "name": "tower opening remains open",
+            "detail": "No convex hull filling the furnace tower opening",
+            "pass": true
+        },
+        {
+            "name": "walkable interior SERVICE.-97",
+            "detail": "Door and central aisle capsule clearance",
+            "pass": true
+        },
+        {
+            "name": "walkable interior SERVICE.0",
+            "detail": "Door and central aisle capsule clearance",
+            "pass": true
+        },
+        {
+            "name": "walkable interior SERVICE.99",
+            "detail": "Door and central aisle capsule clearance",
+            "pass": true
+        },
+        {
+            "name": "walkable interior BF1.CASTHOUSE",
+            "detail": "Door and central aisle capsule clearance",
+            "pass": true
+        },
+        {
+            "name": "walkable interior BF1.STOCKHOUSE",
+            "detail": "Door and central aisle capsule clearance",
+            "pass": true
+        },
+        {
+            "name": "walkable interior BF2.CASTHOUSE",
+            "detail": "Door and central aisle capsule clearance",
+            "pass": true
+        },
+        {
+            "name": "walkable interior BF2.STOCKHOUSE",
+            "detail": "Door and central aisle capsule clearance",
+            "pass": true
+        },
+        {
+            "name": "character enters cast house",
+            "detail": "Entry end (-62.000, 0.180, 51.000)",
+            "pass": true
+        },
+        {
+            "name": "inspector can climb stairs to inspection platform",
+            "detail": "Controller end position (-75.750, 4.670, -15.000)",
+            "pass": true
+        },
+        {
+            "name": "movable inspection device uses CCD and box collider",
+            "detail": "MAEKPortableUT.prefab",
+            "pass": true
+        },
+        {
+            "name": "dynamic equipment rests on ground",
+            "detail": "UT case centre y=0.1000",
+            "pass": true
+        }
+    ]
+}

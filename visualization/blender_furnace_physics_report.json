@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "trace_rows": 601,
+  "baked_key_states": 121,
+  "pipe_baseline": "maek_drone_verified.blend",
+  "hearth_height_m": 1.32493214628121,
+  "flow_kg_s": 77.7024051748993,
+  "temperature_K": 1883.19863270738,
+  "verified_runner_cells": 96,
+  "clipped_shell_objects": 190,
+  "trace_sha256": "8621ee16a727a863a86ad7a4feb1f579d41328e324d4db1d7e52dbfe6e020074",
+  "saved_state_checks": [
+    {
+      "time_s": 0,
+      "furnace": "BF1",
+      "hearth_and_48_cells": "PASS"
+    },
+    {
+      "time_s": 0,
+      "furnace": "BF2",
+      "hearth_and_48_cells": "PASS"
+    },
+    {
+      "time_s": 180,
+      "furnace": "BF1",
+      "hearth_and_48_cells": "PASS"
+    },
+    {
+      "time_s": 180,
+      "furnace": "BF2",
+      "hearth_and_48_cells": "PASS"
+    },
+    {
+      "time_s": 450,
+      "furnace": "BF1",
+      "hearth_and_48_cells": "PASS"
+    },
+    {
+      "time_s": 450,
+      "furnace": "BF2",
+      "hearth_and_48_cells": "PASS"
+    },
+    {
+      "time_s": 600,
+      "furnace": "BF1",
+      "hearth_and_48_cells": "PASS"
+    },
+    {
+      "time_s": 600,
+      "furnace": "BF2",
+      "hearth_and_48_cells": "PASS"
+    }
+  ],
+  "view_occluders_hidden": 116,
+  "saved_section_materials_verified": 190
+}

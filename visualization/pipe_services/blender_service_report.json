@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "pipe_count": 247,
+  "annotated_objects": 1128,
+  "cfd_cache_preserved": true,
+  "source_sha256": "cfc365b6f56d87fd83071f3cf09f51ca131a99ff9ec86f8c9c58b2992945ad0f",
+  "saved_file_reopened": true,
+  "original_shapes_preserved": true
+}

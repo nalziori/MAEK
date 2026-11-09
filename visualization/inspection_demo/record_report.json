@@ -1,0 +1,74 @@
+{
+    "status": "PASS",
+    "scope": "Functional synthetic demonstration, not field defect accuracy",
+    "checks": [
+        {
+            "name": "wrong image hash rejected",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "wrong capture request rejected",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "wrong image dimensions rejected",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "projection uses capture pose",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "tour completes",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "three actual camera captures",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "bounded continuous translation",
+            "detail": "1.000008",
+            "pass": true
+        },
+        {
+            "name": "bounded smooth rotation",
+            "detail": "5.00044",
+            "pass": true
+        },
+        {
+            "name": "actual image detection on inspection pipe",
+            "detail": "Not a fixture response; live Python RGB baseline",
+            "pass": true
+        },
+        {
+            "name": "no inference errors",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "finding bound to actual pipe BF1-W002",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clean-view result is not fabricated",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "new obstacle stops instead of clipping",
+            "detail": "",
+            "pass": true
+        }
+    ],
+    "captures": 3,
+    "findings": 1,
+    "frames": 496
+}

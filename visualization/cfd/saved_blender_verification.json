@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "source_sha256": "39bad27201fccb35ae0929755be63392d11f22a11ffe7a3557399a60e236f111",
+  "saved_state_checks": [
+    {
+      "frame": 1,
+      "nonempty_visible_meshes": 6
+    },
+    {
+      "frame": 145,
+      "nonempty_visible_meshes": 8
+    },
+    {
+      "frame": 289,
+      "nonempty_visible_meshes": 8
+    }
+  ],
+  "saved_section_material_objects": 190,
+  "scope": "3D isothermal iron/slag/gas VOF + separate 3D reactive Darcy shaft. Not a fully coupled industrial furnace model."
+}
