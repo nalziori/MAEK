@@ -32,7 +32,7 @@ try {
   assert.equal(first.min, 10);
   assert.equal(first.max, 18);
   assert.match(first.scope, /모델 지면 기준 배관 경로/);
-  assert.match(first.text, /확인 지점 미연결/);
+  assert.match(first.text, /지점 높이 미확인/);
   assert.equal(first.pointMarkers, 0);
   checks.push(
     "Selected pipe model centerline range is separate from an unlinked inspection point",
@@ -68,7 +68,7 @@ try {
   });
   for (const selector of [
     "#expand-map",
-    "#follow-drone",
+    ".map-controls [data-map-action=selected]",
     "#problem-next",
     ".map-controls [data-map-action=fit]",
   ]) {

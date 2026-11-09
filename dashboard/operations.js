@@ -11,8 +11,9 @@ const escapeHTML = (s) =>
         c
       ],
   );
-const validTabs = ["home", "areas", "records"];
-let tab = validTabs.includes(query.get("tab")) ? query.get("tab") : "home";
+const normalizeTab = (value) =>
+  ["pipes", "areas", "records"].includes(value) ? "pipes" : "home";
+let tab = normalizeTab(query.get("tab"));
 let step =
   query.has("step") && /^\d+$/.test(query.get("step"))
     ? Math.min(pipes.length, Number(query.get("step")))
@@ -32,9 +33,7 @@ let selected =
   page = 0;
 const titles = {
   home: ["통합 점검", "배관 위치 → 드론 관측 → 현장 비파괴검사"],
-  areas: ["배관 목록", "선택 배관의 점검 흐름 보기"],
-  visits: ["현장 검사", "방문 전 검토할 배관과 확인 내용"],
-  records: ["검사 이력", "선택 배관의 촬영·분석 결과"],
+  pipes: ["배관 조회", "배관 검색 · 최신 검사 결과 · 검사 기록"],
 };
 const roles = {
   primary_inspection: "주 검사 대상",
@@ -84,11 +83,8 @@ function sync() {
   });
 }
 function navigate(next, pipe = selected.id) {
-  tab = next === "visits" ? "home" : next;
+  tab = normalizeTab(next);
   selected = pipes.find((p) => p.id === pipe) || selected;
-  search = "";
-  filter = "all";
-  page = 0;
   visitPage = 0;
   history.pushState(null, "", url(tab));
   render();
@@ -176,7 +172,7 @@ function heightSummary() {
     range = low === high ? fmt(low) : fmt(low) + "–" + fmt(high),
     top = 54 - (high / heightCeiling) * 44,
     bottom = 54 - (low / heightCeiling) * 44;
-  return `<section class="height-summary" aria-label="모델 지면 기준 배관 경로 높이 ${range}미터, 정확한 확인 지점 높이 미연결" title="모델 지면 0m 기준 배관 경로(중심선)의 높이입니다. 외곽 치수나 실제 발판 높이가 아닙니다."><div class="height-copy"><span>배관 경로 · 모델 지면</span><strong>${range} m</strong><span class="point-height-missing">확인 지점 미연결</span></div><svg class="height-gauge" viewBox="0 0 54 64" aria-hidden="true"><text x="0" y="12">${heightCeiling}m</text><text x="5" y="60">0m</text><path class="height-axis" d="M38 10v44M30 10h16M33 32h10M28 54h20"/><rect class="height-band" x="32" y="${top.toFixed(2)}" width="12" height="${Math.max(3, bottom - top).toFixed(2)}" rx="2" data-min-height="${low}" data-max-height="${high}"/></svg></section>`;
+  return `<section class="height-summary" aria-label="모델 지면 기준 배관 경로 높이 ${range}미터, 정확한 검사 지점의 높이 미확인" title="모델 지면 0m 기준 배관 경로(중심선)의 높이입니다. 외곽 치수나 실제 발판 높이가 아닙니다."><div class="height-copy"><span>배관 높이 · 모델 기준</span><strong>${range} m</strong><span class="point-height-missing">지점 높이 미확인</span></div><svg class="height-gauge" viewBox="0 0 54 64" aria-hidden="true"><text x="0" y="12">${heightCeiling}m</text><text x="5" y="60">0m</text><path class="height-axis" d="M38 10v44M30 10h16M33 32h10M28 54h20"/><rect class="height-band" x="32" y="${top.toFixed(2)}" width="12" height="${Math.max(3, bottom - top).toFixed(2)}" rx="2" data-min-height="${low}" data-max-height="${high}"/></svg></section>`;
 }
 function problemStrip() {
   const list = problemPipes(),
@@ -185,7 +181,7 @@ function problemStrip() {
     0,
     Math.min(problemPage, Math.ceil(list.length / size) - 1),
   );
-  return `<section class="problem-strip" aria-label="확인이 필요한 배관 목록"><button type="button" id="problem-prev" aria-label="이전 의심 배관" title="이전 의심 배관" ${problemPage === 0 ? "disabled" : ""}>${uiIcon("left")}</button><div class="problem-cards">${list
+  return `<section class="problem-strip" aria-label="점검 필요 배관 목록"><button type="button" id="problem-prev" aria-label="이전 의심 배관" title="이전 의심 배관" ${problemPage === 0 ? "disabled" : ""}>${uiIcon("left")}</button><div class="problem-cards">${list
     .slice(problemPage * size, (problemPage + 1) * size)
     .map(
       (p, i) =>
@@ -193,7 +189,7 @@ function problemStrip() {
     )
     .join(
       "",
-    )}${!list.length ? "<p>저장 자료에서 의심 관측이 없습니다. 미연결 검사는 별도 확인이 필요합니다.</p>" : ""}</div><button type="button" id="problem-next" aria-label="다음 의심 배관" title="다음 의심 배관" ${(problemPage + 1) * size >= list.length ? "disabled" : ""}>${uiIcon("right")}</button></section>`;
+    )}${!list.length ? "<p>저장 자료에 의심 결과가 없습니다. 미연결 자료는 별도 점검이 필요합니다.</p>" : ""}</div><button type="button" id="problem-next" aria-label="다음 의심 배관" title="다음 의심 배관" ${(problemPage + 1) * size >= list.length ? "disabled" : ""}>${uiIcon("right")}</button></section>`;
 }
 const mapExtent = {
   x: (1000 - (bounds.maxX - bounds.minX) * scale) / 2,
@@ -255,7 +251,7 @@ function zoomMap(value, svg = null, client = null) {
   }
 }
 function mapControls() {
-  return `<div class="map-controls" aria-label="지도 조작"><button type="button" data-map-action="out" aria-label="지도 축소">−</button><span data-map-zoom-label aria-live="polite">${Math.round(mapCamera.zoom * 100)}%</span><button type="button" data-map-action="in" aria-label="지도 확대">+</button><button type="button" data-map-action="fit" aria-label="지도 전체 맞춤" title="지도 전체 맞춤">${uiIcon("fit")}</button></div>`;
+  return `<div class="map-controls" aria-label="지도 조작"><button type="button" data-map-action="out" aria-label="지도 축소">−</button><span data-map-zoom-label aria-live="polite">${Math.round(mapCamera.zoom * 100)}%</span><button type="button" data-map-action="in" aria-label="지도 확대">+</button><button type="button" data-map-action="fit" aria-label="전체 구역 보기" title="전체 구역 보기">${uiIcon("fit")}</button><button type="button" data-map-action="selected" aria-label="선택 배관으로 이동" title="선택 배관으로 이동">${uiIcon("locate")}</button></div>`;
 }
 function routeMarkup() {
   let out = "";
@@ -282,7 +278,7 @@ function routeMarkup() {
   }
   return out;
 }
-function mapMarkup(compact = false) {
+function mapMarkup(compact = false, expandable = false) {
   const spots = tab === "home" ? problemPipes() : visited(),
     viewBox = cameraBox();
   let svg = `<svg viewBox="${viewBox}" role="group" aria-label="MAEK 가상 제철소 모델 평면도. 배관 위치는 모델 좌표이며 실제 제철소 지도와 다릅니다."><title>모델 배관 지도</title>${routeMarkup()}`;
@@ -344,11 +340,7 @@ function mapMarkup(compact = false) {
     svg += `<g aria-label="현재 위치, 저장 경로 기준 ${escapeHTML(now.id)}"><circle class="drone-mark" cx="${coord(xy[0])}" cy="${coord(xy[1])}" r="13"/><path d="m${coord(xy[0] - 6)} ${coord(xy[1])}h12m-6-6v12" stroke="white" stroke-width="2"/><text class="drone-caption" x="${coord(xy[0] + 18)}" y="${coord(xy[1] - 16)}">현재 위치</text></g>`;
   }
   svg += "</svg>";
-  return `<div class="site-map interactive-map${compact ? " compact-map" : ""}" data-map tabindex="0" aria-label="방문 구역 지도. 확대 후 끌어서 이동할 수 있습니다.">${svg}${mapControls()}<span class="map-source">저장 경로 재구성</span></div>`;
-}
-function selectionCard() {
-  const candidate = done(selected) && selected.result === "candidate";
-  return `<section class="summary-box selection-card"><p class="section-label">선택 배관</p><p class="selected-id">${escapeHTML(selected.id)}</p><p class="selected-service">${escapeHTML(selected.service)}</p>${tab === "areas" ? `<dl class="modality-summary"><dt>부식 · 드론</dt><dd>${selected.result === "candidate" ? "RGB 후보 " + selected.findings + "건" : "RGB 후보 미관찰"}</dd><dt>열화상 · 드론</dt><dd>결과 미연결</dd></dl>` : ""}<p class="selection-status state ${candidate ? "visit" : statusClass(selected)}">${candidate ? "RGB 후보 · 조치 필요" : escapeHTML(state(selected))}</p><a class="primary-link" data-route="home" href="${url("home")}">점검 흐름 보기</a></section>`;
+  return `<div class="site-map interactive-map${compact ? " compact-map" : ""}" data-map tabindex="0" aria-label="방문 구역 지도. 확대 후 끌어서 이동할 수 있습니다.">${svg}${expandable ? `<button type="button" id="expand-map" class="map-expand icon-button" aria-label="지도 크게 보기" title="지도 크게 보기">${uiIcon("expand")}</button>` : ""}${mapControls()}<span class="map-source">저장 경로 재구성</span></div>`;
 }
 let ndtNotice = "";
 const ndtStorageKey = "maek.ndt.linked.v1";
@@ -381,31 +373,46 @@ function readNdt() {
 function droneImage(kind, large = false) {
   const e = window.MAEK_EVIDENCE.byPipe[selected.id]?.[kind];
   if (!e)
-    return `<div class="sensor-empty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM8 15l3-3 3 2 3-5"/></svg><strong>${kind === "thermal" ? "열화상 영상 미연결" : "RGB 영상 미연결"}</strong></div>`;
+    return `<div class="sensor-empty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM8 15l3-3 3 2 3-5"/></svg><strong>${kind === "thermal" ? "열화상 사진 미연결" : "RGB 사진 미연결"}</strong></div>`;
   const boxes = (e.regions || [])
     .map((r) => {
       const [x, y, x2, y2] = r.bbox;
       return `<span class="rgb-region" style="left:${(x / e.width) * 100}%;top:${(y / e.height) * 100}%;width:${((x2 - x) / e.width) * 100}%;height:${((y2 - y) / e.height) * 100}%"></span>`;
     })
     .join("");
-  return `<${large ? "div" : "button"} class="sensor-image" ${large ? "" : `type="button" data-open-image="${kind}" aria-label="${escapeHTML(selected.id)} ${kind === "rgb" ? "RGB" : "열화상"} 영상 크게 보기"`}><img src="${escapeHTML(e.src)}" width="${e.width}" height="${e.height}" alt="${escapeHTML(selected.id)} ${kind === "rgb" ? "저장 RGB 촬영" : "열화상 촬영"}">${boxes}${large ? "" : `<span class="image-expand">${uiIcon("expand")}</span>`}</${large ? "div" : "button"}>`;
+  return `<${large ? "div" : "button"} class="sensor-image" ${large ? "" : `type="button" data-open-image="${kind}" aria-label="${escapeHTML(selected.id)} ${kind === "rgb" ? "RGB" : "열화상"} 사진 크게 보기"`}><img src="${escapeHTML(e.src)}" width="${e.width}" height="${e.height}" alt="${escapeHTML(selected.id)} ${kind === "rgb" ? "저장 RGB 사진" : "열화상 사진"}">${boxes}${large ? "" : `<span class="image-expand">${uiIcon("expand")}</span>`}</${large ? "div" : "button"}>`;
 }
 function ndtPanel() {
-  const all = readNdt().filter((r) => r.pipe_id === selected.id),
-    r = all[all.length - 1];
-  return `<section class="ndt-panel" aria-label="같은 배관의 비파괴검사"><div class="ndt-heading"><h2>현장 비파괴검사</h2><button type="button" id="import-ndt">결과 연결</button></div>${r ? `<div class="ndt-result-row"><strong>${escapeHTML(r.method)}</strong><span class="state visit">기기 저장 · 검토 대기</span></div><p class="ndt-measurement">${escapeHTML(r.result_summary.length > 100 ? r.result_summary.slice(0, 100) + "…" : r.result_summary)}</p><p class="ndt-meta">부위 ${escapeHTML(r.inspection_point)} · ${escapeHTML(r.inspector)} · ${escapeHTML(new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", dateStyle: "short", timeStyle: "short" }).format(new Date(r.performed_at)))}</p><details class="ndt-details"><summary>전체 결과·검사 범위</summary><dl><dt>결과</dt><dd>${escapeHTML(r.result_summary)}</dd><dt>절차</dt><dd>${escapeHTML(r.procedure_ref)}</dd><dt>검사 범위</dt><dd>${escapeHTML(r.coverage_ref)}</dd><dt>보고서</dt><dd>${escapeHTML(r.report_ref)}</dd></dl><p>배관 ID로 연결한 보고서이며 영상의 정확한 부위 정합은 별도 확인합니다.</p></details>` : `<div class="ndt-pending"><strong>검사 결과 미접수</strong></div>`}${ndtNotice ? '<p class="ndt-feedback" role="status">' + escapeHTML(ndtNotice) + "</p>" : ""}</section>`;
+  const all = pipeReports(),
+    r = all[0];
+  return `<section class="ndt-panel" aria-label="같은 배관의 비파괴검사"><div class="ndt-heading"><h2>현장 비파괴검사</h2><button type="button" id="import-ndt">결과 등록</button></div>${r ? `<div class="ndt-result-row"><strong>${escapeHTML(r.method)}</strong><span class="state visit">기기 저장 · 검토 필요</span></div><p class="ndt-measurement">${escapeHTML(r.result_summary.length > 100 ? r.result_summary.slice(0, 100) + "…" : r.result_summary)}</p><p class="ndt-meta">부위 ${escapeHTML(r.inspection_point)} · ${escapeHTML(r.inspector)} · ${escapeHTML(new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", dateStyle: "short", timeStyle: "short" }).format(new Date(r.performed_at)))}</p><details class="ndt-details"><summary>전체 결과·검사 범위</summary><dl><dt>결과</dt><dd>${escapeHTML(r.result_summary)}</dd><dt>절차</dt><dd>${escapeHTML(r.procedure_ref)}</dd><dt>검사 범위</dt><dd>${escapeHTML(r.coverage_ref)}</dd><dt>보고서</dt><dd>${escapeHTML(r.report_ref)}</dd></dl><p>배관 ID로 연결한 보고서이며 영상의 정확한 부위 정합은 별도 확인합니다.</p></details>` : `<div class="ndt-pending"><strong>검사 결과 미등록</strong></div>`}${ndtNotice ? '<p class="ndt-feedback" role="status">' + escapeHTML(ndtNotice) + "</p>" : ""}</section>`;
 }
 function home() {
   const rgb = window.MAEK_EVIDENCE.byPipe[selected.id]?.rgb,
     thermal = window.MAEK_EVIDENCE.byPipe[selected.id]?.thermal;
-  return `${problemStrip()}<div class="unified-layout"><section class="map-panel"><div class="map-heading"><h2>배관 위치</h2><button type="button" id="expand-map" class="map-focus icon-button" aria-label="지도 크게 보기" title="지도 크게 보기">${uiIcon("expand")}</button></div>${mapMarkup()}<div class="drone-location"><p class="visited-summary">방문 구역 <strong>${[...new Set(pipes.slice(0, step).map((p) => (p.id.startsWith("BF1") ? "1고로" : p.id.startsWith("BF2") ? "2고로" : "기타 구역")))].join(" · ") || "방문 전"}</strong></p><span>현재 위치 <small>저장 기준</small><strong>${current() ? escapeHTML(current().id) : "종료"}</strong></span>${current() ? `<button id="follow-drone" type="button" class="icon-button" aria-label="드론 현재 배관 보기" title="드론 현재 배관 보기">${uiIcon("locate")}</button>` : ""}</div><div class="map-legend"><span class="legend-item"><i class="legend-line route"></i>방문 구역</span><span class="legend-item"><i class="legend-line current"></i>현재 위치</span><span class="legend-item"><i class="legend-line visit"></i>조치 필요</span></div></section><section class="inspection-flow" aria-label="선택 배관의 연속 검사"><div class="pipe-context problem-context"><div class="pipe-main"><h2>${escapeHTML(selected.id)}<span class="selected-issue">${escapeHTML(problemReason(selected))}</span></h2><p>${escapeHTML(selected.service)}</p></div>${heightSummary()}</div><div class="drone-evidence"><section class="sensor-panel"><div class="sensor-heading"><h3>RGB · 부식 관측</h3><span>저장 촬영</span></div>${droneImage("rgb")}<div class="sensor-analysis"><strong>${rgb?.regions.length ? "부식 후보 " + rgb.regions.length + "건" : rgb ? "의심 표시 없음" : "분석 결과 없음"}</strong><span>${rgb ? "색상 규칙 분석" : ""}</span></div></section><section class="sensor-panel"><div class="sensor-heading"><h3>열화상 · 열 관측</h3><span>${thermal ? "연결 촬영" : ""}</span></div>${droneImage("thermal")}<div class="sensor-analysis"><strong>${thermal ? escapeHTML(thermal.analysis_summary || "판독 결과 확인 필요") : "분석 결과 없음"}</strong><span>${thermal ? escapeHTML(thermal.quality_status || "품질 확인 필요") : ""}</span></div></section></div>${ndtPanel()}</section></div>`;
+  return `${problemStrip()}<div class="unified-layout"><section class="map-panel" aria-label="배관 지도와 드론 위치">${mapMarkup(false, true)}<div class="drone-location"><p class="visited-summary">방문 구역 <strong>${[...new Set(pipes.slice(0, step).map((p) => (p.id.startsWith("BF1") ? "1고로" : p.id.startsWith("BF2") ? "2고로" : "기타 구역")))].join(" · ") || "방문 전"}</strong></p></div><div class="map-legend"><span class="legend-item"><i class="legend-line route"></i>방문 구역</span><span class="legend-item"><i class="legend-line current"></i>현재 위치</span><span class="legend-item"><i class="legend-line visit"></i>점검 필요</span></div></section><section class="inspection-flow" aria-label="선택 배관의 연속 검사"><div class="pipe-context problem-context"><div class="pipe-main"><h2>${escapeHTML(selected.id)}<span class="selected-issue">${escapeHTML(problemReason(selected))}</span></h2><p>${escapeHTML(selected.service)}</p></div>${heightSummary()}</div><div class="drone-evidence"><section class="sensor-panel"><div class="sensor-heading"><h3>RGB · 부식</h3><span>저장 사진</span></div>${droneImage("rgb")}<div class="sensor-analysis"><strong>${rgb?.regions.length ? "부식 의심 " + rgb.regions.length + "건" : rgb ? "부식 의심 미검출" : "분석 결과 미연결"}</strong><span>${rgb ? "색상 규칙 분석" : ""}</span></div></section><section class="sensor-panel"><div class="sensor-heading"><h3>열화상</h3><span>${thermal ? "연결 사진" : ""}</span></div>${droneImage("thermal")}<div class="sensor-analysis"><strong>${thermal ? escapeHTML(thermal.analysis_summary || "판독 결과 확인 필요") : "분석 결과 미연결"}</strong><span>${thermal ? escapeHTML(thermal.quality_status || "품질 확인 필요") : ""}</span></div></section></div>${ndtPanel()}</section></div>`;
 }
 
-function rows(filtered, record = false) {
-  const slice = filtered.slice(page * pageSize, (page + 1) * pageSize);
-  return `<ul class="row-list">${slice.map((p) => `<li class="pipe-row"><div><strong>${escapeHTML(p.id)}</strong><p>${escapeHTML(p.service)}</p><div class="row-status state ${record ? (p.result === "candidate" ? "visit" : "done") : statusClass(p)}">${record ? `${p.analysed}/${p.planned}장 분석 · ${p.result === "candidate" ? "RGB 후보 " + p.findings + "건" : "RGB 후보 미관찰"}` : state(p)}</div></div><button type="button" data-pipe="${escapeHTML(p.id)}" data-destination="${record ? "record-detail" : "home"}">${record ? "기록 보기" : "위치 보기"}</button></li>`).join("")}</ul>${filtered.length === 0 ? '<div class="empty"><h2>조건에 맞는 배관이 없습니다.</h2><p>배관 ID를 확인하거나 필터를 전체로 바꿔 주세요.</p></div>' : ""}<div class="rows-footer"><span class="muted">${filtered.length}개 중 ${filtered.length ? page * pageSize + 1 : 0}–${Math.min((page + 1) * pageSize, filtered.length)}</span><div class="page-buttons"><button id="previous-page" ${page === 0 ? "disabled" : ""}>이전</button><button id="next-page" ${(page + 1) * pageSize >= filtered.length ? "disabled" : ""}>다음</button></div></div>`;
+function pipeReports() {
+  return readNdt()
+    .filter((r) => r.pipe_id === selected.id)
+    .sort(
+      (a, b) =>
+        Date.parse(b.performed_at) - Date.parse(a.performed_at) ||
+        a.result_id.localeCompare(b.result_id),
+    );
 }
-function filteredPipes(record = false) {
+const reportDate = (value) =>
+  new Intl.DateTimeFormat("ko-KR", {
+    timeZone: "Asia/Seoul",
+    dateStyle: "short",
+    timeStyle: "short",
+  }).format(new Date(value));
+function rows(filtered) {
+  const slice = filtered.slice(page * pageSize, (page + 1) * pageSize);
+  return `<ul class="row-list">${slice.map((p) => `<li class="pipe-row" data-selected="${p === selected}"><div><strong>${escapeHTML(p.id)}</strong><p>${escapeHTML(p.service)}</p><div class="row-status state ${p.result === "candidate" ? "visit" : statusClass(p)}">${p.result === "candidate" ? "부식 의심 " + p.findings + "건" : escapeHTML(state(p))}</div></div><button type="button" data-pipe="${escapeHTML(p.id)}" aria-current="${p === selected ? "true" : "false"}">상세 보기</button></li>`).join("")}</ul>${!filtered.length ? '<div class="empty"><h2>조건에 맞는 배관이 없습니다.</h2><p>배관 ID를 확인하거나 필터를 전체로 바꿔 주세요.</p></div>' : ""}<div class="rows-footer"><span class="muted">${filtered.length}개 중 ${filtered.length ? page * pageSize + 1 : 0}–${Math.min((page + 1) * pageSize, filtered.length)}</span><div class="page-buttons"><button id="previous-page" ${page === 0 ? "disabled" : ""}>이전</button><button id="next-page" ${(page + 1) * pageSize >= filtered.length ? "disabled" : ""}>다음</button></div></div>`;
+}
+function filteredPipes() {
   return pipes.filter(
     (p) =>
       (p.id + " " + p.service).toLowerCase().includes(search.toLowerCase()) &&
@@ -416,18 +423,18 @@ function filteredPipes(record = false) {
         (filter === "candidate" && p.result === "candidate")),
   );
 }
-function recordDetail() {
-  return `<section class="summary-box"><h2>${escapeHTML(selected.id)}</h2><p class="selected-service">${escapeHTML(selected.service)}</p><dl class="location-details"><dt>계획 촬영</dt><dd>${selected.planned}장</dd><dt>분석 기록</dt><dd>${selected.analysed}장</dd><dt>관측</dt><dd>${selected.result === "candidate" ? "RGB 후보 " + selected.findings + "건" : "RGB 후보 미관찰"}</dd><dt>현장 검사</dt><dd>${readNdt().filter((r) => r.pipe_id === selected.id).length ? "결과 " + readNdt().filter((r) => r.pipe_id === selected.id).length + "건 · 검토 대기" : "결과 미접수"}</dd></dl><p class="muted">저장 시연 기록입니다. 후보 미관찰은 배관 건전성이나 작업 가능 판정이 아닙니다.</p><details class="evidence-ids"><summary>촬영 근거 ID ${selected.evidenceIds.length}개</summary><ul>${selected.evidenceIds.map((id) => "<li>" + escapeHTML(id) + "</li>").join("")}</ul></details><a class="secondary-link" href="${url("home")}" data-route="home">지도에서 위치 보기</a></section>`;
+function pipeDetail() {
+  const reports = pipeReports(),
+    latest = reports[0];
+  return `<section class="summary-box pipe-detail" aria-label="${escapeHTML(selected.id)} 배관 상세"><header class="lookup-heading"><div><h2>${escapeHTML(selected.id)}</h2><p class="selected-service">${escapeHTML(selected.service)}</p></div><a class="icon-button" data-route="home" href="${url("home")}" aria-label="${escapeHTML(selected.id)} 지도에서 보기" title="지도에서 보기">${uiIcon("locate")}</a></header><dl class="lookup-overview"><dt>RGB · 부식</dt><dd>${selected.result === "candidate" ? "부식 의심 " + selected.findings + "건" : "부식 의심 미검출"}<small>${selected.analysed}/${selected.planned}장 분석 · 색상 규칙</small></dd><dt>열화상</dt><dd>결과 미연결</dd><dt>비파괴검사</dt><dd>${latest ? "등록 " + reports.length + "건 · 검토 필요" : "결과 미등록"}</dd></dl>${latest ? `<div class="latest-inspection"><h3>최근 비파괴검사</h3><strong>${escapeHTML(latest.method)}</strong><time datetime="${escapeHTML(latest.performed_at)}">${escapeHTML(reportDate(latest.performed_at))}</time><p>${escapeHTML(latest.result_summary.length > 80 ? latest.result_summary.slice(0, 80) + "…" : latest.result_summary)}</p></div>` : ""}<details class="lookup-history"><summary>비파괴검사 기록 ${reports.length}건</summary>${reports.length ? `<ol class="inspection-history">${reports.map((r) => `<li data-result-id="${escapeHTML(r.result_id)}"><time datetime="${escapeHTML(r.performed_at)}">${escapeHTML(reportDate(r.performed_at))}</time><h3>${escapeHTML(r.method)}</h3><p>${escapeHTML(r.result_summary)}</p><dl><dt>부위</dt><dd>${escapeHTML(r.inspection_point)}</dd><dt>검사자</dt><dd>${escapeHTML(r.inspector)}</dd><dt>절차</dt><dd>${escapeHTML(r.procedure_ref)}</dd><dt>검사 범위</dt><dd>${escapeHTML(r.coverage_ref)}</dd><dt>보고서</dt><dd>${escapeHTML(r.report_ref)}</dd></dl><small>기기 저장 · 검토 필요</small></li>`).join("")}</ol>` : "<p>등록된 비파괴검사 결과가 없습니다.</p>"}</details><details class="evidence-ids"><summary>촬영 근거 ID ${selected.evidenceIds.length}개</summary><ul>${selected.evidenceIds.map((id) => `<li>${escapeHTML(id)}</li>`).join("")}</ul></details><p class="lookup-note">저장 시연 자료 · 미검출·미등록은 정상 판정이 아닙니다.</p></section>`;
 }
-function listing(record = false) {
-  return `<div class="filters"><label for="pipe-search">배관 찾기</label><input type="search" id="pipe-search" placeholder="배관 ID 또는 계통" value="${escapeHTML(search)}"><label class="sr-only" for="status-filter">표시 범위</label><select id="status-filter"><option value="all">전체 배관</option>${record ? '<option value="candidate">RGB 후보 기록</option>' : '<option value="done">기록 확인</option><option value="waiting">재생 대기</option>'}<option value="primary">주 검사 대상</option></select></div><div class="list-layout"><section class="list-panel"><div id="list-results">${rows(filteredPipes(record), record)}</div></section><aside>${record ? recordDetail() : selectionCard()}</aside></div>`;
+function listing() {
+  return `<div class="filters"><label for="pipe-search">배관 찾기</label><input type="search" id="pipe-search" placeholder="배관 ID 또는 계통" value="${escapeHTML(search)}"><label class="sr-only" for="status-filter">표시 범위</label><select id="status-filter"><option value="all">전체 배관</option><option value="candidate">점검 필요</option><option value="done">방문 완료</option><option value="waiting">방문 예정</option><option value="primary">주 검사 대상</option></select></div><div class="list-layout lookup-layout"><section class="list-panel" aria-label="배관 검색 결과"><div id="list-results">${rows(filteredPipes())}</div></section><aside aria-label="선택 배관 검사 정보">${pipeDetail()}</aside></div>`;
 }
-
 function updateList() {
-  const record = tab === "records",
-    filtered = filteredPipes(record);
+  const filtered = filteredPipes();
   if (page * pageSize >= filtered.length) page = 0;
-  $("list-results").innerHTML = rows(filtered, record);
+  $("list-results").innerHTML = rows(filtered);
   bindRows();
 }
 function bindRows() {
@@ -435,8 +442,10 @@ function bindRows() {
     (b) =>
       (b.onclick = () => {
         selected = pipes.find((p) => p.id === b.dataset.pipe);
-        if (b.dataset.destination === "record-detail") render();
-        else navigate("home");
+        render();
+        document
+          .querySelector(`[data-pipe="${selected.id}"]`)
+          ?.focus({ preventScroll: true });
       }),
   );
   if ($("previous-page"))
@@ -467,12 +476,6 @@ function bind() {
   if ($("problem-next"))
     $("problem-next").onclick = () => {
       problemPage++;
-      render();
-    };
-  if ($("follow-drone"))
-    $("follow-drone").onclick = () => {
-      selected = current();
-      ndtNotice = "";
       render();
     };
   if ($("import-ndt"))
@@ -554,9 +557,7 @@ function render() {
   }
   const text = titles[tab];
   $("page-title").textContent =
-    tab === "home"
-      ? "확인이 필요한 배관 " + problemPipes().length + "곳"
-      : text[0];
+    tab === "home" ? "점검 필요 배관 " + problemPipes().length + "개" : text[0];
   $("page-description").textContent = text[1];
   $("progress").value = step;
   $("progress-label").textContent = step + " / " + pipes.length;
@@ -564,8 +565,7 @@ function render() {
     ? "드론 재생 위치 · " + current().id
     : "저장 기록의 마지막 단계";
   document.body.dataset.tab = tab;
-  $("screen").innerHTML =
-    tab === "home" ? home() : tab === "areas" ? listing() : listing(true);
+  $("screen").innerHTML = tab === "home" ? home() : listing();
   sync();
   if (viewerMode) refreshMedia();
   bind();
@@ -673,7 +673,11 @@ function bindMapInteractions() {
         e.stopPropagation();
         if (b.dataset.mapAction === "in") zoomMap(mapCamera.zoom * 1.4);
         else if (b.dataset.mapAction === "out") zoomMap(mapCamera.zoom / 1.4);
-        else {
+        else if (b.dataset.mapAction === "selected") {
+          const [x, y] = project(center(selected));
+          mapCamera = { x, y, zoom: 2.2 };
+          updateMaps();
+        } else {
           mapCamera = {
             x: mapExtent.x + mapExtent.w / 2,
             y: mapExtent.y + mapExtent.h / 2,
@@ -703,7 +707,7 @@ function refreshMedia() {
       ? "방문 구역 지도"
       : selected.id +
         " · " +
-        (viewerMode === "rgb" ? "RGB 원본" : "열화상 원본");
+        (viewerMode === "rgb" ? "RGB 원본 사진" : "열화상 원본 사진");
   if (viewerMode === "map") $("media-title").textContent = "방문 구역 지도";
   $("media-content").innerHTML =
     viewerMode === "map" ? mapMarkup() : droneImage(viewerMode, true);
@@ -827,13 +831,12 @@ window.addEventListener("pagehide", pause);
 window.addEventListener("popstate", () => {
   pause();
   const q = new URLSearchParams(location.search);
-  tab = validTabs.includes(q.get("tab")) ? q.get("tab") : "home";
+  tab = normalizeTab(q.get("tab"));
   step =
     q.has("step") && /^\d+$/.test(q.get("step"))
       ? Math.min(pipes.length, Number(q.get("step")))
       : 125;
   selected = pipes.find((p) => p.id === q.get("pipe")) || selected;
-  page = 0;
   visitPage = 0;
   render();
 });
