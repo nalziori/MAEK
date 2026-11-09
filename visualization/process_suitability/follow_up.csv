@@ -1,0 +1,248 @@
+﻿pipeId,service,role,status,action,plannedImages,analysedImages,mappedFindings,evidenceRequestIds
+BF1.CASTHOUSE.TRAIN-RET,주상 훈련 냉각수,training_only,no_rgb_candidate,훈련 전용 · 새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,b14712b8a3c248ab9ccda5e57d90ac0d;922d7852506143f1807abae68ac0a644;aebdd567b8aa4d118658a2278f5b0ff5
+BF1.CASTHOUSE.TRAIN-SUP,주상 훈련 냉각수,training_only,no_rgb_candidate,훈련 전용 · 새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,c4ef51ce581140bf849210c14035891b;2dcc6ceeb5614f65a478ac1f23101788;818fe5b403be4ded88b7b63565e8d6ec
+BF1-A001,열풍로 연소공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,34d720191ade4f53a9ff762a812386b9;dc5989c2230e49529a68b7a536087805;739b13570a4f4ee2924590cbf6b016a8
+BF1-A002,열풍로 연소공기,process_context,candidate,운전 조건 확인 후 후속 외관/UT 적용 검토,3,3,1,0eea483cef0447ceaec3e14da9a65836;213d7fbbabcc4ed6abbb5b4e93e7d6f2;5e30ff79fc3a413b9b8d0312fe442da3
+BF1-A003,열풍로 연소공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,c0b88dc9f5a445a1becb148185ed9e3e;50fb496daa2842d78b8ea72f33640bd3;8f255598083d40cf9d59bfe85f9a7d69
+BF1-A200,열풍로 연소공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,03adbe3725ad40f2b6b24db96981e8c8;ddd16a970b21452ca9f70ecfd0b40a78;f05204ec28604efda32bb0f35c970dc9;e4883926198d4e429003308f16a2b06b
+BF1-A201,열풍로 연소공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,03efd020a07b40ecba7e5b6e9da4f34d;7ab279a0b6f74d30889eab71e9040816;4ce7cc3b715c49f0947f70dc767d6218;cf4ef09329714365ad5e5ba656487d9b
+BF1-A202,열풍로 연소공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,ad6fe73cad8b4c0fb8c44185e27260b8;a3d046069f624904b0580ea39a913167;d35401962e5b47b18d78d6516cdfe655;153d0913aca948a3afecdcd9e1535fcc
+BF1-B000,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,c3452f489aab457b95504372b5b4bb2e;5bfcf32ac3f3433abfb476038049cbfe;f45fca7ed1ed4447abfe15e64d64a0d9
+BF1-B001,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,12ffc9aa548c4cc49ef16d0dc9836282;a8a08b07dfd642c7ae34ff60beb8e3f4;34f6eeaf59ad4ee0b4f0fa848a81dffb
+BF1-B002,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,da2ae664f22240d5bd280eb6f93fe970;19db3d495bef4912a210179dfe381403;4dc93002de244f50ba8903a58f521031
+BF1-B003,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,026769f33c9f4f1ea0e7d8c0f70ab858;ef1d6c28bb35439e8a4c057149fd1c62;d219c75061d94c98839b187e3c7af7b0
+BF1-B004,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,9192c7d8fe274871aee1e8854d7969a5;14b5f088296542ae88e58207c8e134c8;c30f01c86e7946c891fb640ca79198a2
+BF1-B005,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,a69b1edc14e24d929282d088edced1f7;48cf58687d804000aca077407d59234e;cbb14fe5676a4302987ceff3b9436f23
+BF1-B006,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,33742ae88e344506a32772366165c28e;2ce4001465c046648ef5445e25ae0e86;2c75316778674210bacccecc2cc70e42
+BF1-B007,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,7994fc4672834feb845ec2a5f06c6c4c;6697a2a57eb54d9fa30d70dc8941137d;2273164f25b542429fbb5d25d7728d6f
+BF1-B008,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,006c0a7c8a034b3491e073692564dcce;20527564df7b4ba8b778dd47446ec02d;094f925c8e8945d2b3ef2f8a5ac29230
+BF1-B009,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,285335f049dd48fa9ba2823d720bb5aa;9f0ab3ecf07c41e39e30c92c666622c1;b3a30ba4ed5a449dadd4ee6a8b06a77b
+BF1-B010,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,b0c5eba271d543b682d28214fe709786;e2df4d8f165e445b94c76c6d5181bce5;c84b2bd84b594b46a4dc35d684fa1d6d
+BF1-B011,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,bd0a4f0cf0564b68b6f0fa0efc93510d;d5d10d77f9f74b759a1eb02949548b2e;b9c7d4b039d94197957f302755a09ba6
+BF1-C001,냉풍 공기,process_context,candidate,접근·운전 조건 확인 후 UT 적용 검토,6,6,1,e21648aaf11f4e3d9360537bdac85c7f;08881b06fdd9405894aeebfc44423008;d792733433074feabd7ba3cd75b1c1a4;f2d68738eaa94e618d0d5291b5faaa95;56d8c07bebbb457ea3c6a14ba2077a07;4dea907bba064ba1aa105727205987e4
+BF1-C002,냉풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,1b06e7dd1337489a9c2537a5a8fef559;5ec7046cad9d4cd580be19b34990207f;2d556477d8c248cc93c610da48e6bd6f
+BF1-C003,냉풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,f0213879c28a44749421a4bce0bda392;be1c4a18fd184ce484968566102e7015;7a3f87a1ea5943b3be007286e042eac3
+BF1-C200,냉풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,8f2f831e2d844e9cace02ced8dbf6d07;f8abbaf2fb9b4b71a849d39d9514d49b;33875172951c4f5e8e4f307449a8cf9b;98b5f101cf264517b9a0a672d5f47777
+BF1-C201,냉풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,68a4b31711074dff905d5b9920fc3c89;c15ecfc021ca425796fb45ee948cbac8;20b4845067e445d8bc583fc9faf52281;e62478f3753a4ad78d5032558e70d9ec
+BF1-C202,냉풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,bd7ff4f399d14231bcfd51fc06cbe632;0c8915274ed0422590a9b2220134524b;20cb84efcf42450a9b689c4c388c0c48;77bae2e9939b4cb79d278bf84f12f707
+BF1-F001,연소 배기가스,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,8f3c1259ea6340d3809e7dc4deaa9cc7;6924086b8dfe41299f22d5d119d2814c;e9799c316b1b4f279cab9e7315df5334
+BF1-F002,연소 배기가스,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,21cf93f1c32a43ddad218eb6859a8b78;18f12de0885a49ca9fce8900975da807;0f2d30a9d657491ca401d81016e28c6e
+BF1-F003,연소 배기가스,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,f0d511884fa34061807f76dcbacd9233;2ad6680fcd7f47c6817c3bec96651c6f;45cf1310521848808031974033998198
+BF1-F099,연소 배기가스,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,fe6924c7cb1a4c229f131ec9850d74ea;00aa2e8196df4405ad8b8b285cbf44c0;6e923069deb54aeda3616aa0e056b67c
+BF1-F200,연소 배기가스,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,a1fcf30b5d9041d3b4d8f9eead47615d;4f97cdb7ee014071a76572a3203081e7;529788f5040444f896d77833647a0033;4c172acc7ef8464ba7de05c12128d64b
+BF1-F201,연소 배기가스,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,0a534127882845318019d61322296ecb;674d6e09f3a545b4af63bb188c5d8f6c;2811e704b88a4685b992179485010b51;e0859bf2b739468390b2444e959fa1b2
+BF1-F202,연소 배기가스,process_context,candidate,고온·보온 상태 확인 후 검사 방법 선정,4,4,1,599c90449105431fb279fe00c769c69d;45d01214a4984d7b8f996a33ca95ae15;d42bcf7545e8479ca34d5fc69cd35c52;63658e6b164746a79096ffb2abdd9043
+BF1-G001,미정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,9b36fa4234c5499c8fa684cf3f799d6e;b664e2b29a1f4fe09679f83114aa4ce8;c000e45b53944f1bb6988200fc235ee3;b6ef786563424525ba18f1de8d4a2432
+BF1-G002,미정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,9f451330a5854710951fead293342e24;0c03c00b342248139a76927d2170fd4f;46bf9bce25f7425a878764eb233803f2
+BF1-G003,미정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,5,5,0,1aab1fb372a84ba8b8df93fdf0994cf3;8602b9b4c510485d8aaaaf84437825e9;f3911c6dd9f640a7aa57607f1665ea8c;b0e56d3c73fa4f67bed534d68c463bf0;b375a57993834a34b16545f087481e17
+BF1-G004,1차 집진 고로가스,primary_inspection,candidate,가스 계통 작업 조건 확인 후 UT 두께 검사,4,4,1,e9084e7149b740ebab9239cd6f64ebaa;a69fee9b8e4145079b3e7cef70a6a2f7;b68c0c875dea4f3c9b75775911980b1d;b4c6fead5aab427e9c38249be7497c41
+BF1-G005,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,5,5,0,5088b362920144e3840d7f4db3257753;ae81837c654c4d908d4d100566c8d352;31839045b02e43da87865d5110fb5d16;ab68244ec19a4762acbb445e05df1f01;07f4946206664683b7e213aed995e2cc
+BF1-G006,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,8,8,0,02516d2ba09d4f61adf6cc0a331c4168;07f61f2493ec43a098836054fa53b427;8dbef697beea48d0ba693a47626048f3;414526cdb59640e294d5136a3eaea774;7b55b08409b641f192daea0ea94b9fc1;6f4c7bf6e45442669ea736bd6eda7b23;a5c38a88be70426989f3840f8540c726;78f8309ec94a44cdb59056e6967a2049
+BF1-G100,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,5,5,0,8238615a75d54dceb1350f98aef88ea7;e3774c0ef7c84ec7b712a4b8fc971274;4110add7547148e18aa8ce6dc7a366bf;3c2edaf99e5446dcb1a69605a5804e27;785193fffd73477e9f974807e30e9c44
+BF1-G101,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,5e7bfd47ba8c420da431f3c7dfc82420;f63839113840434b81089d7a0a19820c;8420810757e14aeb8074cf40a69bbef4
+BF1-G102,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,5e6af26503e347a6820f5685893810cb;a5cdf86e50de44d2a97107763c488ed8;2b6fff3061c543448faad8044a8e739a
+BF1-G110,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,2ae960eb5d124570bfe7d1f53f511618;144e5fc3d9b44487bd9b320fd520cd7f;81acada1aa074b62a6e3c4c87fabfc1e;5deb6e2f04144714827259dadf2eac95
+BF1-G200,정제 고로가스,primary_inspection,candidate,가스 계통 격리 조건 검토 후 UT; 누설은 별도 확인,5,5,1,a5f8d5df81f5495c92f913c45c3d0634;b4bc1e107e924b0b84f1be99dfec6345;bd0e6d8ba05240efab39703a488c6a67;28fbca3a9a7c413ebb739f312836a6c9;46688db067d34c818f89fff2b122ff31
+BF1-G201,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,5,5,0,a17a5b1edaf04085bf2e6f4de77522f5;3034aa30515b426999af858b0c1b0549;0e5ee49c4922448384d3b8e5cb7b2c0f;fbc6e01a787545de868990be33dca637;6a9046da232442f0bcaa2df13f62d1b7
+BF1-G202,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,5,5,0,4c67f00ae16f4612899ea98f3934b666;ca8e8225c42c43bfa94e2bd95dddfaa3;aca6a39430a8465f9833079726911b1e;b8af01cd32144717927360d233e4a2bf;1f7c16041a2a44f6b8e29779e1b3ca06
+BF1-H001,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,c2bdc9e6fe324c1a8d58738f3b775bea;df8028c1d1cc4d71b9c9be4fccabbc79;2187d85cfd0e4968a8dd43d96084b019
+BF1-H002,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,d448097d4e76453a808f840d3ea12944;9d65faaef5b84bae8210658c7a138f2a;cb96d876ff8540769672bbdcd92f4ca1
+BF1-H003,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,939af581ada44c669d515cb19184c26b;673626f5cc2241e88cd7ca13dce2d21b;f0911e3a470248e89d50c1f4a8503c75;93fb0a711fb24a3997fed7263606889b
+BF1-H200,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,df6e58a58c52406b93fbead43e434ade;30e32726ac0347b494911ea1cbaca3c2;53c4bf52846d48d2bb876707420fff63
+BF1-H201,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,c53c78790c6d465287dc4b8215a352d5;e3418c5a339e49b5b8d9f937558c6456;8ad1d432fb4a40db8e23e8246ede3b15
+BF1-H202,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,97e3fb64f6c04f31befbda6191c83494;cd2604a88f494619aa27eaf4e3504248;5a97bcbb93ce4cdeb881077dd1c92ae9
+BF1-Q001,고로가스 세정수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,8144434e822243f793f4ebfa2ad08e7f
+BF1-Q002,고로가스 세정수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,5,5,0,6a5062beac624814a267439a388ea9df;d44a01436f2d4bb692ea3fec5355d889;d874ac999b654261a54e7d0d85f9b242;52b60f6701b54a6cab95d842d691c7a8;54d0a2d0e49545e1879834175620d26a
+BF1-Q003,세정 슬러리,primary_inspection,candidate,UT 두께 검사; 슬러리 침식 조건 확인,3,3,6,de5d26e2358b401183b711e709700882;8552bce887f74aa09ebf29842b50d6cd;10aacbe31b974321831bdeb734801cc8
+BF1-Q004,고로가스 세정수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,83902605127240caa528158bc5643ca4;e83671b3956e415198429941c6ca51b0;5e06602fab3d4a34b8c6004d6c0e9e85
+BF1-Q005,세정 슬러리,primary_inspection,candidate,UT 두께 검사; 슬러리 침식 조건 확인,3,3,5,0cc1bb7b83fc4201852ce3e4b69876c9;d9cb326a73f04bd78b2be0ffb42597b7;d9afc3912d374df2a3135da30c5a6739
+BF1-T000,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,2,2,0,9f9737f41ad84699ba8dd6aa0678bffe;c0f54d3c78c646fa95ddc0b7753f5830
+BF1-T001,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,1782917529cf40919450f1c8422ab003
+BF1-T002,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,2,2,0,3b7f2d2d81534330b98d8ac627150ba9;5e9e5ccfb25046d7a8c756f99aa58440
+BF1-T003,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,2,2,0,05eb3f7a442d4c7b955abae1b0382f0e;fa84ad9fa321405b831f159cb05e53cc
+BF1-T004,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,bf44604b89c6405cb8e83a8be4b0ff20
+BF1-T005,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,c13412c31b0a40d2b95bbf49ddffd670
+BF1-T006,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,e10878b3ee05463388adfd476f3b5360
+BF1-T007,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,0a80b57b8f894461bb593c1e557d6330
+BF1-T008,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,c69286d0781c477597a057fbf4037ffd
+BF1-T009,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,cd689b6e10b84eb29cfcaf0185e36b47
+BF1-T010,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,55a05c4703924f3faa7f2dd00d814a09
+BF1-T011,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,29a47e9652954528a7f8f8f76dc79055
+BF1-W001,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,715cd18325244d41a008d9ea57eea1a0;3d77a8b401cf4b76a527de1043dddcc2;2b655ba046564031aa1d1e2d0b42dcd2;f3570525fec740158ea9677a6f28e4e9
+BF1-W002,냉각수 공급,primary_inspection,candidate,접근·운전 조건 확인 후 UT 두께 검사,8,8,3,25de1d3663f24074915e1de10d05a858;9296b60c63f24b43a125c84aa8ccaaca;144d35e8642f4e8492bbdc07ae20945c;664759751e034e89b6836da7f34c641f;1053b0f5e3f34999a3b4b23d1a31fd3c;0ff917203e214ba8b3e1788a5668b94a;0ec6367d453f4e6b9542df5fbe7f5c29;190915b592364c689b5140ac413026b3
+BF1-W003,냉각수 회수,primary_inspection,candidate,접근·운전 조건 확인 후 UT 두께 검사,6,6,3,1e5549dad6614939a3f81187f67b1a6a;d45c73088db04eba84e481095534827d;5b45f09965264f57940e6b6da270a56e;624386f0458247c89859275073bfd464;dcae59089a2747ceae6c08b01a7cd544;4f9e399935d94514b530d8d9f7b739bf
+BF1-WR000,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,d46001a7eb724ee29ac17fe42e2fed07;bcded233d22f4ce99b1fbf0a850abbb2;d79ad1c02ee74de0bbe11592924fda67
+BF1-WR001,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,cceb67cce934498c9e615230f3907748;9d56717b0efc48eeb999186d1fee50c6;8198b6f961324d78984c3263815ef3b2
+BF1-WR002,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,0e50f4ea1add41b29583be5fcd707351;f2bfb673fab34586b7a0f65d09ac360a;1109360f75ae4780b4d08a21d94646cf
+BF1-WR003,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,b7de2717bc4947178223b5617d40c87f;35041ba6cd964dc699f9952b2036860c;27a7d47686d242589f1cb779ac51096e
+BF1-WR004,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,db5a71c66c524e83ab4113ef71c21c3e;1946a596111f4d21b78fe3c634e018b2;2f9590a7ebb34f5bb2b8a0ec9c278be7
+BF1-WR005,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,c58139700759483eba8724087c63abe8;f2f300b8d54d4b008a8e4d38f70a5cd8;8b7892d3f41746cea25dff37b99426e3
+BF1-WR006,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,079ea11a698d4af2bd89dfb925943a07;d928f925a8c6485aa1dc4eca58c465ad;8a9b2a41e4b44459ab257edd698d2af9
+BF1-WR007,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,ae04a26af2254a5e92f19c6d12507c4b;7c073cb54c1a42889fd0a85704e65fa4;0fb715aaadce4125adc0b9dbdb472b9f
+BF1-WR008,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,47ef85f0fa8c406ab9f2e8481624e783;c6238eb93a7447e9936e2b6227fd8324;303c6f8e199a47708c6d285ee2851176
+BF1-WR009,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,d08387469e40410ca60c34cc3dccd2ba;445ad9e693fb499394222caeeec917b9;9b80c9aa597d4966bcd54616d09106b6
+BF1-WR010,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,5d7f16893da04ef782736f8ad5a555dd;cb6475a398534574a3ccf8d66588df8c;a9b00c2784bc4ec9bfca1a541de01d64
+BF1-WR011,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,93cffac2271c49e1a6ffdb117b487361;b181df4ffbf840d880bec8382ba062a1;1bc928ebbae248718191e6663bcf4f9e
+BF1-WRR000,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,361814b033d24f748d64b005094c8879;4cc435f531ab4761a462913ef2bba47c;7e84e23e38cb46f3b091567fca063b55
+BF1-WRR001,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,42978ed7a8ef4a918a446887d36a5d77;ba10b7005fa84e4bac3ff4b63cdab3ea;db3db4ec514143f7a72e7049b2486a48
+BF1-WRR002,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,4642cac8e49245a1a956792cd78f7c11;c35e1dd525d94c61801bfeb22234736b;5e8dabc34c8b478781ff75df21e540ae
+BF1-WRR003,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,d8f284bb6f18446d9e20519acad13dd2;b310ea4d6fb340f5afc14b4f9918f035;e7f0b616fdaf44eea4b8f300968f4287
+BF1-WRR004,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,d3fc13761b334e9da40dec046c5e36af;0fc9e5d3cd32475797a3bcbe8e7ed164;9b1ff9b4d77c44ba98090e13ed2f8c23
+BF1-WRR005,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,0b95b614cc8646dcaa5cf2ee16298701;1ea1634378aa40c7b159bc635d2a647f;9e1e53abe3024ee2a988bf0b53eca43f
+BF1-WRR006,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,c5999606498e4fe193c9ee46bc16ca4e;7aea9dfb1d1747ef98230901c18be950;abd5e0ebf83c431c93e4a275029a88b4
+BF1-WRR007,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,2920fc73872e47e999e1bf762ba6008e;09ed5cfc914e41d78c2b16211fcdd696;bf26e0a7615d46d688639cbf86f4ec5a
+BF1-WRR008,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,4d46a4014eba4556ab452e48482c6e39;af70f281c4db45fcb0e3333924541816;b346885880e64db4a98036201b2b6ed1
+BF1-WRR009,냉각수 회수,primary_inspection,candidate,접근·운전 조건 확인 후 UT 두께 검사,3,3,1,de876b74350a4f2a99296de5c40edebb;dad857769ad841099d7aa4f2ff0cfb33;6bed04968a384ed8a8753afe7b9a27aa
+BF1-WRR010,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,e630d14daf2b46ceb5097cc81090b012;58eb1f27d48b42be95256c0faa9834e9;cbddc8047e534fc187e513cfc87733c2
+BF1-WRR011,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,ed50ecdc5c2044bfa5063b2ffdc455a5;8220db8b3cd543159361d5a3274e76c5;222a40bf8c5f422d9354ef4ffff7498c
+BF1-WS000,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,f678d267211841d49dea212bf8bef58f;37f52d5595f644829aa6b4e323d34a9c;9d062871855c4b9d9538c3aa1d7fbfa4
+BF1-WS001,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,1ce21a4156004c17a47a7427805edff9;04bd0e4f56ae4dc19142159be5f9d127;5e78cb01c1f44075aafd5e1335e55d93
+BF1-WS002,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,1032258900e24ae68e2b89b7560f5a8c;fc6984e71f88439eb872f4ec20a3c7f2;7766bda779ab458d822c54b2be3551a7
+BF1-WS003,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,f1b9ddb40c6e410c8a2cf58e76d1576e;1dc05f5585194303bb4d97f70d0c1b4e;a4d758ee820342c499d78b04b7ed42bd
+BF1-WS004,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,df34748abc604dd9a58e25ff0f0864d3;d35b6f73907e4bc7b0af69829ee7f352;4484d25efa9c4c76a280d6120eb76d5a
+BF1-WS005,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,f96584191fa34a1c923efd7702f55e9b;0a6c355b3f254055a1808d5324f915c5;6330fb71eb9e4991adc1d36e761e5268
+BF1-WS006,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,df22694e8c5d40f2a42983a2d7a60be7;1ff325ab68bb49d38bf2dde3d594e87b;67728f42fdf649f686b71dc0a0a8e2e1
+BF1-WS007,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,338d56562aec48158bdb2199309c934f;d77b40a59d4142e2b865b9975830be66;ed717601873e47d095a4b8b3f6503e92
+BF1-WS008,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,ee061e4844914a4995dba26690ef3114;e29cccc8088b4d52b39303e95692b51a;c4785992adf643f5bf3f56902405b6b2
+BF1-WS009,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,07f49df760ff41ea84c496e8282bce3f;a7d94c3c46c9423b87d3fda4fc4b1a19;3af98d9730424cc48197e8f04e521032
+BF1-WS010,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,a33e3a2f8a694ccfbc641b7b4ff07b60;3e95c5731cff4c26ab9473ed690071b3;8ef4e49e0fb14b0f86e3ba13b609e454
+BF1-WS011,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,6b9d733817b04992a24bc2777b7c0998;ca504db12af14f6281bae189ad8309b3;65421a8702024c4f91da457a6de38ca6
+BF1-WSR000,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,ee5bcc68f8f34b65abebe9ef2823e838;e7c936ab8b684beea24b94a5788807ad;7b80980e9b2047c9bac67ab1b7a627a0
+BF1-WSR001,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,9b5762ec3eb7474fbee9a9718c476257;f1435768c7944941bfbf1e6d6edcbbc0;a743216989554de0a3b9a4b26fb46c51
+BF1-WSR002,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,32717cf5e1974cd1b4405d86d48a08be;4ec9f5843a864a9fb2f12a1d12797a36;9d3cb359e3914d8994bde3b57d332eb7
+BF1-WSR003,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,f6dd95da50054f2eaa5214ea3eccb270;6a0dca17fa184778972df78ec47c5c01;d6b2b0b0a4db44199093c3ed7e61e5b6
+BF1-WSR004,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,d3de6fc119d64d9f834f8edf9410a07e;e9e56291309d468c82cbf2e45e5ad538;8380fffa993545ed9483e6f90d45dc54
+BF1-WSR005,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,b2e4409afd3f41db9451bab78c97594b;ae3c5a52cea548db99bf2dac35d9f2ca;016e46bde774478cb198dac23c5f5ec9
+BF1-WSR006,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,831e37ef9f3f44fa9a5afdec9eb4c79d;5e6c7caafad14818909e762a69104eca;929d70591ba241de8051e63970decbcc
+BF1-WSR007,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,b9cf4dff3ddc415a8c1b4afa47139a91;adb6d957135b46c59310889043e885bc;bcc474c61a8e46e98fc59e297f375c67
+BF1-WSR008,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,cf08926e5e05479cb9ec546f9d58d05a;36912e97797f4f21b619b53fbc415241;1b0b155d34714529a2e5743467f3c0e1
+BF1-WSR009,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,bb22f580c0b14aecb2de703d309ccf6d;428612fa8d984dc99ff0d579d5214aa4;9cc694ba76334746a2f5ab151e7c1263
+BF1-WSR010,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,5017f6a8c2024670bc735ff790e7714f;74c81ddfe03e475c9e4b712997fba73c;96c0a8513ebb48a7a1b276bfcaaca2ab
+BF1-WSR011,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,18a52f11b9ba48bc89ae1292d9b1a490;820ccd88a8484ba8ab10165d9113dabf;94da9287e6ff41e9a1e4ce9da4ba7aee
+BF2.CASTHOUSE.TRAIN-RET,주상 훈련 냉각수,training_only,no_rgb_candidate,훈련 전용 · 새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,daa651941ae44c93811b8cf0f2670b93;35df1c5a4ca64d68bcec955e63db677f;74dc17d9eb964ae594cbfc515f7f8b29
+BF2.CASTHOUSE.TRAIN-SUP,주상 훈련 냉각수,training_only,no_rgb_candidate,훈련 전용 · 새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,bf5dc5ed146f4df5b44a1c37134d5b6a;fb81197ab85446eb938ed31eff5aebec;04d95e5bf18343d084d984c47817282f
+BF2-A001,열풍로 연소공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,ccbe50f4b1da4e17846b6c797edf10a6;b6d990f6eba04f77bcc2d401161d3a5a;9e2403099bb3442db24ac8b2d28d9a79
+BF2-A002,열풍로 연소공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,0268a4ef3bcb47d09ee810ce19839d09;b4056162bbca4f8caf13b43bcf0a18a2;02a679fb1cfd49d28817f8b6c08c7a47
+BF2-A003,열풍로 연소공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,e7fdb72bae3e44779f95ef3a62fee711;f00f9e0c64c04752bc9cf146138f1dc2;c14bb17b7af74778b6574b73f9a188c1
+BF2-A200,열풍로 연소공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,40be9ca402d041ccb0222cf0104d5b83;8d941d1767f94f9b9aec4bedbf3bb1af;a7ae709abc7b443ba12855cc5913a9c8;24b51b3970594a93ba0f4418bb802071
+BF2-A201,열풍로 연소공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,4d8086c6c3db4b66bbb322145b5f0dfa;38f8a4ef07fd49c2b35e17be4ccb1857;c7cb6af40a0c40228e9b89c6f1555300;d29b476487f04ddc846cbc7ce66ea5b1
+BF2-A202,열풍로 연소공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,6297f76b47924054b933c3d72c254854;95d8975b2f334f578935f52d833ad492;009ff3cbacda46368a12877766853b55;9560882a0be344559aba1f91f974499c
+BF2-B000,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,d4db066c6d2d4cf3a7c1be42e15d2283;3e2433d2f7eb428c9a679eedbfb0a412;c0e18c4ad9a841b3ab4e1b3adfe43729
+BF2-B001,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,7071e4922fc74f0b9b86872f56904525;31c863adf7214077ad23f54e59944679;457f1d207a864339bbb61c75e8d45c59
+BF2-B002,열풍 공기,process_context,candidate,고온·보온 상태 확인; 외피 RGB로 모재/내화물 판정 불가,3,3,1,e621cd75c78f457c995feb108cced1da;3d8a896e377d439bba2c825d1a050b74;e11f44a4ace94213b768a1ce75d881d8
+BF2-B003,열풍 공기,process_context,candidate,고온·보온 상태 확인; 외피 RGB로 모재/내화물 판정 불가,3,3,1,74848e022c7e4f7f8f7fa513a25c5ab7;01cca37a07334de5806518c47ddfd574;9f04deb8d239435aaa043f4f0ec6d598
+BF2-B004,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,a186e22fd85a4425ad4eae4b53a45d25;c27dc8bd0b5a4ecf957f1a51ec59ec13;28a51b076bdd4ab7889e7ef10b325489
+BF2-B005,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,5ce630f4415c4d2482feebcdb22f3a2f;9350dd7dfca44528b366ba95cba0497f;4abe40409d0647de820414a1dc276e6c
+BF2-B006,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,66630dac8f2944069e409da0a821989e;3353549091f84f3ca158821953a0a94b;f1270fa95fb64eafb8f1fcf184ce5059
+BF2-B007,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,8fa11592cc724e59bf297b30ba1b3fbf;17a51b6e805e432c960800df2a4384aa;1497899b0e154a40a43ee733ccefca8a
+BF2-B008,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,9ba3999744354174bb981cd0a0dff1e7;aa490e859aa646dfafbafe6d76bd706e;791716d5f7f443bd88b36256d6434673
+BF2-B009,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,cc6a3c25d9fa4bbc84888d6954635b7d;f5e3dd19cb9e4c4e9d18f5e843035a8a;a6e1778b0b0c4aa5930a8370e8d7527b
+BF2-B010,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,bb16ae9f625d4177b95bc302d91ec5d8;71b9a89540cc49b2b163731e63e67d0a;4a0012bd59a547999b4f060eabbd453d
+BF2-B011,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,81d88c6a809544c39ddf1015a0fb268a;46a2cd04512e4df1bacee2a7acbdbb28;ec72995f3cb14bf9800f4f72fffe5dab
+BF2-C001,냉풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,6,6,0,b2e264e4c9a04c508b2ed3f9fb5d04ec;68a242fe9b484de8b7b0552416902162;2d465ed042e84009b34ffcc25cbc3eca;c829e0310736462e9d47ac61a12119b3;b803c30daf8e4f268912056fd60b1526;58b88dbb4b714778ad27ff9a6e1e8426
+BF2-C002,냉풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,01ce1e2f50f848a086857212e58ea4d4;337e2c0a18be485399e025174bc89bd0;8b3de4a00b5b406f8eb0b1b65f2717cd
+BF2-C003,냉풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,462d5e065eae447eb69d1fe0c2c1e0b3;00fb397781414e9e86bc0fea5c238b2c;829f1ff6d9184794af3df97cba08b174
+BF2-C200,냉풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,4faaaf83368c4fce868c616444d80980;c3f614c6115d4a09845d33f53ebcc5a7;d308af82b3c245b49e65e98dc5d94c9a;87a3954711a24e928ff79ef45b587c42
+BF2-C201,냉풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,262d38c90b62483c8c5e8b5de4bd02fc;e150afe3d5ec4fc790290d8a80fb73cf;9683acf6577447cab6697c08b359c392
+BF2-C202,냉풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,dc2811161f8e4dabb67b4bf1c8842368;96b424c07b8b46478b3cd226c261bc0a;6591111099c84438b8203a2adce8111d;42577fcf885c418ab02f39973f4ef910
+BF2-F001,연소 배기가스,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,306b2682a68b40379eaeba3e3466428a;1f4212bc13d147fca34529720eb71bcd;8e9fec10e31f412a8a08c498cc9e26f0
+BF2-F002,연소 배기가스,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,9d9db0dc0f93433591d0568356601ee1;e138ef9546114ea4806aeb857c901230;dd71d2810b724da799f148903798157e
+BF2-F003,연소 배기가스,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,a249f0323ba94e219087da0a20c314b2;b1e2987ac55a4898bbbf41d5ca6f8f41;7e4abebec649409fb19bec3ced08956e
+BF2-F099,연소 배기가스,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,49d449957e2544f0837c308473c7544d;78d5970c611b4cffa1e8e56e2e7624ff;bc0cf0fdaf094b3b86ffd8ce6a0f6f8c
+BF2-F200,연소 배기가스,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,f0f97841f0a84f8d88127083d3651f67;049044be34cf4eac9eedb801a3495821;7080bea4dfe5465c83105b61b53feed3;ae64669859b74aa8be9cabc6efbc7bf3
+BF2-F201,연소 배기가스,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,7dc5657c3d9247df962b77f0a38bafbe;685e9deb19024418ac1ec966668d36ef;66eb17a771d040e4b769b139ff9a9b3b;e2f0b34ee2cd4c3182ec5db83ee81551
+BF2-F202,연소 배기가스,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,72683e4349794810a0f526484348abf4;96ccb94b211e4f5ba23ea372e1cd0457;3dd5c8f964c3401d9ef3f6a480922056;3b522fbccbbe43b18a3876d4e7f641d5
+BF2-G001,미정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,543af02839394d45ab8b8c9670f83f33;4fa0dba2d6d3407fb70bfa0608d7e1b3;61c73d437e2241adab6ef13ac819d241;a14624738437463ab856f8e687a40491
+BF2-G002,미정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,07e8ffc6b0a1493fae713ca7251b6368;1bab1530a0484b92ade226232eb15512;41c967098742461e8ef3bc4c2d026656
+BF2-G003,미정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,5,5,0,8d19e016e44b42a5942ccea77f73e4e0;516e9bc655574800a74a1db02e5efcd9;2175ad7bb79b4f6395afd99fd1bed768;02a17dd6470c4f2db1dcfa6af0dba0cd;6abaf754ed52458ba2c150cbfa9a8702
+BF2-G004,1차 집진 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,c3ec4b1db60342d78325cd0f01d6c5e1;ec06bd66f51f43fd96f4ba54bb4425f2;1dd5ce63ab0241c9ad726ffceabd409b;bf2cca7f579c40e599138674972401d8
+BF2-G005,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,5,5,0,529fb50bf7eb4e00a02a6efee1599a73;f6a9bd843640448b9a48649654191164;16b1b13c9dd146ea9cbe9daf796100bf;4cca4b127eb5483a8a9b784bb7a5429e;dc85928fa1d34325b5fceb875cb4bf09
+BF2-G006,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,8,8,0,8a450af270ad4db5ade14642611f9cf1;88e9a738d3834f2f876e1271f9d25f55;767ac01da6d643c29cc4116780e45a05;49873da1754a492a98e4b4cfc1afba58;bf9245e8fe1646f0834c7092433ea1e7;240e9f2fb67348b49f48bbe8a4948b1e;004abf5a6f6046749f104020d2222c4a;d4088db2b9bd40c4b1a9507147e88481
+BF2-G100,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,6,6,0,61cb71f2e69a421293422ea8e11e6563;93775ef32966437cb3c0154572878685;acc7a785ed0941d3b76280443f552c5c;51e05c38a93a4aa48a0f24db968de8d2;fb396126c56a4d1f92dcda554a5ebf3f;88a3e25ec75a4ded916a1ab320825c53
+BF2-G101,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,d100525e464047a8a3aed1c66e41c250;5f44b512e11e4a78a7217d25d9785583;08ee2f4050ad4959848d953a68422e50
+BF2-G102,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,ec4b677d350a4bf89a08e174488dd89f;25d3b982c965479ba4a771c6fc5e25c2;f3ff9bea9cc449e0bfd1457de8ab8a06
+BF2-G110,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,95732af720af4b15b9c2020a8702510e;803dedc61585454482247e09f6cbf07c;14d9d15ffc1c4b508df68d77f5a92ad1;99ea35e4ecdd4e439059f4aacd4d9bb7
+BF2-G200,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,5,5,0,ab4e83454d9c4711bc13a195c989b4fd;7cd34c70ecec493fa9862e46bd73cb0d;1b15f33a067d48adbd436bbcc3d35973;01671650f71246c49562cc3ba14221e6;6c1395b9662648c4a184ab820e87d746
+BF2-G201,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,5,5,0,26c0baa4914144cf8abad9800546aa13;01cc805189114d5681bb7eb3bda3e515;b1a2f2c0f50d4562ac1c91eb5838d302;4484e055cde84a97a25cebf5d98e3727;350629c7d1dc4c339c3d7e8dfc64db96
+BF2-G202,정제 고로가스,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,5,5,0,8fb10c21356742f692930669768a9e5b;e5cf052f472a4533a34f0ca4cc428be7;8cc2eeac16674fe08ab53b4c8cdb4983;f6c9fc40f98648a9b7541b01a8250fb2;49b8793a9b074d5087aab59ca4c47047
+BF2-H001,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,831baf9d4ad54876a93cf111db880d27;031eabaeb3054b34890bd5cbd0bda773;814d6473269545c4997a0abd6ae145f2
+BF2-H002,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,a8bc00093dbb44c99ec0ad7ef3235297;e9cfcdfccb394f34900cc6b56aa4dda4;6c4d1ae245ff45309746ab093c16582d
+BF2-H003,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,8cef7b2eecba4df89b0253e1c869ec2b;6e359059abe5444c94bb8142fc5b5aa1;2708adc78516440599684921259017b6
+BF2-H200,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,6271139cdd80423490b8b1c0496953a3;a316d1a4b98c4b8bae8ef668dfd8abb7;2842c4cf7f724c06afbab93067597852
+BF2-H201,열풍 공기,process_context,candidate,고온·보온 상태 확인; 외피 RGB로 모재/내화물 판정 불가,3,3,3,576a5577687a487eab3d50822b86fb35;fcdb1f5689844655a07808d868732ce6;396c0987d93f4b4da84438df9b2cec0c
+BF2-H202,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,4ddbeea31e8a463bbbe21e8cfd3a5e54;38e74f4a07284a82b76a1c5b871b8fc6;269330b7d0bf480d8498fbe5e267094f
+BF2-Q001,고로가스 세정수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,3cdfd907bb684110a5617c3844dc808c
+BF2-Q002,고로가스 세정수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,5,5,0,9556804610854d1aa659124a81864abb;6b5d3cc2e6e74ec59ab56e1b218019ae;02a7f7d928a444e784697af1c78d51d7;947f09a6cdd74539a08d7103f727d411;f2c3919236bd4af8a10c0a3685368aa0
+BF2-Q003,세정 슬러리,primary_inspection,candidate,UT 두께 검사; 슬러리 침식 조건 확인,3,3,6,773e70edd8d34a0eae32e47ac3861077;83c0044b9dc246668dd0e07f463f05de;d6f5ff81bb4b42a3af3549a6375d2a27
+BF2-Q004,고로가스 세정수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,0af185737f4a4d5f9121524fc8a4a86d;fa43272984eb4c3f9ffb7baa4bc7237c;b384ed07a7b54a38bd50a0ae6c8c9b89
+BF2-Q005,세정 슬러리,primary_inspection,candidate,UT 두께 검사; 슬러리 침식 조건 확인,3,3,5,0edaedc6ab1a4bf59d4034086c3e9633;26a8e6be15e34b49808b805a7fb08809;efe94efd408a4ced90348fa5f04b7aef
+BF2-T000,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,2,2,0,f3f863c057514e2fa42102e414ff7322;e09690452f5a460f9c427e43f408428a
+BF2-T001,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,22939b769dbe4c30b3fd7d5ea3975755
+BF2-T002,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,2,2,0,28b2d8d4a49042c7bf3fa7378a036b2a;8df148459ded470aa17ac7fb6fd599ac
+BF2-T003,열풍 공기,process_context,candidate,고온·보온 상태 확인; 외피 RGB로 모재/내화물 판정 불가,2,2,1,211758a8458b466b99ec04d5ce888ca9;015c084ab27d48a897605ba313ec8453
+BF2-T004,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,56448934c9344e9980b81bae1e0a0dd3
+BF2-T005,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,f448b5283d684411967c3ffdec0765be
+BF2-T006,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,2178cab8836643eb8ab6d318c9d38193
+BF2-T007,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,d85429c7c8fe4b36a82c5c3b22811b38
+BF2-T008,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,5f2fcf8e3fa4430187c22a79044464a3
+BF2-T009,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,b4cdadaebad24f01a805ab9893f00bac
+BF2-T010,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,feb214cec7184e80b61e032ca65d5531
+BF2-T011,열풍 공기,process_context,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,e28cd712611f47e29a182e0281a3c9ac
+BF2-W001,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,4,4,0,cba488e40ea04d41ac2929a299bd26d1;d121105702f24b04827485d3717d10d9;7e38259390a24fca926f5f7f6162f88f;73449e7bb79c48c4a088066e03531450
+BF2-W002,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,7,7,0,dc9e747e034242bcbf26212ac976fd74;2d48b1fb6d6e4a5c8d13daeb83b86b36;8bf4d22500e44448ba81514a99715741;bc7a7efa1f484711b0ac8d71e3916b29;e628a2844d7a413f948c85f7f3916b40;fcb6091f091748d391b3e7ae0c9da0e5;659cd9b664a64e5b96c98814966b0b07
+BF2-W003,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,6,6,0,b4c9883e00c94ca18b8235e63f1e8f55;1b312306440243d783b3678951b3c67b;e7f6f53151b64f78b2a69ff430ac7c97;859cfc9611404f85998125a80327f763;d5d37eab478f4a6590034b54d858f86b;6c7d1bb037cc4072a82c719f5100716c
+BF2-WR000,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,9bb54db44c4d4f69a359bd0224f00258;82a03477970640649f867d012a148b54;71d4407fd76f4a3f903eab5c3d358668
+BF2-WR001,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,86934a537ebd4dbe8abf6ce459562e1f;00e23e942c0247aea637c433ccde2654;78d236d73a574437a820f3086bc3e9a8
+BF2-WR002,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,c849858de1094d5ba38c0b8c448abf90;cc3271a6086e442ba18f0087d2f4e6a3;4d659754eda8425b9e1645a40cc6dc28
+BF2-WR003,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,05fcb26326b44999a994c730c6d9facd;49649508a6a448029f66904a4a92c1bd;df8dfa0bc2d24a70a6a1f50220cc7c28
+BF2-WR004,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,a5a656465263496eb8066767dd34d66b;21dc12c1a5e844ee97e5b3c9b8b2b17e;f9e6b84db63d4038a735ae2bd9629003
+BF2-WR005,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,33ce2e8e8efd4a309651662b3c77096c;c2d79a0fbb404ac6844c63d74a51f617;cd1818a90393483eaedec1d27731b604
+BF2-WR006,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,5322b8d8448a475ea3d7c6655e81a8b0;fa554084126f46468cd04185fbd7dfdd;a5d33b2d9bf04ba0b2fad330b6338ea2
+BF2-WR007,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,a6e010632cf44824aa578c67623399d2;c8ac20112735425682581baff9dcf2eb;c9f9200d176f4c0282e8bf993b4b0edf
+BF2-WR008,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,181dab8ca74043ecac5d972f11e75b5d;888687f01bf34b3386ea58ae70e0ed2a;c6b3348ee5744211b2a81e72496174bb
+BF2-WR009,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,83ca25240ae548f7b6f6f7cb8df99a18;257a82109973445993863eb492fa1630;4da2632d96744034aa4c1b5ba39baca5
+BF2-WR010,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,c02539379c224f738f29aaa5d90691b9;3e54164851eb4b8fa022f091131a221f;72756c7439cb4795b44a0047f2de482a
+BF2-WR011,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,dbbc5e7e12f34e8ba97384a0f2b06b2d;8c2b0da3e5894b84a4cf34c265f8b5ba;f618f9c4cf8942578841e9cb2a76ea08
+BF2-WRR000,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,9329421807c24907875656308c015675;bba243ae515c4e59b813840f020f52f0;9815518a1c8343e79057b9466bc41208
+BF2-WRR001,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,85cbdf52a20843d192dd1cb48662ff50;4d46c4b50f244ad193eb178f12ec53f0;d68388d5fbf54e868d88546cead1335a
+BF2-WRR002,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,29e89aedc5df4d2ab1d5c43b906b1ef1;2fb0d5c5ab0f4b99a618dccf9b24dc5c;77e956bd921d4ef38f51969fa0fbd02b
+BF2-WRR003,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,cad53f20fb7e40e2a2e0b45ce46b54f4;3595b0944736400faffcae7f6b0b22ea;9bf1aed1ce29437f946256546f1f40e1
+BF2-WRR004,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,5edd00873a0144b0ae3fe218e782b6cb;9226a379404843c1a3ead0ea227ab5c0;f80683066b9b4407b0cae6f6aa1385c1
+BF2-WRR005,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,1d85fcf28fe748ae9784020e22737567;462e5f0da9b54f6c83e29fd1c8e04998;c11d5dfba4764bf4ae55e2ecba985a63
+BF2-WRR006,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,c551d71002234ddfb0092f8d1307911d;129379bfab5349c695a7bb5efda8781d;a4a7f78a3c5f4c3a8c94ba7c9de9dae9
+BF2-WRR007,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,db0009bc840f4daabc5a805ed6088488;9cf7a0e15ae84a8a94dcf6366f3bb83a;653424d1d0e44b55bbe6c4210e551dbd
+BF2-WRR008,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,7f558c4d455a4e3d82c5f141190dd27f;112cd94a5ff945e7ae5d7d2298eb812d;ebd1b4a0c3fe4ebf93cd2a5a5b844af4
+BF2-WRR009,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,4fcdbf4cb076430a8187cff7f9470cf4;d47cc7b220c54ebd9bde1764bd9410e0;7c54a5d073ff4e1b85419915753cbb69
+BF2-WRR010,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,0e2aba6c203941319638f90fed4a0585;3fc914925d0f466490a917ab3e1ced79;7c77cf4fc6a547af9e9ebefbfb7abe45
+BF2-WRR011,냉각수 회수,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,5320e8d1abda42718617c78b5334737b;5132b734ced049f2bbd0b10701527dd4;b947e3d70c1b4fd58c3ffce094450e72
+BF2-WS000,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,657c9865223b4926815ec0179b758eac;51e8316dd3744ea289ed5133c4068880;a27df4427838413d94870d64e9d6f820
+BF2-WS001,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,9a40006b224b42fcabbc124e2d4393a3;e89b290d33cf4851bc6b216513dec1a4;a8423c8d279d448b88353fa7ac399312
+BF2-WS002,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,5749d68a269d4938bb255099c1d0634e;586e71a43e674c4b88ff5292692fd9fd;1bb17aa891224e3b877ece3e19aeb11a
+BF2-WS003,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,ec489cc8cca7467cad8a565a0b09c3f6;0b0099e49f914f97ad4bd77898eef86f;1d7d8109a5a641c39f38e3ce11222161
+BF2-WS004,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,bcec3bf38ffe4a4da121277aaef0654b;8fbca4ddaa244a3e8ccb46913d064edf;52c8e39ea060445d80ed37288a4fb651
+BF2-WS005,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,c98fea86e654467b97a5f69e7cf2a8bc;a86ab383fb7c40b9a7d2b178ad63b26b;92771e7f5eac4d01b93a829eb3d73277
+BF2-WS006,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,519612f0dfce4807abf8fc43ff7382d0;240d1705fd434a3095dffd6f0f4392e4;f88b763f3bea47ff9449cfd4d4c5eaad
+BF2-WS007,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,9c449cad16de4b87bf17f6a989d39a6e;cc58d8112f0f4066a726850336d18afa;d0dffc71a14d4294ac2f21d065a9ec2e
+BF2-WS008,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,92639a3876404b9e810ce6fe05cd3117;463148fc40804147b238506872a29bca;9be2ad9fcaa549209c3e255c65def208
+BF2-WS009,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,8e0513d06f60454a922c0bfbec60a201;7549a1847a17437db01fd2d7a4a656d6;0131c6e763604386b7c914fe9acc4561
+BF2-WS010,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,479d0b66c1c54a26852b3aecdad53d76;1716d8e4241c4fa5b3a1fc3db61a74f4;b8b325d60c2d4df385de6467dd4cd2a9
+BF2-WS011,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,13317356d6244ec6b33fe931e2c33e9d;1e774fd483b349a493972532e9ab666a;31eb7571eb1b4afab4f5ea7b2e049a50
+BF2-WSR000,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,7096038553d54a33abe4fc58be72caa5;7ff309b251734a65b5e19916b4efe73d;f63792b59f7b4d38a0d9c4b7355c03df
+BF2-WSR001,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,086815db14534ad2acf50810c8a94169;803325ad5b4c40b081206305de0ac255;7f1368e04ffc4397bea8820d0161f57d
+BF2-WSR002,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,1e0ee9d0774246ff9d83b93761f35155;18f471db47a1467b856c1956921724f5;174670bf542c47a389661d71edbbcff9
+BF2-WSR003,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,7152d6464a4c4e0ca81da2f06c517b97;03f19dcbc03b460a8b1d0869bbe62f38;1a1463a6d9e144b89da62068cae27a6a
+BF2-WSR004,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,6abe72b9f203409098af7b57161e777f;ea7813382ef24e5590f63a9a90b547c3;b674893c03ed4b4a843cc480d46ffbb5
+BF2-WSR005,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,5eedb23c991840f7b7fdc864b4c3739c;047d4abea9cb439f8bdd4681a5123054;42c4ae4f593641a5b4a8b2ecad074049
+BF2-WSR006,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,4b9477b69e8a4ad0ad6a8c91814f7980;2277a7a9b7fe498a88f25a6c7a4fb3b7;ef05136c57dd4834a706014a81aaec2a
+BF2-WSR007,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,dc81befb4716416b803bd2242b113b69;2d045b86e9eb472baa3a35ab7e17a101;df99ce358b2e4ff390a045b8f60e95c0
+BF2-WSR008,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,23e564456284496694e267348c754202;62541b97240d410ab5f7a74950323dff;7358bd47268940ed9ef47416972b04eb
+BF2-WSR009,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,9122b15e54e34cf4931f07195dc0f10c;341ea448a76a42499c22046118c8b63d;961b2f7571a64b4b8d8c418ab93e90c1
+BF2-WSR010,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,6c9a078918c749119f21f4769cf2fe5a;0b6f59eb0b12486f88f3622fd54d1354;ba704de939d946028f2609fb5b604b3c
+BF2-WSR011,냉각수 공급,primary_inspection,no_rgb_candidate,새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,e13e2f4661634df38587ff98fc985ffe;202ac3621ec64c6ab76a915167a5cc6d;265b252bca6c4511a4985543469a46c8
+UTIL-I001,계장공기 시험 계통,standalone_utility_demo,no_rgb_candidate,독립 유틸리티 시험대 · 새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,1d03f993c1b14d3ebff2c3bb852bff44
+UTIL-I002,계장공기 시험 계통,standalone_utility_demo,no_rgb_candidate,독립 유틸리티 시험대 · 새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,cec7f4f5aca840d7a3ca8f0fe418b6be
+UTIL-I003,계장공기 시험 계통,standalone_utility_demo,no_rgb_candidate,독립 유틸리티 시험대 · 새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,963462e6e5a7471a9ecb42fb5d9e3cb1;0877c989ffc74f40937dce9a4d7a1f4e;8aeccba662104edb83809db6635898d4
+UTIL-N001,질소 시험 계통,standalone_utility_demo,no_rgb_candidate,독립 유틸리티 시험대 · 새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,c03b7fca57384e13812a18f21034d919
+UTIL-N002,질소 시험 계통,standalone_utility_demo,no_rgb_candidate,독립 유틸리티 시험대 · 새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,bd984229eac3472ab860dfa945513de0
+UTIL-N003,질소 시험 계통,standalone_utility_demo,no_rgb_candidate,독립 유틸리티 시험대 · 새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,1,1,0,2079d91a69ad428f8dacd32ae811fc88
+UTIL-N004,질소 시험 계통,standalone_utility_demo,no_rgb_candidate,독립 유틸리티 시험대 · 새 RGB 후보 없음; 두께·보온재 내부·균열 건전성 미확인,3,3,0,6d68a54771354d37a9306392b07bc716;cd361b7b99ea4f7a88006c81feb23456;bf3ff8ef597c46f3b5927affff053fea

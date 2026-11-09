@@ -1,0 +1,12 @@
+# Preserve the byte-exact frozen geometry and route inputs across platforms.
+unity/** -text whitespace=cr-at-eol
+visualization/realism/baseline/** -text
+# Large required runtime datasets; clone with Git LFS.
+unity/MAEKInspection/Assets/MAEK/Source/maek_geometry.bytes filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Source/coupled_cfd_*.json filter=lfs diff=lfs merge=lfs -text
+visualization/hydraulics/coupled_cfd_*.json filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Generated/Meshes/*.asset filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Scenes/*.unity filter=lfs diff=lfs merge=lfs -text
+unity/MAEKInspection/Assets/MAEK/Source/cfd_playback.json filter=lfs diff=lfs merge=lfs -text
+visualization/cfd/cfd_playback.json filter=lfs diff=lfs merge=lfs -text
+visualization/cfd/shaft_result.json filter=lfs diff=lfs merge=lfs -text

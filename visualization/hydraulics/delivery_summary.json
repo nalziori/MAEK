@@ -1,0 +1,314 @@
+{
+  "status": "PASS",
+  "pipes": 247,
+  "services": 14,
+  "scenarios": 3,
+  "hydraulic_tests": 8,
+  "original_cfd_tests": 7,
+  "unity_checks": 263,
+  "hearth_cases": 2,
+  "hearth_cells": 20224,
+  "hearth_duration_s": 12,
+  "shaft_cells": 1496,
+  "shaft_duration_s": 30,
+  "package_assets_matched": 12,
+  "artifacts": {
+    "maek_hydraulic_cfd.blend": {
+      "bytes": 126552681,
+      "sha256": "83c2d3150ed19493541f0771449a566871fb41979aeb59e75742ed18ec662963"
+    },
+    "MAEK_Hydraulic_CFD.unitypackage": {
+      "bytes": 46799288,
+      "sha256": "c191e28ec944f1c39ceaceb120c40d6767551c2594a5dc053336c782cd2147b5"
+    },
+    "pipe_pressure_flow.csv": {
+      "bytes": 150796,
+      "sha256": "047e878ab99cd41de377d0f8af3cbb1e9b777d4f9d759321670481d1d9e4070c"
+    },
+    "HYDRAULIC_CFD_GUIDE.md": {
+      "bytes": 10079,
+      "sha256": "da44783f3223abed723ce56793f67d5381de6f90bfe90ff800002517924fe2c0"
+    },
+    "hydraulic_overview.png": {
+      "bytes": 656950,
+      "sha256": "8baf510b3744a52b2fc90f42e44e19180610163f57d8168f7183c360a3539575"
+    },
+    "hydraulic_pipe_detail.png": {
+      "bytes": 818668,
+      "sha256": "d1be8010f420cde0c0e8b3d33258574e4c19d770617ab135db55595322b6c82a"
+    },
+    "coupled_shaft_pressure.png": {
+      "bytes": 576547,
+      "sha256": "7e594b29d97ded72f0bed6196eca6f373a1a0f203d6e3e3b9c7eee7897cc410c"
+    },
+    "coupled_shaft_speed.png": {
+      "bytes": 576838,
+      "sha256": "e7c6e4ab8fe72da88edb038c0b82533c2ac00c7849ea0d0eaaf5672de01f0c61"
+    }
+  },
+  "baseline_cfd_reference_preserved": true,
+  "case_summary": [
+    {
+      "id": "baseline",
+      "furnaces": [
+        {
+          "time_s": 30.0,
+          "cells": 1496,
+          "pressure_residual_m3_s": 1.2789769243681803e-13,
+          "atom_residual_kmol": [
+            0.0,
+            2.2315482794965646e-14,
+            -2.7150504067208203e-13,
+            2.2082335959794364e-13
+          ],
+          "energy_residual_j": 0.0006286418065428734,
+          "produced_iron_kg": 29.551197585962832,
+          "iron_generation_kg_s": 1.033772427094509,
+          "temperature_range_k": [
+            767.3054874100609,
+            1834.025007360003
+          ],
+          "co_fraction_range": [
+            0.23238193800266213,
+            0.346128202531517
+          ],
+          "minimum_species_kmol": 2.532254238826608e-06,
+          "unit": "BF1",
+          "top_pressure_pa_abs": 102128.73641594891,
+          "gas_feed_m3_s": 42.978055401832194,
+          "gas_feed_kg_s": 7.782516369619008,
+          "blast_mass_kg_s": 6.6247177738620024,
+          "inlet_flows_m3_s": [
+            4.062878225470631,
+            7.331196730017021,
+            3.547405520402384,
+            6.841520258209478,
+            3.4773091836732974,
+            6.840614672506186,
+            3.5493402485418617,
+            7.327790563011331
+          ],
+          "coupling_pressure_residual_pa": 5.811307346448302e-07
+        },
+        {
+          "time_s": 30.0,
+          "cells": 1496,
+          "pressure_residual_m3_s": 1.3500311979441904e-13,
+          "atom_residual_kmol": [
+            0.0,
+            2.09277040141842e-14,
+            -3.003708393123361e-13,
+            2.1393997684526767e-13
+          ],
+          "energy_residual_j": 0.000639699399471283,
+          "produced_iron_kg": 29.551197585961823,
+          "iron_generation_kg_s": 1.0337724270944755,
+          "temperature_range_k": [
+            767.3054874100607,
+            1834.0250073600025
+          ],
+          "co_fraction_range": [
+            0.23238193800267953,
+            0.3461282025315157
+          ],
+          "minimum_species_kmol": 2.5322542388281095e-06,
+          "unit": "BF2",
+          "top_pressure_pa_abs": 102128.73641594891,
+          "gas_feed_m3_s": 42.97805540183193,
+          "gas_feed_kg_s": 7.7825163696189605,
+          "blast_mass_kg_s": 6.624717773861962,
+          "inlet_flows_m3_s": [
+            4.062878225466675,
+            7.331196730012816,
+            3.5474055204043125,
+            6.841520258214413,
+            3.4773091836723458,
+            6.840614672506124,
+            3.549340248540662,
+            7.327790563014583
+          ],
+          "coupling_pressure_residual_pa": 5.804613465443254e-07
+        }
+      ],
+      "mass_residual_kg_s": 1.1368683772161603e-13,
+      "pressure_residual_pa": 5.9117965975019615e-05
+    },
+    {
+      "id": "reduced_blast",
+      "furnaces": [
+        {
+          "time_s": 30.0,
+          "cells": 1496,
+          "pressure_residual_m3_s": 8.881784197001252e-14,
+          "atom_residual_kmol": [
+            -1.8189894035458565e-11,
+            3.5083047578154947e-14,
+            -2.6461138835642828e-11,
+            1.0369483049998962e-13
+          ],
+          "energy_residual_j": -0.0002548610791563988,
+          "produced_iron_kg": 27.28447199591159,
+          "iron_generation_kg_s": 0.9633103110044753,
+          "temperature_range_k": [
+            767.2719907096202,
+            1833.6706195856411
+          ],
+          "co_fraction_range": [
+            0.1969595597499171,
+            0.34572537144285836
+          ],
+          "minimum_species_kmol": 3.5637799590435624e-06,
+          "unit": "BF1",
+          "top_pressure_pa_abs": 101837.96505210715,
+          "gas_feed_m3_s": 30.50722086080991,
+          "gas_feed_kg_s": 5.508554893291606,
+          "blast_mass_kg_s": 4.689051686719408,
+          "inlet_flows_m3_s": [
+            2.891279550698844,
+            5.187638329412259,
+            2.5310240063810645,
+            4.848744392581871,
+            2.4834163807807355,
+            4.847882666994019,
+            2.532879753390414,
+            5.1843557805707015
+          ],
+          "coupling_pressure_residual_pa": 6.340706022456288e-07
+        },
+        {
+          "time_s": 30.0,
+          "cells": 1496,
+          "pressure_residual_m3_s": 1.3500311979441904e-13,
+          "atom_residual_kmol": [
+            0.0,
+            2.09277040141842e-14,
+            -3.003708393123361e-13,
+            2.1393997684526767e-13
+          ],
+          "energy_residual_j": 0.000639699399471283,
+          "produced_iron_kg": 29.551197585961823,
+          "iron_generation_kg_s": 1.0337724270944755,
+          "temperature_range_k": [
+            767.3054874100607,
+            1834.0250073600025
+          ],
+          "co_fraction_range": [
+            0.23238193800267953,
+            0.3461282025315157
+          ],
+          "minimum_species_kmol": 2.5322542388281095e-06,
+          "unit": "BF2",
+          "top_pressure_pa_abs": 102128.73641594891,
+          "gas_feed_m3_s": 42.97805540183193,
+          "gas_feed_kg_s": 7.7825163696189605,
+          "blast_mass_kg_s": 6.624717773861962,
+          "inlet_flows_m3_s": [
+            4.062878225466675,
+            7.331196730012816,
+            3.5474055204043125,
+            6.841520258214413,
+            3.4773091836723458,
+            6.840614672506124,
+            3.549340248540662,
+            7.327790563014583
+          ],
+          "coupling_pressure_residual_pa": 5.804613465443254e-07
+        }
+      ],
+      "mass_residual_kg_s": 1.1368683772161603e-13,
+      "pressure_residual_pa": 5.9117965975019615e-05
+    },
+    {
+      "id": "utility_test",
+      "furnaces": [
+        {
+          "time_s": 30.0,
+          "cells": 1496,
+          "pressure_residual_m3_s": 1.2789769243681803e-13,
+          "atom_residual_kmol": [
+            0.0,
+            2.2315482794965646e-14,
+            -2.7150504067208203e-13,
+            2.2082335959794364e-13
+          ],
+          "energy_residual_j": 0.0006286418065428734,
+          "produced_iron_kg": 29.551197585962832,
+          "iron_generation_kg_s": 1.033772427094509,
+          "temperature_range_k": [
+            767.3054874100609,
+            1834.025007360003
+          ],
+          "co_fraction_range": [
+            0.23238193800266213,
+            0.346128202531517
+          ],
+          "minimum_species_kmol": 2.532254238826608e-06,
+          "unit": "BF1",
+          "top_pressure_pa_abs": 102128.73641594891,
+          "gas_feed_m3_s": 42.978055401832194,
+          "gas_feed_kg_s": 7.782516369619008,
+          "blast_mass_kg_s": 6.6247177738620024,
+          "inlet_flows_m3_s": [
+            4.062878225470631,
+            7.331196730017021,
+            3.547405520402384,
+            6.841520258209478,
+            3.4773091836732974,
+            6.840614672506186,
+            3.5493402485418617,
+            7.327790563011331
+          ],
+          "coupling_pressure_residual_pa": 5.811307346448302e-07
+        },
+        {
+          "time_s": 30.0,
+          "cells": 1496,
+          "pressure_residual_m3_s": 1.3500311979441904e-13,
+          "atom_residual_kmol": [
+            0.0,
+            2.09277040141842e-14,
+            -3.003708393123361e-13,
+            2.1393997684526767e-13
+          ],
+          "energy_residual_j": 0.000639699399471283,
+          "produced_iron_kg": 29.551197585961823,
+          "iron_generation_kg_s": 1.0337724270944755,
+          "temperature_range_k": [
+            767.3054874100607,
+            1834.0250073600025
+          ],
+          "co_fraction_range": [
+            0.23238193800267953,
+            0.3461282025315157
+          ],
+          "minimum_species_kmol": 2.5322542388281095e-06,
+          "unit": "BF2",
+          "top_pressure_pa_abs": 102128.73641594891,
+          "gas_feed_m3_s": 42.97805540183193,
+          "gas_feed_kg_s": 7.7825163696189605,
+          "blast_mass_kg_s": 6.624717773861962,
+          "inlet_flows_m3_s": [
+            4.062878225466675,
+            7.331196730012816,
+            3.5474055204043125,
+            6.841520258214413,
+            3.4773091836723458,
+            6.840614672506124,
+            3.549340248540662,
+            7.327790563014583
+          ],
+          "coupling_pressure_residual_pa": 5.804613465443254e-07
+        }
+      ],
+      "mass_residual_kg_s": 1.1368683772161603e-13,
+      "pressure_residual_pa": 5.9117965975019615e-05
+    }
+  ],
+  "limitations": [
+    "Assumed operating conditions, not plant calibration",
+    "Two-way steady Darcy hydraulics; no reaction-density feedback",
+    "One-way gas pressure/nozzle closure to VOF; fixed initial head",
+    "Precomputed scenarios, not a live OpenFOAM solver in Unity",
+    "Blender baked animation shows the baseline case"
+  ]
+}

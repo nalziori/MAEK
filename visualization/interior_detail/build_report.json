@@ -1,0 +1,12 @@
+{
+    "status": "PASS",
+    "scope": "Five existing rooms; unchanged 247 process IDs. Added cold mock spools are visual training fixtures, not hydraulic/MAEK-analysis circuits.",
+    "rooms": 5,
+    "stations": 16,
+    "closedSpools": 12,
+    "physicalFixtures": 940,
+    "omittedAssemblies": 1,
+    "omissions": [
+        "BF2.CASTHOUSE entry signage: reserved flight/view/access space"
+    ]
+}

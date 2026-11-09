@@ -1,0 +1,123 @@
+{
+  "version": 1,
+  "processName": "고로 제선 · 용선 생산",
+  "processFlow": "원료 장입 → 고로 환원·용융 → 주상 출선 → 용선 운반 → 제강",
+  "numericalScope": "가정 조건 계산 · 현장 미보정 · 실규모 운전 재현 아님",
+  "assumptions": "송풍기 Δp 3.0 kPa · 내경/외경 0.9 · 냉각수 공급/회수 303 K 가정",
+  "scopeNote": "RGB 부식 후보 선별 → 후속 검사 안내. 열화상·UT·PEC 실측/위험 순위는 미연결.",
+  "missingSystems": "고로 질소 퍼지·장입부 실링, 산소 부화, PCI 분탄, 풍구별 상세 냉각: 본 시연 구현 범위 밖",
+  "services": [
+    {
+      "code": "BFG_RAW",
+      "label": "미정제 고로가스",
+      "role": "primary_inspection",
+      "chain": "노정 → 집진기",
+      "inspection": "외면 부식·곡관/용접부 마모 후보",
+      "followUp": "가스 차단·작업 조건 확인 후 UT 두께 검사"
+    },
+    {
+      "code": "BFG_DEDUST",
+      "label": "1차 집진 고로가스",
+      "role": "primary_inspection",
+      "chain": "집진기 → 세정기",
+      "inspection": "외면 부식·마모 후보",
+      "followUp": "가스 계통 작업 조건 확인 후 UT 두께 검사"
+    },
+    {
+      "code": "BFG_CLEAN",
+      "label": "정제 고로가스",
+      "role": "primary_inspection",
+      "chain": "세정기 → TRT → 가스 헤더 → 열풍로/보일러",
+      "inspection": "외면 부식·응축수 구간 후보",
+      "followUp": "가스 계통 격리 조건 검토 후 UT; 누설은 별도 확인"
+    },
+    {
+      "code": "CW_SUPPLY",
+      "label": "냉각수 공급",
+      "role": "primary_inspection",
+      "chain": "열교환기 → 펌프 → 공급 환상관 → 스테이브",
+      "inspection": "외면 부식·접합부 후보",
+      "followUp": "접근·운전 조건 확인 후 UT 두께 검사"
+    },
+    {
+      "code": "CW_RETURN",
+      "label": "냉각수 회수",
+      "role": "primary_inspection",
+      "chain": "스테이브 → 회수 환상관 → 열교환기",
+      "inspection": "외면 부식·접합부 후보",
+      "followUp": "접근·운전 조건 확인 후 UT 두께 검사"
+    },
+    {
+      "code": "WASH",
+      "label": "고로가스 세정수",
+      "role": "primary_inspection",
+      "chain": "침전조/보충수 → 펌프 → 세정기",
+      "inspection": "외면 부식·접합부 후보",
+      "followUp": "UT 두께 검사; 내부 침식은 별도 평가"
+    },
+    {
+      "code": "SLURRY",
+      "label": "세정 슬러리",
+      "role": "primary_inspection",
+      "chain": "세정기 → 침전조 → 슬러지 회수",
+      "inspection": "외면 부식·곡관 마모 후보",
+      "followUp": "UT 두께 검사; 슬러리 침식 조건 확인"
+    },
+    {
+      "code": "COLD_BLAST",
+      "label": "냉풍 공기",
+      "role": "process_context",
+      "chain": "송풍기 → 송풍 중인 열풍로",
+      "inspection": "외면·접합부 후보",
+      "followUp": "접근·운전 조건 확인 후 UT 적용 검토"
+    },
+    {
+      "code": "HOT_BLAST",
+      "label": "열풍 공기",
+      "role": "process_context",
+      "chain": "열풍로 → 열풍 헤더 → 환상관 → 풍구",
+      "inspection": "외피 손상·열화 후보",
+      "followUp": "고온·보온 상태 확인; 외피 RGB로 모재/내화물 판정 불가"
+    },
+    {
+      "code": "COMB_AIR",
+      "label": "열풍로 연소공기",
+      "role": "process_context",
+      "chain": "연소공기 송풍기 → 가열 중인 열풍로",
+      "inspection": "외면·접합부 후보",
+      "followUp": "운전 조건 확인 후 후속 외관/UT 적용 검토"
+    },
+    {
+      "code": "FLUE",
+      "label": "연소 배기가스",
+      "role": "process_context",
+      "chain": "열풍로/보일러 → 배기 헤더 → 굴뚝",
+      "inspection": "외피 손상·부식 후보",
+      "followUp": "고온·보온 상태 확인 후 검사 방법 선정"
+    },
+    {
+      "code": "TRAIN_CW",
+      "label": "주상 훈련 냉각수",
+      "role": "training_only",
+      "chain": "훈련 펌프 → 모의 검사부 → 훈련 펌프",
+      "inspection": "훈련용 외면 부식 후보",
+      "followUp": "훈련 대상; 실제 주상 공정 결함으로 집계하지 않음"
+    },
+    {
+      "code": "N2",
+      "label": "질소 시험 계통",
+      "role": "standalone_utility_demo",
+      "chain": "시험 공급원 → 조절기 → 차단밸브 → 시험 챔버 → 회수",
+      "inspection": "독립 시험대의 배관 외면",
+      "followUp": "고로 퍼지/실링 사용처 미연결; 실제 공급 계통으로 소개 금지"
+    },
+    {
+      "code": "INSTR_AIR",
+      "label": "계장공기 시험 계통",
+      "role": "standalone_utility_demo",
+      "chain": "시험 공급원 → 건조기 → 조절기 → 질소밸브 액추에이터",
+      "inspection": "독립 시험대의 배관 외면",
+      "followUp": "액추에이터 공기와 질소 유체는 분리; 고로 전체 계장망 아님"
+    }
+  ]
+}

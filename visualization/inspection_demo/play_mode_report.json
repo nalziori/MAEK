@@ -1,0 +1,15 @@
+{
+    "status": "PASS",
+    "reason": "",
+    "session": "C:/Users/hyjuy/AppData/LocalLow/DefaultCompany/MAEKInspection\\MAEK-recordings\\20261109-093310-645",
+    "recording": "C:/Users/hyjuy/AppData/LocalLow/DefaultCompany/MAEKInspection\\MAEK-recordings\\20261109-093310-645\\video-093314-439",
+    "captures": 771,
+    "findings": 40,
+    "recordedFrames": 24,
+    "coveredPipes": 247,
+    "expectedCaptures": 771,
+    "collisionSteps": 20832,
+    "completed": true,
+    "maxMovementStep": 1.2000035047531129,
+    "maxRotationStep": 6.000836372375488
+}

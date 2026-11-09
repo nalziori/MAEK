@@ -1,0 +1,13 @@
+{
+  "trace_seconds": 600,
+  "trace_rows": 601,
+  "tap_open_seconds": [
+    30,
+    400
+  ],
+  "generated_iron_kg": 10287.015638791,
+  "tapped_kg": 28706.0992960567,
+  "received_kg": 28564.421802655692,
+  "remaining_runner_kg": 141.6774934011717,
+  "max_transfer_residual_kg": 3.637978807091713e-10
+}

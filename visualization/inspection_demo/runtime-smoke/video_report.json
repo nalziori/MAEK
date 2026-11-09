@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "frames": 24,
+  "duration_s": 2.0,
+  "fps": 12,
+  "dimensions": [
+    640,
+    360
+  ],
+  "file": "D:\\obsd\\Projects\\hackerton\\MAEK\\visualization\\inspection_demo\\runtime-smoke\\MAEK_runtime_recording.mp4",
+  "bytes": 52241,
+  "decoded_without_errors": true,
+  "frames_with_result_labels": 24
+}

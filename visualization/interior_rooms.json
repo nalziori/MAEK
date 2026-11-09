@@ -1,0 +1,67 @@
+{
+  "rooms": [
+    {
+      "id": "SERVICE.-97",
+      "x": -97.0,
+      "y": 109.0,
+      "width": 72.0,
+      "depth": 28.0,
+      "height": 15.0,
+      "kind": "SERVICE_HALL"
+    },
+    {
+      "id": "SERVICE.0",
+      "x": 0.0,
+      "y": 116.0,
+      "width": 80.0,
+      "depth": 30.0,
+      "height": 16.0,
+      "kind": "SERVICE_HALL"
+    },
+    {
+      "id": "SERVICE.99",
+      "x": 99.0,
+      "y": 113.0,
+      "width": 75.0,
+      "depth": 32.0,
+      "height": 18.0,
+      "kind": "SERVICE_HALL"
+    },
+    {
+      "id": "BF1.CASTHOUSE",
+      "x": -62.0,
+      "y": 53.0,
+      "width": 23.0,
+      "depth": 24.0,
+      "height": 11.0,
+      "kind": "CASTHOUSE"
+    },
+    {
+      "id": "BF1.STOCKHOUSE",
+      "x": -62.0,
+      "y": 73.0,
+      "width": 16.0,
+      "depth": 13.0,
+      "height": 15.0,
+      "kind": "STOCKHOUSE"
+    },
+    {
+      "id": "BF2.CASTHOUSE",
+      "x": 62.0,
+      "y": 53.0,
+      "width": 23.0,
+      "depth": 24.0,
+      "height": 11.0,
+      "kind": "CASTHOUSE"
+    },
+    {
+      "id": "BF2.STOCKHOUSE",
+      "x": 62.0,
+      "y": 73.0,
+      "width": 16.0,
+      "depth": 13.0,
+      "height": 15.0,
+      "kind": "STOCKHOUSE"
+    }
+  ]
+}

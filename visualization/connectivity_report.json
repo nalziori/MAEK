@@ -1,0 +1,372 @@
+{
+  "status": "PASS",
+  "scope": "Pipe endpoints, graph reachability, explicit stove isolation, pairwise pipe centerline clearance with pipe radii. Not pressure/flow, wall thickness, structural clashes, support loads or engineering-code validation.",
+  "devices": 60,
+  "lines": 236,
+  "nodes": 272,
+  "required_flow_routes": 60,
+  "topology_errors": [],
+  "pipe_clashes": [],
+  "flow_checks": [
+    {
+      "from": "BF1.BF.G1",
+      "to": "BF1.BO.G",
+      "caption": "BF1 clean gas to boiler",
+      "pass": true
+    },
+    {
+      "from": "BF1.BF.G1",
+      "to": "BF1.ST2.GAS",
+      "caption": "BF1 clean gas to firing stove",
+      "pass": true
+    },
+    {
+      "from": "BF1.CB.INTAKE",
+      "to": "BF1.BF.T0",
+      "caption": "BF1 blower to tuyere through stove 1",
+      "pass": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 cooling supply to return through staves",
+      "pass": true
+    },
+    {
+      "from": "BF1.SET.OUT",
+      "to": "BF1.SET.IN",
+      "caption": "BF1 scrubber wash recirculation",
+      "pass": true
+    },
+    {
+      "from": "BF1.ST2.FLUE",
+      "to": "BF1.STK.VENT",
+      "caption": "BF1 stove exhaust to stack",
+      "pass": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE0.IN",
+      "caption": "BF1 stave 0 supply",
+      "pass": true
+    },
+    {
+      "from": "BF1.STAVE0.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 0 return",
+      "pass": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE1.IN",
+      "caption": "BF1 stave 1 supply",
+      "pass": true
+    },
+    {
+      "from": "BF1.STAVE1.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 1 return",
+      "pass": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE2.IN",
+      "caption": "BF1 stave 2 supply",
+      "pass": true
+    },
+    {
+      "from": "BF1.STAVE2.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 2 return",
+      "pass": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE3.IN",
+      "caption": "BF1 stave 3 supply",
+      "pass": true
+    },
+    {
+      "from": "BF1.STAVE3.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 3 return",
+      "pass": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE4.IN",
+      "caption": "BF1 stave 4 supply",
+      "pass": true
+    },
+    {
+      "from": "BF1.STAVE4.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 4 return",
+      "pass": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE5.IN",
+      "caption": "BF1 stave 5 supply",
+      "pass": true
+    },
+    {
+      "from": "BF1.STAVE5.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 5 return",
+      "pass": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE6.IN",
+      "caption": "BF1 stave 6 supply",
+      "pass": true
+    },
+    {
+      "from": "BF1.STAVE6.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 6 return",
+      "pass": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE7.IN",
+      "caption": "BF1 stave 7 supply",
+      "pass": true
+    },
+    {
+      "from": "BF1.STAVE7.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 7 return",
+      "pass": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE8.IN",
+      "caption": "BF1 stave 8 supply",
+      "pass": true
+    },
+    {
+      "from": "BF1.STAVE8.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 8 return",
+      "pass": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE9.IN",
+      "caption": "BF1 stave 9 supply",
+      "pass": true
+    },
+    {
+      "from": "BF1.STAVE9.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 9 return",
+      "pass": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE10.IN",
+      "caption": "BF1 stave 10 supply",
+      "pass": true
+    },
+    {
+      "from": "BF1.STAVE10.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 10 return",
+      "pass": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE11.IN",
+      "caption": "BF1 stave 11 supply",
+      "pass": true
+    },
+    {
+      "from": "BF1.STAVE11.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 11 return",
+      "pass": true
+    },
+    {
+      "from": "BF2.BF.G1",
+      "to": "BF2.BO.G",
+      "caption": "BF2 clean gas to boiler",
+      "pass": true
+    },
+    {
+      "from": "BF2.BF.G1",
+      "to": "BF2.ST2.GAS",
+      "caption": "BF2 clean gas to firing stove",
+      "pass": true
+    },
+    {
+      "from": "BF2.CB.INTAKE",
+      "to": "BF2.BF.T0",
+      "caption": "BF2 blower to tuyere through stove 1",
+      "pass": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 cooling supply to return through staves",
+      "pass": true
+    },
+    {
+      "from": "BF2.SET.OUT",
+      "to": "BF2.SET.IN",
+      "caption": "BF2 scrubber wash recirculation",
+      "pass": true
+    },
+    {
+      "from": "BF2.ST2.FLUE",
+      "to": "BF2.STK.VENT",
+      "caption": "BF2 stove exhaust to stack",
+      "pass": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE0.IN",
+      "caption": "BF2 stave 0 supply",
+      "pass": true
+    },
+    {
+      "from": "BF2.STAVE0.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 0 return",
+      "pass": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE1.IN",
+      "caption": "BF2 stave 1 supply",
+      "pass": true
+    },
+    {
+      "from": "BF2.STAVE1.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 1 return",
+      "pass": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE2.IN",
+      "caption": "BF2 stave 2 supply",
+      "pass": true
+    },
+    {
+      "from": "BF2.STAVE2.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 2 return",
+      "pass": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE3.IN",
+      "caption": "BF2 stave 3 supply",
+      "pass": true
+    },
+    {
+      "from": "BF2.STAVE3.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 3 return",
+      "pass": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE4.IN",
+      "caption": "BF2 stave 4 supply",
+      "pass": true
+    },
+    {
+      "from": "BF2.STAVE4.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 4 return",
+      "pass": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE5.IN",
+      "caption": "BF2 stave 5 supply",
+      "pass": true
+    },
+    {
+      "from": "BF2.STAVE5.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 5 return",
+      "pass": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE6.IN",
+      "caption": "BF2 stave 6 supply",
+      "pass": true
+    },
+    {
+      "from": "BF2.STAVE6.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 6 return",
+      "pass": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE7.IN",
+      "caption": "BF2 stave 7 supply",
+      "pass": true
+    },
+    {
+      "from": "BF2.STAVE7.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 7 return",
+      "pass": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE8.IN",
+      "caption": "BF2 stave 8 supply",
+      "pass": true
+    },
+    {
+      "from": "BF2.STAVE8.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 8 return",
+      "pass": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE9.IN",
+      "caption": "BF2 stave 9 supply",
+      "pass": true
+    },
+    {
+      "from": "BF2.STAVE9.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 9 return",
+      "pass": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE10.IN",
+      "caption": "BF2 stave 10 supply",
+      "pass": true
+    },
+    {
+      "from": "BF2.STAVE10.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 10 return",
+      "pass": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE11.IN",
+      "caption": "BF2 stave 11 supply",
+      "pass": true
+    },
+    {
+      "from": "BF2.STAVE11.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 11 return",
+      "pass": true
+    }
+  ]
+}

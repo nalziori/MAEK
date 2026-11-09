@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "numerical_tests": 7,
+  "cfd_checks": 12,
+  "unity_checks": 263,
+  "retained_drone_routes": 240,
+  "retained_mesh_colliders": 323,
+  "saved_blender_frames_checked": 3,
+  "matched_packaged_assets": 8,
+  "source_archive_files": 383,
+  "cache_sha256": "39bad27201fccb35ae0929755be63392d11f22a11ffe7a3557399a60e236f111",
+  "scope": "3D isothermal VOF hearth; independent 3D reactive Darcy shaft; offline playback.",
+  "remaining_limits": "No full-furnace two-way coupling or plant validation; local velocity is not grid independent. No resolved taphole or 3D external runner.",
+  "artifacts": {
+    "maek_furnace_cfd.blend": 54228602,
+    "MAEK_Furnace_CFD.unitypackage": 33492371,
+    "CFD_Source_and_Results.zip": 29715777,
+    "CFD_GUIDE.md": 9206
+  }
+}

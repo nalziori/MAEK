@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "status": "PASS",
+  "scope": "All 247 pipes, sampled synthetic RGB inspection; not complete surface or future crack prediction",
+  "pipes": 247,
+  "captures_per_run": 771,
+  "waypoints": 2376,
+  "original_waypoints_preserved": 1938,
+  "distance_m": 4262.77392578125,
+  "inter_pipe_transfers": 246,
+  "overview_approaches": 1,
+  "build_checks": 3641,
+  "integration_checks": 772,
+  "python_tests_passed": 11,
+  "editor_findings": 17,
+  "play_mode_findings": 16,
+  "play_mode_collision_steps": 20832,
+  "play_mode_recorded_frames": 24,
+  "recording_smoke": {
+    "status": "PASS",
+    "frames": 24,
+    "duration_s": 2.0,
+    "fps": 12,
+    "dimensions": [
+      640,
+      360
+    ],
+    "file": "D:\\obsd\\Projects\\hackerton\\MAEK\\visualization\\inspection_demo\\full-network-runtime-smoke\\MAEK_247_runtime_recording.mp4",
+    "bytes": 163525,
+    "decoded_without_errors": true,
+    "frames_with_result_labels": 0
+  },
+  "source_files_sealed": 486,
+  "full_network_movie_generated": false,
+  "legacy_video_scope": "MAEK_inspection_demo.mp4 and record_report.json are historical three-pipe artifacts",
+  "known_nonblocking_editor_issue": "One startup ArgumentOutOfRangeException in UnityEditor.Search.SearchDatabase; full MAEK Play-mode verification completed",
+  "csv": "D:\\obsd\\Projects\\hackerton\\MAEK\\visualization\\inspection_demo\\pipe_inspection_summary.csv",
+  "guide": "D:\\obsd\\Projects\\hackerton\\MAEK\\docs\\inspection-demo.md"
+}

@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "pipes": 247,
+  "animated_flow_markers": 218,
+  "saved_file_reopened": true,
+  "verified_hearth_frames": [
+    1,
+    145,
+    289
+  ],
+  "baseline_only_animation": true,
+  "coupled_cases_embedded": 3
+}
