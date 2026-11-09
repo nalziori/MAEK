@@ -1,0 +1,129 @@
+{
+  "case": "hearth_fine",
+  "cells": 20224,
+  "cell_m": 0.25,
+  "duration_s": 12.0,
+  "mesh_ok": true,
+  "solver_finished": true,
+  "alpha_min": -2.98824658054e-07,
+  "alpha_max": 1.00000029876,
+  "phase_sum_max_error": 1.0354372914633814e-10,
+  "iron_volume_balance_error_m3": 0.00014222821142906295,
+  "iron_volume_balance_relative_inventory": 1.0287754895411424e-06,
+  "tap_flux_max_error_m3_s": 4.19976553533985e-15,
+  "initial_phase_volume_m3": [
+    138.25,
+    59.25,
+    118.5
+  ],
+  "final_phase_volume_m3": [
+    138.11693810505446,
+    59.249873409063326,
+    118.6331884854535
+  ],
+  "max_speed_m_s": 2.241785757498481,
+  "time": [
+    0.0,
+    1.0,
+    2.0,
+    3.0,
+    4.0,
+    5.0,
+    6.0,
+    7.0,
+    8.0,
+    9.0,
+    10.0,
+    11.0,
+    12.0
+  ],
+  "iron_out_m3": [
+    0.0,
+    0.011173624149222405,
+    0.022289201295535577,
+    0.033391475144810556,
+    0.044475676309133405,
+    0.055519640141909576,
+    0.06659107119205032,
+    0.07766507886603335,
+    0.08873802512300699,
+    0.09981310083128392,
+    0.11088760617198545,
+    0.1219817148422635,
+    0.13306189494554133
+  ],
+  "declared_tap_m3": [
+    0.0,
+    0.0111003435964142,
+    0.0222006871928284,
+    0.0333010307892426,
+    0.0444013743856568,
+    0.055501717982071,
+    0.0666020615784852,
+    0.0777024051748994,
+    0.0888027487713136,
+    0.09990309236772779,
+    0.111003435964142,
+    0.1221037795605562,
+    0.1332041231569704
+  ],
+  "playback_sha256": "39bad27201fccb35ae0929755be63392d11f22a11ffe7a3557399a60e236f111",
+  "shaft": {
+    "time_s": 120.0,
+    "cells": 1496,
+    "pressure_residual_m3_s": 4.263256414560601e-14,
+    "atom_residual_kmol": [
+      -1.4551915228366852e-11,
+      1.3722356584366935e-13,
+      -1.7551293751694175e-11,
+      -3.8458125573015423e-13
+    ],
+    "energy_residual_j": -0.0003220587968826294,
+    "produced_iron_kg": 366.8345898160319,
+    "iron_generation_kg_s": 3.1024584117498315,
+    "temperature_range_k": [
+      767.6963227366236,
+      1837.5385782515277
+    ],
+    "co_fraction_range": [
+      0.09564985283771889,
+      0.39559299939312853
+    ],
+    "minimum_species_kmol": 4.407000606869728e-05
+  },
+  "checks": {
+    "mesh": true,
+    "solver": true,
+    "duration": true,
+    "bounded_phases": true,
+    "phase_sum": true,
+    "inventory_balance": true,
+    "tap_flux": true,
+    "shaft_atoms": true,
+    "shaft_energy": true,
+    "saved_surfaces": true,
+    "stationary_iron": true,
+    "closed_phase_inventory": true
+  },
+  "mesh_sensitivity": {
+    "coarse_cells": 2528,
+    "fine_cells": 20224,
+    "liquid_velocity_rms_difference_m_s": 0.0070090053687806644,
+    "fine_liquid_velocity_rms_m_s": 0.006478126595180493,
+    "iron_out_coarse_m3": 0.13265562993504432,
+    "iron_out_fine_m3": 0.13306189494554133,
+    "interpretation": "Two meshes only: sensitivity measurement, NOT grid independence."
+  },
+  "hydrostatic_check": {
+    "duration_s": 2.0,
+    "max_iron_speed_m_s": 5.251273187002289e-06,
+    "max_gas_or_interface_speed_m_s": 0.04256433201020026,
+    "phase_volume_drift_m3": [
+      4.277186227627753e-06,
+      0.00016340495169310363,
+      -0.00016768245830658577
+    ],
+    "interpretation": "Stationary liquid check; nonzero gas/interface spurious currents remain."
+  },
+  "status": "PASS"
+}

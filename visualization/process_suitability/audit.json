@@ -1,0 +1,473 @@
+{
+  "date": "2026-11-09",
+  "structural_status": "PASS",
+  "suitability": "CONDITIONAL: RGB rust demonstration; not validated plant engineering",
+  "pipe_count": 247,
+  "service_counts": {
+    "BFG_RAW": 6,
+    "BFG_DEDUST": 2,
+    "BFG_CLEAN": 18,
+    "FLUE": 14,
+    "COLD_BLAST": 12,
+    "HOT_BLAST": 60,
+    "COMB_AIR": 12,
+    "CW_SUPPLY": 52,
+    "CW_RETURN": 50,
+    "WASH": 6,
+    "SLURRY": 4,
+    "TRAIN_CW": 4,
+    "N2": 4,
+    "INSTR_AIR": 3
+  },
+  "role_counts": {
+    "primary_inspection": 138,
+    "process_context": 98,
+    "training_only": 4,
+    "standalone_utility_demo": 7
+  },
+  "required_routes": [
+    {
+      "from": "BF1.BF.G1",
+      "to": "BF1.BO.G",
+      "caption": "BF1 clean gas to boiler",
+      "connected": true
+    },
+    {
+      "from": "BF1.BF.G1",
+      "to": "BF1.ST2.GAS",
+      "caption": "BF1 clean gas to firing stove",
+      "connected": true
+    },
+    {
+      "from": "BF1.CB.INTAKE",
+      "to": "BF1.BF.T0",
+      "caption": "BF1 blower to tuyere through stove 1",
+      "connected": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 cooling supply to return through staves",
+      "connected": true
+    },
+    {
+      "from": "BF1.SET.OUT",
+      "to": "BF1.SET.IN",
+      "caption": "BF1 scrubber wash recirculation",
+      "connected": true
+    },
+    {
+      "from": "BF1.ST2.FLUE",
+      "to": "BF1.STK.VENT",
+      "caption": "BF1 stove exhaust to stack",
+      "connected": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE0.IN",
+      "caption": "BF1 stave 0 supply",
+      "connected": true
+    },
+    {
+      "from": "BF1.STAVE0.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 0 return",
+      "connected": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE1.IN",
+      "caption": "BF1 stave 1 supply",
+      "connected": true
+    },
+    {
+      "from": "BF1.STAVE1.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 1 return",
+      "connected": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE2.IN",
+      "caption": "BF1 stave 2 supply",
+      "connected": true
+    },
+    {
+      "from": "BF1.STAVE2.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 2 return",
+      "connected": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE3.IN",
+      "caption": "BF1 stave 3 supply",
+      "connected": true
+    },
+    {
+      "from": "BF1.STAVE3.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 3 return",
+      "connected": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE4.IN",
+      "caption": "BF1 stave 4 supply",
+      "connected": true
+    },
+    {
+      "from": "BF1.STAVE4.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 4 return",
+      "connected": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE5.IN",
+      "caption": "BF1 stave 5 supply",
+      "connected": true
+    },
+    {
+      "from": "BF1.STAVE5.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 5 return",
+      "connected": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE6.IN",
+      "caption": "BF1 stave 6 supply",
+      "connected": true
+    },
+    {
+      "from": "BF1.STAVE6.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 6 return",
+      "connected": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE7.IN",
+      "caption": "BF1 stave 7 supply",
+      "connected": true
+    },
+    {
+      "from": "BF1.STAVE7.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 7 return",
+      "connected": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE8.IN",
+      "caption": "BF1 stave 8 supply",
+      "connected": true
+    },
+    {
+      "from": "BF1.STAVE8.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 8 return",
+      "connected": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE9.IN",
+      "caption": "BF1 stave 9 supply",
+      "connected": true
+    },
+    {
+      "from": "BF1.STAVE9.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 9 return",
+      "connected": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE10.IN",
+      "caption": "BF1 stave 10 supply",
+      "connected": true
+    },
+    {
+      "from": "BF1.STAVE10.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 10 return",
+      "connected": true
+    },
+    {
+      "from": "BF1.CP.OUT",
+      "to": "BF1.STAVE11.IN",
+      "caption": "BF1 stave 11 supply",
+      "connected": true
+    },
+    {
+      "from": "BF1.STAVE11.OUT",
+      "to": "BF1.HX.IN",
+      "caption": "BF1 stave 11 return",
+      "connected": true
+    },
+    {
+      "from": "BF2.BF.G1",
+      "to": "BF2.BO.G",
+      "caption": "BF2 clean gas to boiler",
+      "connected": true
+    },
+    {
+      "from": "BF2.BF.G1",
+      "to": "BF2.ST2.GAS",
+      "caption": "BF2 clean gas to firing stove",
+      "connected": true
+    },
+    {
+      "from": "BF2.CB.INTAKE",
+      "to": "BF2.BF.T0",
+      "caption": "BF2 blower to tuyere through stove 1",
+      "connected": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 cooling supply to return through staves",
+      "connected": true
+    },
+    {
+      "from": "BF2.SET.OUT",
+      "to": "BF2.SET.IN",
+      "caption": "BF2 scrubber wash recirculation",
+      "connected": true
+    },
+    {
+      "from": "BF2.ST2.FLUE",
+      "to": "BF2.STK.VENT",
+      "caption": "BF2 stove exhaust to stack",
+      "connected": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE0.IN",
+      "caption": "BF2 stave 0 supply",
+      "connected": true
+    },
+    {
+      "from": "BF2.STAVE0.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 0 return",
+      "connected": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE1.IN",
+      "caption": "BF2 stave 1 supply",
+      "connected": true
+    },
+    {
+      "from": "BF2.STAVE1.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 1 return",
+      "connected": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE2.IN",
+      "caption": "BF2 stave 2 supply",
+      "connected": true
+    },
+    {
+      "from": "BF2.STAVE2.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 2 return",
+      "connected": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE3.IN",
+      "caption": "BF2 stave 3 supply",
+      "connected": true
+    },
+    {
+      "from": "BF2.STAVE3.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 3 return",
+      "connected": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE4.IN",
+      "caption": "BF2 stave 4 supply",
+      "connected": true
+    },
+    {
+      "from": "BF2.STAVE4.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 4 return",
+      "connected": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE5.IN",
+      "caption": "BF2 stave 5 supply",
+      "connected": true
+    },
+    {
+      "from": "BF2.STAVE5.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 5 return",
+      "connected": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE6.IN",
+      "caption": "BF2 stave 6 supply",
+      "connected": true
+    },
+    {
+      "from": "BF2.STAVE6.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 6 return",
+      "connected": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE7.IN",
+      "caption": "BF2 stave 7 supply",
+      "connected": true
+    },
+    {
+      "from": "BF2.STAVE7.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 7 return",
+      "connected": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE8.IN",
+      "caption": "BF2 stave 8 supply",
+      "connected": true
+    },
+    {
+      "from": "BF2.STAVE8.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 8 return",
+      "connected": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE9.IN",
+      "caption": "BF2 stave 9 supply",
+      "connected": true
+    },
+    {
+      "from": "BF2.STAVE9.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 9 return",
+      "connected": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE10.IN",
+      "caption": "BF2 stave 10 supply",
+      "connected": true
+    },
+    {
+      "from": "BF2.STAVE10.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 10 return",
+      "connected": true
+    },
+    {
+      "from": "BF2.CP.OUT",
+      "to": "BF2.STAVE11.IN",
+      "caption": "BF2 stave 11 supply",
+      "connected": true
+    },
+    {
+      "from": "BF2.STAVE11.OUT",
+      "to": "BF2.HX.IN",
+      "caption": "BF2 stave 11 return",
+      "connected": true
+    },
+    {
+      "from": "BF1.CASTHOUSE.TRAIN.P.OUT",
+      "to": "BF1.CASTHOUSE.TRAIN.P.IN",
+      "caption": "BF1.CASTHOUSE inspection water loop",
+      "connected": true
+    },
+    {
+      "from": "BF2.CASTHOUSE.TRAIN.P.OUT",
+      "to": "BF2.CASTHOUSE.TRAIN.P.IN",
+      "caption": "BF2.CASTHOUSE inspection water loop",
+      "connected": true
+    }
+  ],
+  "hydraulic_id_checks": [
+    {
+      "scenario": "baseline",
+      "complete_ids": true
+    },
+    {
+      "scenario": "reduced_blast",
+      "complete_ids": true
+    },
+    {
+      "scenario": "utility_test",
+      "complete_ids": true
+    }
+  ],
+  "failures": [],
+  "connectivity_scope": "Undirected active fluid topology, not pressure-directed reachability, CAD interference, or P&ID certification. Closed valves intentionally excluded; standby is available topology, not asserted flow.",
+  "baseline_example": {
+    "BF1-H200": {
+      "id": "BF1-H200",
+      "pressureFromPa": 103289.18424660155,
+      "pressureToPa": 103197.22953442555,
+      "massKgS": 6.624717773862002,
+      "volumeM3S": 27.22724179143325,
+      "velocityMS": 20.639718211137943,
+      "volumeFromM3S": 27.22724179143325,
+      "volumeToM3S": 27.251502841788703,
+      "reynolds": 130167.47904924375,
+      "mach": 0.026796680484192054,
+      "insideDiameterM": 1.296,
+      "temperatureK": 1473.0,
+      "state": "flowing"
+    },
+    "BF1-G001": {
+      "id": "BF1-G001",
+      "pressureFromPa": 102127.32541339593,
+      "pressureToPa": 102057.57320817716,
+      "massKgS": 3.8912581848855496,
+      "volumeM3S": 5.655085420038624,
+      "velocityMS": 2.0156989965702063,
+      "volumeFromM3S": 5.655085420038624,
+      "volumeToM3S": 5.6589504411864775,
+      "reynolds": 104857.22327556937,
+      "mach": 0.004424995595384374,
+      "insideDiameterM": 1.8900000000000001,
+      "temperatureK": 500.0,
+      "state": "flowing"
+    },
+    "UTIL-N002": {
+      "id": "UTIL-N002",
+      "pressureFromPa": 201525.0,
+      "pressureToPa": 201325.0,
+      "massKgS": 0.0,
+      "volumeM3S": 0.0,
+      "velocityMS": 0.0,
+      "volumeFromM3S": 0.0,
+      "volumeToM3S": 0.0,
+      "reynolds": 0.0,
+      "mach": 0.0,
+      "insideDiameterM": 0.06300000000000001,
+      "temperatureK": 293.0,
+      "state": "closed"
+    }
+  },
+  "source_sha256": {
+    "unity/MAEKInspection/Assets/MAEK/Source/pipe_services.json": "805bcd5639b74e5637a959934af0672306fa298377550639f431ab9cfae3f874",
+    "visualization/pipe_services/services_network.json": "0532a24527793eb6f5e10e098a93e4900e0c17b365bfbbb0595fbbb0d1a35601",
+    "unity/MAEKInspection/Assets/MAEK/Source/hydraulic_results.json": "7f3d44692c2b4791dfe2b3cc48e659cad51f4bb8390e99661a9721c8bc3999db",
+    "unity/MAEKInspection/Assets/MAEK/Source/inspection_tour.json": "52bdc8a5edad47ab9959e466c8945b01ea755b1df3f1be3803874db09ea23854",
+    "visualization/hydraulics/config.json": "4bd1ac3cf72b9e9460bf3a3e2d1866655cfafaa234bfc64c885bf102cc1bb8ed",
+    "unity/MAEKInspection/Assets/MAEK/Source/process_context.json": "f5bf6f5a8a60eede91c5aa5cbf7bd264d2562e4088a43fc66560ff3571fd7c70"
+  }
+}

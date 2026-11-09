@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-09",
+  "scope": "Process-aware MAEK demonstration; original 247 pipe geometry and exact route retained",
+  "editor": {
+    "status": "PASS",
+    "coveredPipes": 247,
+    "captures": 771,
+    "findings": 40
+  },
+  "editorChecks": 800,
+  "play": {
+    "status": "PASS",
+    "reason": "",
+    "session": "C:/Users/hyjuy/AppData/LocalLow/DefaultCompany/MAEKInspection\\MAEK-recordings\\20261109-093310-645",
+    "recording": "C:/Users/hyjuy/AppData/LocalLow/DefaultCompany/MAEKInspection\\MAEK-recordings\\20261109-093310-645\\video-093314-439",
+    "captures": 771,
+    "findings": 40,
+    "recordedFrames": 24,
+    "coveredPipes": 247,
+    "expectedCaptures": 771,
+    "collisionSteps": 20832,
+    "completed": true,
+    "maxMovementStep": 1.2000035047531128,
+    "maxRotationStep": 6.000836372375488
+  },
+  "colliders": {
+    "status": "PASS",
+    "checks": 13396,
+    "segments": 2375,
+    "views": 771
+  },
+  "followUpRows": 247,
+  "candidatePipes": 16,
+  "incompletePipes": 0,
+  "sourceFiles": 552,
+  "preview": {
+    "status": "PASS",
+    "frames": 24,
+    "duration_s": 2.0,
+    "fps": 12,
+    "dimensions": [
+      640,
+      360
+    ],
+    "file": "D:\\obsd\\Projects\\hackerton\\MAEK\\visualization\\process_suitability\\preview-20261109\\process_context_sample.mp4",
+    "bytes": 250307,
+    "decoded_without_errors": true,
+    "frames_with_result_labels": 0
+  },
+  "remainingScope": [
+    "No new physical nitrogen sealing/purge, oxygen enrichment or PCI circuits",
+    "No plant-calibrated operating pressures or full-scale process validation",
+    "Thermal/UT/PEC live feeds and risk optimisation remain outside current demo"
+  ],
+  "knownEditorIssue": "UnityEditor.Search.SearchDatabase startup ArgumentOutOfRangeException; MAEK integration passed"
+}

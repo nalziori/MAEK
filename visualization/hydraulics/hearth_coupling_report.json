@@ -1,0 +1,229 @@
+{
+ "status": "PASS",
+ "cases": [
+  {
+   "id": "baseline",
+   "status": "PASS",
+   "checks": {
+    "finished": true,
+    "mesh": true,
+    "duration": true,
+    "phases": true,
+    "phase_sum": true,
+    "inventory": true,
+    "outlet_flux": true
+   },
+   "coupling_inputs": {
+    "id": "baseline",
+    "path": "D:\\obsd\\Projects\\hackerton\\MAEK\\visualization\\hydraulics\\hearth_baseline_bbaf1f4a4f",
+    "config": {
+     "radius_m": 5.0,
+     "height_m": 4.0,
+     "cell_m": 0.25,
+     "iron_height_m": 1.75,
+     "slag_height_m": 0.75,
+     "interface_perturbation_m": 0.08,
+     "duration_s": 12.0,
+     "write_interval_s": 1.0,
+     "tap_flow_m3_s": 0.009455815562943707,
+     "iron_density": 7000.0,
+     "slag_density": 2800.0,
+     "gas_density": 1.0,
+     "iron_nu": 8.57142857e-07,
+     "slag_nu": 0.000142857143,
+     "gas_nu": 6e-05,
+     "deadman_darcy_m2_inv": 100000.0,
+     "deadman_forchheimer_m_inv": 20.0
+    },
+    "gas_pressure_pa_abs": 102734.11514457197,
+    "nozzle_resistance_pa_per_m6_s2": 1398184682.2930999,
+    "initial_liquid_head_pa": 123606.0,
+    "atmosphere_pa": 101325.0,
+    "reference_top_pressure_pa_abs": 150000,
+    "reference_tap_m3_s": 0.0111003435964142
+   },
+   "numerical": {
+    "case": "hearth_baseline_bbaf1f4a4f",
+    "cells": 20224,
+    "cell_m": 0.25,
+    "duration_s": 12.0,
+    "mesh_ok": true,
+    "solver_finished": true,
+    "alpha_min": -2.94783613483e-07,
+    "alpha_max": 1.00000029471,
+    "phase_sum_max_error": 1.044051511911448e-10,
+    "iron_volume_balance_error_m3": 0.0001418369067709424,
+    "iron_volume_balance_relative_inventory": 1.0259450761008493e-06,
+    "tap_flux_max_error_m3_s": 2.931682674400804e-16,
+    "initial_phase_volume_m3": [
+     138.25,
+     59.25,
+     118.5
+    ],
+    "final_phase_volume_m3": [
+     138.13667205015145,
+     59.24987199701057,
+     118.61345595240913
+    ],
+    "max_speed_m_s": 2.240540458335882,
+    "time": [
+     0.0,
+     1.0,
+     2.0,
+     3.0,
+     4.0,
+     5.0,
+     6.0,
+     7.0,
+     8.0,
+     9.0,
+     10.0,
+     11.0,
+     12.0
+    ],
+    "iron_out_m3": [
+     0.0,
+     0.009529004979384581,
+     0.018999969457894395,
+     0.028457514673846163,
+     0.03789861192137778,
+     0.04729795598635178,
+     0.05672482269307011,
+     0.06615421900193041,
+     0.07558250189524074,
+     0.0850130630541912,
+     0.0944429325973033,
+     0.1038924176056355,
+     0.11332794984855354
+    ],
+    "declared_tap_m3": [
+     0.0,
+     0.009455815562943707,
+     0.018911631125887413,
+     0.02836744668883112,
+     0.03782326225177483,
+     0.04727907781471853,
+     0.05673489337766224,
+     0.06619070894060594,
+     0.07564652450354965,
+     0.08510234006649336,
+     0.09455815562943706,
+     0.10401397119238077,
+     0.11346978675532449
+    ]
+   }
+  },
+  {
+   "id": "reduced_blast",
+   "status": "PASS",
+   "checks": {
+    "finished": true,
+    "mesh": true,
+    "duration": true,
+    "phases": true,
+    "phase_sum": true,
+    "inventory": true,
+    "outlet_flux": true
+   },
+   "coupling_inputs": {
+    "id": "reduced_blast",
+    "path": "D:\\obsd\\Projects\\hackerton\\MAEK\\visualization\\hydraulics\\hearth_reduced_blast_ec96f875a4",
+    "config": {
+     "radius_m": 5.0,
+     "height_m": 4.0,
+     "cell_m": 0.25,
+     "iron_height_m": 1.75,
+     "slag_height_m": 0.75,
+     "interface_perturbation_m": 0.08,
+     "duration_s": 12.0,
+     "write_interval_s": 1.0,
+     "tap_flow_m3_s": 0.009438773944970853,
+     "iron_density": 7000.0,
+     "slag_density": 2800.0,
+     "gas_density": 1.0,
+     "iron_nu": 8.57142857e-07,
+     "slag_nu": 0.000142857143,
+     "gas_nu": 6e-05,
+     "deadman_darcy_m2_inv": 100000.0,
+     "deadman_forchheimer_m_inv": 20.0
+    },
+    "gas_pressure_pa_abs": 102283.9075400576,
+    "nozzle_resistance_pa_per_m6_s2": 1398184682.2930999,
+    "initial_liquid_head_pa": 123606.0,
+    "atmosphere_pa": 101325.0,
+    "reference_top_pressure_pa_abs": 150000,
+    "reference_tap_m3_s": 0.0111003435964142
+   },
+   "numerical": {
+    "case": "hearth_reduced_blast_ec96f875a4",
+    "cells": 20224,
+    "cell_m": 0.25,
+    "duration_s": 12.0,
+    "mesh_ok": true,
+    "solver_finished": true,
+    "alpha_min": -2.94760758245e-07,
+    "alpha_max": 1.00000029469,
+    "phase_sum_max_error": 1.0460754484853396e-10,
+    "iron_volume_balance_error_m3": 0.00014184499195056544,
+    "iron_volume_balance_relative_inventory": 1.02600355841277e-06,
+    "tap_flux_max_error_m3_s": 1.474514954580286e-16,
+    "initial_phase_volume_m3": [
+     138.25,
+     59.25,
+     118.5
+    ],
+    "final_phase_volume_m3": [
+     138.1368765576523,
+     59.249871993704225,
+     118.6132514482149
+    ],
+    "max_speed_m_s": 2.240527636953839,
+    "time": [
+     0.0,
+     1.0,
+     2.0,
+     3.0,
+     4.0,
+     5.0,
+     6.0,
+     7.0,
+     8.0,
+     9.0,
+     10.0,
+     11.0,
+     12.0
+    ],
+    "iron_out_m3": [
+     0.0,
+     0.00951196256289677,
+     0.018965885138214844,
+     0.028406388848679853,
+     0.03783044407700231,
+     0.0472127456054352,
+     0.056622570352800494,
+     0.06603492421257329,
+     0.07544616406639193,
+     0.08485968368495378,
+     0.09427251055566899,
+     0.10370495295791216,
+     0.11312344234769967
+    ],
+    "declared_tap_m3": [
+     0.0,
+     0.009438773944970853,
+     0.018877547889941705,
+     0.028316321834912558,
+     0.03775509577988341,
+     0.04719386972485426,
+     0.056632643669825115,
+     0.06607141761479597,
+     0.07551019155976682,
+     0.08494896550473767,
+     0.09438773944970852,
+     0.10382651339467938,
+     0.11326528733965023
+    ]
+   }
+  }
+ ]
+}

@@ -59,3 +59,11 @@ graphify-out/
 
 # Evidence seals contain machine-local paths and must be regenerated per checkout.
 /visualization/inspection_demo/evidence_seal.json
+
+# Simulator team builds and public-reference originals stay local
+/visualization/team_share/
+/visualization/standalone_release/
+/docs/references/**/originals/
+/docs/references/**/previews/
+*.exe
+*.dll

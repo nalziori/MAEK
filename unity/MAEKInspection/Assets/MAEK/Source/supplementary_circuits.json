@@ -1,0 +1,340 @@
+{
+  "version": 1,
+  "scope": "Public-reference topology only. Fictional annex coordinates/dimensions; not POSCO as-built P&ID, accident-site reproduction, construction design or oxygen commissioning evidence. Original 247 catalogue and routes unchanged.",
+  "flowBasis": "Directed connectivity only. Filter/fan spans represent equipment internal connections. Pressure/flow/oxygen enrichment CFD coupling and removal efficiency NOT solved. No operating values or work approval inferred.",
+  "circuits": [
+    {
+      "id": "O2",
+      "label": "산소 공급 계통 · 소비처 인입 경계까지",
+      "medium": "산소",
+      "chain": "공급 경계 → 입구 차단 → 필터 → 출구 차단 → 계량 → 제어 → 소비처 인입 경계",
+      "followUp": "RGB 외관 후보 → 산소 계통 작업 절차·격리·청정도 별도 검토 후 재질/접근 조건에 맞는 UT 등 검토",
+      "workerContext": "산소 농후·발화 위험 맥락; 밸브 조작/작업 허가 판단 아님",
+      "limit": "RGB로 산소 누출·청정도·내부 결함·산소 적합성 판정 불가",
+      "source": "https://www.eiga.eu/uploads/documents/DOC013.pdf"
+    },
+    {
+      "id": "SINTER",
+      "label": "소결 원료 이송·선별 2차 집진/배기",
+      "medium": "분진 함유 공기 / 정화 후 배기",
+      "chain": "선별·이송 포집 후드 → 합류 덕트 → 백필터 → 유인 송풍기 → 청정 배기 굴뚝",
+      "followUp": "RGB 부식 외관 후보 → 덕트 두께 UT·보강재/지지구조 별도 전문 검토",
+      "workerContext": "고소 보강 작업·부식 덕트/지지구조 붕괴 위험 맥락",
+      "limit": "RGB·유량 표시로 구조 하중·덕트 건전성·작업 허가 판정 불가; 소결 주배가스 계통 아님",
+      "source": "https://www.cpengineering.co.uk/case_study/tata-steel-filtration-plant/"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "O2.SUPPLY",
+      "circuit": "O2",
+      "kind": "source",
+      "position": {
+        "x": 180,
+        "y": 4,
+        "z": -30
+      }
+    },
+    {
+      "id": "O2.BLOCK_IN",
+      "circuit": "O2",
+      "kind": "valve",
+      "position": {
+        "x": 185,
+        "y": 4,
+        "z": -30
+      }
+    },
+    {
+      "id": "O2.FILTER_IN",
+      "circuit": "O2",
+      "kind": "filter_in",
+      "position": {
+        "x": 190,
+        "y": 4,
+        "z": -30
+      }
+    },
+    {
+      "id": "O2.FILTER_OUT",
+      "circuit": "O2",
+      "kind": "filter_out",
+      "position": {
+        "x": 194,
+        "y": 4,
+        "z": -30
+      }
+    },
+    {
+      "id": "O2.BLOCK_OUT",
+      "circuit": "O2",
+      "kind": "valve",
+      "position": {
+        "x": 199,
+        "y": 4,
+        "z": -30
+      }
+    },
+    {
+      "id": "O2.METER",
+      "circuit": "O2",
+      "kind": "meter",
+      "position": {
+        "x": 204,
+        "y": 4,
+        "z": -30
+      }
+    },
+    {
+      "id": "O2.CONTROL",
+      "circuit": "O2",
+      "kind": "control",
+      "position": {
+        "x": 209,
+        "y": 4,
+        "z": -30
+      }
+    },
+    {
+      "id": "O2.CONSUMER_BOUNDARY",
+      "circuit": "O2",
+      "kind": "sink",
+      "position": {
+        "x": 220,
+        "y": 4,
+        "z": -30
+      }
+    },
+    {
+      "id": "SINTER.SCREEN_HOOD",
+      "circuit": "SINTER",
+      "kind": "source",
+      "position": {
+        "x": 180,
+        "y": 6,
+        "z": 8
+      }
+    },
+    {
+      "id": "SINTER.SCREEN_ELBOW",
+      "circuit": "SINTER",
+      "kind": "junction",
+      "position": {
+        "x": 180,
+        "y": 11,
+        "z": 8
+      }
+    },
+    {
+      "id": "SINTER.TRANSFER_HOOD",
+      "circuit": "SINTER",
+      "kind": "source",
+      "position": {
+        "x": 196,
+        "y": 6,
+        "z": 22
+      }
+    },
+    {
+      "id": "SINTER.TRANSFER_ELBOW",
+      "circuit": "SINTER",
+      "kind": "junction",
+      "position": {
+        "x": 196,
+        "y": 11,
+        "z": 22
+      }
+    },
+    {
+      "id": "SINTER.HEADER",
+      "circuit": "SINTER",
+      "kind": "junction",
+      "position": {
+        "x": 196,
+        "y": 11,
+        "z": 8
+      }
+    },
+    {
+      "id": "SINTER.FILTER_IN",
+      "circuit": "SINTER",
+      "kind": "filter_in",
+      "position": {
+        "x": 216,
+        "y": 11,
+        "z": 8
+      }
+    },
+    {
+      "id": "SINTER.FILTER_OUT",
+      "circuit": "SINTER",
+      "kind": "filter_out",
+      "position": {
+        "x": 228,
+        "y": 11,
+        "z": 8
+      }
+    },
+    {
+      "id": "SINTER.FAN_IN",
+      "circuit": "SINTER",
+      "kind": "fan_in",
+      "position": {
+        "x": 240,
+        "y": 11,
+        "z": 8
+      }
+    },
+    {
+      "id": "SINTER.FAN_OUT",
+      "circuit": "SINTER",
+      "kind": "fan_out",
+      "position": {
+        "x": 244,
+        "y": 11,
+        "z": 8
+      }
+    },
+    {
+      "id": "SINTER.STACK_BASE",
+      "circuit": "SINTER",
+      "kind": "junction",
+      "position": {
+        "x": 252,
+        "y": 11,
+        "z": 8
+      }
+    },
+    {
+      "id": "SINTER.STACK_OUTLET",
+      "circuit": "SINTER",
+      "kind": "sink",
+      "position": {
+        "x": 252,
+        "y": 28,
+        "z": 8
+      }
+    }
+  ],
+  "lines": [
+    {
+      "id": "O2-L001",
+      "circuit": "O2",
+      "from": "O2.SUPPLY",
+      "to": "O2.BLOCK_IN",
+      "radius": 0.18
+    },
+    {
+      "id": "O2-L002",
+      "circuit": "O2",
+      "from": "O2.BLOCK_IN",
+      "to": "O2.FILTER_IN",
+      "radius": 0.18
+    },
+    {
+      "id": "O2-L003",
+      "circuit": "O2",
+      "from": "O2.FILTER_IN",
+      "to": "O2.FILTER_OUT",
+      "radius": 0.18
+    },
+    {
+      "id": "O2-L004",
+      "circuit": "O2",
+      "from": "O2.FILTER_OUT",
+      "to": "O2.BLOCK_OUT",
+      "radius": 0.18
+    },
+    {
+      "id": "O2-L005",
+      "circuit": "O2",
+      "from": "O2.BLOCK_OUT",
+      "to": "O2.METER",
+      "radius": 0.18
+    },
+    {
+      "id": "O2-L006",
+      "circuit": "O2",
+      "from": "O2.METER",
+      "to": "O2.CONTROL",
+      "radius": 0.18
+    },
+    {
+      "id": "O2-L007",
+      "circuit": "O2",
+      "from": "O2.CONTROL",
+      "to": "O2.CONSUMER_BOUNDARY",
+      "radius": 0.18
+    },
+    {
+      "id": "SINTER-D001",
+      "circuit": "SINTER",
+      "from": "SINTER.SCREEN_HOOD",
+      "to": "SINTER.SCREEN_ELBOW",
+      "radius": 0.65
+    },
+    {
+      "id": "SINTER-D002",
+      "circuit": "SINTER",
+      "from": "SINTER.SCREEN_ELBOW",
+      "to": "SINTER.HEADER",
+      "radius": 0.65
+    },
+    {
+      "id": "SINTER-D003",
+      "circuit": "SINTER",
+      "from": "SINTER.TRANSFER_HOOD",
+      "to": "SINTER.TRANSFER_ELBOW",
+      "radius": 0.65
+    },
+    {
+      "id": "SINTER-D004",
+      "circuit": "SINTER",
+      "from": "SINTER.TRANSFER_ELBOW",
+      "to": "SINTER.HEADER",
+      "radius": 0.65
+    },
+    {
+      "id": "SINTER-D005",
+      "circuit": "SINTER",
+      "from": "SINTER.HEADER",
+      "to": "SINTER.FILTER_IN",
+      "radius": 0.9
+    },
+    {
+      "id": "SINTER-D006",
+      "circuit": "SINTER",
+      "from": "SINTER.FILTER_IN",
+      "to": "SINTER.FILTER_OUT",
+      "radius": 0.9
+    },
+    {
+      "id": "SINTER-D007",
+      "circuit": "SINTER",
+      "from": "SINTER.FILTER_OUT",
+      "to": "SINTER.FAN_IN",
+      "radius": 0.9
+    },
+    {
+      "id": "SINTER-D008",
+      "circuit": "SINTER",
+      "from": "SINTER.FAN_IN",
+      "to": "SINTER.FAN_OUT",
+      "radius": 0.9
+    },
+    {
+      "id": "SINTER-D009",
+      "circuit": "SINTER",
+      "from": "SINTER.FAN_OUT",
+      "to": "SINTER.STACK_BASE",
+      "radius": 0.9
+    },
+    {
+      "id": "SINTER-D010",
+      "circuit": "SINTER",
+      "from": "SINTER.STACK_BASE",
+      "to": "SINTER.STACK_OUTLET",
+      "radius": 0.9
+    }
+  ]
+}

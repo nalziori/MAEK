@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "pipes": 247,
+  "original_pipes_preserved": 240,
+  "new_utility_pipes": 7,
+  "service_categories": 14,
+  "python_tests": 6,
+  "unity_checks": 263,
+  "blender_saved_file_reopened": true,
+  "cfd_cache_unchanged": true,
+  "package_assets": {
+    "Scenes/MAEKPipeServices.unity": "MATCH",
+    "Scripts/MAEKPipeService.cs": "MATCH",
+    "Scripts/MAEKPipeServices.cs": "MATCH",
+    "Scripts/MAEKDroneInspection.cs": "MATCH",
+    "Scripts/MAEKCFDPlayback.cs": "MATCH",
+    "Scripts/MAEKWalkthrough.cs": "MATCH",
+    "Editor/BuildPipeServices.cs": "MATCH",
+    "Source/pipe_services.json": "MATCH",
+    "Source/service_drone_routes.json": "MATCH",
+    "Source/cfd_playback.json": "MATCH",
+    "PIPE_SERVICES_GUIDE.md": "MATCH",
+    "README.md": "MATCH"
+  },
+  "artifacts": {
+    "maek_pipe_services.blend": {
+      "bytes": 61099771,
+      "sha256": "61d81fd7b6340654cf8adb693a82e10dea5f065bf6e72611106ba4034b0133dd"
+    },
+    "MAEK_Pipe_Services.unitypackage": {
+      "bytes": 33906862,
+      "sha256": "1e2102b176428974d5f9ae25620978ad14df977a90e075bf1ad88e78b0547fa6"
+    },
+    "line_service_list.csv": {
+      "bytes": 26076,
+      "sha256": "bea9d3b275887c172fe2f91697661d47263af0e593ecdad2ded976f910e6d0d8"
+    },
+    "PIPE_SERVICES_GUIDE.md": {
+      "bytes": 6499,
+      "sha256": "4f5d5545edf437e9a506cada54df93898fe06011748dff80ae15d1bd07aee9a1"
+    },
+    "utility_services.png": {
+      "bytes": 226427,
+      "sha256": "0b7c7dc1aaa976db3fc50be302612aaa8b34011a72ac9e807950bac839dfdcee"
+    },
+    "pipe_service_overview.png": {
+      "bytes": 650846,
+      "sha256": "f2b4b430731bc743065b86b07eb3cfecf7ac5d86cd24895b6a1243bd4dd9113a"
+    }
+  },
+  "limitations": [
+    "Fictional layout and service assignment, no actual P&ID",
+    "No pipe hydraulics or CFD coupling added",
+    "Native camera renders exclude the OnGUI panel",
+    "Utility routes added to Unity; original Blender cameras preserved"
+  ]
+}

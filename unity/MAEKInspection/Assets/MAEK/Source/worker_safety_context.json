@@ -1,0 +1,209 @@
+{
+  "version": 1,
+  "scope": "MAEK 여러 매질 배관 검사 · 실제 사고 계통과 가상 모델 구분",
+  "cases": [
+    {
+      "id": "OXYGEN_20201124",
+      "kind": "reported_accident",
+      "title": "2020-11-24 광양 산소 공급 배관",
+      "system": "산소 공급 / 1고로 부대설비",
+      "work": "밸브 조작·점검 중 폭발·화재 보도",
+      "evidence": "사고 배관은 산소관으로 확인. 세부 점화 원인을 RGB 부식 검출로 확정하지 않음.",
+      "source": "https://www.ytn.co.kr/_ln/0115_202011242220462259",
+      "modelStatus": "not_modelled",
+      "pipeIds": [],
+      "maekContribution": "외면 이상·후속 검사 근거 제공은 조건부 가능. 산소 청정도·점화원·밸브 조작 조건은 별도 검토.",
+      "limit": "현재 247개에 산소 계통 없음. 질소·고로가스·열풍을 산소관으로 대체 표시하지 않음.",
+      "referenceCircuit": "O2"
+    },
+    {
+      "id": "SINTER_DUCT_20201209",
+      "kind": "reported_accident",
+      "title": "2020-12-09 포항 소결공장 부식 덕트",
+      "system": "3소결공장 집진·배기 덕트",
+      "work": "보강공사 중 부식 부위 파손·추락 보도",
+      "evidence": "소결공장 덕트 사례이며 고로가스 배관과 다른 설비. 보도만으로 치수·재질·잔여 강도는 확정 불가.",
+      "source": "https://www.yna.co.kr/view/AKR20210330156700053",
+      "modelStatus": "not_modelled",
+      "pipeIds": [],
+      "maekContribution": "접근 전 외면 부식 후보와 후속 두께 검사 검토 근거. 구조 건전성·작업 발판 적합성은 별도 검토.",
+      "limit": "현재 고로 제선 장면에 소결 집진 덕트 없음. RGB 무검출을 작업자 하중 지지나 추락 예방 보증으로 쓰지 않음.",
+      "referenceCircuit": "SINTER"
+    },
+    {
+      "id": "CHEMICAL_20251105",
+      "kind": "reported_accident",
+      "title": "2025-11-05 포항 정비 준비 중 유해가스 사고",
+      "system": "화학물질 취급 배관 관련 사고 / 매질 확정 보류",
+      "work": "정비 준비 중 가스 노출 보도",
+      "evidence": "해당 보도는 불산·질산 등을 추정으로 언급. 확정 조사 결과·세부 계통 미확보.",
+      "source": "https://www.ytn.co.kr/_ln/0115_202511051607157468",
+      "modelStatus": "not_modelled",
+      "pipeIds": [],
+      "maekContribution": "배관 상태 관측과 위치·이력 연결. 잔류물·가스 농도·격리 조건의 확인은 별도 계측·담당자 검토.",
+      "limit": "현재 산세·화학약품 계통 없음. 매질을 BFG로 지정하거나 노출 사고를 균열 기인으로 단정하지 않음."
+    },
+    {
+      "id": "STEAM_WORK_20220120",
+      "kind": "reported_accident",
+      "title": "2022-01-20 포항 스팀배관 보온작업 구역",
+      "system": "3코크스공장 스팀배관 작업 구역",
+      "work": "장입차 관련 충돌·끼임 사고 보도",
+      "evidence": "배관 작업 구역의 사고이며 배관 파손·누설이 원인이라는 뜻은 아님.",
+      "source": "https://www.yna.co.kr/view/AKR20220120143600053",
+      "modelStatus": "not_modelled",
+      "pipeIds": [],
+      "maekContribution": "보온 이상 관측으로 검사 근거 제공. 이동 설비 충돌·작업 동선 위험을 배관 AI가 해결한 것으로 소개하지 않음.",
+      "limit": "현재 증기·장입차 상호작용 없음. 로봇 순회·기계 안전 제어와 별도 범위."
+    },
+    {
+      "id": "SIM_CW",
+      "kind": "synthetic_example",
+      "title": "현재 모델: 냉각수 공급·회수 검사",
+      "system": "냉각수 → 스테이브 냉각 지원",
+      "work": "외면 부식 후보·후속 검사 검토",
+      "evidence": "실제 사고 배관 복제가 아닌 가상 검사 사례.",
+      "source": "",
+      "modelStatus": "modelled_synthetic",
+      "pipeIds": [
+        "BF1-W002",
+        "BF1-W003"
+      ],
+      "maekContribution": "실제 촬영 픽셀의 RGB 후보와 원본 근거를 연결. UT 두께/균열·냉각 기능은 별도 확인.",
+      "limit": "회로 중요도만으로 사고 발생·즉시 운전 중지·작업 안전을 판정하지 않음."
+    },
+    {
+      "id": "SIM_BFG",
+      "kind": "synthetic_example",
+      "title": "현재 모델: 고로가스 공급·정제 검사",
+      "system": "고로가스 → 집진·세정·연료 사용처",
+      "work": "외면 부식 후보·후속 검사 검토",
+      "evidence": "산소 폭발 또는 소결 덕트 추락을 재현한 것이 아님.",
+      "source": "",
+      "modelStatus": "modelled_synthetic",
+      "pipeIds": [
+        "BF1-G004",
+        "BF1-G200",
+        "BF1-G201"
+      ],
+      "maekContribution": "RGB 관측과 검사 위치를 제공. 가스 농도·내부 두께·격리 상태는 별도 확인.",
+      "limit": "닫힘/유량 0은 무압·가스 없음·작업 가능의 근거가 아님."
+    },
+    {
+      "id": "SIM_SLURRY",
+      "kind": "synthetic_example",
+      "title": "현재 모델: 세정수·슬러리 검사",
+      "system": "고로가스 세정수·슬러리 회수",
+      "work": "접합부·곡관 외관 후보와 두께 검사 검토",
+      "evidence": "현장 슬러지 청소 사고와 동일 매질·잔류 가스 조건이라고 가정하지 않음.",
+      "source": "",
+      "modelStatus": "modelled_synthetic",
+      "pipeIds": [
+        "BF1-Q002",
+        "BF1-Q003"
+      ],
+      "maekContribution": "표면 후보와 후속 두께 검사 근거. 슬러지 얼룩과 부식 오탐을 구분해야 함.",
+      "limit": "배관 외관·공정 명칭만으로 잔류물·유해가스나 작업 환경 건전성 판정 불가."
+    }
+  ],
+  "profiles": [
+    {
+      "serviceCode": "BFG_RAW",
+      "mediumLabel": "미정제 고로가스",
+      "workerContext": "가스 노출·압력·접근 조건 별도 확인; 일반 RGB로 가스 유무 판정 불가",
+      "inspectionLimit": "RGB 부식 후보는 작업 허가·내부 균열·잔여 강도 판정이 아님",
+      "permissionStatus": "not_assessed"
+    },
+    {
+      "serviceCode": "BFG_DEDUST",
+      "mediumLabel": "1차 집진 고로가스",
+      "workerContext": "가스 노출·압력·접근 조건 별도 확인; 일반 RGB로 가스 유무 판정 불가",
+      "inspectionLimit": "RGB 부식 후보는 작업 허가·내부 균열·잔여 강도 판정이 아님",
+      "permissionStatus": "not_assessed"
+    },
+    {
+      "serviceCode": "BFG_CLEAN",
+      "mediumLabel": "정제 고로가스",
+      "workerContext": "가스 노출·압력·접근 조건 별도 확인; 일반 RGB로 가스 유무 판정 불가",
+      "inspectionLimit": "RGB 부식 후보는 작업 허가·내부 균열·잔여 강도 판정이 아님",
+      "permissionStatus": "not_assessed"
+    },
+    {
+      "serviceCode": "CW_SUPPLY",
+      "mediumLabel": "냉각수 공급",
+      "workerContext": "누수·압력·미끄럼·접근 조건 별도 확인; 내부 감육과 지지 강도 미확인",
+      "inspectionLimit": "RGB 부식 후보는 작업 허가·내부 균열·잔여 강도 판정이 아님",
+      "permissionStatus": "not_assessed"
+    },
+    {
+      "serviceCode": "CW_RETURN",
+      "mediumLabel": "냉각수 회수",
+      "workerContext": "누수·압력·미끄럼·접근 조건 별도 확인; 내부 감육과 지지 강도 미확인",
+      "inspectionLimit": "RGB 부식 후보는 작업 허가·내부 균열·잔여 강도 판정이 아님",
+      "permissionStatus": "not_assessed"
+    },
+    {
+      "serviceCode": "WASH",
+      "mediumLabel": "고로가스 세정수",
+      "workerContext": "누수·압력·미끄럼·접근 조건 별도 확인; 내부 감육과 지지 강도 미확인",
+      "inspectionLimit": "RGB 부식 후보는 작업 허가·내부 균열·잔여 강도 판정이 아님",
+      "permissionStatus": "not_assessed"
+    },
+    {
+      "serviceCode": "SLURRY",
+      "mediumLabel": "세정 슬러리",
+      "workerContext": "누수·압력·미끄럼·접근 조건 별도 확인; 내부 감육과 지지 강도 미확인",
+      "inspectionLimit": "RGB 부식 후보는 작업 허가·내부 균열·잔여 강도 판정이 아님",
+      "permissionStatus": "not_assessed"
+    },
+    {
+      "serviceCode": "COLD_BLAST",
+      "mediumLabel": "냉풍 공기",
+      "workerContext": "압력·접근 조건과 주변 작업 위험은 미평가",
+      "inspectionLimit": "RGB 부식 후보는 작업 허가·내부 균열·잔여 강도 판정이 아님",
+      "permissionStatus": "not_assessed"
+    },
+    {
+      "serviceCode": "HOT_BLAST",
+      "mediumLabel": "열풍 공기",
+      "workerContext": "고온·열팽창·접근 조건 별도 확인; 외피 RGB로 내화물·내부 균열 확정 불가",
+      "inspectionLimit": "RGB 부식 후보는 작업 허가·내부 균열·잔여 강도 판정이 아님",
+      "permissionStatus": "not_assessed"
+    },
+    {
+      "serviceCode": "COMB_AIR",
+      "mediumLabel": "열풍로 연소공기",
+      "workerContext": "압력·접근 조건과 주변 작업 위험은 미평가",
+      "inspectionLimit": "RGB 부식 후보는 작업 허가·내부 균열·잔여 강도 판정이 아님",
+      "permissionStatus": "not_assessed"
+    },
+    {
+      "serviceCode": "FLUE",
+      "mediumLabel": "연소 배기가스",
+      "workerContext": "고온·열팽창·접근 조건 별도 확인; 외피 RGB로 내화물·내부 균열 확정 불가",
+      "inspectionLimit": "RGB 부식 후보는 작업 허가·내부 균열·잔여 강도 판정이 아님",
+      "permissionStatus": "not_assessed"
+    },
+    {
+      "serviceCode": "TRAIN_CW",
+      "mediumLabel": "주상 훈련 냉각수",
+      "workerContext": "누수·압력·미끄럼·접근 조건 별도 확인; 내부 감육과 지지 강도 미확인",
+      "inspectionLimit": "RGB 부식 후보는 작업 허가·내부 균열·잔여 강도 판정이 아님",
+      "permissionStatus": "not_assessed"
+    },
+    {
+      "serviceCode": "N2",
+      "mediumLabel": "질소 시험 계통",
+      "workerContext": "독립 질소 시험대; 누출·산소 농도·잔압은 별도 확인, 실제 고로 퍼지 계통 아님",
+      "inspectionLimit": "RGB 부식 후보는 작업 허가·내부 균열·잔여 강도 판정이 아님",
+      "permissionStatus": "not_assessed"
+    },
+    {
+      "serviceCode": "INSTR_AIR",
+      "mediumLabel": "계장공기 시험 계통",
+      "workerContext": "독립 계장공기 시험대; 압력·액추에이터 상태 별도 확인, 산소 공급관 아님",
+      "inspectionLimit": "RGB 부식 후보는 작업 허가·내부 균열·잔여 강도 판정이 아님",
+      "permissionStatus": "not_assessed"
+    }
+  ]
+}

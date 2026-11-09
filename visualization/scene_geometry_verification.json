@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "saved_blend": "maek_connected_steelworks.blend",
+  "pipe_objects_checked": 236,
+  "centerlines_checked": "every evaluated POLY control point, endpoints and radius",
+  "maximum_position_error_m": 4.02871811097956e-06,
+  "archived_old_geometry_hidden": true,
+  "active_camera": "01 Overview to inspection",
+  "frames": [
+    1,
+    240
+  ],
+  "errors": []
+}

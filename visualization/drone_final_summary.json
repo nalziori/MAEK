@@ -1,0 +1,11 @@
+{
+  "pipe_segments": 240,
+  "endpoint_rings": 480,
+  "before_failed_endpoint_rings": 278,
+  "after_failed_endpoint_rings": 0,
+  "shell_fitted_nozzles": 102,
+  "drone_routes": 240,
+  "unity_checks": 259,
+  "unity_failed_checks": 0,
+  "unreviewed_asset_overlaps": 0
+}

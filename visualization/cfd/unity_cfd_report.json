@@ -1,0 +1,1320 @@
+{
+    "status": "PASS",
+    "checks": [
+        {
+            "name": "3D reference cache",
+            "detail": "OpenFOAM 14; 20,224 cells; 0-12 seconds",
+            "pass": true
+        },
+        {
+            "name": "spatial reaction cache",
+            "detail": "1,496 cells; 0-120 seconds; independent run",
+            "pass": true
+        },
+        {
+            "name": "CFD frame 0",
+            "detail": "Computed surfaces; zero initial velocity correctly has no arrows",
+            "pass": true
+        },
+        {
+            "name": "CFD frame 1",
+            "detail": "Computed surfaces; zero initial velocity correctly has no arrows",
+            "pass": true
+        },
+        {
+            "name": "CFD frame 2",
+            "detail": "Computed surfaces; zero initial velocity correctly has no arrows",
+            "pass": true
+        },
+        {
+            "name": "CFD frame 3",
+            "detail": "Computed surfaces; zero initial velocity correctly has no arrows",
+            "pass": true
+        },
+        {
+            "name": "CFD frame 4",
+            "detail": "Computed surfaces; zero initial velocity correctly has no arrows",
+            "pass": true
+        },
+        {
+            "name": "CFD frame 5",
+            "detail": "Computed surfaces; zero initial velocity correctly has no arrows",
+            "pass": true
+        },
+        {
+            "name": "CFD frame 6",
+            "detail": "Computed surfaces; zero initial velocity correctly has no arrows",
+            "pass": true
+        },
+        {
+            "name": "CFD frame 7",
+            "detail": "Computed surfaces; zero initial velocity correctly has no arrows",
+            "pass": true
+        },
+        {
+            "name": "CFD frame 8",
+            "detail": "Computed surfaces; zero initial velocity correctly has no arrows",
+            "pass": true
+        },
+        {
+            "name": "CFD frame 9",
+            "detail": "Computed surfaces; zero initial velocity correctly has no arrows",
+            "pass": true
+        },
+        {
+            "name": "CFD frame 10",
+            "detail": "Computed surfaces; zero initial velocity correctly has no arrows",
+            "pass": true
+        },
+        {
+            "name": "CFD frame 11",
+            "detail": "Computed surfaces; zero initial velocity correctly has no arrows",
+            "pass": true
+        },
+        {
+            "name": "CFD frame 12",
+            "detail": "Computed surfaces; zero initial velocity correctly has no arrows",
+            "pass": true
+        },
+        {
+            "name": "nonempty shaft section",
+            "detail": "Actual spatial cell data",
+            "pass": true
+        },
+        {
+            "name": "field selector updates without advancing time",
+            "detail": "CO colors update immediately even when playback is paused",
+            "pass": true
+        },
+        {
+            "name": "physical coordinate mapping",
+            "detail": "SI metres; existing furnace hearth origin",
+            "pass": true
+        },
+        {
+            "name": "camera ownership",
+            "detail": "No competing movement controllers",
+            "pass": true
+        },
+        {
+            "name": "colliders retained",
+            "detail": "Only renderers hidden in section view",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G006",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G100",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G101",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G102",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G110",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-F099",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-C200",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-H200",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G200",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-A200",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-F200",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-C201",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-H201",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G201",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-A201",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-F201",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-C202",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-H202",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-G202",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-A202",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-F202",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-C001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-C002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-C003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-H001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-H002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-A001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-A002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-A003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-F001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-F002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-F003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T000",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T006",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T007",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T008",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T009",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T010",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-T011",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B000",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B006",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B007",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B008",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B009",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B010",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-B011",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-H003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-W001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS000",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR000",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS006",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR006",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS007",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR007",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS008",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR008",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS009",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR009",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS010",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR010",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WS011",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WR011",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR000",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR006",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR007",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR008",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR009",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR010",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WSR011",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR000",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR006",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR007",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR008",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR009",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR010",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-WRR011",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-W002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-W003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-Q001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-Q002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-Q003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-Q004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1-Q005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G006",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G100",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G101",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G102",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G110",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-F099",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-C200",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-H200",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G200",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-A200",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-F200",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-C201",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-H201",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G201",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-A201",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-F201",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-C202",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-H202",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-G202",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-A202",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-F202",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-C001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-C002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-C003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-H001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-H002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-A001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-A002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-A003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-F001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-F002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-F003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T000",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T006",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T007",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T008",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T009",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T010",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-T011",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B000",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B006",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B007",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B008",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B009",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B010",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-B011",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-H003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-W001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS000",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR000",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS006",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR006",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS007",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR007",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS008",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR008",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS009",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR009",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS010",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR010",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WS011",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WR011",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR000",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR006",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR007",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR008",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR009",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR010",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WSR011",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR000",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR006",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR007",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR008",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR009",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR010",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-WRR011",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-W002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-W003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-Q001",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-Q002",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-Q003",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-Q004",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2-Q005",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1.CASTHOUSE.TRAIN-SUP",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF1.CASTHOUSE.TRAIN-RET",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2.CASTHOUSE.TRAIN-SUP",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "retained drone BF2.CASTHOUSE.TRAIN-RET",
+            "detail": "Existing collision geometry",
+            "pass": true
+        },
+        {
+            "name": "hearth camera above ground",
+            "detail": "Positive orbit elevation must increase world Y",
+            "pass": true
+        },
+        {
+            "name": "shaft camera above occluders",
+            "detail": "Above foreground structures",
+            "pass": true
+        },
+        {
+            "name": "walk and drone restored",
+            "detail": "P exits section without removing prior navigation",
+            "pass": true
+        }
+    ]
+}

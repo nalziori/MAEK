@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "scope": "Collider recheck followed by two cast-house and three maintenance-hall interiors; original 247 process pipes and exact route preserved",
+  "beforeInteriorChecks": 10133,
+  "afterInteriorChecks": 13396,
+  "build": {
+    "status": "PASS",
+    "scope": "Five existing rooms; unchanged 247 process IDs. Added cold mock spools are visual training fixtures, not hydraulic/MAEK-analysis circuits.",
+    "rooms": 5,
+    "stations": 16,
+    "closedSpools": 12,
+    "physicalFixtures": 940,
+    "omittedAssemblies": 1,
+    "omissions": [
+      "BF2.CASTHOUSE entry signage: reserved flight/view/access space"
+    ]
+  },
+  "closedSpoolJoints": 288,
+  "workstationAccesses": 16,
+  "editor": {
+    "status": "PASS",
+    "coveredPipes": 247,
+    "captures": 771,
+    "findings": 40
+  },
+  "editorChecks": 799,
+  "play": {
+    "status": "PASS",
+    "reason": "",
+    "session": "C:/Users/hyjuy/AppData/LocalLow/DefaultCompany/MAEKInspection\\MAEK-recordings\\20261108-210224-315",
+    "recording": "C:/Users/hyjuy/AppData/LocalLow/DefaultCompany/MAEKInspection\\MAEK-recordings\\20261108-210224-315\\video-210233-446",
+    "captures": 771,
+    "findings": 40,
+    "recordedFrames": 24,
+    "coveredPipes": 247,
+    "expectedCaptures": 771,
+    "collisionSteps": 20832,
+    "completed": true,
+    "maxMovementStep": 1.2000035047531128,
+    "maxRotationStep": 6.000836372375488
+  },
+  "sealedSourceFiles": 549,
+  "pythonTests": 12,
+  "photos": "D:\\obsd\\Projects\\hackerton\\MAEK\\visualization\\interior_detail\\photos\\20261108-204935",
+  "sceneSha256": "1e271642f6fb827611f15e967f4110bd3169a6e24cd6e6e87c5c70b2e3cff190",
+  "knownEditorIssue": "Existing UnityEditor.Search.SearchDatabase startup ArgumentOutOfRangeException; full MAEK execution passed",
+  "recordingScope": "24 runtime verification frames; no new presentation MP4 produced in this collider/interior task"
+}

@@ -1,0 +1,61 @@
+{
+    "status": "PASS",
+    "unityVersion": "6000.3.12f1",
+    "assets": 372,
+    "colliders": 302,
+    "meshColliders": 299,
+    "boxColliders": 3,
+    "pipeAssets": 236,
+    "checks": [
+        {
+            "name": "asset collider coverage",
+            "detail": "302 blocking assets",
+            "pass": true
+        },
+        {
+            "name": "static collider policy",
+            "detail": "Static concave geometry; no dynamic nonconvex rigidbodies or invisible envelope boxes",
+            "pass": true
+        },
+        {
+            "name": "metre scale",
+            "detail": "Ground width must be 330 metres",
+            "pass": true
+        },
+        {
+            "name": "ground raycast",
+            "detail": "Process yard y=-0.05000001",
+            "pass": true
+        },
+        {
+            "name": "pipe blocks moving equipment",
+            "detail": "BF1-G100",
+            "pass": true
+        },
+        {
+            "name": "walkway under overhead pipe remains open",
+            "detail": "1.8 metre inspector capsule along ground passage",
+            "pass": true
+        },
+        {
+            "name": "tower opening remains open",
+            "detail": "No convex hull filling the furnace tower opening",
+            "pass": true
+        },
+        {
+            "name": "inspector can climb stairs to inspection platform",
+            "detail": "Controller end position (-75.750, 4.670, -15.000)",
+            "pass": true
+        },
+        {
+            "name": "movable inspection device uses CCD and box collider",
+            "detail": "MAEKPortableUT.prefab",
+            "pass": true
+        },
+        {
+            "name": "dynamic equipment rests on ground",
+            "detail": "UT case centre y=0.1000",
+            "pass": true
+        }
+    ]
+}

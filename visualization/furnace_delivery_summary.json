@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "numerical_tests": 22,
+  "unity_checks": 272,
+  "retained_drone_routes": 240,
+  "blender_saved_state_checks": 8,
+  "verified_saved_section_materials": 190,
+  "trace_seconds": 600,
+  "blender_speedup": 10,
+  "matched_packaged_assets": 6,
+  "mass_residual_kg": -3.6088749766349792e-09,
+  "energy_residual_J": 0.31664228439331055,
+  "model_scope": "Reduced-order net reaction/enthalpy model; pure-iron phase proxy; Darcy taphole and 1-D Saint-Venant runner. Numerical verification, not industrial validation."
+}

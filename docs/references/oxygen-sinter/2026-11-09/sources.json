@@ -1,0 +1,322 @@
+{
+  "schema_version": 1,
+  "record_date": "2026-11-09",
+  "repository": "D:/obsd/Projects/hackerton/MAEK",
+  "write_scope": "docs/references/oxygen-sinter/2026-11-09/",
+  "purpose": "산소 공급 및 소결 2차 집진 개념 구성의 원문 근거와 MAEK 적용 한계 기록",
+  "verification": {
+    "method": "공식 HTML 원문 열람 및 공식 PDF 직접 다운로드 후 전체 관련 페이지 텍스트 확인",
+    "code_review_performed": false,
+    "plant_validation_performed": false
+  },
+  "project_plan": {
+    "source_type": "user_supplied_parent_verified_context",
+    "revision": "AHj4eMSMkDcF8Q6MWzoFzKATf2t2hqmYY7y9ZbfvHZ3Ex7XGjYZc-2G9jm2Gdm_TdT56MkcgIYf81jb7N_VBGkh8iwLqwucD_j4wk7VbJzM",
+    "submitted_on": "2026-11-09",
+    "original_url": "https://docs.google.com/document/d/1FfAsoZOnLjI0hc3uvzqAkWLmLkO8IS1IBK8JXm9SqAg/edit?tab=t.0",
+    "original_independently_reopened": false,
+    "confirmed_by": "상위 작업에서 Google Drive 원문 조회",
+    "scope": "sensor AI RGB/UT/IR -> 안전, 품질, 공정 영향의 분리 평가 -> 예산 기반 우선순위",
+    "current_rgb": "HSV baseline only; 학습 기반 RGB 모델 완료로 주장하지 않음",
+    "permit_to_work": "not_assessed",
+    "limitation": "이 문서 작업에서 계획서 원문 또는 코드 구현을 독립 재검증하지 않음",
+    "parent_reopened_current_revision": true
+  },
+  "sources": [
+    {
+      "id": "EIGA-DOC13-20",
+      "publisher": "European Industrial Gases Association (EIGA)",
+      "title": "Oxygen Pipeline and Piping Systems",
+      "document_id": "Doc 13/20",
+      "revision_note": "Revision of Doc 13/12; Correction of typographical errors (26 August 2020)",
+      "url": "https://www.eiga.eu/uploads/documents/DOC013.pdf",
+      "source_type": "official_industry_guidance",
+      "accessed_on": "2026-11-09",
+      "access": {
+        "public_access": true,
+        "method": "PowerShell Invoke-WebRequest; browser PDF fetch timed out",
+        "authentication_required": false
+      },
+      "local_copy": {
+        "path": "originals/EIGA-DOC013.pdf",
+        "bytes": 725838,
+        "sha256": "5f3501c93eb28406830d10602b91f2a7b08a23d253deced164b5ab7adce59ba8",
+        "pdf_pages": 82,
+        "version_verified_from_cover": true
+      },
+      "locators": [
+        {
+          "section": "Title/copyright",
+          "pdf_pages_1based": [
+            1,
+            2
+          ],
+          "printed_pages": null,
+          "supports": "Doc 13/20 식별, 2020 정정일, 출처 명시 조건 복제 허용 및 면책"
+        },
+        {
+          "section": "2 Scope and purpose",
+          "pdf_pages_1based": [
+            5
+          ],
+          "printed_pages": "1",
+          "supports": "기체 산소 배관 지침의 범위; 완전한 설계 편람 또는 의무 코드가 아님"
+        },
+        {
+          "section": "5.4.3 Filters, especially 5.4.3.6",
+          "pdf_pages_1based": [
+            29,
+            30
+          ],
+          "printed_pages": "25-26",
+          "supports": "입출구 차단밸브, 필터 후단/출구 차단밸브 전단 vent; 연속 공급 필요 시 병렬 필터; 역류 및 차압 관련 고려"
+        },
+        {
+          "section": "8.1 Function; 8.2 Design brief; 8.2.1 Valves",
+          "pdf_pages_1based": [
+            47,
+            48
+          ],
+          "printed_pages": "43-44",
+          "supports": "공급 배관 연계 계량·제어 기능, 고객/현장 조건 및 P&ID 설계기준, HAZOP/risk assessment 고려"
+        },
+        {
+          "section": "8.2.2 Filters and strainers; 8.2.3 Flowmeters; 8.2.4 Flow and pressure control; 8.2.7 Instruments",
+          "pdf_pages_1based": [
+            48,
+            49
+          ],
+          "printed_pages": "44-45",
+          "supports": "제어 스테이션 인입 필터, 유량 계량, 유량·압력 제어 기능 및 산소 적합 계기"
+        }
+      ],
+      "supports_claims": [
+        "OXY-01",
+        "OXY-02",
+        "OXY-03"
+      ],
+      "does_not_establish": [
+        "특정 고로 현장 P&ID",
+        "고로 풍구 연결",
+        "계량기와 제어밸브의 보편적인 고정 배치 순서",
+        "MAEK 좌표·치수·운전값 또는 적합성 인증"
+      ],
+      "rights": {
+        "copyright_holder": "EIGA 2020",
+        "permission_observed": "PDF 2쪽에 EIGA 출처 명시를 조건으로 publication 복제 허용",
+        "public_access_is_open_license": false,
+        "redistribution_status": "출처 명시 조건 허용 문구 확인; 조건 없는 재배포나 모든 2차 사용 권한으로 확대 해석하지 않음",
+        "local_policy": "검토용 보관. 원문 동봉 배포 전 해당 권한 조건 준수 확인; 무단 재배포 금지",
+        "uncertainty": "표시된 조건을 넘는 변경물·제3자 자료 이용 권한은 미확인"
+      }
+    },
+    {
+      "id": "CP-TATA-SINTER-SECONDARY",
+      "publisher": "C&P Engineering Services",
+      "title": "Case Study: Tata Steel Filtration Plant",
+      "url": "https://www.cpengineering.co.uk/case_study/tata-steel-filtration-plant/",
+      "source_type": "official_contractor_case_study",
+      "accessed_on": "2026-11-09",
+      "publication_date": null,
+      "access": {
+        "public_access": true,
+        "authentication_required": false,
+        "method": "공식 HTML 본문 열람"
+      },
+      "local_copy": null,
+      "locators": [
+        {
+          "heading": "Case Study: Tata Steel Filtration Plant",
+          "paragraph_anchor": "첫 문단; Tata Steel / existing secondary dust extraction system / Sinter Plant / Port Talbot",
+          "supports": "실제 소결공장 secondary 계통의 bag filtration 설치 사례"
+        },
+        {
+          "heading": "Case Study: Tata Steel Filtration Plant",
+          "paragraph_anchor": "As part of the Project로 시작하는 문단; external ductwork",
+          "supports": "신규 bag filter와 기존 설비를 연결하는 외부 덕트 공사"
+        }
+      ],
+      "supports_claims": [
+        "SIN-01"
+      ],
+      "does_not_establish": [
+        "후드별 상세 배치",
+        "전체 계통 P&ID",
+        "ID fan의 정확한 위치",
+        "현 시점 운전 상태",
+        "MAEK 성능 또는 배출 보증"
+      ],
+      "rights": {
+        "public_access_is_reuse_permission": false,
+        "text_reuse_permission": "별도 재사용 허가 미확인",
+        "photo_reuse_permission": "미확인; 사진 미복제",
+        "redistribution_status": "무단 재배포 금지; 원문 링크와 제한적인 자체 요약만 기록"
+      }
+    },
+    {
+      "id": "PRIMETALS-SDS",
+      "publisher": "Primetals Technologies",
+      "title": "Secondary Dedusting Systems for Steel Plants",
+      "url": "https://www.primetals.com/en/portfolio/solutions/environmental-solutions/secondary-dedusting-systems/",
+      "source_type": "official_supplier_solution",
+      "accessed_on": "2026-11-09",
+      "publication_date": null,
+      "access": {
+        "public_access": true,
+        "authentication_required": false,
+        "method": "공식 HTML 본문 및 사진 캡션 열람"
+      },
+      "local_copy": null,
+      "locators": [
+        {
+          "heading": "Enhance Steel Plant's Efficiency with Secondary Dedusting Systems (SDS)",
+          "paragraph_anchor": "fume hoods; suction points; mixing duct; pulse jet filter; clean gas duct; exhaust stack; ID fans",
+          "supports": "일반 2차 집진 구성 요소와 가스/분진 흐름"
+        },
+        {
+          "heading": "Applications of the Secondary Dedusting System (SDS)",
+          "paragraph_anchor": "Agglomeration processes (sintering/pelletizing) – room dedusting",
+          "supports": "소결/펠릿 room dedusting 적용 범주"
+        },
+        {
+          "heading": "Image captions",
+          "paragraph_anchor": "Bag filter and clean gas stack for LD converter (BOF); Dillinger Hüttenwerke, Germany",
+          "supports": "BOF 사진임을 명시하므로 소결 현장 사진으로 사용 금지"
+        }
+      ],
+      "supports_claims": [
+        "SIN-02",
+        "SIN-03"
+      ],
+      "does_not_establish": [
+        "Tata Port Talbot 개별 장치 구성이나 현장 치수",
+        "일반 이미지가 소결 현장이라는 식별",
+        "소결 primary/secondary 가스 합류의 필요성"
+      ],
+      "rights": {
+        "public_access_is_reuse_permission": false,
+        "text_reuse_permission": "별도 재사용 허가 미확인",
+        "photo_reuse_permission": "미확인; 사진 미복제",
+        "redistribution_status": "무단 재배포 금지; 링크와 자체 요약만 기록"
+      }
+    },
+    {
+      "id": "PRIMETALS-MEROS",
+      "publisher": "Primetals Technologies",
+      "title": "MEROS®: Maximized Emission Reduction of Sintering and Pelletizing",
+      "url": "https://www.primetals.com/en/portfolio/solutions/environmental-solutions/meros-gas-cleaning-plant/",
+      "source_type": "official_supplier_solution",
+      "accessed_on": "2026-11-09",
+      "publication_date": null,
+      "access": {
+        "public_access": true,
+        "authentication_required": false,
+        "method": "공식 HTML 본문 열람"
+      },
+      "local_copy": null,
+      "locators": [
+        {
+          "heading": "Advanced Off-Gas Cleaning for the Agglomeration Industry",
+          "paragraph_anchor": "첫 세 문단; sintering / pelletizing flue gases",
+          "supports": "소결 공정 배가스 처리의 별도 문맥; secondary room dedusting와 구분"
+        }
+      ],
+      "supports_claims": [
+        "SIN-04"
+      ],
+      "does_not_establish": [
+        "Tata Port Talbot에 MEROS 설치",
+        "secondary 계통을 MEROS로 대체할 근거",
+        "소결 primary 배가스의 완전한 배관도"
+      ],
+      "rights": {
+        "public_access_is_reuse_permission": false,
+        "reuse_permission": "별도 허가 미확인; 사진 미복제",
+        "redistribution_status": "무단 재배포 금지; 링크와 자체 요약만 기록"
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "OXY-01",
+      "classification": "source_supported_components_project_selected_topology",
+      "source_ids": [
+        "EIGA-DOC13-20"
+      ],
+      "statement": "supply pipeline -> inlet block -> filter -> outlet block -> meter/control -> consumer inlet boundary",
+      "limit": "필터/스테이션 기능은 원문 근거; 이 단순 연결과 소비처 경계는 프로젝트 선택이며 실제 BF P&ID가 아님"
+    },
+    {
+      "id": "OXY-02",
+      "classification": "source_fact",
+      "source_ids": [
+        "EIGA-DOC13-20"
+      ],
+      "statement": "필터 입출구 차단밸브와 필터 후단·출구 차단밸브 전단 vent의 근거는 5.4.3.6",
+      "limit": "실제 안전설계·운전 절차를 이 도식으로 대체하지 않음"
+    },
+    {
+      "id": "OXY-03",
+      "classification": "source_fact",
+      "source_ids": [
+        "EIGA-DOC13-20"
+      ],
+      "statement": "8.1-8.2는 고객별 공급 계량·제어 및 설계기준 요구를 설명",
+      "limit": "meter/control 내부 상세 순서와 사양은 미정"
+    },
+    {
+      "id": "SIN-01",
+      "classification": "site_specific_source_fact",
+      "source_ids": [
+        "CP-TATA-SINTER-SECONDARY"
+      ],
+      "statement": "Tata Port Talbot 소결공장의 기존 secondary 계통에 bag filtration 및 연결 덕트 설치 사례",
+      "limit": "현장 전체 배치도는 제공하지 않음"
+    },
+    {
+      "id": "SIN-02",
+      "classification": "general_supplier_source_fact",
+      "source_ids": [
+        "PRIMETALS-SDS"
+      ],
+      "statement": "후드·덕트·필터·ID fan·stack 일반 구성 및 소결 room dedusting 적용 범주",
+      "limit": "Tata 개별 배치 또는 사진의 소결 식별 근거가 아님"
+    },
+    {
+      "id": "SIN-03",
+      "classification": "project_synthesis",
+      "source_ids": [
+        "CP-TATA-SINTER-SECONDARY",
+        "PRIMETALS-SDS"
+      ],
+      "statement": "secondary hood -> merging duct -> bagfilter -> induced fan -> clean stack",
+      "limit": "두 출처를 조합한 개념 흐름; 실제 Tata P&ID 및 fan 위치 검증 아님"
+    },
+    {
+      "id": "SIN-04",
+      "classification": "separation_supported_by_different_source_contexts",
+      "source_ids": [
+        "PRIMETALS-SDS",
+        "PRIMETALS-MEROS"
+      ],
+      "statement": "소결 primary process off-gas와 secondary room dedusting를 별도 계통으로 취급",
+      "limit": "SDS의 EAF/AOD primary 혼합 예시를 소결에 전용하지 않음"
+    },
+    {
+      "id": "MAEK-01",
+      "classification": "project_interpretation_from_user_supplied_plan",
+      "source_ids": [],
+      "statement": "RGB 외관 후보 -> UT 추가검사; IR 별도 관측; 안전/품질/공정 영향 분리 후 예산 우선순위",
+      "limit": "RGB는 현재 HSV baseline only; UT/IR 구현·실증 또는 작업허가 평가 완료 주장 없음"
+    }
+  ],
+  "global_limits": [
+    "실제 고로 P&ID 아님",
+    "좌표·치수·운전 조건 미보정",
+    "사고현장 복제 아님",
+    "신규 산소 공급계통은 소비처 인입경계까지; 실제 BF 풍구 연결 미구현",
+    "소결 primary gas와 secondary dust extraction 분리",
+    "작업허가 not_assessed; 안전/품질/공정 영향 및 예산 우선순위는 서로 구분",
+    "공개 접근 가능성과 저작권·재배포 권한은 별개; 현재 최신판 여부 별도 확인 필요"
+  ]
+}

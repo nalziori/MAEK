@@ -1,0 +1,1116 @@
+{
+    "status": "PASS",
+    "scope": "Saved scene: exact span end ports; typed directed reachability; actual Unity collider penetration (>15mm) vs all scene colliders, only shared declared ports exempt; 0.12m swept drone route and first-hit target visibility. No hydraulic or structural certification.",
+    "lines": 17,
+    "joints": 19,
+    "colliders": 61,
+    "routeSegments": 34,
+    "views": 17,
+    "checks": [
+        {
+            "name": "typed directed topology",
+            "detail": "Oxygen isolated from dust gas; every declared node reachable from source and sink present",
+            "pass": true
+        },
+        {
+            "name": "ports O2-L001",
+            "detail": "(180.00, 4.00, -30.00) -> (185.00, 4.00, -30.00)",
+            "pass": true
+        },
+        {
+            "name": "ports O2-L002",
+            "detail": "(185.00, 4.00, -30.00) -> (190.00, 4.00, -30.00)",
+            "pass": true
+        },
+        {
+            "name": "ports O2-L003",
+            "detail": "(190.00, 4.00, -30.00) -> (194.00, 4.00, -30.00)",
+            "pass": true
+        },
+        {
+            "name": "ports O2-L004",
+            "detail": "(194.00, 4.00, -30.00) -> (199.00, 4.00, -30.00)",
+            "pass": true
+        },
+        {
+            "name": "ports O2-L005",
+            "detail": "(199.00, 4.00, -30.00) -> (204.00, 4.00, -30.00)",
+            "pass": true
+        },
+        {
+            "name": "ports O2-L006",
+            "detail": "(204.00, 4.00, -30.00) -> (209.00, 4.00, -30.00)",
+            "pass": true
+        },
+        {
+            "name": "ports O2-L007",
+            "detail": "(209.00, 4.00, -30.00) -> (220.00, 4.00, -30.00)",
+            "pass": true
+        },
+        {
+            "name": "ports SINTER-D001",
+            "detail": "(180.00, 6.00, 8.00) -> (180.00, 11.00, 8.00)",
+            "pass": true
+        },
+        {
+            "name": "ports SINTER-D002",
+            "detail": "(180.00, 11.00, 8.00) -> (196.00, 11.00, 8.00)",
+            "pass": true
+        },
+        {
+            "name": "ports SINTER-D003",
+            "detail": "(196.00, 6.00, 22.00) -> (196.00, 11.00, 22.00)",
+            "pass": true
+        },
+        {
+            "name": "ports SINTER-D004",
+            "detail": "(196.00, 11.00, 22.00) -> (196.00, 11.00, 8.00)",
+            "pass": true
+        },
+        {
+            "name": "ports SINTER-D005",
+            "detail": "(196.00, 11.00, 8.00) -> (216.00, 11.00, 8.00)",
+            "pass": true
+        },
+        {
+            "name": "ports SINTER-D006",
+            "detail": "(216.00, 11.00, 8.00) -> (228.00, 11.00, 8.00)",
+            "pass": true
+        },
+        {
+            "name": "ports SINTER-D007",
+            "detail": "(228.00, 11.00, 8.00) -> (240.00, 11.00, 8.00)",
+            "pass": true
+        },
+        {
+            "name": "ports SINTER-D008",
+            "detail": "(240.00, 11.00, 8.00) -> (244.00, 11.00, 8.00)",
+            "pass": true
+        },
+        {
+            "name": "ports SINTER-D009",
+            "detail": "(244.00, 11.00, 8.00) -> (252.00, 11.00, 8.00)",
+            "pass": true
+        },
+        {
+            "name": "ports SINTER-D010",
+            "detail": "(252.00, 11.00, 8.00) -> (252.00, 28.00, 8.00)",
+            "pass": true
+        },
+        {
+            "name": "physical collider Annex yard - joins original yard at x=165",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Pipe pedestal SINTER-D009",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Pipe pedestal SINTER-D008",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Pipe pedestal SINTER-D007",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Dust collection bin",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Bag filter column",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Bag filter column",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Dust collection bin",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Bag filter column",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Bag filter column",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Pipe pedestal SINTER-D005",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Pipe pedestal O2-L007",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Pipe pedestal O2-L006",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Material transfer enclosure SINTER.TRANSFER_HOOD",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Pipe pedestal SINTER-D004",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Pipe pedestal SINTER-D002",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Material transfer enclosure SINTER.SCREEN_HOOD",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Pipe pedestal O2-L005",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Pipe pedestal O2-L004",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Pipe pedestal O2-L003",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Pipe pedestal O2-L002",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Pipe pedestal O2-L001",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Annex yard - joins original yard at x=165 / Process yard",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span O2-L001",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L001 / Connected span O2-L002",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L001 / Inline valve O2.BLOCK_IN",
+            "detail": "depth=0.2700074; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L001 / Pipe pedestal O2-L001",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Pipe pedestal O2-L001",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span O2-L002",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L002 / Pipe pedestal O2-L002",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L002 / Connected span O2-L003",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L002 / Inline valve O2.BLOCK_IN",
+            "detail": "depth=0.2700074; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "physical collider Pipe pedestal O2-L002",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span O2-L003",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L003 / Connected span O2-L004",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L003 / Pipe pedestal O2-L003",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Pipe pedestal O2-L003",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span O2-L004",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L004 / Connected span O2-L005",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L004 / Inline valve O2.BLOCK_OUT",
+            "detail": "depth=0.2700074; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L004 / Pipe pedestal O2-L004",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Pipe pedestal O2-L004",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span O2-L005",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L005 / Connected span O2-L006",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L005 / Inline meter O2.METER",
+            "detail": "depth=0.2700074; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L005 / Pipe pedestal O2-L005",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L005 / Inline valve O2.BLOCK_OUT",
+            "detail": "depth=0.2700074; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "physical collider Pipe pedestal O2-L005",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span O2-L006",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L006 / Connected span O2-L007",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L006 / Pipe pedestal O2-L006",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L006 / Inline control O2.CONTROL",
+            "detail": "depth=0.2700074; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L006 / Inline meter O2.METER",
+            "detail": "depth=0.2700074; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "physical collider Pipe pedestal O2-L006",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span O2-L007",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L007 / Pipe pedestal O2-L007",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span O2-L007 / Inline control O2.CONTROL",
+            "detail": "depth=0.2700074; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "physical collider Pipe pedestal O2-L007",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span SINTER-D001",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D001 / Connected span SINTER-D002",
+            "detail": "depth=0.3807659; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D001 / Joint SINTER.SCREEN_ELBOW",
+            "detail": "depth=0.6500003; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D001 / Enclosed material transfer hood SINTER.SCREEN_HOOD",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span SINTER-D002",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D002 / Connected span SINTER-D005",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D002 / Joint SINTER.HEADER",
+            "detail": "depth=0.9000062; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D002 / Connected span SINTER-D004",
+            "detail": "depth=0.3807673; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D002 / Pipe pedestal SINTER-D002",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D002 / Joint SINTER.SCREEN_ELBOW",
+            "detail": "depth=0.6500062; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "physical collider Pipe pedestal SINTER-D002",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span SINTER-D003",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D003 / Joint SINTER.TRANSFER_ELBOW",
+            "detail": "depth=0.6500003; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D003 / Enclosed material transfer hood SINTER.TRANSFER_HOOD",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D003 / Connected span SINTER-D004",
+            "detail": "depth=0.3807631; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span SINTER-D004",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D004 / Connected span SINTER-D005",
+            "detail": "depth=0.4398265; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D004 / Joint SINTER.TRANSFER_ELBOW",
+            "detail": "depth=0.6500024; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D004 / Joint SINTER.HEADER",
+            "detail": "depth=0.9000024; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D004 / Pipe pedestal SINTER-D004",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Pipe pedestal SINTER-D004",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span SINTER-D005",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D005 / Bag filter casing / inlet-to-outlet internal span",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D005 / Pipe pedestal SINTER-D005",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D005 / Joint SINTER.HEADER",
+            "detail": "depth=0.9000063; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "physical collider Pipe pedestal SINTER-D005",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Bag filter casing / inlet-to-outlet internal span",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Bag filter casing / inlet-to-outlet internal span / Connected span SINTER-D007",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Bag filter casing / inlet-to-outlet internal span / Dust hopper",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Bag filter casing / inlet-to-outlet internal span / Bag filter column",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Bag filter casing / inlet-to-outlet internal span / Bag filter column",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Bag filter casing / inlet-to-outlet internal span / Dust hopper",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Bag filter casing / inlet-to-outlet internal span / Bag filter column",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Bag filter casing / inlet-to-outlet internal span / Bag filter column",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Bag filter column",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Bag filter column",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Bag filter column",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Bag filter column",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Dust hopper",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Dust hopper / Closed dust discharge to collection bin",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Closed dust discharge to collection bin",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Closed dust discharge to collection bin / Dust collection bin",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Dust collection bin",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Dust hopper",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Dust hopper / Closed dust discharge to collection bin",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Closed dust discharge to collection bin",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Closed dust discharge to collection bin / Dust collection bin",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Dust collection bin",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span SINTER-D007",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D007 / Connected span SINTER-D008",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D007 / Pipe pedestal SINTER-D007",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Pipe pedestal SINTER-D007",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span SINTER-D008",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D008 / Connected span SINTER-D009",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D008 / Pipe pedestal SINTER-D008",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Pipe pedestal SINTER-D008",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span SINTER-D009",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D009 / Connected span SINTER-D010",
+            "detail": "depth=0.5272119; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D009 / Joint SINTER.STACK_BASE",
+            "detail": "depth=0.9000063; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D009 / Pipe pedestal SINTER-D009",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Pipe pedestal SINTER-D009",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Connected span SINTER-D010",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Connected span SINTER-D010 / Joint SINTER.STACK_BASE",
+            "detail": "depth=0.8999994; only shared declared ports exempt",
+            "pass": true
+        },
+        {
+            "name": "physical collider Inline valve O2.BLOCK_IN",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Instrument stem O2.BLOCK_IN",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Instrument stem O2.BLOCK_IN / Operator / meter face O2.BLOCK_IN",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Instrument stem O2.BLOCK_IN / Inline valve O2.BLOCK_IN",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Operator / meter face O2.BLOCK_IN",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Inline valve O2.BLOCK_OUT",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Instrument stem O2.BLOCK_OUT",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Instrument stem O2.BLOCK_OUT / Operator / meter face O2.BLOCK_OUT",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Instrument stem O2.BLOCK_OUT / Inline valve O2.BLOCK_OUT",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Operator / meter face O2.BLOCK_OUT",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Inline meter O2.METER",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Instrument stem O2.METER",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Instrument stem O2.METER / Inline meter O2.METER",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Instrument stem O2.METER / Operator / meter face O2.METER",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Operator / meter face O2.METER",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Inline control O2.CONTROL",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Instrument stem O2.CONTROL",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Instrument stem O2.CONTROL / Operator / meter face O2.CONTROL",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "clash Instrument stem O2.CONTROL / Inline control O2.CONTROL",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Operator / meter face O2.CONTROL",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Enclosed material transfer hood SINTER.SCREEN_HOOD",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Enclosed material transfer hood SINTER.SCREEN_HOOD / Material transfer enclosure SINTER.SCREEN_HOOD",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Material transfer enclosure SINTER.SCREEN_HOOD",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Joint SINTER.SCREEN_ELBOW",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Enclosed material transfer hood SINTER.TRANSFER_HOOD",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "clash Enclosed material transfer hood SINTER.TRANSFER_HOOD / Material transfer enclosure SINTER.TRANSFER_HOOD",
+            "detail": "clear",
+            "pass": true
+        },
+        {
+            "name": "physical collider Material transfer enclosure SINTER.TRANSFER_HOOD",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Joint SINTER.TRANSFER_ELBOW",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Joint SINTER.HEADER",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "physical collider Joint SINTER.STACK_BASE",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "view O2-L001",
+            "detail": "Connected span O2-L001",
+            "pass": true
+        },
+        {
+            "name": "view O2-L002",
+            "detail": "Connected span O2-L002",
+            "pass": true
+        },
+        {
+            "name": "view O2-L003",
+            "detail": "Connected span O2-L003",
+            "pass": true
+        },
+        {
+            "name": "view O2-L004",
+            "detail": "Connected span O2-L004",
+            "pass": true
+        },
+        {
+            "name": "view O2-L005",
+            "detail": "Connected span O2-L005",
+            "pass": true
+        },
+        {
+            "name": "view O2-L006",
+            "detail": "Connected span O2-L006",
+            "pass": true
+        },
+        {
+            "name": "view O2-L007",
+            "detail": "Connected span O2-L007",
+            "pass": true
+        },
+        {
+            "name": "view SINTER-D001",
+            "detail": "Connected span SINTER-D001",
+            "pass": true
+        },
+        {
+            "name": "view SINTER-D002",
+            "detail": "Connected span SINTER-D002",
+            "pass": true
+        },
+        {
+            "name": "view SINTER-D003",
+            "detail": "Connected span SINTER-D003",
+            "pass": true
+        },
+        {
+            "name": "view SINTER-D004",
+            "detail": "Connected span SINTER-D004",
+            "pass": true
+        },
+        {
+            "name": "view SINTER-D005",
+            "detail": "Connected span SINTER-D005",
+            "pass": true
+        },
+        {
+            "name": "view SINTER-D006",
+            "detail": "Bag filter casing / inlet-to-outlet internal span",
+            "pass": true
+        },
+        {
+            "name": "view SINTER-D007",
+            "detail": "Connected span SINTER-D007",
+            "pass": true
+        },
+        {
+            "name": "view SINTER-D008",
+            "detail": "Connected span SINTER-D008",
+            "pass": true
+        },
+        {
+            "name": "view SINTER-D009",
+            "detail": "Connected span SINTER-D009",
+            "pass": true
+        },
+        {
+            "name": "view SINTER-D010",
+            "detail": "Connected span SINTER-D010",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 1",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 2",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 3",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 4",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 5",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 6",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 7",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 8",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 9",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 10",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 11",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 12",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 13",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 14",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 15",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 16",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 17",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 18",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 19",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 20",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 21",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 22",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 23",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 24",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 25",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 26",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 27",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 28",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 29",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 30",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 31",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 32",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 33",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "supplementary flight 34",
+            "detail": "",
+            "pass": true
+        },
+        {
+            "name": "original catalogue untouched",
+            "detail": "",
+            "pass": true
+        }
+    ]
+}

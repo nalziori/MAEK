@@ -1,0 +1,126 @@
+{
+  "date": "2026-11-09",
+  "basis": "Latest project plan read before review; multi-medium scope, not gas-only",
+  "planUrl": "https://docs.google.com/document/d/1FfAsoZOnLjI0hc3uvzqAkWLmLkO8IS1IBK8JXm9SqAg",
+  "planRevision": "AHj4eMSXSKsCe95MkqyLujaKlRfmLXdkrDW18OMn5sqFEKzj5Ird9Sck-VM0QY_Vs9qb4Rhp71vLhumvyuANd_XYqK9c3yOSIms1C7f94TU",
+  "status": "REVIEW_AND_PROPOSAL_ONLY",
+  "pipeCount": 247,
+  "captureStops": 771,
+  "services": {
+    "BFG_RAW": 6,
+    "BFG_DEDUST": 2,
+    "BFG_CLEAN": 18,
+    "FLUE": 14,
+    "COLD_BLAST": 12,
+    "HOT_BLAST": 60,
+    "COMB_AIR": 12,
+    "CW_SUPPLY": 52,
+    "CW_RETURN": 50,
+    "WASH": 6,
+    "SLURRY": 4,
+    "TRAIN_CW": 4,
+    "N2": 4,
+    "INSTR_AIR": 3
+  },
+  "cases": [
+    {
+      "id": "M01",
+      "system": "냉각수 공급·회수",
+      "pipes": [
+        "BF1-W002",
+        "BF1-W003"
+      ],
+      "feature": "외면 부식 후보→후속 두께 확인",
+      "readiness": "RGB 연결 활용 가능; UT 결과 연결 필요",
+      "decision": "부식 후보 위치·촬영 근거·검사 접근 조건을 확인하고 두께검사 후보로 저장"
+    },
+    {
+      "id": "M02",
+      "system": "냉각수 또는 가스관의 용접 구간",
+      "pipes": [
+        "BF1-W002"
+      ],
+      "feature": "UT 균열 의심→안전 우선 검토",
+      "readiness": "관측 구간·용접 특징점·UT 파형/결과 연결 필요",
+      "decision": "명시적 모의 UT 또는 실제 모듈 출력과 품질을 근거로 담당자 우선 검토; RGB 녹을 균열로 바꾸지 않음"
+    },
+    {
+      "id": "M03",
+      "system": "고로가스",
+      "pipes": [
+        "BF1-G004",
+        "BF1-G201",
+        "BF1-G110"
+      ],
+      "feature": "표면 후보·UT 감육/피팅·공급처 영향",
+      "readiness": "RGB·계통 활용 가능; UT/공정 영향/예산 연결 필요",
+      "decision": "정제 공정·열풍로·보일러 사용처를 구분하고 같은 안전 등급에서 대체 공급과 검사 소요 비교"
+    },
+    {
+      "id": "M04",
+      "system": "세정수",
+      "pipes": [
+        "BF1-Q002"
+      ],
+      "feature": "흐림·역광·가림→재촬영",
+      "readiness": "형상·촬영 활용 가능; 품질 평가 연결 필요",
+      "decision": "실제 촬영 열화 조건으로 품질 보류를 발생시키고 미검출을 정상 처리하지 않음"
+    },
+    {
+      "id": "M05",
+      "system": "슬러리",
+      "pipes": [
+        "BF1-Q003"
+      ],
+      "feature": "곡관 구간의 감육·피팅 확인",
+      "readiness": "RGB 활용 가능; 곡관 특징점·UT 두께 연결 필요",
+      "decision": "국부 두께 근거와 재검 조건을 표시; 주황색 슬러지 얼룩은 부식 오탐 대조군으로 활용"
+    },
+    {
+      "id": "M06",
+      "system": "열풍",
+      "pipes": [
+        "BF1-H200"
+      ],
+      "feature": "외피·보온 손상과 열적 이상",
+      "readiness": "기존 계통 활용; 실제 보온 구조 확인 및 IR 관측 생성/판독 연결 필요",
+      "decision": "표면 온도 이상을 내화물·내부 균열 확정과 구분; 고온 접근·센서 조건에 맞춰 후속 검사 검토"
+    },
+    {
+      "id": "M07",
+      "system": "증기·응축수",
+      "pipes": [],
+      "feature": "보온 손상·습윤·트랩 점검과 조건부 PEC",
+      "readiness": "계통·보온 구조·센서 입력 신규 추가 필요",
+      "decision": "보온 이상 후보→재질/온도/보온 조건 확인→적용 가능한 PEC 평균 감육 선별→필요한 UT 확인; 열화상만으로 트랩 고장 확정 금지"
+    },
+    {
+      "id": "M08",
+      "system": "질소·계장공기 독립 시험대",
+      "pipes": [
+        "UTIL-N002",
+        "UTIL-I003"
+      ],
+      "feature": "닫힘·대기·미측정·결함을 구분",
+      "readiness": "기존 시험대 활용; 상태 의미/품질/필수검사 화면 보완",
+      "decision": "유량 0 또는 RGB 무검출이어도 건전·무압으로 처리하지 않음; 실제 고로 공급망과 구분"
+    },
+    {
+      "id": "M09",
+      "system": "여러 계통 공통 비교",
+      "pipes": [
+        "BF1-W002",
+        "BF1-Q002",
+        "BF1-G201"
+      ],
+      "feature": "안전 우선·재검·조업 영향·예산·계획 정비",
+      "readiness": "모듈 공통 결과 계약·의사결정·대시보드 연결 필요",
+      "decision": "필수/안전 검사 보존, 품질 불량 재검, 같은 안전 등급 내 영향/소요 비교, 예산 밖 후보와 담당자 검토 표시"
+    }
+  ],
+  "inputHashes": {
+    "pipe_services.json": "805bcd5639b74e5637a959934af0672306fa298377550639f431ab9cfae3f874",
+    "inspection_tour.json": "52bdc8a5edad47ab9959e466c8945b01ea755b1df3f1be3803874db09ea23854",
+    "process_context.json": "f5bf6f5a8a60eede91c5aa5cbf7bd264d2562e4088a43fc66560ff3571fd7c70"
+  }
+}
