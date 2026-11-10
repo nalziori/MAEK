@@ -8,6 +8,7 @@ __pycache__/
 /GEMINI.md
 /scripts/statusline.py
 /docs/*.docx
+!/docs/MAEK_final_report.docx
 
 # Local tools, private configuration and caches
 .codex/
