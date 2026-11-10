@@ -12,6 +12,15 @@
 | 발표 PPT | [docs/MAEK_presentation.pptx](docs/MAEK_presentation.pptx) |
 | 시연 영상 | [docs/MAEK_demo.mp4](docs/MAEK_demo.mp4) |
 
+## 모델
+
+| 모델 | 위치 |
+|---|---|
+| 부식 (YOLOv8n-seg E4) | [릴리스 e4-20261109](https://github.com/nalziori/MAEK/releases/tag/e4-20261109) |
+| 초음파 피팅 (1D-CNN) | [릴리스 models-20261110](https://github.com/nalziori/MAEK/releases/tag/models-20261110) `ut_pitting_cnn_dr.pt` |
+| 초음파 균열·파열 | [UT/crack_mlp](UT/crack_mlp) · [UT/crack_cnn](UT/crack_cnn) |
+| 열영상 (PV 열점·합성 배관 YOLOv8s) | [릴리스 models-20261110](https://github.com/nalziori/MAEK/releases/tag/models-20261110) |
+
 ## 한 줄 소개
 
 카메라와 열화상으로 낡은 배관의 이상을 먼저 찾고, 의심 지점만 초음파·PEC로 재서 점검 순서를 정합니다.
