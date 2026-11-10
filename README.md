@@ -2,6 +2,16 @@
 
 **파이프의 맥을 읽는다.** POSCO AI Hackathon 2026 안전 주제 프로젝트입니다.
 
+[![MAEK 발표 표지](docs/MAEK_cover.png)](docs/MAEK_presentation.pptx)
+
+## 발표 자료
+
+| 자료 | 링크 |
+|---|---|
+| 최종 결과 보고서 | [docs/MAEK_final_report.docx](docs/MAEK_final_report.docx) |
+| 발표 PPT | [docs/MAEK_presentation.pptx](docs/MAEK_presentation.pptx) |
+| 시연 영상 | [docs/MAEK_demo.mp4](docs/MAEK_demo.mp4) |
+
 ## 한 줄 소개
 
 카메라와 열화상으로 낡은 배관의 이상을 먼저 찾고, 의심 지점만 초음파·PEC로 재서 점검 순서를 정합니다.
