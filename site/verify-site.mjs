@@ -55,8 +55,9 @@ try {
   check("coachmark explains the BFG scenario", steps[0].includes("부생가스"));
   check("coachmark introduces window enlarge", steps.some((s) => s.includes("크게")));
   await page.screenshot({ path: shots + "sim-coach-last.png" });
-  await page.click("#tip-next"); await sleep(1500);
-  check("last coachmark step starts playback", await sim(() => document.getElementById("coach").hidden && window.__sim.t > 0.5));
+  await page.click("#tip-next");
+  const started = await page.waitForFunction(() => document.getElementById("coach").hidden && window.__sim.t > 0.5, { timeout: 8000 }).then(() => true, () => false);
+  check("last coachmark step starts playback", started);
 
   // bento: during playback the clicked window grows to 1.5x of the equal split
   const size = (w) => sim((w) => { const r = document.querySelector(`[data-win="${w}"]`).getBoundingClientRect(); return [r.width, r.height]; }, w);
@@ -66,7 +67,8 @@ try {
   const [w1, h1] = await size("ir");
   const near = (a, b) => Math.abs(a / b - 1.5) < 0.03;
   check("window grows 1.5x while playing", near(w1, w0) && near(h1, h0), `${(w1 / w0).toFixed(3)} x ${(h1 / h0).toFixed(3)}`);
-  check("simulation keeps running during enlarge", (await sim(() => window.__sim.t)) > t0 + 0.5);
+  const running = await page.waitForFunction((t0) => window.__sim.t > t0 + 0.5, { timeout: 8000 }, t0).then(() => true, () => false);
+  check("simulation keeps running during enlarge", running);
   await page.screenshot({ path: shots + "sim-bento.png" });
   await page.click('[data-win="ai"] .body'); await sleep(900);
   check("clicking another window moves the enlargement", near((await size("ai"))[0], w0));

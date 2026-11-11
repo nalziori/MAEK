@@ -154,7 +154,7 @@ function draw() {
 }
 function tick(now) {
   if (playing) {
-    t = Math.min(END, t + Math.min(0.1, (now - last) / 1000));
+    t = Math.min(END, t + Math.min(0.25, (now - last) / 1000)); // real time down to 4 fps; no jump after a hidden tab
     if (t >= 82 && !cnnStarted) runCnn();
     if (t >= END) { setPlaying(false); if (!endShown) { endShown = true; setTimeout(openTech, 600); } }
   }
