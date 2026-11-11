@@ -81,3 +81,4 @@ graphify-out/
 # Pages build output and site tooling
 /_site/
 /site/node_modules/
+!/site/sim/data/
