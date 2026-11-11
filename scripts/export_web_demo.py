@@ -96,7 +96,7 @@ def thermal(cfg, weights, seed=41):
         k = int(r.boxes.conf.argmax())
         box = r.boxes.xyxyn[k].tolist()
         ix = max(0, min(box[2], truth[2]) - max(box[0], truth[0])) * max(0, min(box[3], truth[3]) - max(box[1], truth[1]))
-        area = lambda b: (b[2] - b[0]) * (b[3] - b[1])  # noqa: E731
+        area = lambda b: (b[2] - b[0]) * (b[3] - b[1])
         iou = ix / (area(box) + area(truth) - ix)
         if iou < 0.3:
             continue
@@ -110,7 +110,6 @@ def thermal(cfg, weights, seed=41):
 def pitting(weights):
     import onnxruntime as ort
     import torch
-
     from cnn_followup import checkpoint, logits
     net, ck = checkpoint(weights)
     prep = ck["preprocessing"]

@@ -44,7 +44,7 @@ def main():
     manifest = json.loads((SRC / "maek_manifest.json").read_text(encoding="utf-8"))
     pos = {a["id"]: np.array(a["position"]) for a in manifest["assets"]}
     wanted = {aid for aid, p in pos.items()
-              if not aid.startswith(SKIP) and (aid.startswith("BF1") or aid.startswith("DECOR."))
+              if not aid.startswith(SKIP) and aid.startswith(("BF1", "DECOR."))
               and np.linalg.norm((p - CENTER)[[0, 2]]) < RADIUS}
     chunks, meshes, count = [], [], 0
     for aid, xyz, subs in read_assets(SRC / "maek_geometry.bytes", wanted):
