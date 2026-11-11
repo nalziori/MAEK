@@ -1,0 +1,55 @@
+{
+  "weights_sha256": {
+    "e4": "5c836f8af95c1fbee2b7478e25536dd12a20c36cb03b297f3bbd12f7d74cd63a",
+    "thermal": "670fde808c69fc7b4ad9c97f6e5f6c4448c725e34ecf282f43c63a77c8f0de56",
+    "pitting": "f8022f0dc9b13be9099a56d0a98b901c186626df88f4fa2f7c342f171943fe66"
+  },
+  "corrosion": {
+    "job_id": "J000001",
+    "seed": 31,
+    "index": 1,
+    "candidates_tried": 1,
+    "class": "corrosion",
+    "confidence": 0.9399400949478149,
+    "mask_iou_vs_truth": 0.9749199656437886,
+    "box_xyxy_norm": [
+      0.46722936630249023,
+      0.37004852294921875,
+      0.9426964521408081,
+      0.8423417806625366
+    ]
+  },
+  "leak": {
+    "job_id": "ir00006",
+    "seed": 41,
+    "index": 6,
+    "confidence": 0.8177812099456787,
+    "box_xyxy_norm": [
+      0.5765128135681152,
+      0.22159084677696228,
+      0.6421974897384644,
+      0.3549242913722992
+    ],
+    "truth_xyxy_norm": [
+      0.575,
+      0.2109375,
+      0.646875,
+      0.35546875
+    ],
+    "box_iou_vs_truth": 0.8430698256229391,
+    "temp_range_c": [
+      4.899577927589417,
+      24.58419017791748
+    ],
+    "size": [
+      320,
+      256
+    ]
+  },
+  "pitting": {
+    "case_index": 21,
+    "logit": 27.115171432495117,
+    "onnx_logit": 27.115171432495117,
+    "threshold_logit": 0.8280118107795715
+  }
+}

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MAEK · 고로 부생가스 배관 점검 시뮬레이션</title>
+<link rel="stylesheet" href="sim.css">
+<link rel="preload" href="data/bf1.bin" as="fetch" crossorigin>
+</head>
+<body>
+<div class="app">
+  <aside class="left" aria-label="시뮬레이션 조작">
+    <a class="brand" href="../">MAEK</a>
+    <section class="scenario">
+      <p class="kicker">시나리오</p>
+      <h1>고로 부생가스(BFG) 배관 점검</h1>
+      <p class="desc">드론이 1고로 하강관·제진기·가스 배관 둘레를 돌며 내려가면서 부식·누설·피팅을 찾습니다.</p>
+    </section>
+    <div class="controls">
+      <button id="play" class="primary" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="play-icon" d="M7 4l13 8-13 8z"/></svg><span id="play-label">시뮬레이션 재생</span></button>
+      <button id="restart" type="button" aria-label="처음부터"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v5h5"/></svg></button>
+    </div>
+    <ol class="phases" id="phases" aria-label="점검 구간"></ol>
+    <div class="links">
+      <button id="guide" type="button">가이드 다시 보기</button>
+      <button id="tech" type="button">사용 기술</button>
+      <a href="../">소개로 돌아가기</a>
+    </div>
+  </aside>
+
+  <main class="stage" id="stage" aria-label="점검 화면">
+    <section class="win" data-win="rgb" data-col="0" data-row="0">
+      <header><h2>드론 1인칭 · RGB</h2><button class="grow" type="button" aria-expanded="false" aria-label="RGB 창 크게 보기"></button></header>
+      <div class="body"><canvas id="rgb" aria-label="드론 1인칭 RGB 카메라 화면"></canvas><span class="hud" id="hud-rgb"></span></div>
+    </section>
+    <section class="win" data-win="ir" data-col="1" data-row="0">
+      <header><h2>드론 1인칭 · 열화상</h2><button class="grow" type="button" aria-expanded="false" aria-label="열화상 창 크게 보기"></button></header>
+      <div class="body"><canvas id="ir" aria-label="드론 1인칭 열화상 화면"></canvas><span class="hud" id="hud-ir"></span></div>
+    </section>
+    <section class="win" data-win="ai" data-col="0" data-row="1">
+      <header><h2 id="ai-title">AI 모델 · 입력 → 출력</h2><button class="grow" type="button" aria-expanded="false" aria-label="AI 창 크게 보기"></button></header>
+      <div class="body ai" id="ai"></div>
+    </section>
+    <section class="win" data-win="log" data-col="1" data-row="1">
+      <header><h2>이벤트 로그 · 타임라인</h2><button class="grow" type="button" aria-expanded="false" aria-label="로그 창 크게 보기"></button></header>
+      <div class="body log">
+        <ol id="log" class="events" aria-live="polite"></ol>
+        <div class="timeline" id="timeline" role="slider" tabindex="0" aria-label="시뮬레이션 시점" aria-valuemin="0" aria-valuemax="120" aria-valuenow="0">
+          <div class="segs" id="segs"></div><div class="head" id="head"></div>
+        </div>
+        <p class="clock"><span id="clock">00:00</span> / 02:00</p>
+      </div>
+    </section>
+  </main>
+
+  <aside class="right" aria-label="구간 배관 상태">
+    <h2>구간 배관 · AI 판정</h2>
+    <ul id="pipes" class="pipes"></ul>
+  </aside>
+</div>
+
+<div class="loading" id="loading"><p>가상 제철소를 불러오는 중… <span id="load-pct">0%</span></p></div>
+<div class="narrow" id="narrow">
+  <p><strong>이 시뮬레이션은 PC 화면에 맞춰져 있습니다.</strong><br>휴대폰에서는 시연 영상을 먼저 보시고, PC에서 다시 열어 주세요.</p>
+  <p><a class="primary-link" href="../#3">시연 영상 보기</a> <button type="button" id="narrow-go">그래도 보기</button></p>
+</div>
+
+<div class="coach" id="coach" hidden>
+  <div class="spot" id="spot"></div>
+  <div class="tip" id="tip" role="dialog" aria-modal="false" aria-labelledby="tip-title">
+    <p class="step" id="tip-step"></p>
+    <h3 id="tip-title"></h3>
+    <p id="tip-text"></p>
+    <div class="tip-actions"><button type="button" id="tip-skip">건너뛰기</button><span></span><button type="button" id="tip-prev">이전</button><button type="button" id="tip-next" class="primary">다음</button></div>
+  </div>
+</div>
+
+<dialog id="techdlg" aria-labelledby="tech-title">
+  <form method="dialog" class="dlg-close"><button aria-label="닫기">✕</button></form>
+  <p class="kicker">POSCO K-뉴딜 아카데미 · 온디바이스 AI 기반 산업용 SW 개발 1기</p>
+  <h2 id="tech-title">아카데미에서 배운 기술이 MAEK에 쓰인 곳</h2>
+  <p class="dlg-sub">카드를 누르면 시뮬레이션의 해당 장면으로 이동합니다.</p>
+  <div class="tech" id="techcards"></div>
+</dialog>
+<p class="sr" id="announce" aria-live="assertive"></p>
+<script type="module" src="sim.js"></script>
+</body>
+</html>
