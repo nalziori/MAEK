@@ -5,6 +5,8 @@ import * as THREE from "../vendor/three.module.min.js";
 const G003 = [[18, 49, 20], [4, 49, 20], [0, 29, 0], [0, 24, 0]].map((p) => new THREE.Vector3(...p));
 const G004 = [new THREE.Vector3(-3.2, 18, 0), new THREE.Vector3(-8, 18, 0)];
 const G005x = -26;
+const ROUTE_PIPES = { "BF1-G003": 1, "BF1-G004": 1, "BF1-G005": 1 };
+const IR_WIDTH = 320; // render the thermal view at a thermal-camera resolution, upscaled by CSS
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
 const lerp = THREE.MathUtils.lerp, smooth = (a, b, x) => THREE.MathUtils.smoothstep(x, a, b);
 
@@ -93,16 +95,25 @@ export async function createScene(rgbCanvas, irCanvas, onProgress) {
     color: new THREE.Color().setRGB(...m.color, THREE.SRGBColorSpace), metalness: Math.min(m.metallic, 0.6), roughness: 0.7 }));
   const pipeTemp = { "BF1-G001": 0.62, "BF1-G002": 0.62, "BF1-G003": 0.58, "BF1-G004": 0.5, "BF1-G005": 0.46, "BF1-G006": 0.4,
     "BF1.DC": 0.52, "BF1.SC": 0.42, "BF1.BF": 0.7, "BF1.TOWER": 0.5, "BF1.TRT": 0.45 };
-  const meshes = [], flagged = {};
+  // Merge into one draw call per (material, temperature); inspected pipes stay separate for the red highlight.
+  const meshes = [], flagged = {}, groups = new Map();
   for (const m of meta.meshes) {
-    const g = new THREE.BufferGeometry();
-    g.setAttribute("position", new THREE.BufferAttribute(all.subarray(m.start * 3, (m.start + m.count) * 3), 3));
-    g.computeVertexNormals();
-    const rgb = rgbMats[m.material].clone();
-    const mesh = new THREE.Mesh(g, rgb);
-    mesh.userData = { id: m.id, rgb, ir: irMaterial(pipeTemp[m.id] ?? 0.28) };
+    const own = m.id in ROUTE_PIPES;
+    const key = own ? m.id + "|" + m.material : m.material + "|" + (pipeTemp[m.id] ?? 0.28);
+    if (!groups.has(key)) groups.set(key, { id: own ? m.id : null, material: m.material, temp: pipeTemp[m.id] ?? 0.28, parts: [], n: 0 });
+    const g = groups.get(key); g.parts.push(all.subarray(m.start * 3, (m.start + m.count) * 3)); g.n += m.count * 3;
+  }
+  for (const g of groups.values()) {
+    const arr = new Int16Array(g.n); let o = 0;
+    for (const p of g.parts) { arr.set(p, o); o += p.length; }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(arr, 3));
+    geo.computeVertexNormals();
+    const rgb = rgbMats[g.material].clone();
+    const mesh = new THREE.Mesh(geo, rgb);
+    mesh.userData = { rgb, ir: irMaterial(g.temp) };
     root.add(mesh); meshes.push(mesh);
-    (flagged[m.id] ||= []).push(mesh);
+    if (g.id) (flagged[g.id] ||= []).push(mesh);
   }
   const ground = new THREE.Mesh(new THREE.CircleGeometry(160, 48).rotateX(-Math.PI / 2),
     new THREE.MeshStandardMaterial({ color: 0x6e726f, roughness: 1 }));
@@ -144,13 +155,14 @@ export async function createScene(rgbCanvas, irCanvas, onProgress) {
 
   const rgbR = new THREE.WebGLRenderer({ canvas: rgbCanvas, antialias: true });
   const irR = new THREE.WebGLRenderer({ canvas: irCanvas, antialias: false });
-  for (const r of [rgbR, irR]) r.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+  rgbR.setPixelRatio(1); // ponytail: fixed 1x; raise only if a faster GPU is guaranteed
   const sky = new THREE.Color(0xc9d6df), irSky = new THREE.Color(0x07030f);
   scene.fog = new THREE.Fog(sky, 60, 260);
 
-  function setSize(r, c) {
-    const w = c.clientWidth, h = c.clientHeight;
-    if (w && h && (c.width !== Math.round(w * r.getPixelRatio()) || c.height !== Math.round(h * r.getPixelRatio()))) r.setSize(w, h, false);
+  function setSize(r, c, maxW = Infinity) {
+    const w = c.clientWidth, h = c.clientHeight, k = Math.min(1, maxW / Math.max(w, 1));
+    const pw = Math.round(w * k), ph = Math.round(h * k);
+    if (pw && ph && (c.width !== pw || c.height !== ph)) r.setSize(pw, ph, false);
     return w / Math.max(h, 1);
   }
 
@@ -177,7 +189,7 @@ export async function createScene(rgbCanvas, irCanvas, onProgress) {
     scene.background = sky; scene.fog.color = sky;
     for (const m of meshes) m.material = m.userData.rgb;
     rgbR.render(scene, cam);
-    cam.aspect = setSize(irR, irCanvas); cam.updateProjectionMatrix();
+    cam.aspect = setSize(irR, irCanvas, IR_WIDTH); cam.updateProjectionMatrix();
     scene.background = irSky; scene.fog.color = irSky;
     for (const m of meshes) m.material = m.userData.ir;
     irR.render(scene, cam);
