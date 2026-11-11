@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MAEK · 파이프의 맥을 읽다</title>
+<meta name="description" content="AI 드론을 활용한 제철소 배관 점검 시스템 — 2026 POSCO AI Hackathon 팀 MAEK">
+<style>
+@font-face{font-family:"Pretendard Variable";src:url("assets/fonts/PretendardVariable.woff2") format("woff2-variations");font-weight:45 920;font-display:swap}
+:root{--ink:#111;--muted:#5b6470;--line:#e3e7ec;--sky:#a8dcef;--sky-deep:#1f7fa8;--bg:#fff;--card:#f6f9fb;
+ font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+html,body,main{height:100%;background:var(--bg);color:var(--ink);overflow:hidden}
+.track{display:flex;height:100%;transition:transform .6s cubic-bezier(.22,.7,.2,1)}
+.slide{flex:0 0 100%;height:100%;position:relative;display:grid;place-items:center;padding:72px 88px}
+@media (prefers-reduced-motion:reduce){.track{transition:none}}
+
+/* 1 cover */
+.cover img{width:100%;height:100%;object-fit:contain}
+.slide.cover{padding:0}
+
+/* 2 team */
+.team{width:min(1200px,100%)}
+.eyebrow{color:var(--sky-deep);font-weight:600;letter-spacing:.08em;font-size:.875rem}
+h2{font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;margin:.35em 0 1.2em;letter-spacing:-.01em}
+.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;display:flex;flex-direction:column;gap:10px}
+.card .name{font-size:1.25rem;font-weight:800}
+.card .role{font-size:.875rem;font-weight:600;color:var(--sky-deep)}
+.card ul{padding-left:1.05em;color:var(--muted);font-size:.9rem;line-height:1.55;display:grid;gap:6px}
+@media (max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}.slide{padding:64px 24px;overflow:auto;place-items:start center}}
+
+/* 3 video */
+.video{width:min(1200px,100%);display:grid;gap:16px}
+.video video{width:100%;max-height:calc(100vh - 260px);background:#000;border-radius:12px}
+.speed{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:.875rem}
+.speed button{font:inherit;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;min-height:40px;cursor:pointer}
+.speed button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* 4 enter */
+.enter{position:absolute;inset:0;display:grid;place-items:center;text-decoration:none;color:inherit;cursor:pointer;
+ background:radial-gradient(circle at 50% 50%,#d9f0f8 0,#fff 55%)}
+.enter:focus-visible{outline:4px solid var(--sky-deep);outline-offset:-12px}
+.enter .inner{text-align:center;display:grid;gap:18px;justify-items:center}
+.enter .big{font-size:clamp(2rem,4.4vw,3.5rem);font-weight:800;letter-spacing:-.02em;line-height:1.2}
+.enter .sub{color:var(--muted);font-size:1.0625rem}
+.enter .pulse{width:88px;height:88px;border-radius:50%;background:var(--ink);display:grid;place-items:center;animation:pulse 2s infinite}
+.enter .pulse svg{width:34px;height:34px;fill:#fff;margin-left:6px}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(31,127,168,.45)}70%{box-shadow:0 0 0 26px rgba(31,127,168,0)}100%{box-shadow:0 0 0 0 rgba(31,127,168,0)}}
+
+/* controls */
+.nav{position:fixed;top:50%;transform:translateY(-50%);width:56px;height:56px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.92);
+ display:grid;place-items:center;cursor:pointer;z-index:5}
+.nav svg{width:22px;height:22px;stroke:var(--ink);stroke-width:2.2;fill:none}
+.nav:disabled{opacity:.25;cursor:default}
+.prev{left:20px}.next{right:20px}
+.dots{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:5}
+.dots button{width:44px;height:44px;border:0;background:none;cursor:pointer;display:grid;place-items:center}
+.dots button::before{content:"";width:10px;height:10px;border-radius:50%;background:#c9d1d9;transition:.2s}
+.dots button[aria-current=true]::before{background:var(--ink);width:28px;border-radius:6px}
+:focus-visible{outline:3px solid var(--sky-deep);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<main aria-roledescription="carousel" aria-label="MAEK 소개">
+<div class="track" id="track">
+
+<section class="slide cover" aria-roledescription="slide" aria-label="1 / 4 표지">
+ <img src="assets/cover.png" alt="MAEK — 파이프의 맥을 읽다. AI 드론을 활용한 제철소 배관 점검 시스템. 2026 POSCO AI Hackathon, 온디바이스 AI 기반 산업용 SW 개발 1기">
+</section>
+
+<section class="slide" aria-roledescription="slide" aria-label="2 / 4 팀 소개">
+ <div class="team">
+  <p class="eyebrow">TEAM MAEK</p>
+  <h2>팀원 소개</h2>
+  <div class="cards">
+   <article class="card"><p class="name">유현준</p><p class="role">팀장 · 발표</p><ul><li>Unity 가상 제철소 구축</li><li>열화상 이상 탐지 모델 개발</li><li>최종 발표</li></ul></article>
+   <article class="card"><p class="name">최재영</p><p class="role">비전 AI · 모델 개선</p><ul><li>부식 탐지 모델(YOLO-seg) 개발</li><li>초음파 피팅 모델 개선 (재현율 97.4%, 오경보 0.5%)</li><li>열화상 실데이터 보완 실험</li><li>최종 보고서·산출물 정리</li></ul></article>
+   <article class="card"><p class="name">박성훈</p><p class="role">초음파 AI</p><ul><li>초음파 피팅 판정 모델 구축</li><li>균열 탐지 모델 개발</li></ul></article>
+   <article class="card"><p class="name">강지웅</p><p class="role">PM · 발표 기획</p><ul><li>프로젝트 관리, 발표 기획</li><li>회의록·아이디어 추적, 협업 정리</li><li>보고서 정리 (Notion)</li></ul></article>
+   <article class="card"><p class="name">호예찬</p><p class="role">대시보드 · 검증</p><ul><li>점검 대시보드 개발</li><li>검증(V&amp;V)</li><li>가상 제철소 구축 지원</li></ul></article>
+  </div>
+ </div>
+</section>
+
+<section class="slide" aria-roledescription="slide" aria-label="3 / 4 시연 영상">
+ <div class="video">
+  <p class="eyebrow">DEMO</p>
+  <video id="demo" src="assets/demo.mp4" controls playsinline preload="metadata"></video>
+  <div class="speed" role="group" aria-label="재생 속도"><span>재생 속도</span>
+   <button type="button" data-rate="1" aria-pressed="false">1x</button>
+   <button type="button" data-rate="1.5" aria-pressed="true">1.5x</button>
+   <button type="button" data-rate="2" aria-pressed="false">2x</button>
+  </div>
+ </div>
+</section>
+
+<section class="slide" aria-roledescription="slide" aria-label="4 / 4 시뮬레이션 체험">
+ <a class="enter" href="sim/">
+  <span class="inner">
+   <span class="pulse" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></span>
+   <span class="big">고로 부생가스 배관 점검<br>시뮬레이션 체험</span>
+   <span class="sub">화면 아무 곳이나 누르면 대시보드로 이동합니다</span>
+  </span>
+ </a>
+</section>
+
+</div>
+<button class="nav prev" id="prev" type="button" aria-label="이전 슬라이드"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+<button class="nav next" id="next" type="button" aria-label="다음 슬라이드"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+<nav class="dots" id="dots" aria-label="슬라이드 선택"></nav>
+<p class="sr" aria-live="polite" id="live"></p>
+</main>
+<script>
+const track=document.getElementById('track'),slides=[...track.children],dots=document.getElementById('dots'),
+ prev=document.getElementById('prev'),next=document.getElementById('next'),video=document.getElementById('demo'),live=document.getElementById('live');
+let i=0;
+slides.forEach((s,k)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',(k+1)+'번 슬라이드');b.onclick=()=>go(k);dots.append(b)});
+function go(k){
+ i=Math.max(0,Math.min(slides.length-1,k));
+ track.style.transform=`translateX(${-100*i}%)`;
+ slides.forEach((s,k)=>s.inert=k!==i);
+ [...dots.children].forEach((d,k)=>d.setAttribute('aria-current',k===i));
+ prev.disabled=i===0;next.disabled=i===slides.length-1;
+ if(i!==2)video.pause();
+ live.textContent=slides[i].getAttribute('aria-label');
+ history.replaceState(null,'','#'+(i+1));
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+addEventListener('keydown',e=>{if(e.target.closest('video'))return;if(e.key==='ArrowRight')go(i+1);if(e.key==='ArrowLeft')go(i-1)});
+const rate=r=>{video.defaultPlaybackRate=video.playbackRate=r;document.querySelectorAll('[data-rate]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.rate===r))};
+document.querySelectorAll('[data-rate]').forEach(b=>b.onclick=()=>rate(+b.dataset.rate));
+video.addEventListener('loadedmetadata',()=>rate(+document.querySelector('[data-rate][aria-pressed=true]').dataset.rate));
+rate(1.5);
+go((parseInt(location.hash.slice(1))||1)-1);
+</script>
+</body>
+</html>

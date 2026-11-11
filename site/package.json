@@ -1,0 +1,8 @@
+{
+  "name": "maek-site",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node verify-site.mjs" },
+  "devDependencies": { "puppeteer-core": "25.16.0" },
+  "engines": { "node": ">=22" }
+}

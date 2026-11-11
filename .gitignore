@@ -77,3 +77,7 @@ graphify-out/
 /unity/MAEKInspection/Assets/MAEK/Scenes/MAEKSafetyDemo.unity*
 /unity/MAEKInspection/Assets/MAEK/Scenes/MAEKWorkerUTDemo.unity*
 /unity/MAEKInspection/Assets/MAEK/Scenes/MAEKThermalDemo.unity*
+
+# Pages build output and site tooling
+/_site/
+/site/node_modules/
