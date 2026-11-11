@@ -2,6 +2,8 @@
 # Assemble the static Pages site into _site/ (used by CI and for local preview).
 set -eu
 cd "$(dirname "$0")/.."
+untracked=$(git ls-files --others site/ | grep -vE "node_modules|/\.shots/|peek[0-9]*\.mjs" || true)
+if [ -n "$untracked" ]; then echo "ERROR: site files not in git (Pages would 404):"; echo "$untracked"; exit 1; fi
 rm -rf _site
 mkdir -p _site/assets/fonts
 cp -R site/. _site/

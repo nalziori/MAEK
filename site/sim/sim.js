@@ -39,7 +39,8 @@ function events() {
     [60, "UT 탐촉자 접촉 · A-scan 수신 시작"],
     [82, "A-scan 수신 완료 → 피팅 판정 CNN 추론 (브라우저)"],
   ];
-  if (cnn) ev.push([85, cnn.pitting ? `BF1-G005 피팅 의심 · 확률 ${pct(cnn.probability)}` : `BF1-G005 피팅 없음 · 확률 ${pct(cnn.probability)}`, cnn.pitting ? "alert" : ""]);
+  if (cnn?.error) ev.push([85, "피팅 판정 모델을 불러오지 못했습니다 (새로고침 후 다시 시도)", "alert"]);
+  else if (cnn) ev.push([85, cnn.pitting ? `BF1-G005 피팅 의심 · 확률 ${pct(cnn.probability)}` : `BF1-G005 피팅 없음 · 확률 ${pct(cnn.probability)}`, cnn.pitting ? "alert" : ""]);
   ev.push([92, "로봇팔 회수"], [100, "착륙 지점으로 하강"], [118, "착륙 완료 · 의심 배관 3건 기록"]);
   return ev;
 }
@@ -55,6 +56,7 @@ function state(t) {
     else if (p.id === "BF1-G003") pipes[p.id] = { cls: "alert", text: "부식 의심", value: `부식 분할 · 신뢰도 ${pct(C.confidence)}` };
     else if (p.id === "BF1-G004") pipes[p.id] = { cls: "alert", text: "누설 의심", value: `열화상 탐지 · 신뢰도 ${pct(L.confidence)}` };
     else if (!cnn) pipes[p.id] = { cls: "active", text: "추론 중" };
+    else if (cnn.error) pipes[p.id] = { cls: "", text: "판정 실패" };
     else pipes[p.id] = cnn.pitting ? { cls: "alert", text: "피팅 의심", value: `피팅 CNN · 확률 ${pct(cnn.probability)} (logit ${cnn.logit.toFixed(1)})` }
       : { cls: "ok", text: "정상", value: `피팅 CNN · 확률 ${pct(cnn.probability)}` };
     if (pipes[p.id].cls === "alert") alerts.add(p.id);
@@ -91,12 +93,12 @@ function ai(t) {
   } else if (t < 60) { key = "p0"; title = "피팅 판정 1D-CNN (ONNX)"; html = wait(t < 55 ? "BF1-G005로 이동 중" : "로봇팔 전개 · 탐촉자 접촉 대기"); }
   else if (t < 100) {
     key = "p1" + (t >= 82) + !!cnn; title = "피팅 판정 1D-CNN (ONNX · 브라우저 추론)"; cls = "body ai scan";
-    const r = cnn && t >= 85 ? `<span class="chip ${cnn.pitting ? "red" : "green"}">${cnn.pitting ? "피팅 의심" : "정상"}</span><b>${pct(cnn.probability)}</b><span>logit ${cnn.logit.toFixed(2)} · 임계 ${ascan.threshold_logit.toFixed(2)} · ${cnn.ms.toFixed(0)} ms</span>`
+    const r = cnn?.error && t >= 85 ? `<span class="chip">판정 실패</span><span>모델 파일을 불러오지 못했습니다</span>` : cnn && t >= 85 ? `<span class="chip ${cnn.pitting ? "red" : "green"}">${cnn.pitting ? "피팅 의심" : "정상"}</span><b>${pct(cnn.probability)}</b><span>logit ${cnn.logit.toFixed(2)} · 임계 ${ascan.threshold_logit.toFixed(2)} · ${cnn.ms.toFixed(0)} ms</span>`
       : t >= 82 ? "추론 중…" : "A-scan 수신 중";
     html = `<span class="lab">입력 · 초음파 A-scan (${ascan.rf.length} 샘플, ${ascan.sampling_mhz} MHz)</span><div class="frame"><canvas id="scan"></canvas></div><p class="result">${r}</p>`;
   } else {
     key = "s" + !!cnn; title = "점검 요약";
-    html = `<div class="wait" style="gap:8px"><b>의심 배관 3건</b><span>BF1-G003 부식 ${pct(C.confidence)} · BF1-G004 누설 ${pct(L.confidence)} · BF1-G005 피팅 ${cnn ? pct(cnn.probability) : "-"}</span></div>`;
+    html = `<div class="wait" style="gap:8px"><b>의심 배관 3건</b><span>BF1-G003 부식 ${pct(C.confidence)} · BF1-G004 누설 ${pct(L.confidence)} · BF1-G005 피팅 ${cnn && !cnn.error ? pct(cnn.probability) : "-"}</span></div>`;
   }
   if (key !== aiKey) { aiKey = key; el.className = cls; el.innerHTML = html; $("#ai-title").textContent = "AI · " + title; }
   const cv = $("#scan");
@@ -162,7 +164,11 @@ function tick(now) {
   draw();
   requestAnimationFrame(tick);
 }
-function runCnn() { cnnStarted = true; inferPitting(ascan).then((r) => { cnn = r; lastPipes = ""; lastEv = -1; aiKey = ""; }); }
+function runCnn() {
+  cnnStarted = true;
+  inferPitting(ascan).then((r) => { cnn = r; }, (e) => { console.error(e); cnn = { error: true }; })
+    .finally(() => { lastPipes = ""; lastEv = -1; aiKey = ""; });
+}
 function setPlaying(on) {
   playing = on && t < END;
   $("#play-label").textContent = playing ? "일시정지" : t > 0 && t < END ? "이어서 재생" : "시뮬레이션 재생";

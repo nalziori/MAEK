@@ -106,7 +106,7 @@ h1{font-size:1.12rem;line-height:1.4;margin:.3em 0 .4em}
 .tip-actions button{border:1px solid #cdd5dd;background:#fff;color:#111;border-radius:8px;min-height:40px;padding:6px 12px}
 .tip-actions .primary{color:#fff!important;background:#111!important;border-color:#111!important}
 
-dialog{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:14px;padding:26px 28px;width:min(1080px,94vw);max-height:90vh}
+dialog{margin:auto;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:14px;padding:26px 28px;width:min(1080px,94vw);max-height:90vh}
 dialog::backdrop{background:rgba(5,6,8,.7)}
 dialog h2{font-size:1.4rem;margin:.35em 0 .3em}
 .dlg-sub{color:var(--muted);font-size:.86rem;margin-bottom:16px}
