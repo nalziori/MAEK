@@ -15,32 +15,37 @@ html,body,main{height:100%;background:var(--bg);color:var(--ink);overflow:hidden
 .slide{flex:0 0 100%;height:100%;position:relative;display:grid;place-items:center;padding:72px 88px}
 @media (prefers-reduced-motion:reduce){.track{transition:none}}
 
+/* every slide shows one 16:9 frame the size of the demo video player */
+.stack{display:grid;gap:16px;justify-items:start}
+.frame{width:min(1200px,calc(100vw - 176px),calc((100vh - 240px) * 16 / 9));aspect-ratio:16/9;border-radius:16px;overflow:hidden;
+ border:1px solid var(--line);box-shadow:0 10px 30px rgba(17,17,17,.08);position:relative}
+.stack>.eyebrow{min-height:1.2em}
+.stack>.below{min-height:40px}
+
 /* 1 cover */
-.cover img{width:100%;height:100%;object-fit:contain}
-.slide.cover{padding:0}
+.cover img{width:100%;height:100%;object-fit:cover;display:block}
 
 /* 2 team */
-.team{width:min(1200px,100%)}
+.team{background:var(--card);padding:clamp(18px,3vw,40px);display:flex;flex-direction:column;justify-content:center}
 .eyebrow{color:var(--sky-deep);font-weight:600;letter-spacing:.08em;font-size:.875rem}
-h2{font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;margin:.35em 0 1.2em;letter-spacing:-.01em}
+h2{font-size:clamp(1.4rem,2.6vw,2.25rem);font-weight:800;margin:0 0 .9em;letter-spacing:-.01em}
 .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;display:flex;flex-direction:column;gap:10px}
+.card{min-width:0;background:#fff;border:1px solid var(--line);border-radius:12px;padding:clamp(12px,1.4vw,22px);display:flex;flex-direction:column;gap:8px}
 .card .name{font-size:1.25rem;font-weight:800}
 .card .role{font-size:.875rem;font-weight:600;color:var(--sky-deep)}
-.card ul{padding-left:1.05em;color:var(--muted);font-size:.9rem;line-height:1.55;display:grid;gap:6px}
-@media (max-width:1100px){.cards{grid-template-columns:repeat(2,1fr)}.slide{padding:64px 24px;overflow:auto;place-items:start center}}
+.card ul{padding-left:1.05em;color:var(--muted);font-size:clamp(.78rem,1vw,.9rem);line-height:1.55;display:grid;gap:6px}
+@media (max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.frame{aspect-ratio:auto;width:calc(100vw - 48px)}.slide{padding:64px 24px;overflow:auto;place-items:start center}}
 
 /* 3 video */
-.video{width:min(1200px,100%);display:grid;gap:16px}
-.video video{width:100%;max-height:calc(100vh - 260px);background:#000;border-radius:12px}
+.video video{width:100%;height:100%;background:#000;display:block}
 .speed{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:.875rem}
 .speed button{font:inherit;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 16px;min-height:40px;cursor:pointer}
 .speed button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
 
 /* 4 enter */
-.enter{position:absolute;inset:0;display:grid;place-items:center;text-decoration:none;color:inherit;cursor:pointer;
- background:radial-gradient(circle at 50% 50%,#d9f0f8 0,#fff 55%)}
-.enter:focus-visible{outline:4px solid var(--sky-deep);outline-offset:-12px}
+.enter{position:absolute;inset:0;display:grid;place-items:center;text-decoration:none;color:inherit;cursor:pointer}
+.enter .frame{display:grid;place-items:center;background:radial-gradient(circle at 50% 50%,#d9f0f8 0,#fff 60%)}
+.enter:focus-visible .frame{outline:4px solid var(--sky-deep);outline-offset:4px}
 .enter .inner{text-align:center;display:grid;gap:18px;justify-items:center}
 .enter .big{font-size:clamp(2rem,4.4vw,3.5rem);font-weight:800;letter-spacing:-.02em;line-height:1.2}
 .enter .sub{color:var(--muted);font-size:1.0625rem}
@@ -66,13 +71,12 @@ h2{font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;margin:.35em 0 1.2em;lett
 <main aria-roledescription="carousel" aria-label="MAEK 소개">
 <div class="track" id="track">
 
-<section class="slide cover" aria-roledescription="slide" aria-label="1 / 4 표지">
- <img src="assets/cover.png" alt="MAEK — 파이프의 맥을 읽다. AI 드론을 활용한 제철소 배관 점검 시스템. 2026 POSCO AI Hackathon, 온디바이스 AI 기반 산업용 SW 개발 1기">
+<section class="slide" aria-roledescription="slide" aria-label="1 / 4 표지">
+ <div class="stack"><p class="eyebrow">2026 POSCO AI HACKATHON</p><div class="frame cover"><img src="assets/cover.png" alt="MAEK — 파이프의 맥을 읽다. AI 드론을 활용한 제철소 배관 점검 시스템. 2026 POSCO AI Hackathon, 온디바이스 AI 기반 산업용 SW 개발 1기"></div><div class="below"></div></div>
 </section>
 
 <section class="slide" aria-roledescription="slide" aria-label="2 / 4 팀 소개">
- <div class="team">
-  <p class="eyebrow">TEAM MAEK</p>
+ <div class="stack"><p class="eyebrow">TEAM MAEK</p><div class="frame team">
   <h2>팀원 소개</h2>
   <div class="cards">
    <article class="card"><p class="name">유현준</p><p class="role">팀장 · 발표</p><ul><li>Unity 가상 제철소 구축</li><li>열화상 이상 탐지 모델 개발</li><li>최종 발표</li></ul></article>
@@ -81,14 +85,14 @@ h2{font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;margin:.35em 0 1.2em;lett
    <article class="card"><p class="name">강지웅</p><p class="role">PM · 발표 기획</p><ul><li>프로젝트 관리, 발표 기획</li><li>회의록·아이디어 추적, 협업 정리</li><li>보고서 정리 (Notion)</li></ul></article>
    <article class="card"><p class="name">호예찬</p><p class="role">대시보드 · 검증</p><ul><li>점검 대시보드 개발</li><li>검증(V&amp;V)</li><li>가상 제철소 구축 지원</li></ul></article>
   </div>
- </div>
+ </div><div class="below"></div></div>
 </section>
 
 <section class="slide" aria-roledescription="slide" aria-label="3 / 4 시연 영상">
- <div class="video">
+ <div class="stack video">
   <p class="eyebrow">DEMO</p>
-  <video id="demo" src="assets/demo.mp4" controls playsinline preload="metadata"></video>
-  <div class="speed" role="group" aria-label="재생 속도"><span>재생 속도</span>
+  <div class="frame"><video id="demo" src="assets/demo.mp4" controls playsinline preload="metadata"></video></div>
+  <div class="speed below" role="group" aria-label="재생 속도"><span>재생 속도</span>
    <button type="button" data-rate="1" aria-pressed="false">1x</button>
    <button type="button" data-rate="1.5" aria-pressed="true">1.5x</button>
    <button type="button" data-rate="2" aria-pressed="false">2x</button>
@@ -98,11 +102,11 @@ h2{font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;margin:.35em 0 1.2em;lett
 
 <section class="slide" aria-roledescription="slide" aria-label="4 / 4 시뮬레이션 체험">
  <a class="enter" href="sim/">
-  <span class="inner">
+  <span class="stack"><span class="eyebrow">SIMULATION</span><span class="frame"><span class="inner">
    <span class="pulse" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></span>
    <span class="big">고로 부생가스 배관 점검<br>시뮬레이션 체험</span>
    <span class="sub">화면 아무 곳이나 누르면 대시보드로 이동합니다</span>
-  </span>
+  </span></span><span class="below"></span></span>
  </a>
 </section>
 

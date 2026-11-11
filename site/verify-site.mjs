@@ -88,6 +88,8 @@ try {
   // end modal
   await sim(() => window.__sim.seek(118.8, true)); await sleep(2500);
   check("tech modal opens at the end", await sim(() => document.getElementById("techdlg").open));
+  const m = await sim(() => { const d = document.getElementById("techdlg").getBoundingClientRect(); return [d.left, innerWidth - d.right, d.top, innerHeight - d.bottom]; });
+  check("tech modal is centered", Math.abs(m[0] - m[1]) < 2 && Math.abs(m[2] - m[3]) < 2, m.map(Math.round).join(","));
   check("ONNX card is last", await sim(() => document.querySelector("#techcards > :last-child").textContent.includes("ONNX")));
   await page.screenshot({ path: shots + "sim-modal.png" });
   await page.click('#techcards [data-at="0"]'); await sleep(600);
