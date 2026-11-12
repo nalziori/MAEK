@@ -1,0 +1,6 @@
+extend = "../../pyproject.toml"
+
+# These scripts are the byte-exact record of what ran on the GPU instance (2026-11-12).
+# Style-only findings stay unfixed so the code matches the logged runs.
+[lint.per-file-ignores]
+"*.py" = ["C408","I001","RUF100","SIM115"]

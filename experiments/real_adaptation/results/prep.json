@@ -1,0 +1,29 @@
+{
+  "corrosion": {
+    "vt_train": {
+      "images": 396,
+      "instances": 1830
+    },
+    "vt_test": {
+      "images": 44,
+      "instances": 167
+    },
+    "os_train": {
+      "images": 75,
+      "instances": 379
+    },
+    "os_test": {
+      "images": 30,
+      "instances": 140
+    }
+  },
+  "thermal": {
+    "A_only_augmented_unused": 74,
+    "test_originals_A": 93,
+    "test_images": 93,
+    "dropped_A5_only": 72,
+    "pool_originals_test": 108,
+    "pool_images": 520,
+    "pool_originals_thermalimg": 48
+  }
+}

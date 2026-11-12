@@ -12,4 +12,7 @@ rm -rf _site/node_modules _site/.shots _site/.gitignore _site/peek.mjs
 cp dashboard/assets/fonts/PretendardVariable.woff2 dashboard/assets/fonts/OFL.txt _site/assets/fonts/
 cp docs/MAEK_demo.mp4 _site/assets/demo.mp4
 touch _site/.nojekyll
+h() { sha256sum "$1" | cut -c1-12; }
+printf '{"commit":"%s","corrosion":"%s","thermal":"%s","pitting":"%s"}
+' "$(git rev-parse --short HEAD)"   "$(h site/try/data/corrosion.onnx)" "$(h site/try/data/thermal.onnx)" "$(h site/sim/data/pitting_cnn.onnx)" > _site/version.json
 echo "site built: $(du -sh _site | cut -f1)"

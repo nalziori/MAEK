@@ -8,11 +8,21 @@
 
 | 모델 | 하는 일 | 가중치 | 처리 시간(CPU) |
 | --- | --- | --- | --- |
-| 부식 YOLOv8n-seg (E4) | 배관 사진에서 부식·CUI 흔적·누설 얼룩 영역 분할 | Release `best.pt` | 이미지당 약 0.12초 |
-| 열화상 YOLOv8s (sim_pipe_S) | 배관 열화상에서 증기 누설 열점 검출 | Release `sim_pipe_yolov8s_640_S.pt` | 이미지당 약 0.14초 |
+| 부식 YOLOv8n-seg (실사진 추가 학습 v1) | 배관·강재 사진에서 부식·CUI 흔적·누설 얼룩 영역 분할 | Release `maek_corrosion_real_v1.pt` | 이미지당 약 0.1초 |
+| 열화상 YOLOv8s (실사진 추가 학습 v1) | 배관 열화상에서 누설·보온 손상 열점 검출 | Release `maek_thermal_real_v1.pt` | 이미지당 약 0.13초 |
 | 초음파 피팅 1D-CNN (cnn_dr) | 초음파 A-scan 파형에서 내부 피팅 판정 | 저장소에 포함(ONNX) | 32건에 약 0.5초 |
 
 아래 순서는 2026-11-12에 실제로 실행해 확인했습니다. GPU는 필요 없습니다.
+
+같은 결과를 보는 방법은 세 가지이고, 세 곳 모두 같은 모델 파일과 같은 샘플을 씁니다.
+
+| 방법 | 필요한 것 | 안내 |
+| --- | --- | --- |
+| 웹페이지 | 브라우저 | https://nalziori.github.io/MAEK/ |
+| 오프라인 ZIP | 없음 (설치·인터넷 불필요) | Release의 `MAEK_offline.zip`을 풀고 `START.bat` 실행 |
+| 저장소를 받아 직접 실행 | Python 3.10 | 이 문서 |
+
+화면 오른쪽 아래의 "빌드 … · 모델 …" 표시와 4절 스크립트가 출력하는 첫 줄이 같으면 같은 버전입니다.
 
 ## 준비물
 
@@ -48,8 +58,8 @@ pip install -r requirements-train.txt -r UT/requirements.txt onnxruntime
 ```powershell
 mkdir models
 $b = "https://github.com/nalziori/MAEK/releases/download"
-Invoke-WebRequest "$b/e4-20261109/best.pt" -OutFile models/best.pt
-Invoke-WebRequest "$b/models-20261110/sim_pipe_yolov8s_640_S.pt" -OutFile models/sim_pipe_yolov8s_640_S.pt
+Invoke-WebRequest "$b/models-20261112/maek_corrosion_real_v1.pt" -OutFile models/maek_corrosion_real_v1.pt
+Invoke-WebRequest "$b/models-20261112/maek_thermal_real_v1.pt" -OutFile models/maek_thermal_real_v1.pt
 Get-FileHash models\*.pt
 ```
 
@@ -57,10 +67,12 @@ Get-FileHash models\*.pt
 
 | 파일 | SHA-256 |
 | --- | --- |
-| `best.pt` | `5c836f8af95c1fbee2b7478e25536dd12a20c36cb03b297f3bbd12f7d74cd63a` |
-| `sim_pipe_yolov8s_640_S.pt` | `670fde808c69fc7b4ad9c97f6e5f6c4448c725e34ecf282f43c63a77c8f0de56` |
+| `maek_corrosion_real_v1.pt` | `394c05b2ff387048367fa1ef7a91de20dc04acbdaa907e0505e01b0f53c797b6` |
+| `maek_thermal_real_v1.pt` | `0f618b59b41e181f8de2d3fdb856306e2750028fc35acb61995650656f58449e` |
 
-초음파 피팅 CNN은 ONNX로 변환한 파일(`site/sim/data/pitting_cnn.onnx`)이 저장소에 들어 있어서 따로 받지 않습니다.
+초음파 피팅 CNN은 ONNX로 변환한 파일(`site/sim/data/pitting_cnn.onnx`)이 저장소에 들어 있어서 따로 받지 않습니다. 4절의 샘플 대조는 가중치를 받지 않아도 실행됩니다.
+
+합성 데이터로만 학습한 이전 가중치(E4 `best.pt`, `sim_pipe_yolov8s_640_S.pt`)는 Release `e4-20261109`, `models-20261110`에 그대로 있습니다.
 
 ## 3. 모델 실행
 
@@ -74,17 +86,23 @@ $env:PYTHONUTF8 = "1"        # 한글 출력 깨짐 방지
 ### 3-1. 부식 모델
 
 ```powershell
-yolo segment predict model=models/best.pt source=site/sim/data/rgb_input.jpg
+yolo segment predict model=models/maek_corrosion_real_v1.pt source=site/sim/data/rgb_input.jpg
 ```
 
 결과 이미지는 `runs\segment\predict\` 폴더에 저장되며, 찾은 영역이 색으로 칠해지고 클래스와 확신도가 표시됩니다. 샘플 이미지 대신 다른 이미지나 폴더를 `source=`에 넣어도 됩니다.
+
+실제 사진으로 보려면 저장소에 들어 있는 실사진 샘플을 넣습니다.
+
+```powershell
+yolo segment predict model=models/maek_corrosion_real_v1.pt source=site/try/data/corrosion/r_os_test_0010.jpg
+```
 
 여러 장으로 시험하려면 학습 데이터와 같은 생성기로 정답이 있는 이미지를 만들어 돌립니다.
 
 ```powershell
 python -m maek camera-jobs --n 12 --seed 7 --out data/samples
 python -m maek render2d --seed 7 --out data/samples
-yolo segment predict model=models/best.pt source=data/samples/camera/images
+yolo segment predict model=models/maek_corrosion_real_v1.pt source=data/samples/camera/images
 ```
 
 12장(결함 7장, 정상 5장)이 10초 안에 만들어집니다. 정답은 `data\samples\camera\labels\`에 있습니다(빈 파일은 정상, 0=부식, 1=CUI 흔적, 2=누설 얼룩). 2026-11-12 실행에서는 12장 모두 정답과 일치했습니다. `--seed` 값을 바꾸면 다른 이미지가 나옵니다.
@@ -92,10 +110,10 @@ yolo segment predict model=models/best.pt source=data/samples/camera/images
 ### 3-2. 열화상 모델
 
 ```powershell
-yolo detect predict model=models/sim_pipe_yolov8s_640_S.pt source=site/sim/data/ir_input.png
+yolo detect predict model=models/maek_thermal_real_v1.pt source=site/sim/data/ir_input.png
 ```
 
-결과는 `runs\detect\predict\`에 저장됩니다. 샘플에서는 열점(hot_spot) 1건을 찾습니다.
+결과는 `runs\detect\predict\`에 저장됩니다. 샘플에서는 열점(hot_spot) 1건을 찾습니다. 실제 열화상 샘플은 `site/try/data/thermal/r_000.jpg`입니다.
 
 ### 3-3. 초음파 피팅 CNN
 
@@ -105,9 +123,32 @@ python scripts/predict_pitting.py
 
 예제 A-scan 32건(`UT/examples/ascan.npz`)에 대해 건별 피팅 확률과 판정을 출력합니다. 2026-11-12 실행 결과는 14건이 피팅으로 판정됐고, 기존 MLP 앙상블의 판정과 31/32건이 일치했습니다. 다른 파일은 `python scripts/predict_pitting.py 파일.npz`로 실행하며, `RF` 배열이 (건수, 4096) 형태이고 100MHz로 샘플링된 파형이어야 합니다.
 
+## 4. 웹 화면과 같은 결과인지 확인
+
+```powershell
+python scripts/run_samples.py
+```
+
+웹 화면의 "AI 모델 직접 돌려보기"에 있는 샘플 33건(부식 14, 열화상 11, 초음파 8)을 같은 ONNX 모델로 돌리고, 저장소에 기록된 결과(`site/try/data/samples.json`)와 비교합니다. 마지막 줄에 `33/33 samples match the recorded results`가 나오면 웹페이지·오프라인 ZIP과 같은 결과입니다. 2026-11-12 실행에서 33건 모두 일치했습니다.
+
+웹 화면 자체를 이 PC에서 띄우려면(Git을 설치하면 함께 들어오는 Git Bash에서 실행):
+
+```sh
+sh site/build.sh
+python offline/serve.py --root _site
+```
+
 ## 입력에 관한 참고
 
-세 모델 모두 MAEK 합성 데이터로 학습했습니다. 그래서 실제 현장 사진을 넣으면 결과가 학습 데이터 때보다 떨어질 수 있습니다.
+부식·열화상 모델은 MAEK 합성 데이터로 학습한 뒤 공개 실사진으로 추가 학습했습니다. 피팅 CNN은 합성 데이터로만 학습했습니다. 추가 학습에 쓴 실사진은 교량, 산업단지, 건물 설비 사진이고 제철소 현장 사진이 아니므로, 현장 사진에서는 결과가 아래 수치보다 떨어질 수 있습니다.
+
+| 모델 | 학습에 쓰지 않은 시험 사진 | 결과 |
+| --- | --- | --- |
+| 부식 | 교량 실사진 44장 | IoU 0.62 |
+| 부식 | 산업단지 실사진 30장 | IoU 0.66 |
+| 열화상 | 실제 배관 열화상 93장 (다른 촬영 세션) | 검출률 49%, 사진당 오경보 0.23 |
+
+실험 방법과 전체 결과는 `experiments/real_adaptation/`에 있습니다.
 
 - 부식 모델: 일반 RGB 사진을 그대로 넣으면 됩니다.
 - 열화상 모델: 온도를 inferno 색상표(검정-보라-주황-노랑)로 칠한 이미지를 기준으로 학습했습니다. 다른 색상표의 열화상 카메라 이미지는 인식률이 떨어질 수 있습니다.

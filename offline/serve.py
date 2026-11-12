@@ -7,7 +7,7 @@ import threading
 import webbrowser
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent / "site"
+ROOT = Path(sys.argv[sys.argv.index("--root") + 1]).resolve() if "--root" in sys.argv else Path(__file__).resolve().parent / "site"
 H = http.server.SimpleHTTPRequestHandler
 # Windows may map .js to text/plain via the registry; browsers then refuse ES modules.
 H.extensions_map.update({".js": "text/javascript", ".mjs": "text/javascript", ".wasm": "application/wasm",
