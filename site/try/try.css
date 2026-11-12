@@ -29,3 +29,12 @@
 .info{display:grid;grid-template-columns:auto 1fr;gap:7px 12px;font-size:.8rem;line-height:1.45}
 .info dt{color:var(--muted)}
 .info dd{margin:0;font-variant-numeric:tabular-nums}
+
+.samples .upload{display:grid;place-items:center;align-content:center;gap:6px;border-style:dashed}
+.samples .upload .plus{font-size:1.75rem;line-height:1;color:var(--accent)}
+.credits{font-size:.75rem;line-height:1.55;color:var(--muted);margin-top:auto}
+.credits + .links{margin-top:0}
+.verdict .credit{font-size:.75rem;color:var(--muted);line-height:1.5;margin-top:8px}
+.samples{flex-wrap:wrap;overflow-x:visible}
+.samples li{flex:0 0 calc(12.5% - 7px);min-width:0;max-width:none}
+.samples img,.samples canvas{aspect-ratio:16/9}

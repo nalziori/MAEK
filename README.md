@@ -12,6 +12,7 @@
 | 발표 PPT | [docs/MAEK_presentation.pptx](docs/MAEK_presentation.pptx) |
 | 시연 영상 | [docs/MAEK_demo.mp4](docs/MAEK_demo.mp4) |
 | 웹 시연 (소개 + 2분 시뮬레이션) | https://nalziori.github.io/MAEK/ |
+| 후속 보고서 (실사진 추가 학습 결과, 실행 방법) | [PDF](docs/followup-report/MAEK_followup_report.pdf) · [Markdown](docs/followup-report/MAEK_followup_report.md) · [Word](docs/followup-report/MAEK_followup_report.docx) |
 
 ### 웹 시연 사이트 (`site/`)
 
@@ -19,15 +20,17 @@
 
 - `site/index.html`: 소개 캐러셀(표지 → 팀 → 시연 영상 1.5배속 → 시뮬레이션 입장)
 - `site/sim/`: three.js로 만든 1고로 부생가스 배관 점검 시뮬레이션. 형상은 Unity 가상 제철소(`maek_geometry.bytes`)에서 `scripts/export_bf1_scene.py`로 잘라 냈습니다.
-- `site/try/`: AI 모델 직접 돌려보기. 부식(E4)·열화상(sim_pipe_S)·피팅 CNN을 ONNX로 브라우저에서 실행합니다. 샘플과 기준 결과는 `python scripts/export_try_demo.py --weights models`로 만들며(고정 시드, 정답과 일치한 샘플만 사용), `npm test`가 브라우저 결과를 기준과 대조합니다.
-- AI 결과: 부식(E4 YOLO-seg)과 열화상(sim_pipe_S) 결과는 `scripts/export_web_demo.py`가 릴리스 가중치로 미리 계산합니다. 입력은 각 모델 학습 데이터와 같은 생성기(`composite2d`, `thermal_render`)로 만든 영상입니다. 피팅 CNN(cnn_dr)은 ONNX로 변환해 브라우저(onnxruntime-web)에서 실시간 추론합니다. 시드, 가중치 해시, 점수는 `site/sim/data/results.json`에 기록됩니다.
-- 로컬 확인: `sh site/build.sh` → `_site/`를 정적 서버로 띄움 → `cd site && npm ci && npm test` (28개 항목)
+- `site/try/`: AI 모델 직접 돌려보기. 부식·열화상(실사진 추가 학습 v1)·피팅 CNN을 ONNX로 브라우저에서 실행하고, 직접 올린 사진도 판정합니다. 샘플과 기준 결과는 `python scripts/export_try_demo.py --weights models --real <시험셋>`으로 만듭니다. 합성 샘플은 고정 시드에서 정답과 일치한 것만 쓰고, 실사진 샘플은 시험셋의 고정 위치에서 고르며 맞았는지로 거르지 않습니다. `npm test`가 브라우저 결과를 기준과 대조합니다.
+- 같은 결과를 보는 세 가지 방법: 웹페이지, 오프라인 ZIP(`offline/make_bundle.sh`로 만들며 설치·인터넷 불필요), 저장소를 받아 `python scripts/run_samples.py` 실행. 세 곳 모두 같은 ONNX와 `site/try/data/samples.json`을 씁니다. 안내는 [docs/local-setup.md](docs/local-setup.md).
+- AI 결과: 부식과 열화상 결과는 `scripts/export_web_demo.py`가 릴리스 가중치(실사진 추가 학습 v1)로 미리 계산합니다. 입력은 각 모델 학습 데이터와 같은 생성기(`composite2d`, `thermal_render`)로 만든 영상입니다. 피팅 CNN(cnn_dr)은 ONNX로 변환해 브라우저(onnxruntime-web)에서 실시간 추론합니다. 시드, 가중치 해시, 점수는 `site/sim/data/results.json`에 기록됩니다.
+- 로컬 확인: `sh site/build.sh` → `_site/`를 정적 서버로 띄움 → `cd site && npm ci && npm test` (36개 항목)
 
 ## 모델
 
 | 모델 | 위치 |
 |---|---|
-| 부식 (YOLOv8n-seg E4) | [릴리스 e4-20261109](https://github.com/nalziori/MAEK/releases/tag/e4-20261109) |
+| 부식·열화상, 실사진 추가 학습 v1 (웹 시연에 탑재) | [릴리스 models-20261112](https://github.com/nalziori/MAEK/releases/tag/models-20261112) · 실험 [experiments/real_adaptation](experiments/real_adaptation) |
+| 부식 (YOLOv8n-seg E4, 합성 데이터만) | [릴리스 e4-20261109](https://github.com/nalziori/MAEK/releases/tag/e4-20261109) |
 | 초음파 피팅 (1D-CNN) | [릴리스 models-20261110](https://github.com/nalziori/MAEK/releases/tag/models-20261110) `ut_pitting_cnn_dr.pt` |
 | 초음파 균열·파열 | [UT/crack_mlp](UT/crack_mlp) · [UT/crack_cnn](UT/crack_cnn) |
 | 열영상 (PV 열점·합성 배관 YOLOv8s) | [릴리스 models-20261110](https://github.com/nalziori/MAEK/releases/tag/models-20261110) |

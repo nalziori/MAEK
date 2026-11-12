@@ -1,0 +1,44 @@
+{
+  "tiles": {
+    "vt_train": {
+      "tiles": 3109,
+      "defect": 2607,
+      "normal": 502
+    },
+    "os_train": {
+      "tiles": 1191,
+      "defect": 848,
+      "normal": 343
+    }
+  },
+  "full_test": {
+    "vt_test": 44,
+    "os_test": 30
+  },
+  "severity": {
+    "Train": {
+      "images": 396,
+      "pixels_fair_poor_severe": [
+        13444764,
+        9291895,
+        2852304
+      ]
+    },
+    "Test": {
+      "images": 44,
+      "pixels_fair_poor_severe": [
+        1430661,
+        831387,
+        161094
+      ]
+    }
+  },
+  "syn_corr": {
+    "replay": 600,
+    "test": 200
+  },
+  "syn_th": {
+    "replay": 600,
+    "test": 200
+  }
+}

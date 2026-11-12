@@ -1,0 +1,97 @@
+{
+  "corrosion_final": {
+    "train_images": 7510,
+    "epochs": 20,
+    "metrics": {
+      "vt_test": {
+        "full640": {
+          "n": 44,
+          "iou": 0.6162103624564078,
+          "precision": 0.8645652077524438,
+          "recall": 0.6820483674432165,
+          "image_hit_rate": 0.8409090909090909,
+          "normal_images": 0,
+          "normal_false_alarm_rate": null
+        },
+        "tiled": {
+          "n": 44,
+          "iou": 0.6404563492263626,
+          "precision": 0.7353443219857448,
+          "recall": 0.8323071599087828,
+          "image_hit_rate": 0.9318181818181818,
+          "normal_images": 0,
+          "normal_false_alarm_rate": null
+        }
+      },
+      "os_test": {
+        "full640": {
+          "n": 30,
+          "iou": 0.6642113100096643,
+          "precision": 0.7179920070645631,
+          "recall": 0.8986568414340852,
+          "image_hit_rate": 0.9,
+          "normal_images": 0,
+          "normal_false_alarm_rate": null
+        },
+        "tiled": {
+          "n": 30,
+          "iou": 0.6283330829513711,
+          "precision": 0.6447651476158425,
+          "recall": 0.961020755094059,
+          "image_hit_rate": 1.0,
+          "normal_images": 0,
+          "normal_false_alarm_rate": null
+        }
+      },
+      "synthetic_test": {
+        "full640": {
+          "n": 200,
+          "iou": 0.8188312640010496,
+          "precision": 0.8712813101131964,
+          "recall": 0.9315168430997994,
+          "image_hit_rate": 0.9916666666666667,
+          "normal_images": 80,
+          "normal_false_alarm_rate": 0.05
+        }
+      }
+    }
+  },
+  "thermal_final": {
+    "train_images": 1120,
+    "epochs": 50,
+    "metrics": {
+      "test_A_session": {
+        "n": 93,
+        "gt": 93,
+        "recall": 0.4946236559139785,
+        "precision": 0.6865671641791045,
+        "false_alarms_per_image": 0.22580645161290322
+      },
+      "synthetic_test": {
+        "n": 200,
+        "gt": 167,
+        "recall": 0.9281437125748503,
+        "precision": 0.9872611464968153,
+        "false_alarms_per_image": 0.01
+      }
+    }
+  },
+  "thermal_before(sim_S)": {
+    "metrics": {
+      "test_A_session": {
+        "n": 93,
+        "gt": 93,
+        "recall": 0.06451612903225806,
+        "precision": 0.024489795918367346,
+        "false_alarms_per_image": 2.5698924731182795
+      },
+      "synthetic_test": {
+        "n": 200,
+        "gt": 167,
+        "recall": 0.9461077844311377,
+        "precision": 0.9813664596273292,
+        "false_alarms_per_image": 0.015
+      }
+    }
+  }
+}

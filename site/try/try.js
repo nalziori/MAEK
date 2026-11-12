@@ -14,8 +14,8 @@ const KO = { corrosion: "외부 부식", cui_sign: "CUI 흔적", leak_stain: "�
   steam_leak: "증기 누설", wet_insulation: "젖은 보온재", insulation_damage: "보온재 손상", hot_spot: "열점", pitting: "내부 피팅" };
 const RED = [255, 71, 71];
 const META = {
-  corrosion: { title: ["입력 · 드론 RGB 영상", "AI 출력 · 부식 영역 분할"], info: [["모델", "YOLOv8n-seg (E4)"], ["찾는 것", "외부 부식, CUI 흔적(보온재 밑 부식), 누설 얼룩"], ["입력", "640×640 RGB"]] },
-  thermal: { title: ["입력 · 드론 열화상", "AI 출력 · 열점 검출"], info: [["모델", "YOLOv8s (sim_pipe_S)"], ["찾는 것", "증기 누설·젖은 보온재·보온재 손상이 만드는 열점"], ["입력", "온도 영상 (inferno 색상)"]] },
+  corrosion: { title: ["입력 · 드론 RGB 영상", "AI 출력 · 부식 영역 분할"], info: [["모델", "YOLOv8n-seg · 실사진 재학습 v1"], ["찾는 것", "외부 부식, CUI 흔적(보온재 밑 부식), 누설 얼룩"], ["입력", "640×640 RGB"]] },
+  thermal: { title: ["입력 · 드론 열화상", "AI 출력 · 열점 검출"], info: [["모델", "YOLOv8s · 실사진 재학습 v1"], ["찾는 것", "증기 누설·젖은 보온재·보온재 손상이 만드는 열점"], ["입력", "열화상 (inferno 색상)"]] },
   ultrasonic: { title: ["입력 · 초음파 A-scan 파형", "AI 출력 · 피팅 확률"], info: [["모델", "1D-CNN (cnn_dr)"], ["찾는 것", "배관 내부 피팅(점부식)"], ["입력", "4,096 샘플 · 100 MHz"]] },
 };
 
@@ -238,6 +238,7 @@ const draw = () => (model === "ultrasonic" ? drawUt() : drawYolo());
 
 // ---------- verdict + info ----------
 function judge(kind, s, r) {
+  if (!s.truth) { const top = r.dets[0]; return { label: top ? (kind === "thermal" ? "hot_spot" : top.cls) : "normal", score: top ? top.score : null, match: null }; }
   if (kind === "ultrasonic") return { label: r.pitting ? "pitting" : "normal", score: r.p, match: r.pitting === (s.truth === "pitting") };
   const top = r.dets[0];
   if (!top) return { label: "normal", score: null, match: s.truth === "normal" };
@@ -250,11 +251,15 @@ function verdict() {
   if (!result) { el.innerHTML = `<p class="row"><span>샘플을 고르면 결과가 여기에 나옵니다.</span></p>`; return; }
   const j = judge(model, sample, result), n = model === "ultrasonic" ? null : result.dets.length;
   const found = model === "ultrasonic" ? KO[j.label] : n ? `${KO[j.label]} ${n}건` : "이상 없음";
-  const rows = [["정답", KO[sample.truth]], ["확신도", j.score == null ? "-" : `${(j.score * 100).toFixed(1)}%`], ["처리 시간", `${Math.round(result.ms)} ms`]];
+  const real = sample.source === "real", ref = sample.reference || {}, ov = ref.mask_iou_vs_truth ?? ref.box_iou_vs_truth ?? 0;
+  const chip = !sample.truth ? "" : real ? `<span class="chip ${ov >= 0.5 ? "green" : "red"}">${ref.detections ? `정답과 겹침 ${Math.round(ov * 100)}%` : "찾지 못함"}</span><span class="chip">실사진</span>`
+    : `<span class="chip ${j.match ? "green" : "red"}">${j.match ? "정답과 일치" : "정답과 다름"}</span>`;
+  const rows = [["정답", sample.truth ? KO[sample.truth] : "없음 (올린 사진)"], ["확신도", j.score == null ? "-" : `${(j.score * 100).toFixed(1)}%`], ["처리 시간", `${Math.round(result.ms)} ms`]];
   if (model === "ultrasonic") rows.push(["벽 두께", `${sample.wall_mm} mm`], ["피팅 깊이", sample.pit_depth_mm ? `${sample.pit_depth_mm} mm` : "-"]);
   el.innerHTML = `<p class="big">${found}</p>
-    <div class="chips"><span class="chip ${j.match ? "green" : "red"}">${j.match ? "정답과 일치" : "정답과 다름"}</span></div>
-    ${rows.map(([a, b]) => `<p class="row"><span>${a}</span><span>${b}</span></p>`).join("")}`;
+    <div class="chips">${chip}</div>
+    ${rows.map(([a, b]) => `<p class="row"><span>${a}</span><span>${b}</span></p>`).join("")}
+    ${sample.credit ? `<p class="credit">사진 출처: ${sample.credit}</p>` : ""}`;
 }
 
 function info() {
@@ -272,9 +277,25 @@ function samples() {
     b.setAttribute("aria-label", `샘플 ${i + 1}: ${KO[s.truth]}`);
     if (s.image) { const im = document.createElement("img"); im.src = new URL(s.image, DATA).href; im.alt = ""; im.loading = "lazy"; b.append(im); }
     else { const c = document.createElement("canvas"); b.append(c); requestAnimationFrame(() => plotWave(c, s.rf, { axes: false })); }
-    const cap = document.createElement("span"); cap.className = "cap"; cap.textContent = `${i + 1} · ${KO[s.truth]}`;
+    const cap = document.createElement("span"); cap.className = "cap"; cap.textContent = `${i + 1} · ${s.source === "real" ? "실사진" : KO[s.truth]}`;
     b.append(cap); b.onclick = () => pick(s); li.append(b); ul.append(li);
   });
+  if (model !== "ultrasonic") {  // own photo: stays in this browser
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.dataset.id = "upload"; b.className = "upload"; b.setAttribute("aria-pressed", "false");
+    b.innerHTML = `<span class="plus" aria-hidden="true">+</span><span class="cap">${model === "thermal" ? "내 열화상 올리기" : "내 사진 올리기"}</span>`;
+    b.onclick = () => $("#file").click(); li.append(b); ul.append(li);
+  }
+}
+
+// Uploaded photos are shrunk to 1280 px on the long side (mask drawing cost) and never leave the page.
+async function upload(file) {
+  if (!file) return;
+  const bmp = await createImageBitmap(file), k = Math.min(1, 1280 / Math.max(bmp.width, bmp.height));
+  const c = new OffscreenCanvas(Math.round(bmp.width * k), Math.round(bmp.height * k));
+  c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+  const url = URL.createObjectURL(await c.convertToBlob({ type: "image/jpeg", quality: 0.92 }));
+  pick({ id: "upload", image: url, truth: null });
 }
 
 let token = 0;
@@ -307,6 +328,7 @@ function choose(kind) {
 // ---------- boot ----------
 $("#models").addEventListener("click", (e) => { const b = e.target.closest("button[data-model]"); if (b && b.dataset.model !== model) choose(b.dataset.model); });
 $("#truth").onchange = () => draw();
+$("#file").onchange = (e) => { upload(e.target.files[0]).catch((err) => { console.error(err); busy("사진을 읽지 못했습니다. JPG 또는 PNG 파일을 올려 주세요.", true); }); e.target.value = ""; };
 $("#narrow-go").onclick = () => $("#narrow").classList.add("dismissed");
 addEventListener("hashchange", () => { const k = location.hash.slice(1); if (k !== model && data[k]) choose(k); });
 let rz;
@@ -315,4 +337,4 @@ addEventListener("resize", () => { cancelAnimationFrame(rz); rz = requestAnimati
 data = await (await fetch(new URL("samples.json", DATA))).json();
 choose(location.hash.slice(1));
 window.__try = { get model() { return model; }, get sample() { return sample?.id; }, get result() { return result && { ...judge(model, sample, result), ms: result.ms, logit: result.logit, dets: result.dets?.map((d) => ({ cls: d.cls, score: d.score, box: d.box, area: d.mask?.reduce((a, v) => a + v, 0) })) }; },
-  pick: (id) => pick(data[model].samples.find((s) => s.id === id)), choose, data: () => data };
+  pick: (id) => pick(data[model].samples.find((s) => s.id === id)), choose, data: () => data, upload };

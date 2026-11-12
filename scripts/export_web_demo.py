@@ -5,7 +5,7 @@ Uses the released weights on images made by the same generators the models were 
   thermal YOLO (sim_pipe_S) <- maek.thermal_render, p1-p99.5 stretch + inferno (make_sim_yolo.py)
   pitting CNN (cnn_dr)   <- UT/examples/ascan.npz, exported to ONNX for in-browser inference
 
-    python scripts/export_web_demo.py --weights <dir with best.pt, sim_pipe_yolov8s_640_S.pt, ut_pitting_cnn_dr.pt>
+    python scripts/export_web_demo.py --weights <dir with maek_corrosion_real_v1.pt, maek_thermal_real_v1.pt, ut_pitting_cnn_dr.pt>
 
 Needs ultralytics, onnx, onnxruntime. Seeds are fixed; provenance goes to data/provenance.json.
 """
@@ -141,7 +141,7 @@ def main():
     from maek.params import load_config
     cfg = load_config()
     OUT.mkdir(parents=True, exist_ok=True)
-    files = {"e4": a.weights / "best.pt", "thermal": a.weights / "sim_pipe_yolov8s_640_S.pt",
+    files = {"e4": a.weights / "maek_corrosion_real_v1.pt", "thermal": a.weights / "maek_thermal_real_v1.pt",
              "pitting": a.weights / "ut_pitting_cnn_dr.pt"}
     result = {"weights_sha256": {k: sha(v) for k, v in files.items()},
               "corrosion": corrosion(cfg, files["e4"]),

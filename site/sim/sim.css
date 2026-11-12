@@ -126,3 +126,4 @@ dialog h2{font-size:1.4rem;margin:.35em 0 .3em}
 .dlg-next{display:flex;justify-content:flex-end;margin-top:16px}
 .dlg-next .primary-link{margin:0;padding:12px 18px}
 .links .try-link{border-color:var(--accent);color:var(--accent);font-weight:700}
+.version{position:fixed;right:10px;bottom:6px;font-size:.75rem;color:#6b7480;font-variant-numeric:tabular-nums;pointer-events:none;z-index:1}

@@ -85,6 +85,12 @@
   <p class="dlg-next"><a class="primary-link" href="../try/" id="try-next">AI 모델 직접 돌려보기 →</a></p>
 </dialog>
 <p class="sr" id="announce" aria-live="assertive"></p>
+<p class="version" id="version"></p>
+<script type="module">
+  fetch(new URL("../version.json", location.href)).then((r) => r.json()).then((v) => {
+    document.getElementById("version").textContent = `빌드 ${v.commit} · 모델 ${v.corrosion.slice(0, 6)} / ${v.thermal.slice(0, 6)} / ${v.pitting.slice(0, 6)}`;
+  }).catch(() => {});
+</script>
 <script type="module" src="sim.js"></script>
 </body>
 </html>

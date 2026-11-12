@@ -89,3 +89,4 @@ graphify-out/
 # Release weights and YOLO predict output for local model runs
 /models/
 /runs/
+/dist/
