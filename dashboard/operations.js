@@ -125,14 +125,20 @@ function path(p) {
 function problemPipes() {
   return pipes.filter(
     (p) =>
-      p.result === "candidate" ||
+      rgbCandidate(p) ||
       window.MAEK_EVIDENCE.byPipe[p.id]?.thermal?.assessment_status ===
         "anomaly_observed",
   );
 }
+function rgbCandidate(p) {
+  const evidence = window.MAEK_EVIDENCE.byPipe[p.id]?.rgb;
+  return evidence?.source === 'unity_auto_model'
+    ? evidence.regions.length > 0
+    : p.result === 'candidate';
+}
 function problemReason(p) {
   const reasons = [];
-  if (p.result === "candidate") reasons.push("부식 의심");
+  if (rgbCandidate(p)) reasons.push(['model_inference','unity_auto_model'].includes(window.MAEK_EVIDENCE.byPipe[p.id]?.rgb?.source) ? "RGB 의심" : "부식 의심");
   if (
     window.MAEK_EVIDENCE.byPipe[p.id]?.thermal?.assessment_status ===
     "anomaly_observed"
@@ -373,7 +379,7 @@ function readNdt() {
 }
 function droneImage(kind, large = false) {
   const e = window.MAEK_EVIDENCE.byPipe[selected.id]?.[kind];
-  if (!e)
+  if (e?.source !== "unity_auto_model" || !e.src)
     return `<div class="sensor-empty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM8 15l3-3 3 2 3-5"/></svg><strong>${kind === "thermal" ? "열화상 사진 미연결" : "RGB 사진 미연결"}</strong></div>`;
   const boxes = (e.regions || [])
     .map((r) => {
@@ -381,17 +387,45 @@ function droneImage(kind, large = false) {
       return `<span class="rgb-region" style="left:${(x / e.width) * 100}%;top:${(y / e.height) * 100}%;width:${((x2 - x) / e.width) * 100}%;height:${((y2 - y) / e.height) * 100}%"></span>`;
     })
     .join("");
-  return `<${large ? "div" : "button"} class="sensor-image" ${large ? "" : `type="button" data-open-image="${kind}" aria-label="${escapeHTML(selected.id)} ${kind === "rgb" ? "RGB" : "열화상"} 사진 크게 보기"`}><img src="${escapeHTML(e.src)}" width="${e.width}" height="${e.height}" alt="${escapeHTML(selected.id)} ${kind === "rgb" ? "저장 RGB 사진" : "열화상 사진"}">${boxes}${large ? "" : `<span class="image-expand">${uiIcon("expand")}</span>`}</${large ? "div" : "button"}>`;
+  return `<${large ? "div" : "button"} class="sensor-image" ${large ? "" : `type="button" data-open-image="${kind}" aria-label="${escapeHTML(selected.id)} ${kind === "rgb" ? "RGB" : "열화상"} 사진 크게 보기"`}><img src="${escapeHTML(e.src)}" width="${e.width}" height="${e.height}" alt="${escapeHTML(selected.id)} ${kind === "rgb" ? "Unity RGB 촬영 사진" : "열화상 사진"}">${boxes}${large ? "" : `<span class="image-expand">${uiIcon("expand")}</span>`}</${large ? "div" : "button"}>`;
 }
 function ndtPanel() {
-  const all = pipeReports(),
-    r = all[0];
-  return `<section class="ndt-panel" aria-label="같은 배관의 비파괴검사"><div class="ndt-heading"><h2>현장 비파괴검사</h2><button type="button" id="import-ndt">결과 등록</button></div><div data-ut-pipe="${escapeHTML(selected.id)}"></div>${r ? `<div class="ndt-result-row"><strong>${escapeHTML(r.method)}</strong><span class="state visit">기기 저장 · 검토 필요</span></div><p class="ndt-measurement">${escapeHTML(r.result_summary.length > 100 ? r.result_summary.slice(0, 100) + "…" : r.result_summary)}</p><p class="ndt-meta">부위 ${escapeHTML(r.inspection_point)} · ${escapeHTML(r.inspector)} · ${escapeHTML(new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", dateStyle: "short", timeStyle: "short" }).format(new Date(r.performed_at)))}</p><details class="ndt-details"><summary>전체 결과·검사 범위</summary><dl><dt>결과</dt><dd>${escapeHTML(r.result_summary)}</dd><dt>절차</dt><dd>${escapeHTML(r.procedure_ref)}</dd><dt>검사 범위</dt><dd>${escapeHTML(r.coverage_ref)}</dd><dt>보고서</dt><dd>${escapeHTML(r.report_ref)}</dd></dl><p>배관 ID로 연결한 보고서이며 영상의 정확한 부위 정합은 별도 확인합니다.</p></details>` : `<div class="ndt-pending"><strong>검사 결과 미등록</strong></div>`}${ndtNotice ? '<p class="ndt-feedback" role="status">' + escapeHTML(ndtNotice) + "</p>" : ""}</section>`;
+  return `<section class="ndt-panel" aria-label="같은 배관의 비파괴검사"><div class="ndt-heading"><h2>비파괴검사</h2></div><div data-ut-pipe="${escapeHTML(selected.id)}"></div></section>`;
+}
+function followUnityPipe(pipeId) {
+  const next = pipes.find(p => p.id === pipeId);
+  if (tab !== 'home' || !next || next === selected) return;
+  selected = next;
+  visitPage = 0;
+  history.replaceState(null, '', url(tab));
+  render();
+}
+async function refreshModelPanels() {
+  document.querySelectorAll('[data-model-verdict]').forEach(slot => {
+    const kind = slot.dataset.modelVerdict;
+    const html = modelVerdict(kind, window.MAEK_EVIDENCE.byPipe[selected.id]?.[kind]);
+    if (slot.innerHTML !== html) slot.innerHTML = html;
+  });
+  const issue = document.querySelector('.selected-issue');
+  if (issue) issue.textContent = problemReason(selected);
+  const slot = document.querySelector('[data-rgb-photo]'), pipe = selected.id;
+  if (!slot) return;
+  if (slot.dataset.live !== undefined) return;
+  const html = droneImage('rgb');
+  if (slot.innerHTML === html) return;
+  const evidence = window.MAEK_EVIDENCE.byPipe[pipe]?.rgb;
+  if (evidence?.source === 'unity_auto_model') {
+    const preload = new Image(); preload.src = evidence.src;
+    try { await preload.decode(); } catch { return; }
+  }
+  if (selected.id !== pipe || !slot.isConnected) return;
+  slot.innerHTML = html;
+  const button = slot.querySelector('[data-open-image]');
+  if (button) button.onclick = () => openMedia(button.dataset.openImage, button);
 }
 function home() {
-  const rgb = window.MAEK_EVIDENCE.byPipe[selected.id]?.rgb,
-    thermal = window.MAEK_EVIDENCE.byPipe[selected.id]?.thermal;
-  return `${problemStrip()}<div class="unified-layout"><section class="map-panel" aria-label="배관 지도와 드론 위치">${mapMarkup(false, true)}<div class="drone-location"><p class="visited-summary">방문 구역 <strong>${[...new Set(pipes.slice(0, step).map((p) => (p.id.startsWith("BF1") ? "1고로" : p.id.startsWith("BF2") ? "2고로" : "기타 구역")))].join(" · ") || "방문 전"}</strong></p></div><div class="map-legend"><span class="legend-item"><i class="legend-line route"></i>방문 구역</span><span class="legend-item"><i class="legend-line current"></i>현재 위치</span><span class="legend-item"><i class="legend-line visit"></i>점검 필요</span></div></section><section class="inspection-flow" aria-label="선택 배관의 연속 검사"><div class="pipe-context problem-context" data-has-issue="${problemPipes().includes(selected)}"><div class="pipe-main"><h2>${escapeHTML(selected.id)}<span class="selected-issue">${escapeHTML(problemReason(selected))}</span></h2><p>${escapeHTML(selected.service)}</p></div>${heightSummary()}</div><div class="drone-evidence"><section class="sensor-panel" data-connected="${!!rgb}"><div class="sensor-heading"><h3>RGB · 부식</h3><span>저장 사진</span></div>${droneImage("rgb")}<div class="sensor-analysis"><strong>${rgb?.regions.length ? "부식 의심 " + rgb.regions.length + "건" : rgb ? "부식 의심 미검출" : "분석 결과 미연결"}</strong><span>${rgb ? "색상 규칙 분석" : ""}</span></div></section><section class="sensor-panel" data-connected="false" aria-label="${escapeHTML(selected.id)} 열화상"><div class="sensor-heading"><h3>열화상</h3><span data-thermal-label>합성 사진</span></div><div data-thermal-pipe="${escapeHTML(selected.id)}"><div class="sensor-empty"><strong>열화상 사진 미연결</strong></div></div></section></div>${ndtPanel()}</section></div>`;
+  const thermal = window.MAEK_EVIDENCE.byPipe[selected.id]?.thermal;
+  return `${problemStrip()}<div class="unified-layout"><section class="map-panel" aria-label="배관 지도와 드론 위치">${mapMarkup(false, true)}<div class="drone-location"><p class="visited-summary">방문 구역 <strong>${[...new Set(pipes.slice(0, step).map((p) => (p.id.startsWith("BF1") ? "1고로" : p.id.startsWith("BF2") ? "2고로" : "기타 구역")))].join(" · ") || "방문 전"}</strong></p></div><div class="map-legend"><span class="legend-item"><i class="legend-line route"></i>방문 구역</span><span class="legend-item"><i class="legend-line current"></i>현재 위치</span><span class="legend-item"><i class="legend-line visit"></i>점검 필요</span></div></section><section class="inspection-flow" aria-label="선택 배관의 연속 검사"><div class="pipe-context problem-context" data-has-issue="${problemPipes().includes(selected)}"><div class="pipe-main"><h2>${escapeHTML(selected.id)}<span class="selected-issue">${escapeHTML(problemReason(selected))}</span></h2><p>${escapeHTML(selected.service)}</p></div>${heightSummary()}</div><div class="drone-evidence model-results"><section class="sensor-panel"><div data-rgb-photo>${droneImage("rgb")}</div><div data-model-verdict="rgb">${modelVerdict("rgb", window.MAEK_EVIDENCE.byPipe[selected.id]?.rgb)}</div></section><section class="sensor-panel"><div data-thermal-pipe="${escapeHTML(selected.id)}"></div><div data-model-verdict="thermal">${modelVerdict("thermal",thermal)}</div></section></div>${ndtPanel()}</section></div>`;
 }
 
 function pipeReports() {
@@ -427,7 +461,7 @@ function filteredPipes() {
 function pipeDetail() {
   const reports = pipeReports(),
     latest = reports[0];
-  return `<section class="summary-box pipe-detail" aria-label="${escapeHTML(selected.id)} 배관 상세"><header class="lookup-heading"><div><h2>${escapeHTML(selected.id)}</h2><p class="selected-service">${escapeHTML(selected.service)}</p></div><a class="icon-button" data-route="home" href="${url("home")}" aria-label="${escapeHTML(selected.id)} 지도에서 보기" title="지도에서 보기">${uiIcon("locate")}</a></header><dl class="lookup-overview"><dt>RGB · 부식</dt><dd>${selected.result === "candidate" ? "부식 의심 " + selected.findings + "건" : "부식 의심 미검출"}<small>${selected.analysed}/${selected.planned}장 분석 · 색상 규칙</small></dd><dt>열화상</dt><dd>결과 미연결</dd><dt>수동 등록 보고서</dt><dd>${latest ? "등록 " + reports.length + "건 · 검토 필요" : "결과 미등록"}</dd></dl><div data-ut-pipe="${escapeHTML(selected.id)}"></div>${latest ? `<div class="latest-inspection"><h3>최근 비파괴검사</h3><strong>${escapeHTML(latest.method)}</strong><time datetime="${escapeHTML(latest.performed_at)}">${escapeHTML(reportDate(latest.performed_at))}</time><p>${escapeHTML(latest.result_summary.length > 80 ? latest.result_summary.slice(0, 80) + "…" : latest.result_summary)}</p></div>` : ""}<details class="lookup-history"><summary>비파괴검사 기록 ${reports.length}건</summary>${reports.length ? `<ol class="inspection-history">${reports.map((r) => `<li data-result-id="${escapeHTML(r.result_id)}"><time datetime="${escapeHTML(r.performed_at)}">${escapeHTML(reportDate(r.performed_at))}</time><h3>${escapeHTML(r.method)}</h3><p>${escapeHTML(r.result_summary)}</p><dl><dt>부위</dt><dd>${escapeHTML(r.inspection_point)}</dd><dt>검사자</dt><dd>${escapeHTML(r.inspector)}</dd><dt>절차</dt><dd>${escapeHTML(r.procedure_ref)}</dd><dt>검사 범위</dt><dd>${escapeHTML(r.coverage_ref)}</dd><dt>보고서</dt><dd>${escapeHTML(r.report_ref)}</dd></dl><small>기기 저장 · 검토 필요</small></li>`).join("")}</ol>` : "<p>등록된 비파괴검사 결과가 없습니다.</p>"}</details><details class="evidence-ids"><summary>촬영 근거 ID ${selected.evidenceIds.length}개</summary><ul>${selected.evidenceIds.map((id) => `<li>${escapeHTML(id)}</li>`).join("")}</ul></details><p class="lookup-note">저장 시연 자료 · 미검출·미등록은 정상 판정이 아닙니다.</p></section>`;
+  return `<section class="summary-box pipe-detail" aria-label="${escapeHTML(selected.id)} 배관 상세"><header class="lookup-heading"><div><h2>${escapeHTML(selected.id)}</h2><p class="selected-service">${escapeHTML(selected.service)}</p></div><a class="icon-button" data-route="home" href="${url("home")}" aria-label="${escapeHTML(selected.id)} 지도에서 보기" title="지도에서 보기">${uiIcon("locate")}</a></header><dl class="lookup-overview"><dt>RGB · 부식</dt><dd>${escapeHTML(window.MAEK_EVIDENCE.byPipe[selected.id]?.rgb?.analysis_summary || (selected.result === "candidate" ? "부식 의심 " + selected.findings + "건" : "부식 의심 미검출"))}<small>${selected.analysed}/${selected.planned}장 분석 · ${escapeHTML(window.MAEK_EVIDENCE.byPipe[selected.id]?.rgb?.model || "색상 규칙")}</small></dd><dt>열화상</dt><dd>${escapeHTML(window.MAEK_EVIDENCE.byPipe[selected.id]?.thermal?.analysis_summary || "결과 미연결")}</dd><dt>수동 등록 보고서</dt><dd>${latest ? "등록 " + reports.length + "건 · 검토 필요" : "결과 미등록"}</dd></dl><div data-ut-pipe="${escapeHTML(selected.id)}"></div>${latest ? `<div class="latest-inspection"><h3>최근 비파괴검사</h3><strong>${escapeHTML(latest.method)}</strong><time datetime="${escapeHTML(latest.performed_at)}">${escapeHTML(reportDate(latest.performed_at))}</time><p>${escapeHTML(latest.result_summary.length > 80 ? latest.result_summary.slice(0, 80) + "…" : latest.result_summary)}</p></div>` : ""}<details class="lookup-history"><summary>비파괴검사 기록 ${reports.length}건</summary>${reports.length ? `<ol class="inspection-history">${reports.map((r) => `<li data-result-id="${escapeHTML(r.result_id)}"><time datetime="${escapeHTML(r.performed_at)}">${escapeHTML(reportDate(r.performed_at))}</time><h3>${escapeHTML(r.method)}</h3><p>${escapeHTML(r.result_summary)}</p><dl><dt>부위</dt><dd>${escapeHTML(r.inspection_point)}</dd><dt>검사자</dt><dd>${escapeHTML(r.inspector)}</dd><dt>절차</dt><dd>${escapeHTML(r.procedure_ref)}</dd><dt>검사 범위</dt><dd>${escapeHTML(r.coverage_ref)}</dd><dt>보고서</dt><dd>${escapeHTML(r.report_ref)}</dd></dl><small>기기 저장 · 검토 필요</small></li>`).join("")}</ol>` : "<p>등록된 비파괴검사 결과가 없습니다.</p>"}</details><details class="evidence-ids"><summary>촬영 근거 ID ${selected.evidenceIds.length}개</summary><ul>${selected.evidenceIds.map((id) => `<li>${escapeHTML(id)}</li>`).join("")}</ul></details><p class="lookup-note">저장 시연 자료 · 미검출·미등록은 정상 판정이 아닙니다.</p></section>`;
 }
 function listing() {
   return `<div class="filters"><label class="sr-only" for="pipe-search">배관 검색</label><input type="search" id="pipe-search" placeholder="배관 ID 또는 계통" value="${escapeHTML(search)}"><label class="sr-only" for="status-filter">표시 범위</label><select id="status-filter"><option value="all">전체 배관</option><option value="candidate">점검 필요</option><option value="done">방문 완료</option><option value="waiting">방문 예정</option><option value="primary">주 검사 대상</option></select></div><div class="list-layout lookup-layout"><section class="list-panel" aria-label="배관 검색 결과"><div id="list-results">${rows(filteredPipes())}</div></section><aside aria-label="선택 배관 검사 정보">${pipeDetail()}</aside></div>`;

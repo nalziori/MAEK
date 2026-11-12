@@ -3,7 +3,9 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const stages={Waiting:'미검사',ReferenceCheck:'기준 블록 확인 중',Walking:'검사 지점으로 이동 중',SurfacePreparation:'표면 준비 중',Couplant:'젤 도포 중',Contact:'탐촉자 접촉 확인 중',Analysing:'합성 파형 분석 중',Complete:'검사 완료',Deferred:'검사 보류 · 조건 확인 필요',Interrupted:'검사 중단 · 결과 확정 안 됨'};
 export const stamp=s=>Number.isFinite(Date.parse(s))?new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',dateStyle:'short',timeStyle:'medium'}).format(new Date(s)):'시각 미확인';
 function validResult(r,pipe){return r&&r.pipeId===pipe&&r.synthetic===true&&r.workPermissionStatus==='not_assessed'&&r.sourceSha256===sha&&typeof r.requestId==='string'&&r.requestId.length<=80&&Number.isInteger(r.sample)&&r.sample>=0&&r.sample<32&&Array.isArray(r.wave)&&r.wave.length===4096&&r.wave.every(Number.isFinite)&&Number.isFinite(r.pitScore)&&r.pitScore>=0&&r.pitScore<=1&&Number.isFinite(r.threshold)&&r.threshold>=0&&r.threshold<=1&&typeof r.pitAlarm==='boolean'&&r.pitAlarm===(r.pitScore>r.threshold)&&typeof r.wallValid==='boolean'&&(!r.wallValid||Number.isFinite(r.mainWallMm)&&r.mainWallMm>0);}
-export function validRow(row,pipe){return !!row&&row.pipeId===pipe&&Object.hasOwn(stages,row.stage)&&Number.isFinite(Date.parse(row.updatedAt))&&(!row.result||row.stage==='Complete'&&validResult(row.result,pipe));}
+const procedureKinds=['REFERENCE_START','WALK','SURFACE_PREPARATION','COUPLANT','CONTACT','ANALYSE','RESULT'];
+function completedProcedure(row){return Array.isArray(row.steps)&&JSON.stringify(row.steps.filter(k=>procedureKinds.includes(k)))===JSON.stringify(procedureKinds);}
+export function validRow(row,pipe){return !!row&&row.pipeId===pipe&&Object.hasOwn(stages,row.stage)&&Number.isFinite(Date.parse(row.updatedAt))&&(!row.result||row.stage==='Complete'&&completedProcedure(row)&&validResult(row.result,pipe));}
 export function waveformSvg(wave){
  if(!Array.isArray(wave)||wave.length!==4096||!wave.every(Number.isFinite))return '';
  const peak=Math.max(1e-12,...wave.map(Math.abs)),points=[];
@@ -13,11 +15,14 @@ export function waveformSvg(wave){
  }
  return `<svg data-ut-wave viewBox="0 0 760 164" role="img" aria-label="합성 A-scan 파형, 정규화 진폭과 샘플 인덱스"><rect x="44" y="22" width="692" height="108" fill="#f5f8f9"/><path d="M44 28V130H736 M44 76H736" fill="none" stroke="#b4c3c8"/><polyline points="${points.join(' ')}" fill="none" stroke="#166674" stroke-width="1.4"/><g fill="#52656d" font-size="12"><text x="2" y="16">정규화 진폭</text><text x="16" y="32">+1</text><text x="24" y="80">0</text><text x="16" y="128">−1</text><text x="44" y="148">0</text><text x="708" y="148">4095</text><text x="340" y="161">샘플 인덱스</text></g></svg>`;
 }
+export function renderUtResult(row,connection,pipe){
+ return connection==='connected'&&validRow(row,pipe)&&row.stage==='Complete'&&row.result&&row.resultStatus==='verified'?renderUt(row,connection):'';
+}
 export function renderUt(row,connection){
  if(connection==='connecting')return '<div class="ut-empty"><strong>UT 기록 연결 확인 중</strong></div>';
  if(connection==='invalid')return '<div class="ut-empty"><strong>UT 기록 불일치 · 판정 보류</strong><p>배관·파형·결과 정보가 맞지 않아 현재 결과를 표시하지 않습니다.</p></div>';
  if(connection!=='connected')return '<div class="ut-empty"><strong>UT 기록 연결 끊김</strong><p>현재 결과를 표시하지 않습니다. 로컬 UT 대시보드 서버를 확인하세요.</p></div>';
- if(!row)return '<div class="ut-empty"><strong>초음파 미검사 · 연결 기록 없음</strong><p>이 배관의 Unity UT 기록이 없습니다.</p></div>';
+ if(!row)return '<div class="ut-empty"><strong>작업자 검사 대기 · 미검사</strong><p>작업자가 이 배관으로 이동해 준비·접촉·검사를 마치면 결과가 자동 연결됩니다.</p></div>';
  const r=row.result,complete=row.stage==='Complete',heading=r?(r.pitAlarm?'피팅 의심 · 후속 확인 필요':'해당 합성 예제에서 피팅 경보 없음'):complete?'분석 기록 있음 · 결과 확인 대기':stages[row.stage];
  const procedure=[['REFERENCE_START','기준 확인'],['WALK','이동'],['SURFACE_PREPARATION','표면 준비'],['COUPLANT','젤 도포'],['CONTACT','접촉'],['ANALYSE','분석'],['RESULT','기록']];
  const phase=Math.max(-1,...procedure.map(([kind],i)=>row.steps?.includes(kind)?i:-1));

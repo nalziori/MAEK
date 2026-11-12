@@ -1,0 +1,18 @@
+{
+  "width": 160,
+  "height": 90,
+  "fps": 2.0,
+  "minimumPipePixels": 12,
+  "historyFrames": 64,
+  "historySessions": 32,
+  "staleSeconds": 5.0,
+  "ambientC": 15.0,
+  "readout": {
+    "enabled": true,
+    "minimumDisplaySeconds": 2.5,
+    "transitSpeedScale": 0.35,
+    "pollSeconds": 0.25,
+    "timeoutSeconds": 10.0,
+    "modelEndpoint": "http://127.0.0.1:8878/api/model-results?summary=1"
+  }
+}

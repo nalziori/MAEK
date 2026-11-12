@@ -15,6 +15,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 SOURCE_SHA = 'be4be1f82633378c803ff3112d43738ad89b928778c1ba69033c738a624d1e6d'
+PROCEDURE = ['REFERENCE_START','WALK','SURFACE_PREPARATION','COUPLANT','CONTACT','ANALYSE','RESULT']
 STAGES = {'Waiting','ReferenceCheck','Walking','SurfacePreparation','Couplant','Contact','Analysing','Complete','Deferred','Interrupted'}
 
 
@@ -91,6 +92,11 @@ def snapshot(log_root, known_pipes):
                 if len(candidates)!=1:return None
                 r=dict(candidates[0]);r['recordedAt']=event['utc'];return r
             if last['kind']=='RESULT' and last['stage']=='Complete':
+                procedure=[e['kind'] for e in rows[start:] if e['kind'] in PROCEDURE]
+                if procedure != PROCEDURE or any(e['stage'] in {'Deferred','Interrupted'} for e in rows[start:]):
+                    row['resultStatus']='procedure_incomplete'
+                    response['pipes'][pipe]=row
+                    continue
                 row['result']=match(last, results)
                 row['resultStatus']='verified' if row['result'] else 'unverified_or_pending'
             for event in reversed(rows[:-1]):
@@ -123,7 +129,7 @@ class Handler(SimpleHTTPRequestHandler):
             return self.send_error(403)
         path_=urlsplit(self.path).path
         if path_=='/api/thermal':return self.json_reply(200,self.server.thermal.snapshot())
-        match=re.fullmatch(r'/api/thermal/file/([a-f0-9]{32})/(thermal\.png|rgb\.png|roi\.png|temperature16\.png|temperature\.npy|capture\.json|response\.json|geometry\.bin)',path_)
+        match=re.fullmatch(r'/api/thermal/file/([a-f0-9]{32})/(thermal\.png|rgb\.png|roi\.png|temperature16\.png|model-input\.png|temperature\.npy|capture\.json|response\.json|geometry\.bin)',path_)
         if match:
             file=self.server.thermal.root/match[1]/match[2]
             if not file.is_file() or file.is_symlink():return self.send_error(404)
