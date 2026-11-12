@@ -98,12 +98,56 @@ try {
   await page.keyboard.press("Escape"); await sleep(300);
   check("tech button reopens, Escape closes", await sim(() => !document.getElementById("techdlg").open));
 
+  // Try-the-models page: entered from the end modal, every sample re-run in the browser vs the recorded reference
+  await page.click("#tech"); await sleep(300);
+  await Promise.all([page.waitForNavigation({ waitUntil: "domcontentloaded" }), page.click("#try-next")]);
+  check("end modal leads to the try page", new URL(page.url()).pathname.endsWith("/try/"));
+  await page.waitForFunction(() => window.__try?.result, { timeout: 120000 });
+  const tryAll = await page.evaluate(async () => {
+    const wait = async (id) => { for (let i = 0; i < 1200; i++) { const r = window.__try.result; if (window.__try.sample === id && r) return r; await new Promise((ok) => setTimeout(ok, 100)); } return null; };
+    const bad = [], ms = {};
+    for (const kind of ["corrosion", "thermal", "ultrasonic"]) {
+      window.__try.choose(kind); ms[kind] = [];
+      for (const s of window.__try.data()[kind].samples) {
+        window.__try.pick(s.id);
+        const r = await wait(s.id), ref = s.reference;
+        if (!r) { bad.push(`${s.id} timeout`); continue; }
+        ms[kind].push(Math.round(r.ms));
+        if (!r.match) bad.push(`${s.id} wrong`);
+        if (kind === "ultrasonic") { if (Math.abs(r.logit - ref.logit) > 1e-3) bad.push(`${s.id} logit`); continue; }
+        if (r.dets.length !== ref.detections) bad.push(`${s.id} count ${r.dets.length}/${ref.detections}`);
+        else if (ref.detections && Math.abs(r.dets[0].score - ref.confidence) > 0.03) bad.push(`${s.id} score ${r.dets[0].score.toFixed(3)}/${ref.confidence}`);
+        if (kind === "corrosion" && ref.detections && !(r.dets[0].area > 100)) bad.push(`${s.id} empty mask`);
+      }
+    }
+    return { bad, ms };
+  });
+  check("try page: every sample matches truth and the ONNX reference", tryAll.bad.length === 0, tryAll.bad.join(", ") || JSON.stringify(tryAll.ms));
+  await page.evaluate(() => window.__try.choose("corrosion"));
+  await page.waitForFunction(() => window.__try.sample && window.__try.result, { timeout: 60000 });
+  const btns = await page.$$("#samples button");
+  for (const b of btns.slice(0, 4)) await b.click(); // fast clicks: the last one must win, without a run error
+  const last = await page.$eval("#samples li:nth-child(4) button", (b) => b.dataset.id);
+  const fast = await page.waitForFunction((id) => window.__try.sample === id && window.__try.result, { timeout: 60000 }, last).then(() => true, () => false);
+  check("try page: fast sample clicks settle on the last one", fast && await page.$eval("#busy", (b) => b.hidden));
+  await page.click("#truth");
+  await page.screenshot({ path: shots + "try-corrosion.png" });
+  await page.click('#models [data-model="thermal"]');
+  await page.waitForFunction(() => window.__try.model === "thermal" && window.__try.result, { timeout: 120000 });
+  await page.screenshot({ path: shots + "try-thermal.png" });
+  await page.click('#models [data-model="ultrasonic"]');
+  await page.waitForFunction(() => window.__try.model === "ultrasonic" && window.__try.result, { timeout: 60000 });
+  check("try page: model tabs switch and keep the hash", await page.evaluate(() => location.hash === "#ultrasonic"));
+  await page.screenshot({ path: shots + "try-ultrasonic.png" });
+
   // phone portrait gets the notice instead of the 2x2 layout
   const phone = await browser.newPage();
   await phone.setViewport({ width: 390, height: 844, isMobile: true });
   await phone.goto(origin + "/sim/", { waitUntil: "domcontentloaded" });
   check("phone shows PC notice", await phone.evaluate(() => getComputedStyle(document.getElementById("narrow")).display !== "none"));
   await phone.screenshot({ path: shots + "sim-phone.png" });
+  await phone.goto(origin + "/try/", { waitUntil: "domcontentloaded" });
+  check("try page: phone shows PC notice", await phone.evaluate(() => getComputedStyle(document.getElementById("narrow")).display !== "none"));
   check("no page errors", errors.length === 0, errors.join("; "));
 } finally {
   await browser.close();

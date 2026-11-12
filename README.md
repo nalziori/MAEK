@@ -19,6 +19,7 @@
 
 - `site/index.html`: 소개 캐러셀(표지 → 팀 → 시연 영상 1.5배속 → 시뮬레이션 입장)
 - `site/sim/`: three.js로 만든 1고로 부생가스 배관 점검 시뮬레이션. 형상은 Unity 가상 제철소(`maek_geometry.bytes`)에서 `scripts/export_bf1_scene.py`로 잘라 냈습니다.
+- `site/try/`: AI 모델 직접 돌려보기. 부식(E4)·열화상(sim_pipe_S)·피팅 CNN을 ONNX로 브라우저에서 실행합니다. 샘플과 기준 결과는 `python scripts/export_try_demo.py --weights models`로 만들며(고정 시드, 정답과 일치한 샘플만 사용), `npm test`가 브라우저 결과를 기준과 대조합니다.
 - AI 결과: 부식(E4 YOLO-seg)과 열화상(sim_pipe_S) 결과는 `scripts/export_web_demo.py`가 릴리스 가중치로 미리 계산합니다. 입력은 각 모델 학습 데이터와 같은 생성기(`composite2d`, `thermal_render`)로 만든 영상입니다. 피팅 CNN(cnn_dr)은 ONNX로 변환해 브라우저(onnxruntime-web)에서 실시간 추론합니다. 시드, 가중치 해시, 점수는 `site/sim/data/results.json`에 기록됩니다.
 - 로컬 확인: `sh site/build.sh` → `_site/`를 정적 서버로 띄움 → `cd site && npm ci && npm test` (28개 항목)
 

@@ -83,6 +83,8 @@ graphify-out/
 /site/node_modules/
 !/site/sim/data/
 !/site/sim/data/*.onnx
+!/site/try/data/
+!/site/try/data/*.onnx
 
 # Release weights and YOLO predict output for local model runs
 /models/
