@@ -13,6 +13,20 @@ Unity UT V5 기록을 연결하려면 저장소 루트의 `Start_UT_Dashboard.cm
 
 ## 실행
 
+### 부식·열화상 모델 추론 연결
+
+정적 서버 대신 저장소 루트에서 모델 서버를 실행하면 Unity RGB·열화상 입력을 자동 분석하고 홈 화면에 연결합니다.
+
+```sh
+python -m maek.model_dashboard --corrosion /path/corrosion-user-best.pt --thermal /path/maek-thermal-20261110 --port 8878
+```
+
+열 모델 폴더에는 기준선용 `baseline_flip_19.pt`, `baseline_flip_19.json` 또는 PV 검출기용 `deployment.json`과 해당 설정의 가중치가 필요합니다. Python 환경에는 PyTorch, Ultralytics, OpenCV와 `requirements.txt`의 패키지가 필요합니다. Jetson은 설치된 CUDA PyTorch를 유지합니다. 모델 가중치는 이 PR에 포함되지 않습니다.
+
+RGB 브리지는 `python -m maek.inspection_bridge --port 8765`로 실행합니다. Unity 카메라가 보내는 RGB 프레임과 위치, 합성 온도장을 연결하며 프레임 해시·세션·배관 ID를 확인합니다. 열 스트림은 PV 검출기 모드에서 분석합니다. 기준선 모드는 기존 단일 촬영 입력의 `current_c`, `expected_c`, `roi_valid`를 사용합니다. PV 모델은 태양광 열점 학습 모델이므로 배관 결함 확진이나 현장 성능을 의미하지 않습니다.
+
+서버는 loopback에서만 수신합니다. 브라우저는 모델 서버 8878과 카메라·열 스트림 브리지 8765에 접근해야 합니다. 다른 PC에서 접속할 때 두 포트를 모두 SSH로 전달합니다. 모델 서버는 Unity 단일 촬영 수신용 8894도 엽니다. 홈은 실시간 입력과 최근 모델 결과를 표시하며 연결이 없으면 대기 상태를 표시합니다. 저장 사진을 현재 관측으로 대신 표시하지 않습니다. 중앙 이력 저장·자동 시작 서비스는 별도 연동 대상입니다.
+
 저장소 루트에서 실행합니다. 빌드·백엔드·npm 설치 없이 화면을 볼 수 있습니다.
 
 ```sh
@@ -32,23 +46,30 @@ http://127.0.0.1:8877/index.html 에 접속합니다.
 
 Unity 가상 제철소의 저장 시연 자료입니다. 배관 247개·분석 촬영 771개·RGB 후보 배관 16개를 포함합니다. 배관별 대표 RGB 247개는 촬영 메타데이터·분석 응답·요청 ID·PNG 해시와 대조했습니다. 표시는 대상 배관에 매핑된 RGB 색상 규칙 후보이며 확정 결함·위험 순위가 아닙니다.
 
-**현재 위치와 방문 경로는 저장 계획 순서를 재구성한 것**입니다. 실시간 드론·실제 제철소 도면과 연결되지 않았습니다. 배관 사이 전이 로그가 없는 구간은 직선으로 이어 그리지 않습니다.
+방문 경로는 저장 계획 순서를 재구성한 것입니다. 연결 중 현재 위치는 Unity 가상 드론 좌표로 갱신합니다. 실제 제철소 도면·실물 드론 검증은 포함하지 않습니다. 배관 사이 전이 로그가 없는 구간은 직선으로 이어 그리지 않습니다.
 
-같은 배관의 열화상 자료는 미연결로 표시합니다. 별도 합성 열 자료를 동일 위치로 대신 표시하지 않습니다. RGB/열 관측 미검출과 비파괴검사 결과 미등록는 정상·안전 판정이 아닙니다.
+열화상은 Unity 첫 표면 교차와 배관별 가정 온도로 만든 합성 자료입니다. 표시 범례와 실제 최저·최고 온도를 구분하며 원본 온도 배열과 모델 입력을 유지합니다. RGB/열 관측 미검출과 비파괴검사 결과 미등록은 정상·안전 판정이 아닙니다.
 
 `operations-data.js`와 `inspection-evidence.js`는 자체 포함된 시연 스냅샷입니다. 실행 시 저장소의 Unity/Python 분석 모듈이나 원본 촬영 폴더를 요구하지 않습니다. 원천 경로와 SHA256는 스냅샷에 기록되어 있습니다.
 
-## 비파괴검사 결과 등록
+## 비파괴검사 결과 표시
 
-선택한 배관에서 **결과 등록**을 누르고 다음 필드가 있는 JSON을 선택합니다.
-
-`result_id`, `pipe_id`, `inspection_point`, `method`, `performed_at`, `inspector`, `result_summary`, `procedure_ref`, `coverage_ref`, `report_ref`.
-
-모든 필드는 비어 있지 않은 문자열이며 `performed_at`에는 시간대가 포함되어야 합니다. `pipe_id`는 선택 배관 ID와 같아야 합니다. 다른 배관, 누락된 항목, 다른 내용의 중복 결과 ID를 거부합니다.
-
-결과는 해당 브라우저 기기의 **localStorage**에 저장되고 검토 필요로 표시됩니다. 중앙 시스템·계측 장비·서명·작업 허가와 연동하지 않습니다. 보고서의 검사 부위를 표시하지만 영상 표면과의 정확한 정합은 별도 확인이 필요합니다. 다른 브라우저에서 공유되는 운영 검사 이력이 아닙니다.
+홈에서는 작업자 UT의 기준 확인→이동→표면 준비→젤 도포→접촉→분석→기록 절차가 완료되고 파형과 결과가 검증된 경우에만 결과를 표시합니다. 중단·보류·절차 누락 기록은 현재 완료 결과로 표시하지 않습니다. 홈의 수동 JSON 등록 버튼은 제거했습니다. 기존 브라우저 저장 보고서는 배관 조회에서 확인할 수 있습니다.
 
 ## 검증
+
+실시간 연동 회귀 검증은 저장소 루트에서 실행합니다.
+
+```sh
+node dashboard/verify-live-camera.mjs
+node dashboard/verify-live-models.mjs
+node dashboard/verify-thermal-stream.mjs
+node dashboard/verify-ut-unit.mjs
+node dashboard/verify-thermal-unit.mjs
+python -m pytest tests/test_model_dashboard.py tests/test_live_camera.py tests/test_unity_model_feed.py tests/test_thermal_stream.py tests/test_thermal_display.py tests/test_thermal_pv_dashboard.py tests/test_ndt_dashboard.py tests/test_ut_dashboard_adapter.py -q
+```
+
+PV 모델 어댑터 검증에는 PyTorch·Ultralytics가 필요하며 미설치 환경에서는 해당 검증을 건너뜁니다. 아래 기존 브라우저 검증은 저장 사진·수동 등록 UI를 전제로 하므로 현재 홈에 대한 통과를 보장하지 않습니다. 실제 브라우저·Unity 동시 실행은 별도 확인이 필요합니다.
 
 Chrome/Chromium, Node.js 22 이상, npm이 필요합니다. 서버를 실행한 상태에서 별도 터미널을 엽니다.
 

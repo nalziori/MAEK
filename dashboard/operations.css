@@ -2776,3 +2776,7 @@ button.sensor-image:hover {
   background: #f0f4f5;
   outline-color: #81959e;
 }
+
+.model-actions{display:flex;flex-wrap:wrap;gap:4px;align-items:center;padding:4px 0}.model-actions button{min-height:36px;border:1px solid #cbd5d1;background:#fff;border-radius:5px;padding:4px 8px;font:inherit;font-size:12px;cursor:pointer}.model-actions button:disabled{opacity:.6}.model-actions span{font-size:11px;line-height:1.3;overflow-wrap:anywhere}.model-actions span:not(:empty){flex-basis:100%}
+
+.model-verdict{border-top:1px solid #d9e2df;padding-top:8px}.model-verdict>span{font-size:11px;color:#61726b}.model-verdict>strong{display:block;color:#173d32}.model-verdict>small{display:block;font-size:11px;color:#61726b}.model-verdict details{font-size:11px}.model-verdict details p{overflow-wrap:anywhere}

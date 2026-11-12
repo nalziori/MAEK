@@ -21,7 +21,10 @@ export function thermalHtml(o,connection,expectedAsset=asset,compact=false){
  return intro+`<div class="thermal-verdict" role="status"><strong>${label}</strong><span>${esc(r.quality.message)}</span></div><div class="thermal-images">${compact?'':frame('rgb','Unity 촬영 RGB',false)}${frame('thermal','합성 열화상',true)}</div><div class="thermal-legend"><span>10°C</span><i></i><span>100°C</span><small>고정 색상 범위 · 범위 밖 온도는 색상 포화</small></div><dl class="thermal-stats"><div><dt>배관 최대</dt><dd>${r.maxC.toFixed(1)}<small> °C</small></dd></div><div><dt>배관 평균</dt><dd>${r.meanC.toFixed(1)}<small> °C</small></dd></div><div><dt>비교 영역 대비 ΔT</dt><dd>${r.deltaC.toFixed(1)}<small> °C</small></dd></div><div><dt>관심영역</dt><dd>${r.roiPixels.toLocaleString()}<small> px</small></dd></div></dl><p class="thermal-scope">${r.profile?`가정 유체 온도 ${Number(r.profile.fluidC).toFixed(1)}°C · `:''}${esc(r.scope||'합성 온도 가정')} · CUI 확정·작업허가가 아닙니다.</p><details class="thermal-details"><summary>촬영 근거·원본 온도 자료</summary><dl><dt>촬영 ID</dt><dd>${esc(r.requestId)}</dd><dt>촬영 시각</dt><dd>${esc(r.capturedAt)}</dd><dt>RGB SHA256</dt><dd>${esc(r.rgbSha256)}</dd><dt>기하 SHA256</dt><dd>${esc(r.geometrySha256)}</dd><dt>온도 SHA256</dt><dd>${esc(r.temperatureSha256)}</dd></dl><p>Unity 카메라 첫 표면 교차로 구한 배관 관심영역 · 배경은 15°C로 가정합니다.</p><a href="${prefix}rgb.png" download>같은 촬영의 RGB</a> · <a href="${prefix}temperature.npy" download>원본 온도 배열</a> · <a href="${prefix}temperature16.png" download>16비트 온도 PNG</a> · <a href="${prefix}capture.json" download>촬영 자세·가정</a></details>`;
 }
 
-export function thermalPhotoHtml(o,connection,pipe){
+export function thermalModelInputUrl(observation,model){
+ return observation?.requestId&&model?.requestId===observation.requestId?model.inputUrl||null:null;
+}
+export function thermalPhotoHtml(o,connection,pipe,showSummary=true,inputUrl=null){
  const empty=message=>`<div class="sensor-empty"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM8 15l3-3 3 2 3-5"/></svg><strong>${esc(message)}</strong></div>`;
  if(connection!=='connected')return empty('열화상 연결 확인 중');
  if(!o)return empty('열화상 사진 미연결');
@@ -29,7 +32,8 @@ export function thermalPhotoHtml(o,connection,pipe){
  if(!o.result)return empty(stages[o.stage]);
  const r=o.result;
  const summary=r.quality.canInfer
-  ? `<strong>최대 ${r.maxC.toFixed(1)}°C</strong><span>평균 ${r.meanC.toFixed(1)}°C · <abbr title="배관 관심영역의 20백분위 온도 대비 최대 온도 차이">ΔT</abbr> ${r.deltaC.toFixed(1)}°C</span><span>합성 표면온도 · ${r.status==='anomaly_observed'?'온도 이상 후보':'이상 후보 미검출'}</span>`
+  ? `<strong>최대 ${r.maxC.toFixed(1)}°C</strong><span>평균 ${r.meanC.toFixed(1)}°C · <abbr title="배관 관심영역의 20백분위 온도 대비 최대 온도 차이">ΔT</abbr> ${r.deltaC.toFixed(1)}°C</span><span>${r.status==='anomaly_observed'?'온도 이상 후보':'이상 후보 미검출'}</span>`
   : '<strong>판독 보류</strong><span>방사율·반사 조건 확인 후 재촬영</span><span>합성 열화상 · 온도 수치 판정 제외</span>';
- return `<button type="button" class="sensor-image" data-thermal-expand="thermal" aria-label="${esc(pipe)} 열화상 사진 크게 보기"><img src="/api/thermal/file/${o.requestId}/thermal.png" width="320" height="256" alt="${esc(pipe)} 합성 열화상 사진"><span class="image-expand"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m0-5 6 6M16 3h5v5m0-5-6 6M3 16v5h5m-5 0 6-6m7 6h5v-5m0 5-6-6"/></svg></span></button><div class="sensor-analysis">${summary}</div>`;
+ const photo=inputUrl===`/api/thermal/file/${o.requestId}/model-input.png`?inputUrl:`/api/thermal/file/${o.requestId}/thermal.png`;
+ return `<button type="button" class="sensor-image" data-thermal-expand="thermal" aria-label="${esc(pipe)} 열화상 사진 크게 보기"><img src="${photo}" width="320" height="256" alt="${esc(pipe)} 합성 열화상 사진"><span class="image-expand"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m0-5 6 6M16 3h5v5m0-5-6 6M3 16v5h5m-5 0 6-6m7 6h5v-5m0 5-6-6"/></svg></span></button>${showSummary?`<div class="sensor-analysis">${summary}</div>`:""}`;
 }

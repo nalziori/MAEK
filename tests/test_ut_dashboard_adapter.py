@@ -42,7 +42,21 @@ class LogContract(unittest.TestCase):
         return adapter.snapshot(self.root, {'BF1-Q005','BF1-G004'})
 
     def complete(self):
+        for second,(kind,stage) in enumerate([('WALK','Walking'),('SURFACE_PREPARATION','SurfacePreparation'),('COUPLANT','Couplant'),('CONTACT','Contact'),('ANALYSE','Analysing')],1):
+            self.event(kind,stage,second)
         self.event('RESULT','Complete',10);self.result()
+
+    def test_result_without_worker_procedure_is_not_current(self):
+        self.event('RESULT','Complete',10);self.result()
+        row=self.snapshot()['pipes']['BF1-Q005']
+        self.assertIsNone(row['result'])
+        self.assertEqual(row['resultStatus'],'procedure_incomplete')
+
+    def test_out_of_order_worker_steps_rejected(self):
+        self.complete()
+        self.events[1],self.events[2]=self.events[2],self.events[1]
+        self.event('RESULT','Complete',11)
+        self.assertIsNone(self.snapshot()['pipes']['BF1-Q005']['result'])
 
     def test_missing_logs_never_fabricate_result(self):
         self.assertEqual(adapter.snapshot(self.root/'missing',{'BF1-Q005'})['pipes'],{})
@@ -63,7 +77,7 @@ class LogContract(unittest.TestCase):
         self.assertIsNone(self.snapshot()['pipes']['BF1-Q005']['result'])
 
     def test_wrong_pipe_or_forged_source_or_nonfinite_wave_rejected(self):
-        self.event('RESULT','Complete',10)
+        self.complete()
         for update in [{'pipeId': 'BF1-G004'},{'sourceSha256': '0'*64},{'wave': [float('nan')]*4096},{'pitAlarm': False},{'wallValid': True,'mainWallMm': -1}]:
             self.result(**update)
             self.assertIsNone(self.snapshot()['pipes']['BF1-Q005']['result'])

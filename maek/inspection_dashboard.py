@@ -389,6 +389,17 @@ class DashboardState:
                 self.preview = None
         return {"status": "ok"}
 
+    def camera_snapshot(self):
+        """Camera polling must not copy the full network and analysis history."""
+        with self.lock:
+            online = self._connected()
+            return copy.deepcopy({"connected": online, "sessionId": self.session,
+                "ageSeconds": None if self.updated is None else max(0, self.clock()-self.updated),
+                "activePipe": (self.telemetry or {}).get('activePipe'),
+                "position": (self.telemetry or {}).get('position'),
+                "cameraAvailable": (self.telemetry or {}).get('cameraAvailable',True),
+                "preview": self.preview if online else None})
+
     def snapshot(self):
         with self.lock:
             return copy.deepcopy({

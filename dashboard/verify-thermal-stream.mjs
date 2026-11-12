@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {validLiveThermal,chooseThermalPipe} from './thermal-stream-view.mjs';
+const id='a'.repeat(32),hash='b'.repeat(64);
+const row=(pipe,pixels,canInfer=true)=>({pipeId:pipe,service:'water',pixels,validPixels:canInfer?pixels:0,canInfer,minC:20,meanC:25,maxC:30});
+const frame={schemaVersion:1,frameId:id,sessionId:'S',sequence:1,sourceFrameId:'S-preview-1',width:160,height:90,synthetic:true,workPermissionStatus:'not_assessed',canInfer:true,imageUrl:`/api/thermal-stream/frame/${id}/model-input.png`,imageSha256:hash,rgbSha256:hash,temperatureSha256:hash,visiblePipes:[row('A',20),row('B',50)]};
+assert(validLiveThermal(frame));
+const displayFrame={...frame,displayUrl:`/api/thermal-stream/frame/${id}/display.png`,displaySha256:hash,display:{mode:'rgb_contour_fusion',width:640,height:360,hasValidTemperature:true,rangeMinC:10,rangeMaxC:50}};
+assert(validLiveThermal(displayFrame));
+for(const change of [{displayUrl:'https://example.com/display.png'},{displaySha256:'bad'},{display:{...displayFrame.display,width:961}},{display:{...displayFrame.display,rangeMaxC:10}},{display:{...displayFrame.display,rangeMinC:NaN}}])assert(!validLiveThermal({...displayFrame,...change}));
+for(const change of [{sourceFrameId:'old'}, {synthetic:false},{workPermissionStatus:'approved'},{width:160.5},{imageUrl:'https://example.com'},{imageSha256:'bad'},{visiblePipes:[row('A',5),row('A',5)]},{visiblePipes:[{...row('A',5),maxC:NaN}]}])assert(!validLiveThermal({...frame,...change}));
+const known=new Set(['A','B']);
+assert.equal(chooseThermalPipe(frame,'A','B',known),'A');
+assert.equal(chooseThermalPipe(frame,'unknown','A',known),'A');
+assert.equal(chooseThermalPipe(frame,null,'missing',known),'B');
+assert.equal(chooseThermalPipe({...frame,visiblePipes:[]},null,'A',known),null);
+assert(validLiveThermal({...frame,canInfer:false,visiblePipes:[row('A',20,false)]}));
+assert.equal(chooseThermalPipe({...frame,visiblePipes:[row('A',20,false)]},'A','B',known),'A');
+console.log('Thermal stream: frame identity/hash/domain, malformed input, media/pipe follow and reflective hold checks passed');

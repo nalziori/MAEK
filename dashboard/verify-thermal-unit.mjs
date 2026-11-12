@@ -1,5 +1,9 @@
 import assert from 'node:assert/strict';
-import {validThermal,thermalHtml} from './thermal-view.mjs';
+import {validThermal,thermalHtml,thermalModelInputUrl} from './thermal-view.mjs';
+assert.equal(thermalModelInputUrl(null,null),null);
+assert.equal(thermalModelInputUrl(undefined,undefined),null);
+assert.equal(thermalModelInputUrl({requestId:'new'},{requestId:'old',inputUrl:'/old'}),null);
+assert.equal(thermalModelInputUrl({requestId:'new'},{requestId:'new',inputUrl:'/new'}),'/new');
 const id='a'.repeat(32),hash='b'.repeat(64);
 const r={requestId:id,runId:id,sessionId:'c'.repeat(32),assetId:'THERMAL-DEMO-01',synthetic:true,workPermissionStatus:'not_assessed',width:320,height:256,status:'anomaly_observed',minC:25,maxC:50,meanC:30,referenceC:26,deltaC:24,roiPixels:2000,quality:{canInfer:true,message:'품질 통과'},findings:[{bbox:[80,90,130,150]}],rgbSha256:hash,geometrySha256:hash,temperatureSha256:hash,thermalSha256:hash,capturedAt:'2026-11-09T12:00:00Z'};
 const o={requestId:id,runId:id,sessionId:r.sessionId,assetId:r.assetId,stage:'Complete',result:r};

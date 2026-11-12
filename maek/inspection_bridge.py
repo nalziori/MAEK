@@ -151,6 +151,12 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
+        origin = self.headers.get('Origin')
+        if (origin in {'http://127.0.0.1:8878', 'http://localhost:8878',
+                       'http://127.0.0.1:8894', 'http://localhost:8894'} and
+                (urlsplit(self.path).path == '/api/camera' or self.path.startswith(('/api/frame/','/api/thermal-stream/')))):
+            self.send_header('Access-Control-Allow-Origin', origin)
+            self.send_header('Vary', 'Origin')
         self.end_headers()
         self.wfile.write(body)
 
@@ -166,6 +172,22 @@ class Handler(BaseHTTPRequestHandler):
                                  "capabilities": ["dashboard_v1", "scenarios_v1"]})
             elif path.path == "/api/state":
                 self.reply(200, self.dashboard.snapshot())
+            elif path.path == "/api/camera":
+                self.reply(200, self.dashboard.camera_snapshot())
+            elif path.path == '/api/thermal-stream/profiles':
+                self.reply(200,self.server.thermal_stream.profile_snapshot())
+            elif path.path == '/api/thermal-stream/state':
+                self.reply(200,self.server.thermal_stream.snapshot(diagnostics=False))
+            elif path.path == '/api/thermal-stream/coverage':
+                self.reply(200,self.server.thermal_stream.snapshot())
+            elif path.path.startswith('/api/thermal-stream/frame/'):
+                parts=path.path.removeprefix('/api/thermal-stream/frame/').split('/')
+                if len(parts)!=2 or not re.fullmatch('[a-f0-9]{32}',parts[0]) or parts[1] not in {'model-input.png','display.png','rgb.png','temperature.npy','input.npz','metadata.json','values.bin','valid.bin','indices.bin'}:
+                    raise APIError('Unknown thermal frame',404)
+                try:raw=self.server.thermal_stream.file(*parts)
+                except KeyError:raise APIError('Thermal frame expired',404)
+                content='image/png' if parts[1].endswith('.png') else 'application/json' if parts[1].endswith('.json') else 'application/octet-stream'
+                self.send_bytes(200,raw,content)
             elif path.path.startswith("/api/frame/"):
                 self.send_bytes(200, self.dashboard.frame(path.path.removeprefix("/api/frame/")),
                                 "image/png")
@@ -196,7 +218,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:
         try:
-            endpoints = {"/analyse", "/api/telemetry", "/api/control", "/api/ack", "/api/evaluation"}
+            endpoints = {"/analyse", "/api/telemetry", "/api/control", "/api/ack", "/api/evaluation",'/api/thermal-stream/frame'}
             if self.path not in endpoints:
                 raise APIError("알 수 없는 경로입니다", 404)
             size = int(self.headers.get("Content-Length", "0"))
@@ -215,6 +237,8 @@ class Handler(BaseHTTPRequestHandler):
                     self.dashboard.record_analysis(result, raw, meta)
             elif self.path == "/api/telemetry":
                 result = self.dashboard.telemetry_update(payload)
+            elif self.path == '/api/thermal-stream/frame':
+                result = self.server.thermal_stream.capture(payload)
             elif self.path == "/api/control":
                 result = self.dashboard.control(payload)
             elif self.path == "/api/ack":
@@ -222,7 +246,7 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 result = self.dashboard.evaluation(payload)
             self.reply(200, result)
-        except (ValueError, KeyError, OSError, RecursionError) as exc:
+        except (ValueError, TypeError, KeyError, OSError, RecursionError) as exc:
             self.reply(getattr(exc, "status", 400), {"status": "error", "message": str(exc)})
 
 
@@ -232,6 +256,8 @@ class InspectionServer(ThreadingHTTPServer):
             raise ValueError("Inspection bridge must bind to 127.0.0.1")
         self.dashboard = dashboard if dashboard is not None else DashboardState()
         self.dashboard_root = Path(dashboard_root).resolve() if dashboard_root is not None else default_dashboard_root()
+        from maek.thermal_stream import ThermalStream
+        self.thermal_stream = ThermalStream(self.dashboard)
         super().__init__(address, handler)
 
 
