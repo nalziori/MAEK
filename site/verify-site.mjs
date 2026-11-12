@@ -113,7 +113,7 @@ try {
         const r = await wait(s.id), ref = s.reference;
         if (!r) { bad.push(`${s.id} timeout`); continue; }
         ms[kind].push(Math.round(r.ms));
-        if (!r.match) bad.push(`${s.id} wrong`);
+        if (s.source !== "real" && !r.match) bad.push(`${s.id} wrong`); // real photos are shown unfiltered, misses included
         if (kind === "ultrasonic") { if (Math.abs(r.logit - ref.logit) > 1e-3) bad.push(`${s.id} logit`); continue; }
         if (r.dets.length !== ref.detections) bad.push(`${s.id} count ${r.dets.length}/${ref.detections}`);
         else if (ref.detections && Math.abs(r.dets[0].score - ref.confidence) > 0.03) bad.push(`${s.id} score ${r.dets[0].score.toFixed(3)}/${ref.confidence}`);
@@ -130,7 +130,19 @@ try {
   const last = await page.$eval("#samples li:nth-child(4) button", (b) => b.dataset.id);
   const fast = await page.waitForFunction((id) => window.__try.sample === id && window.__try.result, { timeout: 60000 }, last).then(() => true, () => false);
   check("try page: fast sample clicks settle on the last one", fast && await page.$eval("#busy", (b) => b.hidden));
+  // real photo sample and own-photo upload (the upload is one of the real test photos, read from disk)
+  const realId = await page.evaluate(() => window.__try.data().corrosion.samples.find((s) => s.source === "real" && s.reference.mask_iou_vs_truth > 0.5).id);
+  await page.evaluate((id) => window.__try.pick(id), realId);
+  await page.waitForFunction((id) => window.__try.sample === id && window.__try.result, { timeout: 60000 }, realId);
+  check("try page: real photo shows overlap with truth and credit", await page.$eval("#verdict", (v) => /정답과 겹침 \d+%/.test(v.textContent) && /사진 출처/.test(v.textContent)));
   await page.click("#truth");
+  await page.screenshot({ path: shots + "try-real.png" });
+  await (await page.$("#file")).uploadFile(fileURLToPath(new URL("./try/data/corrosion/" + realId + ".jpg", import.meta.url)));
+  const up = await page.waitForFunction(() => window.__try.sample === "upload" && window.__try.result, { timeout: 60000 }).then(() => true, () => false);
+  check("try page: uploaded photo is analysed in the browser", up && await page.evaluate(() => window.__try.result.dets.length > 0 && window.__try.result.match === null));
+  await page.screenshot({ path: shots + "try-upload.png" });
+  await page.evaluate(() => window.__try.pick(window.__try.data().corrosion.samples[3].id));
+  await page.waitForFunction(() => window.__try.sample !== "upload" && window.__try.result, { timeout: 60000 });
   await page.screenshot({ path: shots + "try-corrosion.png" });
   await page.click('#models [data-model="thermal"]');
   await page.waitForFunction(() => window.__try.model === "thermal" && window.__try.result, { timeout: 120000 });

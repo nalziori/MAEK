@@ -6,7 +6,10 @@ with the exported ONNX (what the browser runs) on each, and keeps only samples w
 The browser re-runs the ONNX models on these samples; verify-site.mjs checks
 the browser result against the reference recorded here.
 
-    python scripts/export_try_demo.py --weights models
+    python scripts/export_try_demo.py --weights models --real <test sets from experiments/real_adaptation>
+
+Real-photo samples are taken at fixed positions of the held-out test sets (not filtered by whether the
+model gets them right), so the page shows misses as well as hits.
 
 Needs ultralytics, onnx, onnxruntime (see docs/local-setup.md).
 """
@@ -154,6 +157,59 @@ def thermal(cfg, onnx: Path, seed=111) -> list[dict]:
     raise SystemExit(f"thermal: not enough matching samples {[(k, len(v)) for k, v in got.items()]}")
 
 
+REAL_CORROSION = [  # (test set dir, sample positions, credit)
+    ("ds2/corr/full/vt_test", (0, 15, 30), "Virginia Tech · Corrosion Condition State dataset (CC0)"),
+    ("ds2/corr/full/os_test", (0, 10, 20), "M. Frič · Corrosion in Industrial Complexes in Ostrava (CC BY 4.0)"),
+]
+REAL_THERMAL = ("ds/th/test", (0, 25, 50, 75), "Buildsys2022 · thermal-leak-detection-acteabot, Roboflow (CC BY 4.0)")
+
+
+def real_corrosion(real: Path, onnx: Path) -> list[dict]:
+    from ultralytics import YOLO
+    model, out = YOLO(str(onnx), task="segment"), []
+    for d, picks, credit in REAL_CORROSION:
+        files = sorted((real / d / "images").glob("*.jpg"))
+        for k in picks:
+            im = Image.open(files[k]).convert("RGB")
+            im.thumbnail((960, 960))
+            truth = np.array(Image.open(real / d / "masks" / (files[k].stem + ".png")).convert("L").resize(im.size, Image.NEAREST)) > 0
+            sid = f"r_{files[k].stem}"
+            im.save(OUT / "corrosion" / f"{sid}.jpg", quality=90)
+            outline(truth).save(OUT / "corrosion" / f"{sid}_truth.png")
+            r = model.predict(np.array(im)[..., ::-1].copy(), imgsz=640, conf=CONF, verbose=False)[0]
+            ref = {"detections": len(r.boxes)}
+            if len(r.boxes):
+                pred = np.array(Image.fromarray(r.masks.data.any(dim=0).cpu().numpy()).resize(im.size, Image.NEAREST))
+                ref.update({"class": model.names[int(r.boxes.cls[0])], "confidence": round(float(r.boxes.conf[0]), 4),
+                            "mask_iou_vs_truth": round(float((pred & truth).sum() / max((pred | truth).sum(), 1)), 3)})
+            out.append({"id": sid, "image": f"corrosion/{sid}.jpg", "truth_overlay": f"corrosion/{sid}_truth.png",
+                        "truth": "corrosion", "source": "real", "credit": credit, "reference": ref})
+    return out
+
+
+def real_thermal(real: Path, onnx: Path) -> list[dict]:
+    from ultralytics import YOLO
+    model, out = YOLO(str(onnx), task="detect"), []
+    d, picks, credit = REAL_THERMAL
+    files = sorted((real / d / "images").glob("*.jpg"))
+    for k in picks:
+        sid = f"r_{k:03d}"
+        shutil.copy(files[k], OUT / "thermal" / f"{sid}.jpg")
+        boxes = []
+        for line in (real / d / "labels" / (files[k].stem + ".txt")).read_text().splitlines():
+            _, x, y, w, h = map(float, line.split())
+            boxes.append([round(v, 4) for v in (x - w / 2, y - h / 2, x + w / 2, y + h / 2)])
+        r = model.predict(str(files[k]), imgsz=640, conf=CONF, verbose=False)[0]
+        ref = {"detections": len(r.boxes)}
+        if len(r.boxes):
+            box = r.boxes.xyxyn[0].tolist()
+            ref.update({"confidence": round(float(r.boxes.conf[0]), 4), "box_xyxy_norm": [round(v, 4) for v in box],
+                        "box_iou_vs_truth": round(max(box_iou(box, b) for b in boxes), 3)})
+        out.append({"id": sid, "image": f"thermal/{sid}.jpg", "truth": "hot_spot", "source": "real", "credit": credit,
+                    "truth_boxes_norm": boxes, "reference": ref})
+    return out
+
+
 def box_iou(a, b):
     ix = max(0, min(a[2], b[2]) - max(a[0], b[0])) * max(0, min(a[3], b[3]) - max(a[1], b[1]))
     area = lambda q: (q[2] - q[0]) * (q[3] - q[1])
@@ -203,19 +259,20 @@ def ultrasonic(cfg, seed=121) -> list[dict]:
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--weights", type=Path, required=True)
+    ap.add_argument("--real", type=Path, required=True, help="extracted test sets (ds/, ds2/) of the real-photo experiment")
     a = ap.parse_args()
     from maek.params import load_config
     cfg = load_config()
     shutil.rmtree(OUT, ignore_errors=True)
     for sub in ("corrosion", "thermal"):
         (OUT / sub).mkdir(parents=True)
-    e4, ir = a.weights / "best.pt", a.weights / "sim_pipe_yolov8s_640_S.pt"
+    e4, ir = a.weights / "maek_corrosion_real_v1.pt", a.weights / "maek_thermal_real_v1.pt"
     meta = json.loads((PIT / "ascan.json").read_text(encoding="utf-8"))
     result = {
         "conf": CONF,
         "corrosion": {"model": export_onnx(e4, "corrosion"), "classes": ["corrosion", "cui_sign", "leak_stain"],
-                      "samples": corrosion(cfg, OUT / "corrosion.onnx")},
-        "thermal": {"model": export_onnx(ir, "thermal"), "classes": ["hot_spot"], "samples": thermal(cfg, OUT / "thermal.onnx")},
+                      "samples": corrosion(cfg, OUT / "corrosion.onnx") + real_corrosion(a.real, OUT / "corrosion.onnx")},
+        "thermal": {"model": export_onnx(ir, "thermal"), "classes": ["hot_spot"], "samples": thermal(cfg, OUT / "thermal.onnx") + real_thermal(a.real, OUT / "thermal.onnx")},
         "ultrasonic": {"model": {"file": "../../sim/data/pitting_cnn.onnx", "onnx_sha256": sha(PIT / "pitting_cnn.onnx"),
                                  "mb": round((PIT / "pitting_cnn.onnx").stat().st_size / 1e6, 1)},
                        "rf_mean": meta["rf_mean"], "rf_std": meta["rf_std"], "threshold_logit": meta["threshold_logit"],
