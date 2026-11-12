@@ -12,6 +12,7 @@
 | 발표 PPT | [docs/MAEK_presentation.pptx](docs/MAEK_presentation.pptx) |
 | 시연 영상 | [docs/MAEK_demo.mp4](docs/MAEK_demo.mp4) |
 | 웹 시연 (소개 + 2분 시뮬레이션) | https://nalziori.github.io/MAEK/ |
+| 후속 보고서 (실사진 추가 학습 결과, 실행 방법) | [PDF](docs/followup-report/MAEK_followup_report.pdf) · [Markdown](docs/followup-report/MAEK_followup_report.md) · [Word](docs/followup-report/MAEK_followup_report.docx) |
 
 ### 웹 시연 사이트 (`site/`)
 
